@@ -61,28 +61,26 @@ function useReveal() {
 /* ---------- Nav ---------- */
 function Nav() {
   return (
-    <header className="fixed top-0 left-0 right-0 z-50">
-      <div className="mx-auto max-w-7xl px-6 py-4">
-        <div className="glass-card flex items-center justify-between rounded-full px-5 py-2.5 shadow-soft">
-          <a href="#" className="flex items-center gap-2">
-            <span className="grid h-9 w-9 place-items-center rounded-full bg-[var(--gradient-sunset)] text-white font-display text-lg">n</span>
-            <span className="font-display text-xl tracking-tight">nalora</span>
-          </a>
-          <nav className="hidden md:flex items-center gap-8 text-sm text-foreground/70">
-            <a href="#story" className="hover:text-foreground transition">Our Story</a>
-            <a href="#care" className="hover:text-foreground transition">Care</a>
-            <a href="#family" className="hover:text-foreground transition">Family</a>
-            <a href="#journey" className="hover:text-foreground transition">Journey</a>
-            <a href="#talk" className="hover:text-foreground transition">Talk to Nalora</a>
-          </nav>
-          <a href="#talk" className="btn-primary text-sm">Begin gently</a>
-        </div>
+    <header className="fixed top-0 left-0 right-0 z-50 bg-[var(--ivory-deep)]/95 backdrop-blur-md border-b border-border/60">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3.5 sm:px-10">
+        <a href="#" className="flex items-center gap-2">
+          <span className="grid h-9 w-9 place-items-center rounded-full bg-[var(--gradient-sunset)] text-white font-display text-lg">n</span>
+          <span className="font-display text-2xl tracking-tight">nalora</span>
+        </a>
+        <nav className="hidden md:flex items-center gap-9 text-[15px] font-medium text-foreground/80">
+          <a href="#story" className="hover:text-rose transition">About Us</a>
+          <a href="#care" className="hover:text-rose transition">Care</a>
+          <a href="#family" className="hover:text-rose transition">Family</a>
+          <a href="#journey" className="hover:text-rose transition">Journey</a>
+          <a href="#talk" className="hover:text-rose transition">Therapists</a>
+        </nav>
+        <a href="#talk" className="btn-primary text-sm">Book a Session</a>
       </div>
     </header>
   );
 }
 
-/* ---------- Hero with parallax ---------- */
+/* ---------- Hero (Oppam-style coral wave backdrop) ---------- */
 function Hero() {
   const [m, setM] = useState({ x: 0, y: 0 });
   const [scrollY, setScrollY] = useState(0);
@@ -104,122 +102,153 @@ function Hero() {
   }, []);
 
   return (
-    <section className="relative min-h-screen overflow-hidden pt-32 pb-24">
-      {/* Layer 1: backdrop image */}
-      <div
-        className="absolute inset-0 -z-10"
-        style={{
-          backgroundImage: `url(${heroBackwater})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          transform: `translate3d(${m.x * 12}px, ${m.y * 8 + scrollY * 0.15}px, 0) scale(1.08)`,
-          filter: "saturate(1.05)",
-        }}
-      />
-      {/* Veils */}
-      <div className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,oklch(0.985_0.012_60/0.4),oklch(0.985_0.012_60/0.92))]" />
+    <>
+      {/* ===== Hero band: solid warm coral with layered wave hills ===== */}
+      <section
+        className="relative overflow-hidden pt-32 pb-28 sm:pt-40 sm:pb-36"
+        style={{ backgroundColor: "#F8B0A2" }}
+      >
+        {/* Parallax wave layers */}
+        <svg
+          className="absolute inset-x-0 bottom-0 w-full"
+          viewBox="0 0 1440 420"
+          preserveAspectRatio="none"
+          aria-hidden
+          style={{ transform: `translateY(${scrollY * 0.08}px)` }}
+        >
+          <path fill="#F49E92" opacity="0.7" d="M0,260 C220,180 380,330 640,280 C900,230 1080,340 1440,260 L1440,420 L0,420 Z" />
+          <path fill="#EE8C84" opacity="0.7" d="M0,320 C260,250 460,380 740,330 C1000,285 1200,380 1440,320 L1440,420 L0,420 Z" />
+        </svg>
+        <svg
+          className="absolute inset-x-0 top-10 w-full"
+          viewBox="0 0 1440 300"
+          preserveAspectRatio="none"
+          aria-hidden
+          style={{ transform: `translate(${m.x * 14}px, ${scrollY * -0.05}px)` }}
+        >
+          <path fill="#FBC3B7" opacity="0.55" d="M0,180 C220,80 460,220 760,170 C1040,120 1240,210 1440,140 L1440,0 L0,0 Z" />
+        </svg>
 
-      {/* Floating blobs */}
-      <img
-        src={blobRose}
-        alt=""
-        aria-hidden
-        className="pointer-events-none absolute -left-32 top-40 w-[28rem] opacity-60 animate-float-slow"
-        style={{ transform: `translate(${m.x * -20}px, ${m.y * -20}px)` }}
-      />
-      <div
-        className="pointer-events-none absolute right-[-6rem] top-24 h-80 w-80 rounded-full opacity-50 blur-3xl"
-        style={{
-          background: "var(--gradient-sunset)",
-          transform: `translate(${m.x * 30}px, ${m.y * 30}px)`,
-        }}
-      />
+        {/* Floating sun blob */}
+        <div
+          className="pointer-events-none absolute right-[8%] top-24 h-56 w-56 rounded-full opacity-70 blur-2xl"
+          style={{
+            background: "radial-gradient(circle, #FFD4A8, transparent 70%)",
+            transform: `translate(${m.x * 18}px, ${m.y * 18}px)`,
+          }}
+        />
 
-      <div className="relative mx-auto max-w-6xl px-6 text-center">
-        <span className="chip mb-8">
-          <span className="h-1.5 w-1.5 rounded-full bg-rose" />
-          A new home for postpartum care
-        </span>
+        <div className="relative mx-auto max-w-5xl px-6 text-center">
+          <div className="inline-flex items-center gap-2 text-foreground/85">
+            <span className="grid h-6 w-6 place-items-center rounded-full border-2 border-foreground/80">
+              <span className="block h-1.5 w-1.5 rounded-full bg-foreground/80" />
+            </span>
+            <span className="font-display italic text-lg">About Nalora</span>
+          </div>
 
-        <h1 className="font-display text-balance text-5xl leading-[1.02] tracking-tight sm:text-6xl md:text-7xl lg:text-[5.5rem]">
-          Motherhood, held{" "}
-          <em className="font-display italic text-rose">gently —</em>
-          <br />
-          like the backwaters at dusk.
-        </h1>
+          <h1 className="mt-6 font-display text-balance text-[2.6rem] leading-[1.05] tracking-tight text-foreground sm:text-6xl md:text-7xl lg:text-[5.25rem]">
+            Building a mental health <br className="hidden sm:block" />
+            platform that just – <em className="italic font-display">gets it</em>
+          </h1>
 
-        <p className="mx-auto mt-7 max-w-2xl text-balance text-lg text-foreground/70 sm:text-xl">
-          Nalora is a calm digital ecosystem for mothers and the family around them.
-          Born in Kerala. Built for everywhere you need to feel understood.
-        </p>
+          <p className="mx-auto mt-7 max-w-2xl text-balance text-lg text-foreground/75 sm:text-xl">
+            Nalora is a calm digital ecosystem for mothers and the family around them.
+            Born in Kerala. Built for everywhere you need to feel understood.
+          </p>
 
-        <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
-          <a href="#talk" className="btn-primary">
-            Talk to Nalora
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M5 12h14M13 5l7 7-7 7" />
-            </svg>
-          </a>
-          <a href="#care" className="btn-ghost">Explore care</a>
+          <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
+            <a href="#talk" className="btn-primary">
+              Talk to Nalora
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M5 12h14M13 5l7 7-7 7" />
+              </svg>
+            </a>
+            <a href="#care" className="btn-ghost bg-white/70">Explore care</a>
+          </div>
         </div>
+      </section>
 
-        {/* trust ribbon */}
-        <div className="mt-20 grid grid-cols-2 gap-6 text-left sm:grid-cols-4">
+      {/* ===== Trust ribbon on ivory ===== */}
+      <section className="relative bg-background py-16">
+        <div className="mx-auto grid max-w-6xl grid-cols-2 gap-5 px-6 sm:grid-cols-4">
           {[
             ["24/7", "Quiet, present support"],
             ["7", "Vernacular languages"],
             ["120+", "Certified therapists"],
             ["1:1", "Family-centred care"],
           ].map(([k, v]) => (
-            <div key={k} className="reveal rounded-2xl glass-card p-5">
+            <div key={k} className="reveal rounded-2xl bg-card p-5 shadow-soft">
               <div className="font-display text-3xl text-rose">{k}</div>
               <div className="mt-1 text-sm text-foreground/70">{v}</div>
             </div>
           ))}
         </div>
-      </div>
-
-      {/* Bottom wave */}
-      <svg className="absolute bottom-0 left-0 w-full" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden>
-        <path
-          fill="var(--ivory)"
-          d="M0,64L60,69.3C120,75,240,85,360,80C480,75,600,53,720,53.3C840,53,960,75,1080,80C1200,85,1320,75,1380,69.3L1440,64L1440,120L0,120Z"
-        />
-      </svg>
-    </section>
+      </section>
+    </>
   );
 }
+
 
 /* ---------- Story ---------- */
 function Story() {
   return (
-    <section id="story" className="relative py-28">
-      <div className="mx-auto grid max-w-6xl gap-14 px-6 md:grid-cols-2 md:items-center">
-        <div className="reveal relative">
-          <div className="absolute -inset-6 -z-10 rounded-[3rem] bg-[var(--gradient-dawn)] blur-2xl opacity-70" />
-          <TiltCard className="overflow-hidden rounded-[2.5rem] shadow-lift">
-            <img src={motherBaby} alt="A mother holding her newborn in soft warm light" width={1024} height={1536} loading="lazy" className="h-[34rem] w-full object-cover" />
-          </TiltCard>
-        </div>
-        <div className="reveal">
-          <span className="chip">Our Story</span>
-          <h2 className="mt-5 font-display text-4xl leading-tight sm:text-5xl">
-            A platform that <em className="italic text-rose">just gets it.</em>
-          </h2>
-          <p className="mt-5 text-lg leading-relaxed text-foreground/75">
-            Nalora began in a small town in Kerala — born from the quiet realisation
-            that new mothers carry an entire ocean inside them, and rarely a shoreline
-            to rest on. We're building that shoreline.
-          </p>
-          <p className="mt-4 text-lg leading-relaxed text-foreground/75">
-            Therapy in your language. Companions for your partner. A safe space for
-            grandparents to learn how to help. All in one ecosystem, available
-            whenever the night feels long.
-          </p>
-          <div className="mt-8 flex items-center gap-4">
-            <img src={keralaArch} alt="" width={120} height={120} loading="lazy" className="h-20 w-20 rounded-2xl object-cover shadow-soft" />
-            <div className="text-sm text-foreground/60">
-              Rooted in Kerala. <br /> Designed for every home.
+    <section id="story" className="relative bg-[#F1F3F4] py-28">
+      <div className="mx-auto max-w-6xl px-6 text-center">
+        <h2 className="reveal font-display text-5xl leading-tight sm:text-6xl">
+          Our <em className="italic font-display">Change</em> Makers
+        </h2>
+
+        <div className="mt-20 grid gap-14 md:grid-cols-[minmax(0,420px)_1fr] md:items-center md:text-left">
+          <div className="reveal relative mx-auto w-full max-w-md">
+            {/* Organic green blob */}
+            <svg viewBox="0 0 400 460" className="absolute inset-0 -z-0 h-full w-full" aria-hidden>
+              <path
+                fill="#2DD4A8"
+                d="M203,30 C290,18 370,90 378,190 C386,290 332,380 232,420 C140,456 50,400 28,300 C8,210 50,120 110,70 C140,46 170,34 203,30 Z"
+              />
+            </svg>
+            <div className="relative">
+              <img
+                src={motherBaby}
+                alt="Founder portrait"
+                width={1024}
+                height={1536}
+                loading="lazy"
+                className="relative mx-auto h-[28rem] w-full object-cover grayscale"
+                style={{ maskImage: "radial-gradient(ellipse at center, black 70%, transparent 100%)" }}
+              />
+            </div>
+          </div>
+
+          <div className="reveal">
+            <div className="flex items-center gap-4">
+              <h3 className="font-display italic text-2xl">Ibrahim Hawaaz</h3>
+              <a href="#" aria-label="LinkedIn" className="grid h-9 w-9 place-items-center rounded-md bg-foreground text-background text-xs font-bold">in</a>
+            </div>
+            <div className="mt-1 text-foreground/70">( Co-founder &amp; CEO )</div>
+
+            <div className="mt-6 text-foreground/45">
+              Engineer-Turned-Growth Marketer | Problem Solver
+            </div>
+
+            <p className="mt-6 text-lg leading-relaxed text-foreground/80">
+              Nalora wasn't just an idea — it was a realisation. When new mothers
+              around us struggled to find the kind of support they needed, we
+              couldn't shake the thought: if things need to change, why not start
+              with us?
+            </p>
+            <p className="mt-4 text-lg leading-relaxed text-foreground/80">
+              Instead of waiting for a better system, we decided to build one.
+              That's how Nalora came to life — with a mission to make postpartum
+              therapy accessible, vernacular, and deeply human, so that no mother
+              ever feels unheard.
+            </p>
+
+            <div className="mt-8 flex items-center gap-4">
+              <img src={keralaArch} alt="" width={120} height={120} loading="lazy" className="h-16 w-16 rounded-2xl object-cover shadow-soft" />
+              <div className="text-sm text-foreground/60">
+                Rooted in Kerala. <br /> Designed for every home.
+              </div>
             </div>
           </div>
         </div>
