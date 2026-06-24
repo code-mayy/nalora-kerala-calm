@@ -192,33 +192,63 @@ function Hero() {
 /* ---------- Story ---------- */
 function Story() {
   return (
-    <section id="story" className="relative py-28">
-      <div className="mx-auto grid max-w-6xl gap-14 px-6 md:grid-cols-2 md:items-center">
-        <div className="reveal relative">
-          <div className="absolute -inset-6 -z-10 rounded-[3rem] bg-[var(--gradient-dawn)] blur-2xl opacity-70" />
-          <TiltCard className="overflow-hidden rounded-[2.5rem] shadow-lift">
-            <img src={motherBaby} alt="A mother holding her newborn in soft warm light" width={1024} height={1536} loading="lazy" className="h-[34rem] w-full object-cover" />
-          </TiltCard>
-        </div>
-        <div className="reveal">
-          <span className="chip">Our Story</span>
-          <h2 className="mt-5 font-display text-4xl leading-tight sm:text-5xl">
-            A platform that <em className="italic text-rose">just gets it.</em>
-          </h2>
-          <p className="mt-5 text-lg leading-relaxed text-foreground/75">
-            Nalora began in a small town in Kerala — born from the quiet realisation
-            that new mothers carry an entire ocean inside them, and rarely a shoreline
-            to rest on. We're building that shoreline.
-          </p>
-          <p className="mt-4 text-lg leading-relaxed text-foreground/75">
-            Therapy in your language. Companions for your partner. A safe space for
-            grandparents to learn how to help. All in one ecosystem, available
-            whenever the night feels long.
-          </p>
-          <div className="mt-8 flex items-center gap-4">
-            <img src={keralaArch} alt="" width={120} height={120} loading="lazy" className="h-20 w-20 rounded-2xl object-cover shadow-soft" />
-            <div className="text-sm text-foreground/60">
-              Rooted in Kerala. <br /> Designed for every home.
+    <section id="story" className="relative bg-[#F1F3F4] py-28">
+      <div className="mx-auto max-w-6xl px-6 text-center">
+        <h2 className="reveal font-display text-5xl leading-tight sm:text-6xl">
+          Our <em className="italic font-display">Change</em> Makers
+        </h2>
+
+        <div className="mt-20 grid gap-14 md:grid-cols-[minmax(0,420px)_1fr] md:items-center md:text-left">
+          <div className="reveal relative mx-auto w-full max-w-md">
+            {/* Organic green blob */}
+            <svg viewBox="0 0 400 460" className="absolute inset-0 -z-0 h-full w-full" aria-hidden>
+              <path
+                fill="#2DD4A8"
+                d="M203,30 C290,18 370,90 378,190 C386,290 332,380 232,420 C140,456 50,400 28,300 C8,210 50,120 110,70 C140,46 170,34 203,30 Z"
+              />
+            </svg>
+            <div className="relative">
+              <img
+                src={motherBaby}
+                alt="Founder portrait"
+                width={1024}
+                height={1536}
+                loading="lazy"
+                className="relative mx-auto h-[28rem] w-full object-cover grayscale"
+                style={{ maskImage: "radial-gradient(ellipse at center, black 70%, transparent 100%)" }}
+              />
+            </div>
+          </div>
+
+          <div className="reveal">
+            <div className="flex items-center gap-4">
+              <h3 className="font-display italic text-2xl">Ibrahim Hawaaz</h3>
+              <a href="#" aria-label="LinkedIn" className="grid h-9 w-9 place-items-center rounded-md bg-foreground text-background text-xs font-bold">in</a>
+            </div>
+            <div className="mt-1 text-foreground/70">( Co-founder &amp; CEO )</div>
+
+            <div className="mt-6 text-foreground/45">
+              Engineer-Turned-Growth Marketer | Problem Solver
+            </div>
+
+            <p className="mt-6 text-lg leading-relaxed text-foreground/80">
+              Nalora wasn't just an idea — it was a realisation. When new mothers
+              around us struggled to find the kind of support they needed, we
+              couldn't shake the thought: if things need to change, why not start
+              with us?
+            </p>
+            <p className="mt-4 text-lg leading-relaxed text-foreground/80">
+              Instead of waiting for a better system, we decided to build one.
+              That's how Nalora came to life — with a mission to make postpartum
+              therapy accessible, vernacular, and deeply human, so that no mother
+              ever feels unheard.
+            </p>
+
+            <div className="mt-8 flex items-center gap-4">
+              <img src={keralaArch} alt="" width={120} height={120} loading="lazy" className="h-16 w-16 rounded-2xl object-cover shadow-soft" />
+              <div className="text-sm text-foreground/60">
+                Rooted in Kerala. <br /> Designed for every home.
+              </div>
             </div>
           </div>
         </div>
