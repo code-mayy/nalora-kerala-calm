@@ -9,38 +9,260 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as FeedbackRouteImport } from './routes/feedback'
+import { Route as DoctorsRouteImport } from './routes/doctors'
+import { Route as CreateAccountRouteImport } from './routes/create-account'
+import { Route as BookingsRouteImport } from './routes/bookings'
+import { Route as BookSessionRouteImport } from './routes/book-session'
+import { Route as AiChatRouteImport } from './routes/ai-chat'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as DoctorMeetingsRouteImport } from './routes/doctor/meetings'
+import { Route as DoctorMeetingDetailRouteImport } from './routes/doctor/meeting-detail'
+import { Route as DoctorGoogleCalendarRouteImport } from './routes/doctor/google-calendar'
+import { Route as DoctorDiaryPatientRouteImport } from './routes/doctor/diary-patient'
+import { Route as DoctorDiaryAllRouteImport } from './routes/doctor/diary-all'
+import { Route as DoctorDashboardRouteImport } from './routes/doctor/dashboard'
 
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FeedbackRoute = FeedbackRouteImport.update({
+  id: '/feedback',
+  path: '/feedback',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DoctorsRoute = DoctorsRouteImport.update({
+  id: '/doctors',
+  path: '/doctors',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CreateAccountRoute = CreateAccountRouteImport.update({
+  id: '/create-account',
+  path: '/create-account',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BookingsRoute = BookingsRouteImport.update({
+  id: '/bookings',
+  path: '/bookings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BookSessionRoute = BookSessionRouteImport.update({
+  id: '/book-session',
+  path: '/book-session',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AiChatRoute = AiChatRouteImport.update({
+  id: '/ai-chat',
+  path: '/ai-chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DoctorMeetingsRoute = DoctorMeetingsRouteImport.update({
+  id: '/doctor/meetings',
+  path: '/doctor/meetings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DoctorMeetingDetailRoute = DoctorMeetingDetailRouteImport.update({
+  id: '/doctor/meeting-detail',
+  path: '/doctor/meeting-detail',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DoctorGoogleCalendarRoute = DoctorGoogleCalendarRouteImport.update({
+  id: '/doctor/google-calendar',
+  path: '/doctor/google-calendar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DoctorDiaryPatientRoute = DoctorDiaryPatientRouteImport.update({
+  id: '/doctor/diary-patient',
+  path: '/doctor/diary-patient',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DoctorDiaryAllRoute = DoctorDiaryAllRouteImport.update({
+  id: '/doctor/diary-all',
+  path: '/doctor/diary-all',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DoctorDashboardRoute = DoctorDashboardRouteImport.update({
+  id: '/doctor/dashboard',
+  path: '/doctor/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/ai-chat': typeof AiChatRoute
+  '/book-session': typeof BookSessionRoute
+  '/bookings': typeof BookingsRoute
+  '/create-account': typeof CreateAccountRoute
+  '/doctors': typeof DoctorsRoute
+  '/feedback': typeof FeedbackRoute
+  '/login': typeof LoginRoute
+  '/doctor/dashboard': typeof DoctorDashboardRoute
+  '/doctor/diary-all': typeof DoctorDiaryAllRoute
+  '/doctor/diary-patient': typeof DoctorDiaryPatientRoute
+  '/doctor/google-calendar': typeof DoctorGoogleCalendarRoute
+  '/doctor/meeting-detail': typeof DoctorMeetingDetailRoute
+  '/doctor/meetings': typeof DoctorMeetingsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/ai-chat': typeof AiChatRoute
+  '/book-session': typeof BookSessionRoute
+  '/bookings': typeof BookingsRoute
+  '/create-account': typeof CreateAccountRoute
+  '/doctors': typeof DoctorsRoute
+  '/feedback': typeof FeedbackRoute
+  '/login': typeof LoginRoute
+  '/doctor/dashboard': typeof DoctorDashboardRoute
+  '/doctor/diary-all': typeof DoctorDiaryAllRoute
+  '/doctor/diary-patient': typeof DoctorDiaryPatientRoute
+  '/doctor/google-calendar': typeof DoctorGoogleCalendarRoute
+  '/doctor/meeting-detail': typeof DoctorMeetingDetailRoute
+  '/doctor/meetings': typeof DoctorMeetingsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/ai-chat': typeof AiChatRoute
+  '/book-session': typeof BookSessionRoute
+  '/bookings': typeof BookingsRoute
+  '/create-account': typeof CreateAccountRoute
+  '/doctors': typeof DoctorsRoute
+  '/feedback': typeof FeedbackRoute
+  '/login': typeof LoginRoute
+  '/doctor/dashboard': typeof DoctorDashboardRoute
+  '/doctor/diary-all': typeof DoctorDiaryAllRoute
+  '/doctor/diary-patient': typeof DoctorDiaryPatientRoute
+  '/doctor/google-calendar': typeof DoctorGoogleCalendarRoute
+  '/doctor/meeting-detail': typeof DoctorMeetingDetailRoute
+  '/doctor/meetings': typeof DoctorMeetingsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/ai-chat'
+    | '/book-session'
+    | '/bookings'
+    | '/create-account'
+    | '/doctors'
+    | '/feedback'
+    | '/login'
+    | '/doctor/dashboard'
+    | '/doctor/diary-all'
+    | '/doctor/diary-patient'
+    | '/doctor/google-calendar'
+    | '/doctor/meeting-detail'
+    | '/doctor/meetings'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/ai-chat'
+    | '/book-session'
+    | '/bookings'
+    | '/create-account'
+    | '/doctors'
+    | '/feedback'
+    | '/login'
+    | '/doctor/dashboard'
+    | '/doctor/diary-all'
+    | '/doctor/diary-patient'
+    | '/doctor/google-calendar'
+    | '/doctor/meeting-detail'
+    | '/doctor/meetings'
+  id:
+    | '__root__'
+    | '/'
+    | '/ai-chat'
+    | '/book-session'
+    | '/bookings'
+    | '/create-account'
+    | '/doctors'
+    | '/feedback'
+    | '/login'
+    | '/doctor/dashboard'
+    | '/doctor/diary-all'
+    | '/doctor/diary-patient'
+    | '/doctor/google-calendar'
+    | '/doctor/meeting-detail'
+    | '/doctor/meetings'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AiChatRoute: typeof AiChatRoute
+  BookSessionRoute: typeof BookSessionRoute
+  BookingsRoute: typeof BookingsRoute
+  CreateAccountRoute: typeof CreateAccountRoute
+  DoctorsRoute: typeof DoctorsRoute
+  FeedbackRoute: typeof FeedbackRoute
+  LoginRoute: typeof LoginRoute
+  DoctorDashboardRoute: typeof DoctorDashboardRoute
+  DoctorDiaryAllRoute: typeof DoctorDiaryAllRoute
+  DoctorDiaryPatientRoute: typeof DoctorDiaryPatientRoute
+  DoctorGoogleCalendarRoute: typeof DoctorGoogleCalendarRoute
+  DoctorMeetingDetailRoute: typeof DoctorMeetingDetailRoute
+  DoctorMeetingsRoute: typeof DoctorMeetingsRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/feedback': {
+      id: '/feedback'
+      path: '/feedback'
+      fullPath: '/feedback'
+      preLoaderRoute: typeof FeedbackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/doctors': {
+      id: '/doctors'
+      path: '/doctors'
+      fullPath: '/doctors'
+      preLoaderRoute: typeof DoctorsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/create-account': {
+      id: '/create-account'
+      path: '/create-account'
+      fullPath: '/create-account'
+      preLoaderRoute: typeof CreateAccountRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/bookings': {
+      id: '/bookings'
+      path: '/bookings'
+      fullPath: '/bookings'
+      preLoaderRoute: typeof BookingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/book-session': {
+      id: '/book-session'
+      path: '/book-session'
+      fullPath: '/book-session'
+      preLoaderRoute: typeof BookSessionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ai-chat': {
+      id: '/ai-chat'
+      path: '/ai-chat'
+      fullPath: '/ai-chat'
+      preLoaderRoute: typeof AiChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +270,66 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/doctor/meetings': {
+      id: '/doctor/meetings'
+      path: '/doctor/meetings'
+      fullPath: '/doctor/meetings'
+      preLoaderRoute: typeof DoctorMeetingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/doctor/meeting-detail': {
+      id: '/doctor/meeting-detail'
+      path: '/doctor/meeting-detail'
+      fullPath: '/doctor/meeting-detail'
+      preLoaderRoute: typeof DoctorMeetingDetailRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/doctor/google-calendar': {
+      id: '/doctor/google-calendar'
+      path: '/doctor/google-calendar'
+      fullPath: '/doctor/google-calendar'
+      preLoaderRoute: typeof DoctorGoogleCalendarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/doctor/diary-patient': {
+      id: '/doctor/diary-patient'
+      path: '/doctor/diary-patient'
+      fullPath: '/doctor/diary-patient'
+      preLoaderRoute: typeof DoctorDiaryPatientRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/doctor/diary-all': {
+      id: '/doctor/diary-all'
+      path: '/doctor/diary-all'
+      fullPath: '/doctor/diary-all'
+      preLoaderRoute: typeof DoctorDiaryAllRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/doctor/dashboard': {
+      id: '/doctor/dashboard'
+      path: '/doctor/dashboard'
+      fullPath: '/doctor/dashboard'
+      preLoaderRoute: typeof DoctorDashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AiChatRoute: AiChatRoute,
+  BookSessionRoute: BookSessionRoute,
+  BookingsRoute: BookingsRoute,
+  CreateAccountRoute: CreateAccountRoute,
+  DoctorsRoute: DoctorsRoute,
+  FeedbackRoute: FeedbackRoute,
+  LoginRoute: LoginRoute,
+  DoctorDashboardRoute: DoctorDashboardRoute,
+  DoctorDiaryAllRoute: DoctorDiaryAllRoute,
+  DoctorDiaryPatientRoute: DoctorDiaryPatientRoute,
+  DoctorGoogleCalendarRoute: DoctorGoogleCalendarRoute,
+  DoctorMeetingDetailRoute: DoctorMeetingDetailRoute,
+  DoctorMeetingsRoute: DoctorMeetingsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

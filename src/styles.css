@@ -101,7 +101,13 @@
     border-color: var(--color-border);
   }
   html {
-    scroll-behavior: smooth;
+    /* Disabled global scroll-behavior: smooth to prevent browser scroll restoration jumping on page refreshes. */
+    font-size: 17px; /* Slightly increased root font size (from 16px) to scale all rem units */
+  }
+  @media (max-width: 640px) {
+    html {
+      font-size: 16px;
+    }
   }
   body {
     background-color: var(--color-background);
@@ -109,6 +115,8 @@
     font-family: var(--font-sans);
     font-feature-settings: "ss01", "cv11";
     -webkit-font-smoothing: antialiased;
+    font-size: 1.05rem; /* Slightly larger text size */
+    line-height: 1.6;
   }
   h1, h2, h3, h4 {
     font-family: var(--font-display);

@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type MouseEvent } from "react";
 
 import blobRose from "@/assets/blob-rose.png";
@@ -106,16 +106,28 @@ function Nav() {
           <a href="#journey" className="hover:opacity-70 transition">Journey</a>
           <a href="#therapists" className="hover:opacity-70 transition">Therapists</a>
         </nav>
-        <a
-          href="#therapists"
-          className={`hidden sm:inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition ${
-            scrolled
-              ? "bg-[var(--gradient-sunset)] text-white shadow-soft hover:-translate-y-0.5"
-              : "bg-white/95 text-foreground hover:bg-white"
-          }`}
-        >
-          Book a Session
-        </a>
+        <div className="hidden sm:flex items-center gap-3">
+          <Link
+            to="/login"
+            className={`inline-flex items-center gap-2 rounded-full border px-5 py-2.5 text-sm font-medium transition hover:-translate-y-0.5 ${
+              scrolled
+                ? "border-[var(--rose)] text-[var(--rose)] hover:bg-[var(--rose)]/10"
+                : "border-white/80 text-white hover:bg-white/10"
+            }`}
+          >
+            Login
+          </Link>
+          <Link
+            to="/book-session"
+            className={`inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition ${
+              scrolled
+                ? "bg-[var(--gradient-sunset)] text-white shadow-soft hover:-translate-y-0.5"
+                : "bg-white/95 text-foreground hover:bg-white"
+            }`}
+          >
+            Book a Session
+          </Link>
+        </div>
       </div>
     </header>
   );
@@ -222,9 +234,10 @@ function getBodyArcPosition(hour: number, minute: number) {
 function Hero() {
   const [m, setM] = useState({ x: 0, y: 0 });
   const [scrollY, setScrollY] = useState(0);
-  const [now, setNow] = useState(() => new Date());
+  const [now, setNow] = useState<Date | null>(null);
 
   useEffect(() => {
+    setNow(new Date());
     const onScroll = () => setScrollY(window.scrollY);
     const onMove = (e: globalThis.MouseEvent) => {
       setM({
@@ -242,11 +255,13 @@ function Hero() {
     };
   }, []);
 
-  const hour = now.getHours();
-  const minute = now.getMinutes();
+  const defaultDate = new Date("2026-06-25T12:00:00");
+  const currentNow = now || defaultDate;
+  const hour = currentNow.getHours();
+  const minute = currentNow.getMinutes();
   const phase = getSkyPhase(hour);
   const arc = getBodyArcPosition(hour, minute);
-  const timeLabel = now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+  const timeLabel = now ? now.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" }) : "";
 
   return (
     <section className="relative overflow-hidden">
@@ -419,13 +434,21 @@ function Hero() {
           Postpartum care, rooted in Kerala — gentle, vernacular, and always awake.
         </p>
 
-        {/* CTA */}
-        <a
-          href="#therapists"
-          className="reveal mt-8 inline-flex items-center gap-2 rounded-full bg-amber-300 px-8 py-4 text-sm font-semibold uppercase tracking-[0.14em] text-[#2A1B5C] shadow-[0_20px_60px_-12px_rgba(255,200,80,0.6)] transition hover:-translate-y-0.5 hover:bg-amber-200"
-        >
-          Begin Your Journey
-        </a>
+        {/* CTAs */}
+        <div className="reveal mt-8 flex flex-col items-center sm:flex-row gap-4">
+          <Link
+            to="/login"
+            className="inline-flex items-center gap-2 rounded-full bg-amber-300 px-8 py-4 text-sm font-semibold uppercase tracking-[0.14em] text-[#2A1B5C] shadow-[0_20px_60px_-12px_rgba(255,200,80,0.6)] transition hover:-translate-y-0.5 hover:bg-amber-200"
+          >
+            Sign In
+          </Link>
+          <Link
+            to="/create-account"
+            className="inline-flex items-center gap-2 rounded-full border border-white/70 px-8 py-4 text-sm font-semibold uppercase tracking-[0.14em] text-white/90 transition hover:-translate-y-0.5 hover:bg-white/10"
+          >
+            Create Account
+          </Link>
+        </div>
 
         {/* Scroll chevron */}
         <div className="absolute bottom-10 left-1/2 -translate-x-1/2 text-white/60 animate-bounce">
@@ -909,7 +932,9 @@ function Chat() {
   const endRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    endRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (msgs.length > 1) {
+      endRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
   }, [msgs, typing]);
 
   const send = (s: { prompt: string; replies: string[] }) => {
