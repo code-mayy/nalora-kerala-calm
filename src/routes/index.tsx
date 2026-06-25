@@ -1,9 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type MouseEvent } from "react";
-import heroBackwater from "@/assets/hero-backwater.jpg";
+import heroTwilight from "@/assets/hero-twilight.jpg";
 import blobRose from "@/assets/blob-rose.png";
 import motherBaby from "@/assets/mother-baby.jpg";
 import keralaArch from "@/assets/kerala-architecture.jpg";
+import therapist1 from "@/assets/therapist-1.jpg";
+import therapist2 from "@/assets/therapist-2.jpg";
+import therapist3 from "@/assets/therapist-3.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -58,29 +61,67 @@ function useReveal() {
   }, []);
 }
 
-/* ---------- Nav ---------- */
+/* ---------- Nav (transparent over twilight, solidifies on scroll) ---------- */
 function Nav() {
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const on = () => setScrolled(window.scrollY > 40);
+    on();
+    window.addEventListener("scroll", on, { passive: true });
+    return () => window.removeEventListener("scroll", on);
+  }, []);
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-[var(--ivory-deep)]/95 backdrop-blur-md border-b border-border/60">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3.5 sm:px-10">
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        scrolled
+          ? "bg-[var(--ivory-deep)]/95 backdrop-blur-md border-b border-border/60"
+          : "bg-transparent"
+      }`}
+    >
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 sm:px-10">
         <a href="#" className="flex items-center gap-2">
-          <span className="grid h-9 w-9 place-items-center rounded-full bg-[var(--gradient-sunset)] text-white font-display text-lg">n</span>
-          <span className="font-display text-2xl tracking-tight">nalora</span>
+          <span
+            className={`grid h-9 w-9 place-items-center rounded-full font-display text-lg transition ${
+              scrolled ? "bg-[var(--gradient-sunset)] text-white" : "border-2 border-white/80 text-white"
+            }`}
+          >
+            n
+          </span>
+          <span
+            className={`font-display text-2xl tracking-tight transition ${
+              scrolled ? "text-foreground" : "text-white"
+            }`}
+          >
+            nalora
+          </span>
         </a>
-        <nav className="hidden md:flex items-center gap-9 text-[15px] font-medium text-foreground/80">
-          <a href="#story" className="hover:text-rose transition">About Us</a>
-          <a href="#care" className="hover:text-rose transition">Care</a>
-          <a href="#family" className="hover:text-rose transition">Family</a>
-          <a href="#journey" className="hover:text-rose transition">Journey</a>
-          <a href="#talk" className="hover:text-rose transition">Therapists</a>
+        <nav
+          className={`hidden md:flex items-center gap-9 text-[15px] font-medium transition ${
+            scrolled ? "text-foreground/80" : "text-white/90"
+          }`}
+        >
+          <a href="#story" className="hover:opacity-70 transition">About Us</a>
+          <a href="#care" className="hover:opacity-70 transition">Services</a>
+          <a href="#family" className="hover:opacity-70 transition">Family</a>
+          <a href="#journey" className="hover:opacity-70 transition">Journey</a>
+          <a href="#therapists" className="hover:opacity-70 transition">Therapists</a>
         </nav>
-        <a href="#talk" className="btn-primary text-sm">Book a Session</a>
+        <a
+          href="#therapists"
+          className={`hidden sm:inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition ${
+            scrolled
+              ? "bg-[var(--gradient-sunset)] text-white shadow-soft hover:-translate-y-0.5"
+              : "bg-white/95 text-foreground hover:bg-white"
+          }`}
+        >
+          Book a Session
+        </a>
       </div>
     </header>
   );
 }
 
-/* ---------- Hero (Oppam-style coral wave backdrop) ---------- */
+/* ---------- Hero (Oppam-style twilight illustration backdrop) ---------- */
 function Hero() {
   const [m, setM] = useState({ x: 0, y: 0 });
   const [scrollY, setScrollY] = useState(0);
@@ -102,89 +143,205 @@ function Hero() {
   }, []);
 
   return (
-    <>
-      {/* ===== Hero band: solid warm coral with layered wave hills ===== */}
-      <section
-        className="relative overflow-hidden pt-32 pb-28 sm:pt-40 sm:pb-36"
-        style={{ backgroundColor: "#F8B0A2" }}
-      >
-        {/* Parallax wave layers */}
-        <svg
-          className="absolute inset-x-0 bottom-0 w-full"
-          viewBox="0 0 1440 420"
-          preserveAspectRatio="none"
-          aria-hidden
-          style={{ transform: `translateY(${scrollY * 0.08}px)` }}
-        >
-          <path fill="#F49E92" opacity="0.7" d="M0,260 C220,180 380,330 640,280 C900,230 1080,340 1440,260 L1440,420 L0,420 Z" />
-          <path fill="#EE8C84" opacity="0.7" d="M0,320 C260,250 460,380 740,330 C1000,285 1200,380 1440,320 L1440,420 L0,420 Z" />
-        </svg>
-        <svg
-          className="absolute inset-x-0 top-10 w-full"
-          viewBox="0 0 1440 300"
-          preserveAspectRatio="none"
-          aria-hidden
-          style={{ transform: `translate(${m.x * 14}px, ${scrollY * -0.05}px)` }}
-        >
-          <path fill="#FBC3B7" opacity="0.55" d="M0,180 C220,80 460,220 760,170 C1040,120 1240,210 1440,140 L1440,0 L0,0 Z" />
-        </svg>
+    <section className="relative overflow-hidden" style={{ backgroundColor: "#2A1B5C" }}>
+      {/* Illustrated backdrop */}
+      <div
+        className="absolute inset-0"
+        style={{
+          backgroundImage: `url(${heroTwilight})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center bottom",
+          transform: `translateY(${scrollY * 0.12}px) scale(1.05)`,
+        }}
+        aria-hidden
+      />
+      {/* Subtle vignette so headline reads */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(42,27,92,0.55) 0%, rgba(42,27,92,0.05) 35%, rgba(42,27,92,0) 60%, rgba(42,27,92,0.35) 100%)",
+        }}
+        aria-hidden
+      />
+      {/* Floating moon glow following cursor */}
+      <div
+        className="pointer-events-none absolute left-1/2 top-[18%] h-72 w-72 -translate-x-1/2 rounded-full blur-3xl opacity-50"
+        style={{
+          background: "radial-gradient(circle, #FFE9B0, transparent 70%)",
+          transform: `translate(calc(-50% + ${m.x * 18}px), ${m.y * 18}px)`,
+        }}
+        aria-hidden
+      />
 
-        {/* Floating sun blob */}
-        <div
-          className="pointer-events-none absolute right-[8%] top-24 h-56 w-56 rounded-full opacity-70 blur-2xl"
-          style={{
-            background: "radial-gradient(circle, #FFD4A8, transparent 70%)",
-            transform: `translate(${m.x * 18}px, ${m.y * 18}px)`,
-          }}
-        />
-
-        <div className="relative mx-auto max-w-5xl px-6 text-center">
-          <div className="inline-flex items-center gap-2 text-foreground/85">
-            <span className="grid h-6 w-6 place-items-center rounded-full border-2 border-foreground/80">
-              <span className="block h-1.5 w-1.5 rounded-full bg-foreground/80" />
-            </span>
-            <span className="font-display italic text-lg">About Nalora</span>
-          </div>
-
-          <h1 className="mt-6 font-display text-balance text-[2.6rem] leading-[1.05] tracking-tight text-foreground sm:text-6xl md:text-7xl lg:text-[5.25rem]">
-            Building a mental health <br className="hidden sm:block" />
-            platform that just – <em className="italic font-display">gets it</em>
-          </h1>
-
-          <p className="mx-auto mt-7 max-w-2xl text-balance text-lg text-foreground/75 sm:text-xl">
-            Nalora is a calm digital ecosystem for mothers and the family around them.
-            Born in Kerala. Built for everywhere you need to feel understood.
-          </p>
-
-          <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
-            <a href="#talk" className="btn-primary">
-              Talk to Nalora
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M5 12h14M13 5l7 7-7 7" />
-              </svg>
-            </a>
-            <a href="#care" className="btn-ghost bg-white/70">Explore care</a>
-          </div>
+      <div className="relative mx-auto flex min-h-[92vh] max-w-5xl flex-col items-center justify-center px-6 pt-32 pb-40 text-center">
+        <div className="reveal inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 backdrop-blur-sm">
+          <span className="h-2 w-2 rounded-full bg-emerald-300 animate-pulse" />
+          <span className="text-sm font-medium tracking-wide text-emerald-200">
+            24×7 Online Postpartum Support
+          </span>
         </div>
-      </section>
 
-      {/* ===== Trust ribbon on ivory ===== */}
-      <section className="relative bg-background py-16">
-        <div className="mx-auto grid max-w-6xl grid-cols-2 gap-5 px-6 sm:grid-cols-4">
-          {[
-            ["24/7", "Quiet, present support"],
-            ["7", "Vernacular languages"],
-            ["120+", "Certified therapists"],
-            ["1:1", "Family-centred care"],
-          ].map(([k, v]) => (
-            <div key={k} className="reveal rounded-2xl bg-card p-5 shadow-soft">
-              <div className="font-display text-3xl text-rose">{k}</div>
-              <div className="mt-1 text-sm text-foreground/70">{v}</div>
+        <h1 className="reveal mt-7 font-display text-balance text-[2.7rem] font-medium leading-[1.05] tracking-tight text-white sm:text-6xl md:text-7xl lg:text-[5.25rem]">
+          40,000+ <span className="italic text-amber-200">hours</span> of
+          <br className="hidden sm:block" /> care for new mothers
+        </h1>
+
+        <p className="reveal mx-auto mt-7 max-w-xl text-balance text-lg text-white/75 sm:text-xl">
+          Nalora is a calm digital ecosystem for postpartum care —
+          vernacular, family-centred, and always awake when you are.
+        </p>
+
+        <a
+          href="#therapists"
+          className="reveal mt-10 inline-flex items-center gap-2 rounded-full bg-amber-300 px-8 py-4 text-sm font-semibold uppercase tracking-[0.14em] text-[#2A1B5C] shadow-[0_20px_60px_-12px_rgba(255,200,80,0.6)] transition hover:-translate-y-0.5 hover:bg-amber-200"
+        >
+          Consult a Therapist
+        </a>
+
+        {/* downward chevron */}
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 text-white/60 animate-bounce">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------- Therapists showcase (Oppam-style pastel cards) ---------- */
+const THERAPISTS = [
+  {
+    name: "Aisha Menon",
+    role: "Consultant Psychologist",
+    img: therapist1,
+    bg: "#FFF1C2",
+    tags: ["Postpartum Anxiety", "Mood Concerns", "Sleep & Identity"],
+    hours: "250+",
+    lang: "Malayalam, English",
+    price: "₹1,000",
+    next: "15 mins",
+  },
+  {
+    name: "Lakshmi Pillai",
+    role: "Clinical Psychologist",
+    img: therapist2,
+    bg: "#FCD7D1",
+    tags: ["Birth Trauma", "Relationship Concerns", "Life Transitions"],
+    hours: "500+",
+    lang: "Malayalam, Tamil",
+    price: "₹1,200",
+    next: "20 mins",
+  },
+  {
+    name: "Dr. Rohan Iyer",
+    role: "Perinatal Psychiatrist",
+    img: therapist3,
+    bg: "#D6EFD9",
+    tags: ["Hormonal Mood Shifts", "Medication Reviews", "PPD"],
+    hours: "800+",
+    lang: "English, Hindi",
+    price: "₹1,500",
+    next: "30 mins",
+  },
+];
+
+function Therapists() {
+  return (
+    <section id="therapists" className="relative bg-background py-24 sm:py-32">
+      <div className="mx-auto max-w-6xl px-6">
+        <h2 className="reveal text-center font-display text-4xl sm:text-5xl">
+          How can we <em className="italic text-rose">help you?</em>
+        </h2>
+        <p className="reveal mx-auto mt-4 max-w-xl text-center text-foreground/65">
+          Hand-picked therapists trained in maternal mental health, in your tongue.
+        </p>
+
+        {/* Filter chips */}
+        <div className="reveal mt-10 flex flex-wrap items-center justify-center gap-3">
+          {["മലയാളം Online", "Consultant Psychologist", "Clinical Psychologist", "Perinatal Care", "Psychiatrist"].map(
+            (t, i) => (
+              <span
+                key={t}
+                className={`inline-flex items-center gap-2 rounded-2xl px-4 py-2.5 text-sm shadow-soft ${
+                  i === 0 ? "bg-foreground text-background" : "bg-card text-foreground/75"
+                }`}
+              >
+                {t}
+              </span>
+            ),
+          )}
+        </div>
+
+        <div className="mt-14 grid gap-7 md:grid-cols-2 lg:grid-cols-3">
+          {THERAPISTS.map((t) => (
+            <div
+              key={t.name}
+              className="reveal group overflow-hidden rounded-[1.75rem] bg-card shadow-soft transition hover:-translate-y-1 hover:shadow-lift"
+            >
+              <div
+                className="relative flex items-end gap-4 px-6 pt-6"
+                style={{ backgroundColor: t.bg }}
+              >
+                <div className="flex-1 pb-5">
+                  <h3 className="font-display text-xl leading-tight">{t.name}</h3>
+                  <div className="mt-1 text-sm text-foreground/70">{t.role}</div>
+                </div>
+                <img
+                  src={t.img}
+                  alt={t.name}
+                  width={800}
+                  height={800}
+                  loading="lazy"
+                  className="h-32 w-28 rounded-t-2xl object-cover object-top"
+                />
+              </div>
+
+              <div className="space-y-4 p-6">
+                <div className="flex flex-wrap gap-1.5">
+                  {t.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="rounded-full border border-border/70 px-2.5 py-1 text-[11px] text-foreground/65"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="grid grid-cols-3 gap-3 border-t border-border/60 pt-4 text-center">
+                  <div>
+                    <div className="font-display text-lg text-rose">{t.hours}</div>
+                    <div className="text-[11px] uppercase tracking-wide text-foreground/50">Therapy hrs</div>
+                  </div>
+                  <div>
+                    <div className="font-display text-[13px] leading-tight">{t.lang}</div>
+                    <div className="text-[11px] uppercase tracking-wide text-foreground/50">Languages</div>
+                  </div>
+                  <div>
+                    <div className="font-display text-lg text-coconut">{t.price}</div>
+                    <div className="text-[11px] uppercase tracking-wide text-foreground/50">Per session</div>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between rounded-2xl bg-[var(--ivory-deep)] px-4 py-3">
+                  <div>
+                    <div className="text-[11px] uppercase tracking-wide text-foreground/55">
+                      Next available in
+                    </div>
+                    <div className="font-display text-lg">{t.next}</div>
+                  </div>
+                  <button className="rounded-full bg-foreground px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.14em] text-background transition hover:bg-rose">
+                    Book Now
+                  </button>
+                </div>
+              </div>
             </div>
           ))}
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 }
 
@@ -693,6 +850,7 @@ function Index() {
     <main className="overflow-x-hidden">
       <Nav />
       <Hero />
+      <Therapists />
       <Story />
       <Care />
       <Family />
