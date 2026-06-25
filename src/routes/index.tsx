@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type MouseEvent } from "react";
 
 import blobRose from "@/assets/blob-rose.png";
-import motherBaby from "@/assets/mother-baby.jpg";
+import motherBaby from "@/assets/mother-baby.png";
 import keralaArch from "@/assets/kerala-architecture.jpg";
 import therapist1 from "@/assets/therapist-1.jpg";
 import therapist2 from "@/assets/therapist-2.jpg";
@@ -11,9 +11,9 @@ import therapist3 from "@/assets/therapist-3.jpg";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Nalora — Emotional Support for Motherhood" },
+      { title: "Nalora â€” Emotional Support for Motherhood" },
       { name: "description", content: "Kerala-rooted, AI-supported postpartum care. A calm digital ecosystem for mothers and the family around them." },
-      { property: "og:title", content: "Nalora — Emotional Support for Motherhood" },
+      { property: "og:title", content: "Nalora â€” Emotional Support for Motherhood" },
       { property: "og:description", content: "A calm digital ecosystem for postpartum care." },
     ],
   }),
@@ -250,7 +250,7 @@ function Hero() {
 
   return (
     <section className="relative overflow-hidden">
-      {/* Layer 1 — sky gradient (transitions across the day) */}
+      {/* Layer 1 â€” sky gradient (transitions across the day) */}
       <div
         className="absolute inset-0 transition-[background] duration-[2000ms]"
         style={{
@@ -260,7 +260,7 @@ function Hero() {
         aria-hidden
       />
 
-      {/* Layer 2 — stars (fade out during day) */}
+      {/* Layer 2 â€” stars (fade out during day) */}
       <div
         className="absolute inset-0 transition-opacity duration-[2000ms]"
         style={{ transform: `translateY(${scrollY * 0.15}px)`, opacity: phase.starOpacity }}
@@ -288,7 +288,7 @@ function Hero() {
         })}
       </div>
 
-      {/* Layer 3 — celestial body (sun or moon) traveling its arc */}
+      {/* Layer 3 â€” celestial body (sun or moon) traveling its arc */}
       <div
         className="pointer-events-none absolute transition-[left,top,background-color] duration-[2000ms] ease-out"
         style={{
@@ -323,7 +323,7 @@ function Hero() {
         </div>
       </div>
 
-      {/* Layer 4 — distant hill silhouette */}
+      {/* Layer 4 â€” distant hill silhouette */}
       <svg
         className="absolute inset-x-0 bottom-0 w-full transition-[fill] duration-[2000ms]"
         viewBox="0 0 1440 240"
@@ -338,7 +338,7 @@ function Hero() {
         />
       </svg>
 
-      {/* Layer 5 — foreground palm silhouettes (fastest, mouse-tracked) */}
+      {/* Layer 5 â€” foreground palm silhouettes (fastest, mouse-tracked) */}
       <div
         className="pointer-events-none absolute inset-x-0 bottom-0 flex items-end justify-between px-2 sm:px-10"
         style={{
@@ -371,10 +371,10 @@ function Hero() {
         aria-hidden
       />
 
+      {/* ── HERO CONTENT ── */}
+      <div className="relative mx-auto flex min-h-[92vh] max-w-5xl flex-col items-center justify-center px-6 pt-28 pb-36 text-center">
 
-
-
-      <div className="relative mx-auto flex min-h-[92vh] max-w-5xl flex-col items-center justify-center px-6 pt-32 pb-40 text-center">
+        {/* Live time pill */}
         <div className="reveal inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 backdrop-blur-sm border border-white/20">
           <span className="h-2 w-2 rounded-full bg-emerald-300 animate-pulse" />
           <span className="text-sm font-medium tracking-wide text-white/90">
@@ -382,24 +382,52 @@ function Hero() {
           </span>
         </div>
 
-        <h1 className="reveal mt-7 font-display text-balance text-[2.7rem] font-medium leading-[1.05] tracking-tight text-white sm:text-6xl md:text-7xl lg:text-[5.25rem]">
-          40,000+ <span className="italic text-amber-200">hours</span> of
-          <br className="hidden sm:block" /> care for new mothers
+        {/* Centered illustration */}
+        <div className="reveal relative mt-6 flex items-center justify-center">
+          {/* soft glow behind illustration */}
+          <div
+            className="absolute inset-0 rounded-full blur-3xl"
+            style={{
+              background: `radial-gradient(ellipse at center, ${phase.bodyGlow}55, transparent 70%)`,
+              transform: "scale(1.4)",
+            }}
+          />
+          <img
+            src={motherBaby}
+            alt="Mother cradling her newborn"
+            width={480}
+            height={480}
+            className="relative"
+            style={{
+              mixBlendMode: "multiply",
+              filter: "brightness(0.95) drop-shadow(0 0 24px rgba(255,240,200,0.5))",
+              maxWidth: "min(480px, 60vw)",
+              animation: "float-slow 8s ease-in-out infinite",
+            }}
+          />
+        </div>
+
+        {/* Catchy headline */}
+        <h1 className="reveal mt-6 font-display text-balance text-[2rem] font-medium leading-tight tracking-tight text-white sm:text-5xl md:text-6xl">
+          She gave everything.
+          <br />
+          <em className="italic text-amber-200">Now it's her turn.</em>
         </h1>
 
-        <p className="reveal mx-auto mt-7 max-w-xl text-balance text-lg text-white/75 sm:text-xl">
-          Nalora is a calm digital ecosystem for postpartum care —
-          vernacular, family-centred, and always awake when you are.
+        {/* Short sub-line */}
+        <p className="reveal mt-4 max-w-md text-base text-white/70 sm:text-lg">
+          Postpartum care, rooted in Kerala — gentle, vernacular, and always awake.
         </p>
 
+        {/* CTA */}
         <a
           href="#therapists"
-          className="reveal mt-10 inline-flex items-center gap-2 rounded-full bg-amber-300 px-8 py-4 text-sm font-semibold uppercase tracking-[0.14em] text-[#2A1B5C] shadow-[0_20px_60px_-12px_rgba(255,200,80,0.6)] transition hover:-translate-y-0.5 hover:bg-amber-200"
+          className="reveal mt-8 inline-flex items-center gap-2 rounded-full bg-amber-300 px-8 py-4 text-sm font-semibold uppercase tracking-[0.14em] text-[#2A1B5C] shadow-[0_20px_60px_-12px_rgba(255,200,80,0.6)] transition hover:-translate-y-0.5 hover:bg-amber-200"
         >
-          Consult a Therapist
+          Begin Your Journey
         </a>
 
-        {/* downward chevron */}
+        {/* Scroll chevron */}
         <div className="absolute bottom-10 left-1/2 -translate-x-1/2 text-white/60 animate-bounce">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M6 9l6 6 6-6" />
@@ -409,6 +437,7 @@ function Hero() {
     </section>
   );
 }
+
 
 /* ---------- Therapists showcase (Oppam-style pastel cards) ---------- */
 const THERAPISTS = [
@@ -460,7 +489,7 @@ function Therapists() {
 
         {/* Filter chips */}
         <div className="reveal mt-10 flex flex-wrap items-center justify-center gap-3">
-          {["മലയാളം Online", "Consultant Psychologist", "Clinical Psychologist", "Perinatal Care", "Psychiatrist"].map(
+          {["à´®à´²à´¯à´¾à´³à´‚ Online", "Consultant Psychologist", "Clinical Psychologist", "Perinatal Care", "Psychiatrist"].map(
             (t, i) => (
               <span
                 key={t}
@@ -589,14 +618,14 @@ function Story() {
             </div>
 
             <p className="mt-6 text-lg leading-relaxed text-foreground/80">
-              Nalora wasn't just an idea — it was a realisation. When new mothers
+              Nalora wasn't just an idea â€” it was a realisation. When new mothers
               around us struggled to find the kind of support they needed, we
               couldn't shake the thought: if things need to change, why not start
               with us?
             </p>
             <p className="mt-4 text-lg leading-relaxed text-foreground/80">
               Instead of waiting for a better system, we decided to build one.
-              That's how Nalora came to life — with a mission to make postpartum
+              That's how Nalora came to life â€” with a mission to make postpartum
               therapy accessible, vernacular, and deeply human, so that no mother
               ever feels unheard.
             </p>
@@ -634,7 +663,7 @@ function Care() {
             Care that <em className="italic text-rose">breathes with you.</em>
           </h2>
           <p className="mt-5 text-lg text-foreground/70">
-            A small, deliberate set of tools — built with mothers, therapists and families.
+            A small, deliberate set of tools â€” built with mothers, therapists and families.
           </p>
         </div>
 
@@ -666,7 +695,7 @@ function Care() {
 
 /* ---------- Family ecosystem with connection lines ---------- */
 const ROLES = [
-  { id: "mother", label: "Mother", desc: "At the heart of every Nalora circle — supported, never alone.", x: 50, y: 50, big: true },
+  { id: "mother", label: "Mother", desc: "At the heart of every Nalora circle â€” supported, never alone.", x: 50, y: 50, big: true },
   { id: "partner", label: "Partner", desc: "Daily check-ins, conversation prompts and a private therapist channel.", x: 15, y: 18 },
   { id: "baby", label: "Baby", desc: "Milestones tracked gently, with sleep and feeding rhythms.", x: 85, y: 18 },
   { id: "grand", label: "Grandparents", desc: "Bite-sized guides on modern postpartum care, in their language.", x: 14, y: 82 },
@@ -774,11 +803,11 @@ function Family() {
 
 /* ---------- Timeline / Journey ---------- */
 const STAGES = [
-  { week: "Wk 0–2", title: "The fourth trimester", body: "Quiet voice notes through the night. Sleep tracking that doesn't judge missed naps.", color: "var(--rose)" },
-  { week: "Wk 3–6", title: "Finding rhythm", body: "Daily 7-minute check-ins, hormone-aware mood support, partner prompts.", color: "var(--sunset)" },
-  { week: "Wk 7–12", title: "Rebuilding self", body: "Pelvic floor, identity work, return-to-work coaching — gently paced.", color: "var(--coconut)" },
-  { week: "Mo 4–6", title: "Re-entering the world", body: "Weaning support, anxiety toolkits, and live group rooms in your language.", color: "var(--rose)" },
-  { week: "Mo 6–12", title: "Long-form healing", body: "Therapist continuity, family workshops, milestone celebrations.", color: "var(--sunset)" },
+  { week: "Wk 0â€“2", title: "The fourth trimester", body: "Quiet voice notes through the night. Sleep tracking that doesn't judge missed naps.", color: "var(--rose)" },
+  { week: "Wk 3â€“6", title: "Finding rhythm", body: "Daily 7-minute check-ins, hormone-aware mood support, partner prompts.", color: "var(--sunset)" },
+  { week: "Wk 7â€“12", title: "Rebuilding self", body: "Pelvic floor, identity work, return-to-work coaching â€” gently paced.", color: "var(--coconut)" },
+  { week: "Mo 4â€“6", title: "Re-entering the world", body: "Weaning support, anxiety toolkits, and live group rooms in your language.", color: "var(--rose)" },
+  { week: "Mo 6â€“12", title: "Long-form healing", body: "Therapist continuity, family workshops, milestone celebrations.", color: "var(--sunset)" },
 ];
 
 function Journey() {
@@ -852,7 +881,7 @@ const SCRIPTS: { prompt: string; replies: string[] }[] = [
   {
     prompt: "I haven't slept properly in 3 days.",
     replies: [
-      "Three nights is a long time to carry alone — I hear you.",
+      "Three nights is a long time to carry alone â€” I hear you.",
       "Let's start small: do you want a 4-minute guided rest, or to talk first?",
     ],
   },
@@ -908,7 +937,7 @@ function Chat() {
             </h2>
             <p className="mt-5 text-lg text-foreground/70 leading-relaxed">
               Pick a prompt that feels close. Nalora will respond the way a calm,
-              trained friend would — without scripts, without judgement.
+              trained friend would â€” without scripts, without judgement.
             </p>
             <div className="mt-8 space-y-3">
               {SCRIPTS.map((s) => (
@@ -968,7 +997,7 @@ function Chat() {
                 <div ref={endRef} />
               </div>
               <div className="border-t border-border px-5 py-3 text-xs text-foreground/50">
-                Demo conversation • Real Nalora is private & end-to-end encrypted
+                Demo conversation â€¢ Real Nalora is private & end-to-end encrypted
               </div>
             </div>
           </TiltCard>
@@ -996,7 +1025,7 @@ function FinalCta() {
             </p>
             <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
               <a href="#talk" className="rounded-full bg-white px-7 py-4 text-foreground font-medium shadow-soft transition hover:-translate-y-0.5">
-                Start with Nalora — free
+                Start with Nalora â€” free
               </a>
               <a href="#care" className="rounded-full border border-white/40 px-7 py-4 text-white font-medium hover:bg-white/10 transition">
                 Talk to a therapist
@@ -1038,7 +1067,7 @@ function Footer() {
         ))}
       </div>
       <div className="mx-auto mt-12 max-w-6xl px-6 text-xs text-foreground/50">
-        © {new Date().getFullYear()} Nalora Care. Made with care in Kerala.
+        Â© {new Date().getFullYear()} Nalora Care. Made with care in Kerala.
       </div>
     </footer>
   );
