@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type MouseEvent } from "react";
+import { useAuth } from "@/context/AuthContext";
 
 import blobRose from "@/assets/blob-rose.png";
 import motherBaby from "@/assets/mother-baby.png";
@@ -63,72 +64,192 @@ function useReveal() {
 
 /* ---------- Nav (transparent over twilight, solidifies on scroll) ---------- */
 function Nav() {
+  const { user, logout } = useAuth();
   const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+
   useEffect(() => {
     const on = () => setScrolled(window.scrollY > 40);
     on();
     window.addEventListener("scroll", on, { passive: true });
     return () => window.removeEventListener("scroll", on);
   }, []);
+
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled
           ? "bg-[var(--ivory-deep)]/95 backdrop-blur-md border-b border-border/60"
           : "bg-transparent"
-      }`}
+        }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 sm:px-10">
-        <a href="#" className="flex items-center gap-2">
+        <Link to="/" className="flex items-center gap-2">
           <span
-            className={`grid h-9 w-9 place-items-center rounded-full font-display text-lg transition ${
-              scrolled ? "bg-[var(--gradient-sunset)] text-white" : "border-2 border-white/80 text-white"
-            }`}
+            className={`grid h-9 w-9 place-items-center rounded-full font-display text-lg transition ${scrolled ? "bg-[var(--gradient-sunset)] text-white" : "border-2 border-white/80 text-white"
+              }`}
           >
             n
           </span>
           <span
-            className={`font-display text-2xl tracking-tight transition ${
-              scrolled ? "text-foreground" : "text-white"
-            }`}
+            className={`font-display text-2xl tracking-tight transition ${scrolled ? "text-foreground" : "text-white"
+              }`}
           >
             nalora
           </span>
-        </a>
+        </Link>
         <nav
-          className={`hidden md:flex items-center gap-9 text-[15px] font-medium transition ${
-            scrolled ? "text-foreground/80" : "text-white/90"
-          }`}
+          className={`hidden md:flex items-center gap-7 text-[15px] font-medium transition ${scrolled ? "text-foreground/80" : "text-white/90"
+            }`}
         >
-          <a href="#story" className="hover:opacity-70 transition">About Us</a>
-          <a href="#care" className="hover:opacity-70 transition">Services</a>
-          <a href="#family" className="hover:opacity-70 transition">Family</a>
-          <a href="#journey" className="hover:opacity-70 transition">Journey</a>
-          <a href="#therapists" className="hover:opacity-70 transition">Therapists</a>
+          <Link to="/" className="hover:opacity-70 transition">Home</Link>
+          <Link to="/" hash="story" className="hover:opacity-70 transition">About Us</Link>
+          <Link to="/doctors" className="hover:opacity-70 transition">Doctors</Link>
+          <Link to="/ai-chat" className="hover:opacity-70 transition">Free AI Chat</Link>
+          {user ? (
+            <Link to="/bookings" className="hover:opacity-70 transition">Bookings</Link>
+          ) : (
+            <Link to="/login" className="hover:opacity-70 transition">Account</Link>
+          )}
+          <Link to="/" hash="footer" className="hover:opacity-70 transition">Contact</Link>
         </nav>
         <div className="hidden sm:flex items-center gap-3">
-          <Link
-            to="/login"
-            className={`inline-flex items-center gap-2 rounded-full border px-5 py-2.5 text-sm font-medium transition hover:-translate-y-0.5 ${
-              scrolled
-                ? "border-[var(--rose)] text-[var(--rose)] hover:bg-[var(--rose)]/10"
-                : "border-white/80 text-white hover:bg-white/10"
-            }`}
-          >
-            Login
-          </Link>
-          <Link
-            to="/book-session"
-            className={`inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition ${
-              scrolled
-                ? "bg-[var(--gradient-sunset)] text-white shadow-soft hover:-translate-y-0.5"
-                : "bg-white/95 text-foreground hover:bg-white"
-            }`}
-          >
-            Book a Session
-          </Link>
+          {user ? (
+            <div className="flex items-center gap-4">
+              <span className={`text-sm font-semibold ${scrolled ? "text-foreground/80" : "text-white/90"}`}>
+                Hi, {user.name.split(" ")[0]}
+              </span>
+              <button
+                onClick={() => logout()}
+                className={`inline-flex items-center gap-2 rounded-full border px-5 py-2.5 text-sm font-medium transition hover:-translate-y-0.5 ${scrolled
+                    ? "border-[var(--rose)] text-[var(--rose)] hover:bg-[var(--rose)]/10"
+                    : "border-white/80 text-white hover:bg-white/10"
+                  }`}
+                style={{ cursor: "pointer" }}
+              >
+                Sign Out
+              </button>
+              {user.role === "doctor" ? (
+                <Link
+                  to="/doctor/dashboard"
+                  className={`inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition ${scrolled
+                      ? "bg-[var(--gradient-sunset)] text-white shadow-soft hover:-translate-y-0.5"
+                      : "bg-white/95 text-foreground hover:bg-white"
+                    }`}
+                >
+                  Dashboard
+                </Link>
+              ) : (
+                <Link
+                  to="/book-session"
+                  className={`inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition ${scrolled
+                      ? "bg-[var(--gradient-sunset)] text-white shadow-soft hover:-translate-y-0.5"
+                      : "bg-white/95 text-foreground hover:bg-white"
+                    }`}
+                >
+                  Book a Session
+                </Link>
+              )}
+            </div>
+          ) : (
+            <>
+              <Link
+                to="/login"
+                className={`inline-flex items-center gap-2 rounded-full border px-5 py-2.5 text-sm font-medium transition hover:-translate-y-0.5 ${scrolled
+                    ? "border-[var(--rose)] text-[var(--rose)] hover:bg-[var(--rose)]/10"
+                    : "border-white/80 text-white hover:bg-white/10"
+                  }`}
+              >
+                Login
+              </Link>
+              <Link
+                to="/book-session"
+                className={`inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition ${scrolled
+                    ? "bg-[var(--gradient-sunset)] text-white shadow-soft hover:-translate-y-0.5"
+                    : "bg-white/95 text-foreground hover:bg-white"
+                  }`}
+              >
+                Book a Session
+              </Link>
+            </>
+          )}
         </div>
+        <button
+          className="md:hidden flex items-center p-2 rounded-lg"
+          onClick={() => setMenuOpen((o) => !o)}
+          style={{ color: scrolled ? "var(--charcoal)" : "white", cursor: "pointer", background: "none", border: "none" }}
+          aria-label="Toggle menu"
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+            {menuOpen ? <path d="M18 6 6 18M6 6l12 12" /> : <><line x1="4" y1="6" x2="20" y2="6" /><line x1="4" y1="12" x2="20" y2="12" /><line x1="4" y1="18" x2="20" y2="18" /></>}
+          </svg>
+        </button>
       </div>
+
+      {menuOpen && (
+        <div className="md:hidden bg-[var(--ivory-deep)]/95 backdrop-blur-md border-b border-border/60 px-6 py-4 flex flex-col gap-4">
+          <Link to="/" onClick={() => setMenuOpen(false)} className="text-foreground/80 hover:text-rose font-medium py-1">Home</Link>
+          <Link to="/" hash="story" onClick={() => setMenuOpen(false)} className="text-foreground/80 hover:text-rose font-medium py-1">About Us</Link>
+          <Link to="/doctors" onClick={() => setMenuOpen(false)} className="text-foreground/80 hover:text-rose font-medium py-1">Doctors</Link>
+          <Link to="/ai-chat" onClick={() => setMenuOpen(false)} className="text-foreground/80 hover:text-rose font-medium py-1">Free AI Chat</Link>
+          {user ? (
+            <Link to="/bookings" onClick={() => setMenuOpen(false)} className="text-foreground/80 hover:text-rose font-medium py-1">Bookings</Link>
+          ) : (
+            <Link to="/login" onClick={() => setMenuOpen(false)} className="text-foreground/80 hover:text-rose font-medium py-1">Account / Profile</Link>
+          )}
+          <Link to="/" hash="footer" onClick={() => setMenuOpen(false)} className="text-foreground/80 hover:text-rose font-medium py-1">Contact</Link>
+          
+          <div className="border-t border-border/40 pt-4 flex flex-col gap-3">
+            {user ? (
+              <>
+                <div className="text-sm font-semibold text-foreground/80 py-1">
+                  Logged in as {user.name}
+                </div>
+                {user.role === "doctor" ? (
+                  <Link
+                    to="/doctor/dashboard"
+                    onClick={() => setMenuOpen(false)}
+                    className="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--gradient-sunset)] text-white px-5 py-2.5 text-sm font-medium shadow-soft"
+                  >
+                    Dashboard
+                  </Link>
+                ) : (
+                  <Link
+                    to="/book-session"
+                    onClick={() => setMenuOpen(false)}
+                    className="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--gradient-sunset)] text-white px-5 py-2.5 text-sm font-medium shadow-soft"
+                  >
+                    Book a Session
+                  </Link>
+                )}
+                <button
+                  onClick={() => { setMenuOpen(false); logout(); }}
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-rose/40 text-rose hover:bg-rose/5 px-5 py-2.5 text-sm font-medium"
+                  style={{ cursor: "pointer" }}
+                >
+                  Sign Out
+                </button>
+              </>
+            ) : (
+              <>
+                <Link
+                  to="/login"
+                  onClick={() => setMenuOpen(false)}
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-[var(--rose)] text-[var(--rose)] px-5 py-2.5 text-sm font-medium"
+                >
+                  Login
+                </Link>
+                <Link
+                  to="/book-session"
+                  onClick={() => setMenuOpen(false)}
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--gradient-sunset)] text-white px-5 py-2.5 text-sm font-medium shadow-soft"
+                >
+                  Book a Session
+                </Link>
+              </>
+            )}
+          </div>
+        </div>
+      )}
     </header>
   );
 }
@@ -327,15 +448,10 @@ function Hero() {
           style={{
             background: `radial-gradient(circle at 35% 35%, ${phase.bodyColor}, ${phase.bodyGlow})`,
             boxShadow: `0 0 60px ${phase.bodyGlow}`,
+            WebkitMaskImage: phase.body === "moon" ? "radial-gradient(circle at 65% 35%, transparent 55%, black 56%)" : "none",
+            maskImage: phase.body === "moon" ? "radial-gradient(circle at 65% 35%, transparent 55%, black 56%)" : "none",
           }}
-        >
-          {phase.body === "moon" && (
-            <div
-              className="absolute right-2 top-3 h-16 w-16 rounded-full"
-              style={{ background: phase.sky.includes("0F0930") || phase.sky.includes("050118") ? "#0F0930" : "#2A1B5C", opacity: 0.85 }}
-            />
-          )}
-        </div>
+        />
       </div>
 
       {/* Layer 4 â€” distant hill silhouette */}
@@ -387,18 +503,49 @@ function Hero() {
       />
 
       {/* ── HERO CONTENT ── */}
-      <div className="relative mx-auto flex min-h-[92vh] max-w-5xl flex-col items-center justify-center px-6 pt-28 pb-36 text-center">
+      <div className="relative mx-auto grid min-h-[92vh] max-w-6xl grid-cols-1 md:grid-cols-2 items-center gap-12 px-6 pt-28 pb-36 text-center md:text-left">
 
-        {/* Live time pill */}
-        <div className="reveal inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 backdrop-blur-sm border border-white/20">
-          <span className="h-2 w-2 rounded-full bg-emerald-300 animate-pulse" />
-          <span className="text-sm font-medium tracking-wide text-white/90">
-            {phase.label} · {timeLabel} · here with you, 24×7
-          </span>
+        {/* Left Side: Text and Actions */}
+        <div className="flex flex-col items-center md:items-start text-center md:text-left">
+          {/* Live time pill */}
+          <div className="reveal inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 backdrop-blur-sm border border-white/20">
+            <span className="h-2 w-2 rounded-full bg-emerald-300 animate-pulse" />
+            <span className="text-sm font-medium tracking-wide text-white/90">
+              {phase.label} · {timeLabel} · here with you, 24×7
+            </span>
+          </div>
+
+          {/* Catchy headline */}
+          <h1 className="reveal mt-6 font-display text-balance text-[2.25rem] font-medium leading-tight tracking-tight text-white sm:text-5xl md:text-6xl">
+            She gave everything.
+            <br />
+            <em className="italic text-amber-200">Now it's her turn.</em>
+          </h1>
+
+          {/* Short sub-line */}
+          <p className="reveal mt-4 max-w-lg text-base text-white/70 sm:text-lg">
+            Postpartum care, rooted in Kerala — gentle, vernacular, and always awake.
+          </p>
+
+          {/* CTAs */}
+          <div className="reveal mt-8 flex flex-col items-stretch sm:flex-row sm:items-center gap-4 w-full sm:w-auto">
+            <Link
+              to="/login"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-amber-300 px-8 py-4 text-sm font-semibold uppercase tracking-[0.14em] text-[#2A1B5C] shadow-[0_20px_60px_-12px_rgba(255,200,80,0.6)] transition hover:-translate-y-0.5 hover:bg-amber-200"
+            >
+              Sign In
+            </Link>
+            <Link
+              to="/create-account"
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-white/70 px-8 py-4 text-sm font-semibold uppercase tracking-[0.14em] text-white/90 transition hover:-translate-y-0.5 hover:bg-white/10"
+            >
+              Create Account
+            </Link>
+          </div>
         </div>
 
-        {/* Centered illustration */}
-        <div className="reveal relative mt-6 flex items-center justify-center">
+        {/* Right Side: Image filling half the region */}
+        <div className="reveal relative flex items-center justify-center w-full h-full min-h-[300px] md:min-h-[480px]">
           {/* soft glow behind illustration */}
           <div
             className="absolute inset-0 rounded-full blur-3xl"
@@ -410,44 +557,15 @@ function Hero() {
           <img
             src={motherBaby}
             alt="Mother cradling her newborn"
-            width={480}
-            height={480}
-            className="relative"
+            width={600}
+            height={600}
+            className="relative w-full max-w-[480px] md:max-w-full object-contain"
             style={{
               mixBlendMode: "multiply",
               filter: "brightness(0.95) drop-shadow(0 0 24px rgba(255,240,200,0.5))",
-              maxWidth: "min(480px, 60vw)",
               animation: "float-slow 8s ease-in-out infinite",
             }}
           />
-        </div>
-
-        {/* Catchy headline */}
-        <h1 className="reveal mt-6 font-display text-balance text-[2rem] font-medium leading-tight tracking-tight text-white sm:text-5xl md:text-6xl">
-          She gave everything.
-          <br />
-          <em className="italic text-amber-200">Now it's her turn.</em>
-        </h1>
-
-        {/* Short sub-line */}
-        <p className="reveal mt-4 max-w-md text-base text-white/70 sm:text-lg">
-          Postpartum care, rooted in Kerala — gentle, vernacular, and always awake.
-        </p>
-
-        {/* CTAs */}
-        <div className="reveal mt-8 flex flex-col items-center sm:flex-row gap-4">
-          <Link
-            to="/login"
-            className="inline-flex items-center gap-2 rounded-full bg-amber-300 px-8 py-4 text-sm font-semibold uppercase tracking-[0.14em] text-[#2A1B5C] shadow-[0_20px_60px_-12px_rgba(255,200,80,0.6)] transition hover:-translate-y-0.5 hover:bg-amber-200"
-          >
-            Sign In
-          </Link>
-          <Link
-            to="/create-account"
-            className="inline-flex items-center gap-2 rounded-full border border-white/70 px-8 py-4 text-sm font-semibold uppercase tracking-[0.14em] text-white/90 transition hover:-translate-y-0.5 hover:bg-white/10"
-          >
-            Create Account
-          </Link>
         </div>
 
         {/* Scroll chevron */}
@@ -516,9 +634,8 @@ function Therapists() {
             (t, i) => (
               <span
                 key={t}
-                className={`inline-flex items-center gap-2 rounded-2xl px-4 py-2.5 text-sm shadow-soft ${
-                  i === 0 ? "bg-foreground text-background" : "bg-card text-foreground/75"
-                }`}
+                className={`inline-flex items-center gap-2 rounded-2xl px-4 py-2.5 text-sm shadow-soft ${i === 0 ? "bg-foreground text-background" : "bg-card text-foreground/75"
+                  }`}
               >
                 {t}
               </span>
@@ -780,13 +897,11 @@ function Family() {
                       <span className="absolute h-full w-full rounded-full bg-rose/40 animate-ripple" />
                     )}
                     <span
-                      className={`grid place-items-center rounded-full font-display transition-all ${
-                        r.big ? "h-24 w-24 text-lg" : "h-16 w-16 text-sm"
-                      } ${
-                        isActive
+                      className={`grid place-items-center rounded-full font-display transition-all ${r.big ? "h-24 w-24 text-lg" : "h-16 w-16 text-sm"
+                        } ${isActive
                           ? "bg-[var(--gradient-sunset)] text-white shadow-glow scale-110"
                           : "bg-white text-foreground shadow-soft hover:scale-105"
-                      }`}
+                        }`}
                     >
                       {r.label.split(" ")[0]}
                     </span>
@@ -807,11 +922,10 @@ function Family() {
                 <button
                   key={r.id}
                   onClick={() => setActive(r.id)}
-                  className={`rounded-full border px-3 py-1.5 text-xs transition ${
-                    active === r.id
+                  className={`rounded-full border px-3 py-1.5 text-xs transition ${active === r.id
                       ? "border-rose bg-rose/10 text-rose"
                       : "border-border text-foreground/60 hover:border-rose"
-                  }`}
+                    }`}
                 >
                   {r.label}
                 </button>
@@ -881,11 +995,10 @@ function Journey() {
                 <button
                   key={s.week}
                   onClick={() => setIdx(i)}
-                  className={`flex-1 min-w-[7rem] rounded-full px-3 py-2 text-xs font-medium transition ${
-                    i === idx
+                  className={`flex-1 min-w-[7rem] rounded-full px-3 py-2 text-xs font-medium transition ${i === idx
                       ? "bg-foreground text-background"
                       : "text-foreground/50 hover:text-foreground"
-                  }`}
+                    }`}
                 >
                   {s.week}
                 </button>
@@ -974,7 +1087,7 @@ function Chat() {
                 >
                   <span className="text-foreground/80 group-hover:text-foreground">{s.prompt}</span>
                   <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-[var(--ivory-deep)] text-rose transition group-hover:bg-rose group-hover:text-white">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
                   </span>
                 </button>
               ))}
@@ -1000,11 +1113,10 @@ function Chat() {
                     style={{ animation: "fade-in 0.4s ease-out" }}
                   >
                     <div
-                      className={`max-w-[80%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed shadow-soft ${
-                        m.role === "user"
+                      className={`max-w-[80%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed shadow-soft ${m.role === "user"
                           ? "bg-[var(--gradient-sunset)] text-white rounded-br-md"
                           : "bg-white text-foreground rounded-bl-md"
-                      }`}
+                        }`}
                     >
                       {m.text}
                     </div>
@@ -1065,7 +1177,7 @@ function FinalCta() {
 
 function Footer() {
   return (
-    <footer className="border-t border-border bg-[var(--ivory-deep)] py-14">
+    <footer id="footer" className="border-t border-border bg-[var(--ivory-deep)] py-14">
       <div className="mx-auto grid max-w-6xl gap-10 px-6 md:grid-cols-4">
         <div>
           <div className="flex items-center gap-2">

@@ -2,7 +2,7 @@ import { Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 
-const PAGES = [
+const AUTH_PAGES = [
   { to: "/doctors", label: "Our Doctors" },
   { to: "/ai-chat", label: "Free AI Chat" },
   { to: "/book-session", label: "Book a Session" },
@@ -10,11 +10,21 @@ const PAGES = [
   { to: "/feedback", label: "Feedback" },
 ] as const;
 
+const PUBLIC_PAGES = [
+  { to: "/", label: "Home" },
+  { to: "/", hash: "story", label: "About Us" },
+  { to: "/doctors", label: "Doctors" },
+  { to: "/ai-chat", label: "Free AI Chat" },
+  { to: "/login", label: "Account" },
+  { to: "/", hash: "footer", label: "Contact" },
+] as const;
+
 export function InnerNav() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
+  const pages = user ? AUTH_PAGES : PUBLIC_PAGES;
 
   function handleLogout() {
     logout();
@@ -71,10 +81,11 @@ export function InnerNav() {
 
         {/* Desktop nav links */}
         <nav className="hidden md:flex" style={{ display: "flex", alignItems: "center", gap: "22px", flexShrink: 0 }}>
-          {PAGES.map(({ to, label }) => (
+          {pages.map(({ to, hash, label }) => (
             <Link
-              key={to}
+              key={to + (hash || "")}
               to={to}
+              hash={hash}
               style={{ fontSize: "0.845rem", fontWeight: 500, color: "oklch(0.5 0.01 60)", textDecoration: "none", transition: "color 0.2s", whiteSpace: "nowrap" }}
               activeProps={{ style: { fontSize: "0.845rem", fontWeight: 700, color: "var(--rose)", textDecoration: "none", transition: "color 0.2s", whiteSpace: "nowrap" } }}
             >
@@ -145,7 +156,7 @@ export function InnerNav() {
                   </div>
 
                   {/* Nav links in dropdown for quick access */}
-                  {PAGES.slice(0, 3).map(({ to, label }) => (
+                  {AUTH_PAGES.slice(0, 3).map(({ to, label }) => (
                     <Link
                       key={to}
                       to={to}
@@ -204,7 +215,7 @@ export function InnerNav() {
                 Login
               </Link>
               <Link
-                to="/create-account"
+                to="/book-session"
                 className="hidden sm:inline-flex"
                 style={{
                   padding: "10px 20px", borderRadius: "99px",
@@ -215,7 +226,7 @@ export function InnerNav() {
                   whiteSpace: "nowrap",
                 }}
               >
-                Create Account
+                Book a Session
               </Link>
             </>
           )}
@@ -245,10 +256,11 @@ export function InnerNav() {
               </div>
             </div>
           )}
-          {PAGES.map(({ to, label }) => (
+          {pages.map(({ to, hash, label }) => (
             <Link
-              key={to}
+              key={to + (hash || "")}
               to={to}
+              hash={hash}
               onClick={() => setMenuOpen(false)}
               style={{ display: "block", padding: "12px 0", fontSize: "0.92rem", fontWeight: 500, color: "oklch(0.45 0.01 60)", textDecoration: "none", borderBottom: "1px solid oklch(0.93 0.01 55)" }}
               activeProps={{ style: { display: "block", padding: "12px 0", fontSize: "0.92rem", fontWeight: 700, color: "var(--rose)", textDecoration: "none", borderBottom: "1px solid oklch(0.93 0.01 55)" } }}
@@ -266,7 +278,7 @@ export function InnerNav() {
           ) : (
             <div style={{ marginTop: "12px", display: "flex", flexDirection: "column", gap: "10px" }}>
               <Link to="/login" onClick={() => setMenuOpen(false)} style={{ display: "block", padding: "13px", borderRadius: "12px", border: "1.5px solid var(--rose)", color: "var(--rose)", fontSize: "0.9rem", fontWeight: 600, textAlign: "center", textDecoration: "none" }}>Login</Link>
-              <Link to="/create-account" onClick={() => setMenuOpen(false)} style={{ display: "block", padding: "13px", borderRadius: "12px", background: "linear-gradient(135deg, var(--rose), var(--sunset))", color: "white", fontSize: "0.9rem", fontWeight: 600, textAlign: "center", textDecoration: "none" }}>Create Account</Link>
+              <Link to="/book-session" onClick={() => setMenuOpen(false)} style={{ display: "block", padding: "13px", borderRadius: "12px", background: "linear-gradient(135deg, var(--rose), var(--sunset))", color: "white", fontSize: "0.9rem", fontWeight: 600, textAlign: "center", textDecoration: "none" }}>Book a Session</Link>
             </div>
           )}
         </div>
