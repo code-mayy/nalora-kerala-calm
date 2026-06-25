@@ -850,6 +850,7 @@ function Index() {
     <main className="overflow-x-hidden">
       <Nav />
       <Hero />
+      <Therapists />
       <Story />
       <Care />
       <Family />
