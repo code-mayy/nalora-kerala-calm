@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type MouseEvent } from "react";
 import { useAuth } from "@/context/AuthContext";
+import { Sun, CloudSun, Sunset, Moon, Sparkles } from "lucide-react";
 
 import blobRose from "@/assets/blob-rose.png";
 import motherBaby from "@/assets/mother-baby.png";
@@ -8,6 +9,13 @@ import keralaArch from "@/assets/kerala-architecture.jpg";
 import therapist1 from "@/assets/therapist-1.jpg";
 import therapist2 from "@/assets/therapist-2.jpg";
 import therapist3 from "@/assets/therapist-3.jpg";
+import morningBg from "@/assets/image copy.png";
+import afternoonBg from "@/assets/image copy 3.png";
+import nightBg from "@/assets/image copy 2.png";
+import cloud1 from "@/assets/cloud_crop_1.png";
+import cloud4 from "@/assets/cloud_crop_4.png";
+import cloud6 from "@/assets/cloud_crop_6.png";
+import cloud7 from "@/assets/cloud_crop_7.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -102,15 +110,12 @@ function Nav() {
             }`}
         >
           <Link to="/" className="hover:opacity-70 transition">Home</Link>
-          <Link to="/" hash="story" className="hover:opacity-70 transition">About Us</Link>
-          <Link to="/doctors" className="hover:opacity-70 transition">Doctors</Link>
-          <Link to="/ai-chat" className="hover:opacity-70 transition">Free AI Chat</Link>
-          {user ? (
+          <Link to="/about" className="hover:opacity-70 transition">About Us</Link>
+          <Link to="/services" className="hover:opacity-70 transition">Services</Link>
+          {user && (
             <Link to="/bookings" className="hover:opacity-70 transition">Bookings</Link>
-          ) : (
-            <Link to="/login" className="hover:opacity-70 transition">Account</Link>
           )}
-          <Link to="/" hash="footer" className="hover:opacity-70 transition">Contact</Link>
+          <Link to="/contact" className="hover:opacity-70 transition">Contact</Link>
         </nav>
         <div className="hidden sm:flex items-center gap-3">
           {user ? (
@@ -151,26 +156,15 @@ function Nav() {
               )}
             </div>
           ) : (
-            <>
-              <Link
-                to="/login"
-                className={`inline-flex items-center gap-2 rounded-full border px-5 py-2.5 text-sm font-medium transition hover:-translate-y-0.5 ${scrolled
-                    ? "border-[var(--rose)] text-[var(--rose)] hover:bg-[var(--rose)]/10"
-                    : "border-white/80 text-white hover:bg-white/10"
-                  }`}
-              >
-                Login
-              </Link>
-              <Link
-                to="/book-session"
-                className={`inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition ${scrolled
-                    ? "bg-[var(--gradient-sunset)] text-white shadow-soft hover:-translate-y-0.5"
-                    : "bg-white/95 text-foreground hover:bg-white"
-                  }`}
-              >
-                Book a Session
-              </Link>
-            </>
+            <Link
+              to="/login"
+              className={`inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition hover:-translate-y-0.5 ${scrolled
+                  ? "bg-[var(--gradient-sunset)] text-white shadow-soft"
+                  : "bg-white/95 text-foreground hover:bg-white"
+                }`}
+            >
+              Start Free Trial
+            </Link>
           )}
         </div>
         <button
@@ -188,15 +182,12 @@ function Nav() {
       {menuOpen && (
         <div className="md:hidden bg-[var(--ivory-deep)]/95 backdrop-blur-md border-b border-border/60 px-6 py-4 flex flex-col gap-4">
           <Link to="/" onClick={() => setMenuOpen(false)} className="text-foreground/80 hover:text-rose font-medium py-1">Home</Link>
-          <Link to="/" hash="story" onClick={() => setMenuOpen(false)} className="text-foreground/80 hover:text-rose font-medium py-1">About Us</Link>
-          <Link to="/doctors" onClick={() => setMenuOpen(false)} className="text-foreground/80 hover:text-rose font-medium py-1">Doctors</Link>
-          <Link to="/ai-chat" onClick={() => setMenuOpen(false)} className="text-foreground/80 hover:text-rose font-medium py-1">Free AI Chat</Link>
-          {user ? (
+          <Link to="/about" onClick={() => setMenuOpen(false)} className="text-foreground/80 hover:text-rose font-medium py-1">About Us</Link>
+          <Link to="/services" onClick={() => setMenuOpen(false)} className="text-foreground/80 hover:text-rose font-medium py-1">Services</Link>
+          {user && (
             <Link to="/bookings" onClick={() => setMenuOpen(false)} className="text-foreground/80 hover:text-rose font-medium py-1">Bookings</Link>
-          ) : (
-            <Link to="/login" onClick={() => setMenuOpen(false)} className="text-foreground/80 hover:text-rose font-medium py-1">Account / Profile</Link>
           )}
-          <Link to="/" hash="footer" onClick={() => setMenuOpen(false)} className="text-foreground/80 hover:text-rose font-medium py-1">Contact</Link>
+          <Link to="/contact" onClick={() => setMenuOpen(false)} className="text-foreground/80 hover:text-rose font-medium py-1">Contact</Link>
           
           <div className="border-t border-border/40 pt-4 flex flex-col gap-3">
             {user ? (
@@ -230,22 +221,13 @@ function Nav() {
                 </button>
               </>
             ) : (
-              <>
-                <Link
-                  to="/login"
-                  onClick={() => setMenuOpen(false)}
-                  className="inline-flex items-center justify-center gap-2 rounded-full border border-[var(--rose)] text-[var(--rose)] px-5 py-2.5 text-sm font-medium"
-                >
-                  Login
-                </Link>
-                <Link
-                  to="/book-session"
-                  onClick={() => setMenuOpen(false)}
-                  className="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--gradient-sunset)] text-white px-5 py-2.5 text-sm font-medium shadow-soft"
-                >
-                  Book a Session
-                </Link>
-              </>
+              <Link
+                to="/login"
+                onClick={() => setMenuOpen(false)}
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--gradient-sunset)] text-white px-5 py-2.5 text-sm font-medium shadow-soft"
+              >
+                Start Free Trial
+              </Link>
             )}
           </div>
         </div>
@@ -254,331 +236,620 @@ function Nav() {
   );
 }
 
-/* ---------- Time-of-day helpers ---------- */
-type SkyPhase = {
-  label: string;
-  sky: string;
-  body: "sun" | "moon";
-  bodyColor: string;
-  bodyGlow: string;
-  hillColor: string;
-  palmColor: string;
-  starOpacity: number;
-};
+const STATIC_STARS = [
+  { top: "12%", left: "8%", size: 2, delay: "0s" },
+  { top: "25%", left: "15%", size: 1.5, delay: "1.2s" },
+  { top: "8%", left: "28%", size: 3, delay: "0.5s" },
+  { top: "18%", left: "33%", size: 1, delay: "2.1s" },
+  { top: "30%", left: "42%", size: 2, delay: "1.7s" },
+  { top: "10%", left: "55%", size: 1.5, delay: "0.8s" },
+  { top: "22%", left: "62%", size: 2.5, delay: "2.5s" },
+  { top: "7%", left: "70%", size: 1, delay: "0.3s" },
+  { top: "28%", left: "80%", size: 2, delay: "1.9s" },
+  { top: "15%", left: "88%", size: 3, delay: "1.4s" },
+  { top: "35%", left: "93%", size: 1.5, delay: "2.8s" },
+  { top: "16%", left: "18%", size: 2, delay: "0.9s" },
+  { top: "5%", left: "40%", size: 1, delay: "2.3s" },
+  { top: "20%", left: "50%", size: 2.5, delay: "1.5s" },
+  { top: "14%", left: "76%", size: 1.5, delay: "0.7s" },
+  { top: "32%", left: "25%", size: 2, delay: "3.1s" },
+  { top: "27%", left: "72%", size: 1, delay: "1.1s" }
+];
 
-function getSkyPhase(hour: number): SkyPhase {
-  // Dawn 5-8
-  if (hour >= 5 && hour < 8)
+const CLOUDS_CONFIG = [
+  { id: 1, img: cloud1, width: "260px", height: "60px", top: "15%", duration: "75s", delay: "0s", opacity: 0.55 },
+  { id: 2, img: cloud4, width: "320px", height: "84px", top: "35%", duration: "95s", delay: "-25s", opacity: 0.6 },
+  { id: 3, img: cloud6, width: "300px", height: "84px", top: "8%", duration: "125s", delay: "-60s", opacity: 0.65 },
+  { id: 4, img: cloud7, width: "250px", height: "87px", top: "52%", duration: "60s", delay: "-15s", opacity: 0.45 }
+];
+
+function getSunStyle(hour: number) {
+  if (hour < 5 || hour > 19) return { bg: "transparent", glow: "none" };
+  if (hour >= 5 && hour < 8) {
     return {
-      label: "Dawn",
-      sky: "linear-gradient(180deg, #2B1B4A 0%, #6B4A7A 30%, #E8A87C 65%, #F8C9A6 100%)",
-      body: "sun",
-      bodyColor: "#FFE4B0",
-      bodyGlow: "#FFD089",
-      hillColor: "#3A2452",
-      palmColor: "#1F1138",
-      starOpacity: 0.25,
+      bg: "radial-gradient(circle, #ffe066 10%, #ff7e5f 70%, #feb47b 100%)",
+      glow: "0 0 50px 15px rgba(255, 126, 95, 0.6), 0 0 100px 30px rgba(254, 180, 123, 0.4)"
     };
-  // Morning 8-12
-  if (hour >= 8 && hour < 12)
+  }
+  if (hour >= 8 && hour < 12) {
     return {
-      label: "Morning",
-      sky: "linear-gradient(180deg, #7BB8E0 0%, #A8D3ED 50%, #DCEEF8 100%)",
-      body: "sun",
-      bodyColor: "#FFF3B0",
-      bodyGlow: "#FFE680",
-      hillColor: "#4A6B8A",
-      palmColor: "#2A3D55",
-      starOpacity: 0,
+      bg: "radial-gradient(circle, #ffffff 20%, #fff176 60%, #ffb300 100%)",
+      glow: "0 0 60px 20px rgba(255, 235, 59, 0.7), 0 0 120px 40px rgba(255, 193, 7, 0.4)"
     };
-  // Midday 12-16
-  if (hour >= 12 && hour < 16)
+  }
+  if (hour >= 12 && hour < 16) {
     return {
-      label: "Afternoon",
-      sky: "linear-gradient(180deg, #4A9FD6 0%, #8FC4E5 60%, #D6EBF5 100%)",
-      body: "sun",
-      bodyColor: "#FFFCE0",
-      bodyGlow: "#FFEC8C",
-      hillColor: "#3A5878",
-      palmColor: "#1F344A",
-      starOpacity: 0,
+      bg: "radial-gradient(circle, #ffffff 40%, #fffde7 80%, #fff9c4 100%)",
+      glow: "0 0 80px 30px rgba(255, 255, 255, 0.9), 0 0 160px 60px rgba(255, 253, 231, 0.5)"
     };
-  // Dusk 16-19
-  if (hour >= 16 && hour < 19)
-    return {
-      label: "Sunset",
-      sky: "linear-gradient(180deg, #5B3A7A 0%, #C56B7D 40%, #E89A6C 75%, #F4C28A 100%)",
-      body: "sun",
-      bodyColor: "#FFB87A",
-      bodyGlow: "#FF8E5A",
-      hillColor: "#2E1A48",
-      palmColor: "#150A28",
-      starOpacity: 0.4,
-    };
-  // Evening 19-22
-  if (hour >= 19 && hour < 22)
-    return {
-      label: "Evening",
-      sky: "linear-gradient(180deg, #0F0930 0%, #2A1B5C 45%, #5B3A7A 80%, #8B5A8C 100%)",
-      body: "moon",
-      bodyColor: "#FFF4D6",
-      bodyGlow: "#FFE9B0",
-      hillColor: "#1F1244",
-      palmColor: "#0B0625",
-      starOpacity: 0.85,
-    };
-  // Night 22-5
+  }
+  // Evening/Sunset: 16 to 19
   return {
-    label: "Night",
-    sky: "linear-gradient(180deg, #050118 0%, #120840 50%, #2A1B5C 100%)",
-    body: "moon",
-    bodyColor: "#F5F0DC",
-    bodyGlow: "#E8DCB4",
-    hillColor: "#120730",
-    palmColor: "#03010F",
-    starOpacity: 1,
+    bg: "radial-gradient(circle, #ffd54f 20%, #f4511e 60%, #b71c1c 100%)",
+    glow: "0 0 70px 25px rgba(244, 81, 30, 0.85), 0 0 140px 50px rgba(230, 81, 0, 0.6), 0 0 200px 80px rgba(255, 142, 90, 0.4)"
   };
 }
 
-function getBodyArcPosition(hour: number, minute: number) {
-  const h = hour + minute / 60;
-  // Sun arc: 6 -> 18; Moon arc: 18 -> 30 (=6 next day)
-  const isDay = h >= 6 && h < 18;
-  const t = isDay ? (h - 6) / 12 : ((h < 6 ? h + 24 : h) - 18) / 12;
-  // x: 5% -> 95%; y: arc from 75% to 12% peak back to 75%
-  const x = 5 + t * 90;
-  const y = 75 - Math.sin(t * Math.PI) * 63;
-  return { x, y, isDay };
+function getSkyPhase(hour: number) {
+  // Night: 20:00 to 05:00
+  // Dawn: 05:00 to 08:00
+  // Morning: 08:00 to 12:00
+  // Afternoon: 12:00 to 16:00
+  // Evening/Sunset: 16:00 to 20:00
+  
+  // 1. Calculate Sun Trajectory (active 5:00 to 19:00, i.e., 14 hours)
+  let sunOpacity = 0;
+  let sunX = "50%";
+  let sunY = "-20%"; // Hidden below
+  let sunScale = 1.0;
+  
+  if (hour >= 5 && hour <= 19) {
+    const tSun = (hour - 5) / 14;
+    sunX = `${5 + tSun * 90}%`;
+    sunY = `${12 + Math.sin(tSun * Math.PI) * 65}%`;
+    
+    // Opacity transitions at sunrise (5) and sunset (19)
+    if (hour === 5) sunOpacity = 0.6;
+    else if (hour === 19) sunOpacity = 0.4;
+    else sunOpacity = 1.0;
+    
+    // Scale peaks at noon
+    sunScale = 1.0 + Math.sin(tSun * Math.PI) * 0.1;
+  }
+  
+  // 2. Calculate Moon Trajectory (active 17:00 to 7:00, i.e., 14 hours)
+  let moonOpacity = 0;
+  let moonX = "50%";
+  let moonY = "-20%"; // Hidden below
+  
+  // Check if we are in moon range
+  const isMoonTime = hour >= 17 || hour <= 7;
+  if (isMoonTime) {
+    const hRel = hour >= 17 ? hour - 17 : hour + 7;
+    const tMoon = hRel / 14;
+    moonX = `${5 + tMoon * 90}%`;
+    moonY = `${15 + Math.sin(tMoon * Math.PI) * 55}%`;
+    
+    // Opacity transitions
+    if (hour === 17 || hour === 7) moonOpacity = 0.1;
+    else if (hour === 18 || hour === 6) moonOpacity = 0.45;
+    else moonOpacity = 0.9;
+  }
+  
+  // 3. Stars Opacity
+  let starsOpacity = 0;
+  if (hour >= 20 || hour <= 4) {
+    starsOpacity = 1.0;
+  } else if (hour === 19) {
+    starsOpacity = 0.4;
+  } else if (hour === 5) {
+    starsOpacity = 0.35;
+  } else if (hour === 18) {
+    starsOpacity = 0.1;
+  } else if (hour === 6) {
+    starsOpacity = 0.05;
+  }
+
+  // 4. Calculate Background Cross-Fade Opacities (morningBg, afternoonBg, nightBg)
+  let morningOpacity = 0;
+  let afternoonOpacity = 0;
+  let nightOpacity = 0;
+
+  if (hour >= 5 && hour < 8) {
+    // Dawn transition (Night -> Morning)
+    const t = (hour - 5) / 3; // 0 to 1
+    morningOpacity = t;
+    nightOpacity = 1 - t;
+    afternoonOpacity = 0;
+  } else if (hour >= 8 && hour < 12) {
+    // Morning
+    morningOpacity = 1.0;
+    afternoonOpacity = 0;
+    nightOpacity = 0;
+  } else if (hour >= 12 && hour < 14) {
+    // Morning -> Afternoon transition
+    const t = (hour - 12) / 2; // 0 to 1
+    afternoonOpacity = t;
+    morningOpacity = 1 - t;
+    nightOpacity = 0;
+  } else if (hour >= 14 && hour < 17) {
+    // Afternoon
+    afternoonOpacity = 1.0;
+    morningOpacity = 0;
+    nightOpacity = 0;
+  } else if (hour >= 17 && hour < 20) {
+    // Afternoon -> Night transition
+    const t = (hour - 17) / 3; // 0 to 1
+    nightOpacity = t;
+    afternoonOpacity = 1 - t;
+    morningOpacity = 0;
+  } else {
+    // Night
+    nightOpacity = 1.0;
+    morningOpacity = 0;
+    afternoonOpacity = 0;
+  }
+
+  // 5. Return Phase specific configurations
+  if (hour >= 5 && hour < 8) {
+    return {
+      label: "Dawn",
+      overlay: "linear-gradient(180deg, rgba(232, 168, 124, 0.25) 0%, rgba(107, 74, 122, 0.25) 60%, rgba(43, 27, 74, 0.4) 100%)",
+      filter: "brightness(0.9) saturate(1.1) sepia(0.05) contrast(0.98) hue-rotate(5deg)",
+      glowColor: "rgba(232, 168, 124, 0.2)",
+      subtitle: "Dawn · waking up with you as the day begins.",
+      starsOpacity,
+      morningOpacity,
+      afternoonOpacity,
+      nightOpacity,
+      invertImage: hour < 6.5,
+      sun: { opacity: sunOpacity, left: sunX, bottom: sunY, scale: sunScale },
+      moon: { opacity: moonOpacity, left: moonX, bottom: moonY }
+    };
+  } else if (hour >= 8 && hour < 12) {
+    return {
+      label: "Morning",
+      overlay: "linear-gradient(180deg, rgba(255, 243, 176, 0.1) 0%, rgba(168, 211, 237, 0.05) 60%, rgba(220, 238, 248, 0) 100%)",
+      filter: "brightness(1.02) saturate(1.05) contrast(1.0) hue-rotate(0deg)",
+      glowColor: "rgba(255, 243, 176, 0.25)",
+      subtitle: "Morning · supporting your morning rhythms and care.",
+      starsOpacity,
+      morningOpacity,
+      afternoonOpacity,
+      nightOpacity,
+      invertImage: false,
+      sun: { opacity: sunOpacity, left: sunX, bottom: sunY, scale: sunScale },
+      moon: { opacity: moonOpacity, left: moonX, bottom: moonY }
+    };
+  } else if (hour >= 12 && hour < 16) {
+    return {
+      label: "Afternoon",
+      overlay: "linear-gradient(180deg, rgba(255, 252, 224, 0.08) 0%, rgba(143, 196, 229, 0.05) 60%, rgba(214, 235, 245, 0) 100%)",
+      filter: "brightness(1.05) saturate(1.1) contrast(1.02) hue-rotate(-5deg)",
+      glowColor: "rgba(255, 252, 224, 0.15)",
+      subtitle: "Afternoon · gentle guidance through the active hours.",
+      starsOpacity,
+      morningOpacity,
+      afternoonOpacity,
+      nightOpacity,
+      invertImage: false,
+      sun: { opacity: sunOpacity, left: sunX, bottom: sunY, scale: sunScale },
+      moon: { opacity: moonOpacity, left: moonX, bottom: moonY }
+    };
+  } else if (hour >= 16 && hour < 20) {
+    return {
+      label: "Sunset/Evening",
+      overlay: "linear-gradient(180deg, rgba(197, 107, 125, 0.3) 0%, rgba(232, 154, 108, 0.25) 50%, rgba(244, 194, 138, 0.1) 100%)",
+      filter: "brightness(0.95) saturate(1.1) sepia(0.05) contrast(1.0) hue-rotate(-10deg)",
+      glowColor: "rgba(255, 142, 90, 0.35)",
+      subtitle: "Evening · wind down with warm postpartum care.",
+      starsOpacity,
+      morningOpacity,
+      afternoonOpacity,
+      nightOpacity,
+      invertImage: hour >= 18.5,
+      sun: { opacity: sunOpacity, left: sunX, bottom: sunY, scale: sunScale },
+      moon: { opacity: moonOpacity, left: moonX, bottom: moonY }
+    };
+  } else {
+    return {
+      label: "Night",
+      overlay: "linear-gradient(180deg, rgba(10, 5, 30, 0.5) 0%, rgba(18, 8, 64, 0.3) 50%, rgba(42, 27, 92, 0.1) 100%)",
+      filter: "brightness(0.85) saturate(0.9) contrast(1.05) hue-rotate(0deg)",
+      glowColor: "rgba(255, 244, 214, 0.08)",
+      subtitle: "Night · awake for late-night nursing and support, 24×7.",
+      starsOpacity,
+      morningOpacity,
+      afternoonOpacity,
+      nightOpacity,
+      invertImage: true,
+      sun: { opacity: sunOpacity, left: sunX, bottom: sunY, scale: sunScale },
+      moon: { opacity: moonOpacity, left: moonX, bottom: moonY }
+    };
+  }
 }
 
-/* ---------- Hero (time-aware sky + parallax) ---------- */
 function Hero() {
-  const [m, setM] = useState({ x: 0, y: 0 });
-  const [scrollY, setScrollY] = useState(0);
-  const [now, setNow] = useState<Date | null>(null);
+  const skyRef = useRef<HTMLDivElement>(null);
+  const [hour, setHour] = useState<number>(12); // Default to noon for SSR safety
 
   useEffect(() => {
-    setNow(new Date());
-    const onScroll = () => setScrollY(window.scrollY);
-    const onMove = (e: globalThis.MouseEvent) => {
-      setM({
-        x: (e.clientX / window.innerWidth - 0.5) * 2,
-        y: (e.clientY / window.innerHeight - 0.5) * 2,
-      });
-    };
-    const tick = setInterval(() => setNow(new Date()), 30_000);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("mousemove", onMove);
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("mousemove", onMove);
-      clearInterval(tick);
-    };
+    setHour(new Date().getHours());
+    const interval = setInterval(() => {
+      setHour(new Date().getHours());
+    }, 60000);
+    return () => clearInterval(interval);
   }, []);
 
-  const defaultDate = new Date("2026-06-25T12:00:00");
-  const currentNow = now || defaultDate;
-  const hour = currentNow.getHours();
-  const minute = currentNow.getMinutes();
   const phase = getSkyPhase(hour);
-  const arc = getBodyArcPosition(hour, minute);
-  const timeLabel = now ? now.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" }) : "";
+  const sunStyle = getSunStyle(hour);
+
+  useEffect(() => {
+    let ticked = false;
+    const handleScroll = () => {
+      if (!ticked) {
+        window.requestAnimationFrame(() => {
+          const scrolled = window.scrollY;
+
+          // GPU accelerated background scroll
+          if (skyRef.current) {
+            skyRef.current.style.transform = `translate3d(0, ${scrolled * 0.3}px, 0)`;
+          }
+
+          ticked = false;
+        });
+        ticked = true;
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <section className="relative overflow-hidden">
-      {/* Layer 1 â€” sky gradient (transitions across the day) */}
-      <div
-        className="absolute inset-0 transition-[background] duration-[2000ms]"
-        style={{
-          background: phase.sky,
-          transform: `translateY(${scrollY * 0.05}px)`,
-        }}
-        aria-hidden
-      />
+    <section
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "92vh",
+        minHeight: "650px",
+        overflow: "hidden",
+        background: "#080318",
+        transformStyle: "preserve-3d",
+        zIndex: 1
+      }}
+    >
+      {/* CSS Animation keyframe inline styles to handle Twinkling stars and sliding clouds */}
+      <style dangerouslySetInnerHTML={{__html: `
+        @keyframes twinkle {
+          0%, 100% { opacity: 0.15; transform: scale(0.8); }
+          50% { opacity: 1.0; transform: scale(1.2); }
+        }
+        .star-twinkle {
+          animation: twinkle 3.5s infinite ease-in-out;
+        }
+        @keyframes slideCloud {
+          0% { transform: translate3d(-350px, 0, 0); }
+          100% { transform: translate3d(100vw, 0, 0); }
+        }
+        .cloud-slide {
+          animation: slideCloud infinite linear;
+        }
+        @keyframes floatImage {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-12px); }
+        }
+        .image-float {
+          animation: floatImage 6s infinite ease-in-out;
+        }
+      `}} />
 
-      {/* Layer 2 â€” stars (fade out during day) */}
+      {/* Background Parallax Layer (using layered custom morning, afternoon, night images) */}
       <div
-        className="absolute inset-0 transition-opacity duration-[2000ms]"
-        style={{ transform: `translateY(${scrollY * 0.15}px)`, opacity: phase.starOpacity }}
-        aria-hidden
+        ref={skyRef}
+        style={{
+          position: "absolute",
+          top: "-150px",
+          left: 0,
+          right: 0,
+          bottom: "-150px",
+          zIndex: 1,
+          willChange: "transform",
+          filter: phase.filter,
+          transition: "filter 1.5s ease-in-out"
+        }}
       >
-        {Array.from({ length: 50 }).map((_, i) => {
-          const top = (i * 37) % 65;
-          const left = (i * 53) % 100;
-          const size = (i % 3) + 1;
-          return (
-            <span
-              key={i}
-              className="absolute rounded-full bg-white animate-pulse"
+        {/* Morning Background Layer */}
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            background: `${phase.overlay}, url(${morningBg})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            opacity: phase.morningOpacity,
+            transition: "opacity 1.5s ease-in-out",
+            zIndex: 1
+          }}
+        />
+
+        {/* Afternoon Background Layer */}
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            background: `${phase.overlay}, url(${afternoonBg})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            opacity: phase.afternoonOpacity,
+            transition: "opacity 1.5s ease-in-out",
+            zIndex: 2
+          }}
+        />
+
+        {/* Night Background Layer */}
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            background: `${phase.overlay}, url(${nightBg})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            opacity: phase.nightOpacity,
+            transition: "opacity 1.5s ease-in-out",
+            zIndex: 3
+          }}
+        />
+
+        {/* Twinkling Stars Overlay (Only visible in dusk/night/dawn phases) */}
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            opacity: phase.starsOpacity,
+            transition: "opacity 1.5s ease-in-out",
+            pointerEvents: "none",
+            zIndex: 10
+          }}
+        >
+          {STATIC_STARS.map((star, idx) => (
+            <div
+              key={idx}
+              className="star-twinkle"
               style={{
-                top: `${top}%`,
-                left: `${left}%`,
-                width: size,
-                height: size,
-                opacity: 0.4 + ((i % 5) / 10),
-                animationDelay: `${(i % 7) * 0.4}s`,
-                animationDuration: `${2 + (i % 4)}s`,
+                position: "absolute",
+                top: star.top,
+                left: star.left,
+                width: `${star.size}px`,
+                height: `${star.size}px`,
+                borderRadius: "50%",
+                background: "#ffffff",
+                boxShadow: "0 0 6px 1.5px rgba(255, 255, 255, 0.8)",
+                animationDelay: star.delay
               }}
             />
-          );
-        })}
-      </div>
+          ))}
+        </div>
 
-      {/* Layer 3 â€” celestial body (sun or moon) traveling its arc */}
-      <div
-        className="pointer-events-none absolute transition-[left,top,background-color] duration-[2000ms] ease-out"
-        style={{
-          left: `${arc.x}%`,
-          top: `${arc.y}%`,
-          transform: `translate(calc(-50% + ${m.x * 14}px), calc(-50% + ${m.y * 14}px + ${scrollY * 0.2}px))`,
-        }}
-        aria-hidden
-      >
-        {/* outer glow */}
+        {/* Dynamic Sun Layer (Active during daylight hours) */}
         <div
-          className="absolute left-1/2 top-1/2 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full blur-3xl"
           style={{
-            background: `radial-gradient(circle, ${phase.bodyGlow}, transparent 70%)`,
-            opacity: 0.7,
+            position: "absolute",
+            bottom: phase.sun.bottom,
+            left: phase.sun.left,
+            width: "54px",
+            height: "54px",
+            borderRadius: "50%",
+            background: sunStyle.bg,
+            boxShadow: sunStyle.glow,
+            filter: "drop-shadow(0 0 15px rgba(255, 255, 255, 0.4))",
+            opacity: phase.sun.opacity,
+            transform: `scale(${phase.sun.scale})`,
+            transition: "all 1.5s cubic-bezier(0.4, 0, 0.2, 1)",
+            pointerEvents: "none",
+            zIndex: 11
           }}
         />
-        {/* body */}
+
+        {/* Dynamic Moon Layer (Active during night/dawn hours) */}
         <div
-          className="relative h-24 w-24 rounded-full shadow-2xl"
           style={{
-            background: `radial-gradient(circle at 35% 35%, ${phase.bodyColor}, ${phase.bodyGlow})`,
-            boxShadow: `0 0 60px ${phase.bodyGlow}`,
-            WebkitMaskImage: phase.body === "moon" ? "radial-gradient(circle at 65% 35%, transparent 55%, black 56%)" : "none",
-            maskImage: phase.body === "moon" ? "radial-gradient(circle at 65% 35%, transparent 55%, black 56%)" : "none",
+            position: "absolute",
+            bottom: phase.moon.bottom,
+            left: phase.moon.left,
+            width: "40px",
+            height: "40px",
+            borderRadius: "50%",
+            background: "transparent",
+            boxShadow: "-10px 10px 0 0 #fffdeb",
+            filter: "drop-shadow(0 0 20px rgba(255, 255, 255, 0.65)) drop-shadow(0 0 40px rgba(187, 222, 251, 0.35))",
+            opacity: phase.moon.opacity,
+            transform: "scale(1.0)",
+            transition: "all 1.5s cubic-bezier(0.4, 0, 0.2, 1)",
+            pointerEvents: "none",
+            zIndex: 11
           }}
         />
+
+        {/* Sliding 3D Clouds Layer */}
+        {CLOUDS_CONFIG.map((cloud) => (
+          <div
+            key={cloud.id}
+            className="cloud-slide"
+            style={{
+              position: "absolute",
+              top: cloud.top,
+              width: cloud.width,
+              height: cloud.height,
+              backgroundImage: `url(${cloud.img})`,
+              backgroundSize: "contain",
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat",
+              opacity: cloud.opacity,
+              animationDuration: cloud.duration,
+              animationDelay: cloud.delay,
+              pointerEvents: "none",
+              zIndex: 12 // In front of Sun/Moon and Stars, but behind horizon glow
+            }}
+          />
+        ))}
       </div>
 
-      {/* Layer 4 â€” distant hill silhouette */}
-      <svg
-        className="absolute inset-x-0 bottom-0 w-full transition-[fill] duration-[2000ms]"
-        viewBox="0 0 1440 240"
-        preserveAspectRatio="none"
-        style={{ transform: `translateY(${scrollY * 0.35}px)`, height: "32%" }}
-        aria-hidden
-      >
-        <path
-          fill={phase.hillColor}
-          opacity="0.9"
-          d="M0,160 C220,90 460,200 760,140 C1040,90 1240,200 1440,130 L1440,240 L0,240 Z"
-        />
-      </svg>
-
-      {/* Layer 5 â€” foreground palm silhouettes (fastest, mouse-tracked) */}
+      {/* Horizon ambient glow (changes color based on time of day) */}
       <div
-        className="pointer-events-none absolute inset-x-0 bottom-0 flex items-end justify-between px-2 sm:px-10"
         style={{
-          transform: `translate(${m.x * 20}px, ${scrollY * 0.45}px)`,
-          willChange: "transform",
+          position: "absolute",
+          bottom: "220px",
+          left: 0,
+          right: 0,
+          height: "220px",
+          background: `linear-gradient(to top, ${phase.glowColor} 0%, transparent 100%)`,
+          pointerEvents: "none",
+          zIndex: 2,
+          transition: "background 1.5s ease-in-out"
         }}
-        aria-hidden
-      >
-        <svg width="180" height="320" viewBox="0 0 180 320" className="drop-shadow-2xl">
-          <path
-            fill={phase.palmColor}
-            d="M90 320 L82 140 C70 90 30 70 10 80 C40 60 70 70 84 110 C70 50 30 30 0 40 C40 10 80 30 90 90 C100 30 140 10 180 40 C150 30 110 50 96 110 C110 70 140 60 170 80 C150 70 110 90 98 140 Z"
-          />
-        </svg>
-        <svg width="220" height="380" viewBox="0 0 220 380" className="drop-shadow-2xl">
-          <path
-            fill={phase.palmColor}
-            d="M110 380 L100 160 C85 100 35 80 10 90 C50 65 90 75 105 125 C90 60 40 35 5 50 C50 15 100 35 110 105 C120 35 170 15 215 50 C180 35 130 60 115 125 C130 75 170 65 210 90 C185 80 135 100 120 160 Z"
-          />
-        </svg>
-      </div>
-
-      {/* Vignette so headline reads */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "linear-gradient(180deg, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0) 35%, rgba(0,0,0,0) 60%, rgba(0,0,0,0.4) 100%)",
-        }}
-        aria-hidden
       />
 
-      {/* ── HERO CONTENT ── */}
-      <div className="relative mx-auto grid min-h-[92vh] max-w-6xl grid-cols-1 md:grid-cols-2 items-center gap-12 px-6 pt-28 pb-36 text-center md:text-left">
+      {/* Dark overlay for text readability */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          background: "rgba(0, 0, 0, 0.22)",
+          zIndex: 10,
+          pointerEvents: "none"
+        }}
+      />
 
-        {/* Left Side: Text and Actions */}
-        <div className="flex flex-col items-center md:items-start text-center md:text-left">
-          {/* Live time pill */}
-          <div className="reveal inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 backdrop-blur-sm border border-white/20">
-            <span className="h-2 w-2 rounded-full bg-emerald-300 animate-pulse" />
-            <span className="text-sm font-medium tracking-wide text-white/90">
-              {phase.label} · {timeLabel} · here with you, 24×7
-            </span>
-          </div>
-
-          {/* Catchy headline */}
-          <h1 className="reveal mt-6 font-display text-balance text-[2.25rem] font-medium leading-tight tracking-tight text-white sm:text-5xl md:text-6xl">
-            She gave everything.
-            <br />
-            <em className="italic text-amber-200">Now it's her turn.</em>
+      {/* Hero Content (Split Column Layout) */}
+      <div
+        className="mx-auto flex max-w-6xl w-full h-full items-center justify-between px-6 pt-16 md:pt-0 flex-col md:flex-row gap-10 md:gap-12"
+        style={{
+          position: "relative",
+          zIndex: 11,
+          color: "white"
+        }}
+      >
+        {/* Left Column: Text Content */}
+        <div className="flex-1 text-center md:text-left flex flex-col items-center md:items-start justify-center max-w-[620px] md:max-w-[550px] transform md:translate-y-[-10px]">
+          <h1
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "clamp(2.3rem, 5.5vw, 3.8rem)",
+              fontWeight: 500,
+              color: "white",
+              lineHeight: 1.15,
+              textShadow: "0 4px 18px rgba(0, 0, 0, 0.45)",
+              margin: "0 0 24px 0"
+            }}
+          >
+            She gave everything.<br />
+            <em style={{ fontFamily: "var(--font-display)", fontStyle: "italic", color: "var(--accent)" }}>
+              Now it's her turn.
+            </em>
           </h1>
 
-          {/* Short sub-line */}
-          <p className="reveal mt-4 max-w-lg text-base text-white/70 sm:text-lg">
+          <p
+            style={{
+              fontSize: "clamp(0.95rem, 2.2vw, 1.15rem)",
+              color: "rgba(255, 255, 255, 0.85)",
+              maxWidth: "520px",
+              margin: "0 0 36px 0",
+              lineHeight: 1.65,
+              textShadow: "0 2px 8px rgba(0, 0, 0, 0.3)"
+            }}
+          >
+            <span style={{ color: "var(--accent)", fontWeight: 500 }}>{phase.subtitle} </span>
             Postpartum care, rooted in Kerala — gentle, vernacular, and always awake.
           </p>
 
-          {/* CTAs */}
-          <div className="reveal mt-8 flex flex-col items-stretch sm:flex-row sm:items-center gap-4 w-full sm:w-auto">
+          <div className="flex gap-4 justify-center md:justify-start flex-wrap w-full">
             <Link
               to="/login"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-amber-300 px-8 py-4 text-sm font-semibold uppercase tracking-[0.14em] text-[#2A1B5C] shadow-[0_20px_60px_-12px_rgba(255,200,80,0.6)] transition hover:-translate-y-0.5 hover:bg-amber-200"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "8px",
+                padding: "14px 32px",
+                borderRadius: "99px",
+                background: "rgba(255, 255, 255, 0.15)",
+                backdropFilter: "blur(12px)",
+                WebkitBackdropFilter: "blur(12px)",
+                border: "1px solid rgba(255, 255, 255, 0.25)",
+                color: "white",
+                fontSize: "0.95rem",
+                fontWeight: 600,
+                textDecoration: "none",
+                boxShadow: "0 8px 32px rgba(0, 0, 0, 0.2)",
+                transition: "all 0.3s ease",
+                letterSpacing: "0.02em"
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLElement).style.background = "rgba(255, 255, 255, 0.25)";
+                (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLElement).style.background = "rgba(255, 255, 255, 0.15)";
+                (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
+              }}
             >
-              Sign In
+              Start Free Trial
             </Link>
             <Link
-              to="/create-account"
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-white/70 px-8 py-4 text-sm font-semibold uppercase tracking-[0.14em] text-white/90 transition hover:-translate-y-0.5 hover:bg-white/10"
+              to="/about"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "8px",
+                padding: "14px 32px",
+                borderRadius: "99px",
+                background: "transparent",
+                border: "1px solid rgba(255, 255, 255, 0.4)",
+                color: "rgba(255, 255, 255, 0.9)",
+                fontSize: "0.95rem",
+                fontWeight: 600,
+                textDecoration: "none",
+                transition: "all 0.3s ease",
+                letterSpacing: "0.02em"
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLElement).style.background = "rgba(255, 255, 255, 0.05)";
+                (e.currentTarget as HTMLElement).style.borderColor = "white";
+                (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLElement).style.background = "transparent";
+                (e.currentTarget as HTMLElement).style.borderColor = "rgba(255, 255, 255, 0.4)";
+                (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
+              }}
             >
-              Create Account
+              Learn More
             </Link>
           </div>
         </div>
 
-        {/* Right Side: Image filling half the region */}
-        <div className="reveal relative flex items-center justify-center w-full h-full min-h-[300px] md:min-h-[480px]">
-          {/* soft glow behind illustration */}
-          <div
-            className="absolute inset-0 rounded-full blur-3xl"
-            style={{
-              background: `radial-gradient(ellipse at center, ${phase.bodyGlow}55, transparent 70%)`,
-              transform: "scale(1.4)",
-            }}
-          />
+        {/* Right Column: Image Content */}
+        <div className="flex-1 w-full max-w-[450px] md:max-w-none flex justify-center items-center h-[35vh] md:h-[65vh] md:translate-y-[-5px]">
           <img
             src={motherBaby}
-            alt="Mother cradling her newborn"
-            width={600}
-            height={600}
-            className="relative w-full max-w-[480px] md:max-w-full object-contain"
+            alt="Mother and Baby"
+            className="w-auto h-full max-h-[30vh] md:max-h-[60vh] object-contain image-float"
             style={{
-              mixBlendMode: "multiply",
-              filter: "brightness(0.95) drop-shadow(0 0 24px rgba(255,240,200,0.5))",
-              animation: "float-slow 8s ease-in-out infinite",
+              filter: phase.invertImage
+                ? "invert(1) drop-shadow(0 20px 40px rgba(0, 0, 0, 0.5))"
+                : "invert(0) drop-shadow(0 20px 40px rgba(0, 0, 0, 0.25))",
+              transition: "filter 1.5s ease-in-out",
+              maskImage: "linear-gradient(to bottom, black 80%, transparent 100%)",
+              WebkitMaskImage: "linear-gradient(to bottom, black 80%, transparent 100%)"
             }}
           />
-        </div>
-
-        {/* Scroll chevron */}
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 text-white/60 animate-bounce">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M6 9l6 6 6-6" />
-          </svg>
         </div>
       </div>
     </section>
   );
 }
-
 
 /* ---------- Therapists showcase (Oppam-style pastel cards) ---------- */
 const THERAPISTS = [
@@ -619,7 +890,7 @@ const THERAPISTS = [
 
 function Therapists() {
   return (
-    <section id="therapists" className="relative bg-background py-24 sm:py-32">
+    <section id="therapists" className="relative z-10 bg-background py-24 sm:py-32 rounded-t-[2.5rem] sm:rounded-t-[4rem] shadow-[0_-24px_50px_-20px_rgba(0,0,0,0.3)]">
       <div className="mx-auto max-w-6xl px-6">
         <h2 className="reveal text-center font-display text-4xl sm:text-5xl">
           How can we <em className="italic text-rose">help you?</em>
@@ -718,7 +989,7 @@ function Therapists() {
 /* ---------- Story ---------- */
 function Story() {
   return (
-    <section id="story" className="relative bg-[#F1F3F4] py-28">
+    <section id="story" className="relative z-10 bg-[#F1F3F4] py-28">
       <div className="mx-auto max-w-6xl px-6 text-center">
         <h2 className="reveal font-display text-5xl leading-tight sm:text-6xl">
           Our <em className="italic font-display">Change</em> Makers
@@ -795,7 +1066,7 @@ const FEATURES = [
 
 function Care() {
   return (
-    <section id="care" className="relative py-28">
+    <section id="care" className="relative z-10 bg-background py-28">
       <div className="mx-auto max-w-6xl px-6">
         <div className="reveal mx-auto max-w-3xl text-center">
           <span className="chip">What we offer</span>
@@ -848,7 +1119,7 @@ function Family() {
   const mother = ROLES[0];
 
   return (
-    <section id="family" className="relative bg-[var(--ivory-deep)] py-28">
+    <section id="family" className="relative z-10 bg-[var(--ivory-deep)] py-28">
       <div className="mx-auto max-w-6xl px-6">
         <div className="reveal mx-auto max-w-3xl text-center">
           <span className="chip">The Circle</span>
@@ -951,7 +1222,7 @@ function Journey() {
   const [idx, setIdx] = useState(0);
   const stage = STAGES[idx];
   return (
-    <section id="journey" className="relative py-28">
+    <section id="journey" className="relative z-10 bg-background py-28">
       <div className="mx-auto max-w-6xl px-6">
         <div className="reveal mx-auto max-w-3xl text-center">
           <span className="chip">The Journey</span>
@@ -1065,7 +1336,7 @@ function Chat() {
   };
 
   return (
-    <section id="talk" className="relative py-28">
+    <section id="talk" className="relative z-10 bg-background py-28">
       <div className="mx-auto max-w-6xl px-6">
         <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
           <div className="reveal">
@@ -1147,7 +1418,7 @@ function Chat() {
 /* ---------- CTA ---------- */
 function FinalCta() {
   return (
-    <section className="relative py-28">
+    <section className="relative z-10 bg-background py-28">
       <div className="mx-auto max-w-5xl px-6">
         <div className="relative overflow-hidden rounded-[2.5rem] p-12 text-center shadow-lift sm:p-20"
           style={{ background: "var(--gradient-sunset)" }}>
@@ -1177,7 +1448,7 @@ function FinalCta() {
 
 function Footer() {
   return (
-    <footer id="footer" className="border-t border-border bg-[var(--ivory-deep)] py-14">
+    <footer id="footer" className="relative z-10 border-t border-border bg-[var(--ivory-deep)] py-14">
       <div className="mx-auto grid max-w-6xl gap-10 px-6 md:grid-cols-4">
         <div>
           <div className="flex items-center gap-2">
@@ -1213,9 +1484,10 @@ function Footer() {
 function Index() {
   useReveal();
   return (
-    <main className="overflow-x-hidden">
+    <main>
       <Nav />
       <Hero />
+      <div style={{ height: "92vh", minHeight: "650px", pointerEvents: "none" }} />
       <Therapists />
       <Story />
       <Care />

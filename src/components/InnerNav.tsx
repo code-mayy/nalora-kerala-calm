@@ -12,11 +12,9 @@ const AUTH_PAGES = [
 
 const PUBLIC_PAGES = [
   { to: "/", label: "Home" },
-  { to: "/", hash: "story", label: "About Us" },
-  { to: "/doctors", label: "Doctors" },
-  { to: "/ai-chat", label: "Free AI Chat" },
-  { to: "/login", label: "Account" },
-  { to: "/", hash: "footer", label: "Contact" },
+  { to: "/about", label: "About Us" },
+  { to: "/services", label: "Services" },
+  { to: "/contact", label: "Contact" },
 ] as const;
 
 export function InnerNav() {
@@ -199,36 +197,20 @@ export function InnerNav() {
             </div>
           ) : (
             /* ── Logged-out state ── */
-            <>
-              <Link
-                to="/login"
-                className="hidden sm:inline-flex"
-                style={{
-                  padding: "9px 18px", borderRadius: "99px",
-                  border: "1.5px solid var(--rose)",
-                  color: "var(--rose)", fontSize: "0.84rem", fontWeight: 600,
-                  textDecoration: "none", transition: "all 0.2s",
-                }}
-                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "oklch(0.74 0.11 18 / 0.07)"; }}
-                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "transparent"; }}
-              >
-                Login
-              </Link>
-              <Link
-                to="/book-session"
-                className="hidden sm:inline-flex"
-                style={{
-                  padding: "10px 20px", borderRadius: "99px",
-                  background: "linear-gradient(135deg, var(--rose), var(--sunset))",
-                  color: "white", fontSize: "0.84rem", fontWeight: 600,
-                  textDecoration: "none",
-                  boxShadow: "0 4px 14px oklch(0.74 0.11 18 / 0.25)",
-                  whiteSpace: "nowrap",
-                }}
-              >
-                Book a Session
-              </Link>
-            </>
+            <Link
+              to="/login"
+              className="hidden sm:inline-flex"
+              style={{
+                padding: "10px 20px", borderRadius: "99px",
+                background: "linear-gradient(135deg, var(--rose), var(--sunset))",
+                color: "white", fontSize: "0.84rem", fontWeight: 600,
+                textDecoration: "none",
+                boxShadow: "0 4px 14px oklch(0.74 0.11 18 / 0.25)",
+                whiteSpace: "nowrap",
+              }}
+            >
+              Start Free Trial
+            </Link>
           )}
 
           {/* Mobile hamburger */}
@@ -277,8 +259,7 @@ export function InnerNav() {
             </button>
           ) : (
             <div style={{ marginTop: "12px", display: "flex", flexDirection: "column", gap: "10px" }}>
-              <Link to="/login" onClick={() => setMenuOpen(false)} style={{ display: "block", padding: "13px", borderRadius: "12px", border: "1.5px solid var(--rose)", color: "var(--rose)", fontSize: "0.9rem", fontWeight: 600, textAlign: "center", textDecoration: "none" }}>Login</Link>
-              <Link to="/book-session" onClick={() => setMenuOpen(false)} style={{ display: "block", padding: "13px", borderRadius: "12px", background: "linear-gradient(135deg, var(--rose), var(--sunset))", color: "white", fontSize: "0.9rem", fontWeight: 600, textAlign: "center", textDecoration: "none" }}>Book a Session</Link>
+              <Link to="/login" onClick={() => setMenuOpen(false)} style={{ display: "block", padding: "13px", borderRadius: "12px", background: "linear-gradient(135deg, var(--rose), var(--sunset))", color: "white", fontSize: "0.9rem", fontWeight: 600, textAlign: "center", textDecoration: "none" }}>Start Free Trial</Link>
             </div>
           )}
         </div>

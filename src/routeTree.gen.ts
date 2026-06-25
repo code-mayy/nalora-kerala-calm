@@ -9,13 +9,16 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ServicesRouteImport } from './routes/services'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as FeedbackRouteImport } from './routes/feedback'
 import { Route as DoctorsRouteImport } from './routes/doctors'
 import { Route as CreateAccountRouteImport } from './routes/create-account'
+import { Route as ContactRouteImport } from './routes/contact'
 import { Route as BookingsRouteImport } from './routes/bookings'
 import { Route as BookSessionRouteImport } from './routes/book-session'
 import { Route as AiChatRouteImport } from './routes/ai-chat'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DoctorMeetingsRouteImport } from './routes/doctor/meetings'
 import { Route as DoctorMeetingDetailRouteImport } from './routes/doctor/meeting-detail'
@@ -24,6 +27,11 @@ import { Route as DoctorDiaryPatientRouteImport } from './routes/doctor/diary-pa
 import { Route as DoctorDiaryAllRouteImport } from './routes/doctor/diary-all'
 import { Route as DoctorDashboardRouteImport } from './routes/doctor/dashboard'
 
+const ServicesRoute = ServicesRouteImport.update({
+  id: '/services',
+  path: '/services',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
@@ -44,6 +52,11 @@ const CreateAccountRoute = CreateAccountRouteImport.update({
   path: '/create-account',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BookingsRoute = BookingsRouteImport.update({
   id: '/bookings',
   path: '/bookings',
@@ -57,6 +70,11 @@ const BookSessionRoute = BookSessionRouteImport.update({
 const AiChatRoute = AiChatRouteImport.update({
   id: '/ai-chat',
   path: '/ai-chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -97,13 +115,16 @@ const DoctorDashboardRoute = DoctorDashboardRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/ai-chat': typeof AiChatRoute
   '/book-session': typeof BookSessionRoute
   '/bookings': typeof BookingsRoute
+  '/contact': typeof ContactRoute
   '/create-account': typeof CreateAccountRoute
   '/doctors': typeof DoctorsRoute
   '/feedback': typeof FeedbackRoute
   '/login': typeof LoginRoute
+  '/services': typeof ServicesRoute
   '/doctor/dashboard': typeof DoctorDashboardRoute
   '/doctor/diary-all': typeof DoctorDiaryAllRoute
   '/doctor/diary-patient': typeof DoctorDiaryPatientRoute
@@ -113,13 +134,16 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/ai-chat': typeof AiChatRoute
   '/book-session': typeof BookSessionRoute
   '/bookings': typeof BookingsRoute
+  '/contact': typeof ContactRoute
   '/create-account': typeof CreateAccountRoute
   '/doctors': typeof DoctorsRoute
   '/feedback': typeof FeedbackRoute
   '/login': typeof LoginRoute
+  '/services': typeof ServicesRoute
   '/doctor/dashboard': typeof DoctorDashboardRoute
   '/doctor/diary-all': typeof DoctorDiaryAllRoute
   '/doctor/diary-patient': typeof DoctorDiaryPatientRoute
@@ -130,13 +154,16 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/ai-chat': typeof AiChatRoute
   '/book-session': typeof BookSessionRoute
   '/bookings': typeof BookingsRoute
+  '/contact': typeof ContactRoute
   '/create-account': typeof CreateAccountRoute
   '/doctors': typeof DoctorsRoute
   '/feedback': typeof FeedbackRoute
   '/login': typeof LoginRoute
+  '/services': typeof ServicesRoute
   '/doctor/dashboard': typeof DoctorDashboardRoute
   '/doctor/diary-all': typeof DoctorDiaryAllRoute
   '/doctor/diary-patient': typeof DoctorDiaryPatientRoute
@@ -148,13 +175,16 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/about'
     | '/ai-chat'
     | '/book-session'
     | '/bookings'
+    | '/contact'
     | '/create-account'
     | '/doctors'
     | '/feedback'
     | '/login'
+    | '/services'
     | '/doctor/dashboard'
     | '/doctor/diary-all'
     | '/doctor/diary-patient'
@@ -164,13 +194,16 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/about'
     | '/ai-chat'
     | '/book-session'
     | '/bookings'
+    | '/contact'
     | '/create-account'
     | '/doctors'
     | '/feedback'
     | '/login'
+    | '/services'
     | '/doctor/dashboard'
     | '/doctor/diary-all'
     | '/doctor/diary-patient'
@@ -180,13 +213,16 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/about'
     | '/ai-chat'
     | '/book-session'
     | '/bookings'
+    | '/contact'
     | '/create-account'
     | '/doctors'
     | '/feedback'
     | '/login'
+    | '/services'
     | '/doctor/dashboard'
     | '/doctor/diary-all'
     | '/doctor/diary-patient'
@@ -197,13 +233,16 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
   AiChatRoute: typeof AiChatRoute
   BookSessionRoute: typeof BookSessionRoute
   BookingsRoute: typeof BookingsRoute
+  ContactRoute: typeof ContactRoute
   CreateAccountRoute: typeof CreateAccountRoute
   DoctorsRoute: typeof DoctorsRoute
   FeedbackRoute: typeof FeedbackRoute
   LoginRoute: typeof LoginRoute
+  ServicesRoute: typeof ServicesRoute
   DoctorDashboardRoute: typeof DoctorDashboardRoute
   DoctorDiaryAllRoute: typeof DoctorDiaryAllRoute
   DoctorDiaryPatientRoute: typeof DoctorDiaryPatientRoute
@@ -214,6 +253,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/services': {
+      id: '/services'
+      path: '/services'
+      fullPath: '/services'
+      preLoaderRoute: typeof ServicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/login': {
       id: '/login'
       path: '/login'
@@ -242,6 +288,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CreateAccountRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/bookings': {
       id: '/bookings'
       path: '/bookings'
@@ -261,6 +314,13 @@ declare module '@tanstack/react-router' {
       path: '/ai-chat'
       fullPath: '/ai-chat'
       preLoaderRoute: typeof AiChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -317,13 +377,16 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
   AiChatRoute: AiChatRoute,
   BookSessionRoute: BookSessionRoute,
   BookingsRoute: BookingsRoute,
+  ContactRoute: ContactRoute,
   CreateAccountRoute: CreateAccountRoute,
   DoctorsRoute: DoctorsRoute,
   FeedbackRoute: FeedbackRoute,
   LoginRoute: LoginRoute,
+  ServicesRoute: ServicesRoute,
   DoctorDashboardRoute: DoctorDashboardRoute,
   DoctorDiaryAllRoute: DoctorDiaryAllRoute,
   DoctorDiaryPatientRoute: DoctorDiaryPatientRoute,

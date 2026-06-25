@@ -103,6 +103,7 @@
   html {
     /* Disabled global scroll-behavior: smooth to prevent browser scroll restoration jumping on page refreshes. */
     font-size: 17px; /* Slightly increased root font size (from 16px) to scale all rem units */
+    overflow-x: hidden;
   }
   @media (max-width: 640px) {
     html {
@@ -117,6 +118,7 @@
     -webkit-font-smoothing: antialiased;
     font-size: 1.05rem; /* Slightly larger text size */
     line-height: 1.6;
+    overflow-x: hidden;
   }
   h1, h2, h3, h4 {
     font-family: var(--font-display);
