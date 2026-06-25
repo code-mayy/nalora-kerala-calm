@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type MouseEvent } from "react";
-import heroTwilight from "@/assets/hero-twilight.jpg";
+
 import blobRose from "@/assets/blob-rose.png";
 import motherBaby from "@/assets/mother-baby.jpg";
 import keralaArch from "@/assets/kerala-architecture.jpg";
@@ -121,10 +121,108 @@ function Nav() {
   );
 }
 
-/* ---------- Hero (Oppam-style twilight illustration backdrop) ---------- */
+/* ---------- Time-of-day helpers ---------- */
+type SkyPhase = {
+  label: string;
+  sky: string;
+  body: "sun" | "moon";
+  bodyColor: string;
+  bodyGlow: string;
+  hillColor: string;
+  palmColor: string;
+  starOpacity: number;
+};
+
+function getSkyPhase(hour: number): SkyPhase {
+  // Dawn 5-8
+  if (hour >= 5 && hour < 8)
+    return {
+      label: "Dawn",
+      sky: "linear-gradient(180deg, #2B1B4A 0%, #6B4A7A 30%, #E8A87C 65%, #F8C9A6 100%)",
+      body: "sun",
+      bodyColor: "#FFE4B0",
+      bodyGlow: "#FFD089",
+      hillColor: "#3A2452",
+      palmColor: "#1F1138",
+      starOpacity: 0.25,
+    };
+  // Morning 8-12
+  if (hour >= 8 && hour < 12)
+    return {
+      label: "Morning",
+      sky: "linear-gradient(180deg, #7BB8E0 0%, #A8D3ED 50%, #DCEEF8 100%)",
+      body: "sun",
+      bodyColor: "#FFF3B0",
+      bodyGlow: "#FFE680",
+      hillColor: "#4A6B8A",
+      palmColor: "#2A3D55",
+      starOpacity: 0,
+    };
+  // Midday 12-16
+  if (hour >= 12 && hour < 16)
+    return {
+      label: "Afternoon",
+      sky: "linear-gradient(180deg, #4A9FD6 0%, #8FC4E5 60%, #D6EBF5 100%)",
+      body: "sun",
+      bodyColor: "#FFFCE0",
+      bodyGlow: "#FFEC8C",
+      hillColor: "#3A5878",
+      palmColor: "#1F344A",
+      starOpacity: 0,
+    };
+  // Dusk 16-19
+  if (hour >= 16 && hour < 19)
+    return {
+      label: "Sunset",
+      sky: "linear-gradient(180deg, #5B3A7A 0%, #C56B7D 40%, #E89A6C 75%, #F4C28A 100%)",
+      body: "sun",
+      bodyColor: "#FFB87A",
+      bodyGlow: "#FF8E5A",
+      hillColor: "#2E1A48",
+      palmColor: "#150A28",
+      starOpacity: 0.4,
+    };
+  // Evening 19-22
+  if (hour >= 19 && hour < 22)
+    return {
+      label: "Evening",
+      sky: "linear-gradient(180deg, #0F0930 0%, #2A1B5C 45%, #5B3A7A 80%, #8B5A8C 100%)",
+      body: "moon",
+      bodyColor: "#FFF4D6",
+      bodyGlow: "#FFE9B0",
+      hillColor: "#1F1244",
+      palmColor: "#0B0625",
+      starOpacity: 0.85,
+    };
+  // Night 22-5
+  return {
+    label: "Night",
+    sky: "linear-gradient(180deg, #050118 0%, #120840 50%, #2A1B5C 100%)",
+    body: "moon",
+    bodyColor: "#F5F0DC",
+    bodyGlow: "#E8DCB4",
+    hillColor: "#120730",
+    palmColor: "#03010F",
+    starOpacity: 1,
+  };
+}
+
+function getBodyArcPosition(hour: number, minute: number) {
+  const h = hour + minute / 60;
+  // Sun arc: 6 -> 18; Moon arc: 18 -> 30 (=6 next day)
+  const isDay = h >= 6 && h < 18;
+  const t = isDay ? (h - 6) / 12 : ((h < 6 ? h + 24 : h) - 18) / 12;
+  // x: 5% -> 95%; y: arc from 75% to 12% peak back to 75%
+  const x = 5 + t * 90;
+  const y = 75 - Math.sin(t * Math.PI) * 63;
+  return { x, y, isDay };
+}
+
+/* ---------- Hero (time-aware sky + parallax) ---------- */
 function Hero() {
   const [m, setM] = useState({ x: 0, y: 0 });
   const [scrollY, setScrollY] = useState(0);
+  const [now, setNow] = useState(() => new Date());
 
   useEffect(() => {
     const onScroll = () => setScrollY(window.scrollY);
@@ -134,35 +232,42 @@ function Hero() {
         y: (e.clientY / window.innerHeight - 0.5) * 2,
       });
     };
+    const tick = setInterval(() => setNow(new Date()), 30_000);
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("mousemove", onMove);
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("mousemove", onMove);
+      clearInterval(tick);
     };
   }, []);
 
+  const hour = now.getHours();
+  const minute = now.getMinutes();
+  const phase = getSkyPhase(hour);
+  const arc = getBodyArcPosition(hour, minute);
+  const timeLabel = now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+
   return (
-    <section className="relative overflow-hidden" style={{ backgroundColor: "#2A1B5C" }}>
-      {/* Layer 1 — deep sky gradient (slowest) */}
+    <section className="relative overflow-hidden">
+      {/* Layer 1 — sky gradient (transitions across the day) */}
       <div
-        className="absolute inset-0"
+        className="absolute inset-0 transition-[background] duration-[2000ms]"
         style={{
-          background:
-            "linear-gradient(180deg, #1A0F3D 0%, #2A1B5C 45%, #5B3A7A 80%, #8B5A8C 100%)",
+          background: phase.sky,
           transform: `translateY(${scrollY * 0.05}px)`,
         }}
         aria-hidden
       />
 
-      {/* Layer 2 — twinkling stars */}
+      {/* Layer 2 — stars (fade out during day) */}
       <div
-        className="absolute inset-0"
-        style={{ transform: `translateY(${scrollY * 0.15}px)` }}
+        className="absolute inset-0 transition-opacity duration-[2000ms]"
+        style={{ transform: `translateY(${scrollY * 0.15}px)`, opacity: phase.starOpacity }}
         aria-hidden
       >
-        {Array.from({ length: 40 }).map((_, i) => {
-          const top = (i * 37) % 60;
+        {Array.from({ length: 50 }).map((_, i) => {
+          const top = (i * 37) % 65;
           const left = (i * 53) % 100;
           const size = (i % 3) + 1;
           return (
@@ -183,45 +288,57 @@ function Hero() {
         })}
       </div>
 
-      {/* Layer 3 — moon glow following cursor */}
+      {/* Layer 3 — celestial body (sun or moon) traveling its arc */}
       <div
-        className="pointer-events-none absolute left-1/2 top-[15%] h-80 w-80 -translate-x-1/2 rounded-full blur-3xl opacity-60"
+        className="pointer-events-none absolute transition-[left,top,background-color] duration-[2000ms] ease-out"
         style={{
-          background: "radial-gradient(circle, #FFE9B0, transparent 70%)",
-          transform: `translate(calc(-50% + ${m.x * 25}px), calc(${m.y * 25}px + ${scrollY * 0.2}px))`,
+          left: `${arc.x}%`,
+          top: `${arc.y}%`,
+          transform: `translate(calc(-50% + ${m.x * 14}px), calc(-50% + ${m.y * 14}px + ${scrollY * 0.2}px))`,
         }}
         aria-hidden
-      />
+      >
+        {/* outer glow */}
+        <div
+          className="absolute left-1/2 top-1/2 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full blur-3xl"
+          style={{
+            background: `radial-gradient(circle, ${phase.bodyGlow}, transparent 70%)`,
+            opacity: 0.7,
+          }}
+        />
+        {/* body */}
+        <div
+          className="relative h-24 w-24 rounded-full shadow-2xl"
+          style={{
+            background: `radial-gradient(circle at 35% 35%, ${phase.bodyColor}, ${phase.bodyGlow})`,
+            boxShadow: `0 0 60px ${phase.bodyGlow}`,
+          }}
+        >
+          {phase.body === "moon" && (
+            <div
+              className="absolute right-2 top-3 h-16 w-16 rounded-full"
+              style={{ background: phase.sky.includes("0F0930") || phase.sky.includes("050118") ? "#0F0930" : "#2A1B5C", opacity: 0.85 }}
+            />
+          )}
+        </div>
+      </div>
 
-      {/* Layer 4 — illustrated twilight image (mid-depth) */}
-      <div
-        className="absolute inset-0"
-        style={{
-          backgroundImage: `url(${heroTwilight})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center bottom",
-          transform: `translate(${m.x * -10}px, ${scrollY * 0.25}px) scale(1.08)`,
-          willChange: "transform",
-        }}
-        aria-hidden
-      />
-
-      {/* Layer 5 — distant hill silhouette */}
+      {/* Layer 4 — distant hill silhouette */}
       <svg
-        className="absolute inset-x-0 bottom-0 w-full"
+        className="absolute inset-x-0 bottom-0 w-full transition-[fill] duration-[2000ms]"
         viewBox="0 0 1440 240"
         preserveAspectRatio="none"
-        style={{ transform: `translateY(${scrollY * 0.35}px)`, height: "30%" }}
+        style={{ transform: `translateY(${scrollY * 0.35}px)`, height: "32%" }}
         aria-hidden
       >
         <path
-          fill="#1F1244"
-          opacity="0.85"
+          fill={phase.hillColor}
+          opacity="0.9"
           d="M0,160 C220,90 460,200 760,140 C1040,90 1240,200 1440,130 L1440,240 L0,240 Z"
         />
       </svg>
 
-      {/* Layer 6 — foreground palm silhouettes (fastest, mouse-tracked) */}
+      {/* Layer 5 — foreground palm silhouettes (fastest, mouse-tracked) */}
       <div
         className="pointer-events-none absolute inset-x-0 bottom-0 flex items-end justify-between px-2 sm:px-10"
         style={{
@@ -232,34 +349,36 @@ function Hero() {
       >
         <svg width="180" height="320" viewBox="0 0 180 320" className="drop-shadow-2xl">
           <path
-            fill="#0B0625"
+            fill={phase.palmColor}
             d="M90 320 L82 140 C70 90 30 70 10 80 C40 60 70 70 84 110 C70 50 30 30 0 40 C40 10 80 30 90 90 C100 30 140 10 180 40 C150 30 110 50 96 110 C110 70 140 60 170 80 C150 70 110 90 98 140 Z"
           />
         </svg>
         <svg width="220" height="380" viewBox="0 0 220 380" className="drop-shadow-2xl">
           <path
-            fill="#0B0625"
+            fill={phase.palmColor}
             d="M110 380 L100 160 C85 100 35 80 10 90 C50 65 90 75 105 125 C90 60 40 35 5 50 C50 15 100 35 110 105 C120 35 170 15 215 50 C180 35 130 60 115 125 C130 75 170 65 210 90 C185 80 135 100 120 160 Z"
           />
         </svg>
       </div>
 
-      {/* Subtle vignette so headline reads */}
+      {/* Vignette so headline reads */}
       <div
         className="absolute inset-0"
         style={{
           background:
-            "linear-gradient(180deg, rgba(42,27,92,0.45) 0%, rgba(42,27,92,0) 35%, rgba(42,27,92,0) 60%, rgba(11,6,37,0.55) 100%)",
+            "linear-gradient(180deg, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0) 35%, rgba(0,0,0,0) 60%, rgba(0,0,0,0.4) 100%)",
         }}
         aria-hidden
       />
 
 
+
+
       <div className="relative mx-auto flex min-h-[92vh] max-w-5xl flex-col items-center justify-center px-6 pt-32 pb-40 text-center">
-        <div className="reveal inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 backdrop-blur-sm">
+        <div className="reveal inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 backdrop-blur-sm border border-white/20">
           <span className="h-2 w-2 rounded-full bg-emerald-300 animate-pulse" />
-          <span className="text-sm font-medium tracking-wide text-emerald-200">
-            24×7 Online Postpartum Support
+          <span className="text-sm font-medium tracking-wide text-white/90">
+            {phase.label} · {timeLabel} · here with you, 24×7
           </span>
         </div>
 
