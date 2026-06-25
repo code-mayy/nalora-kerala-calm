@@ -375,10 +375,10 @@ function Hero() {
 
 
       <div className="relative mx-auto flex min-h-[92vh] max-w-5xl flex-col items-center justify-center px-6 pt-32 pb-40 text-center">
-        <div className="reveal inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 backdrop-blur-sm">
+        <div className="reveal inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 backdrop-blur-sm border border-white/20">
           <span className="h-2 w-2 rounded-full bg-emerald-300 animate-pulse" />
-          <span className="text-sm font-medium tracking-wide text-emerald-200">
-            24×7 Online Postpartum Support
+          <span className="text-sm font-medium tracking-wide text-white/90">
+            {phase.label} · {timeLabel} · here with you, 24×7
           </span>
         </div>
 
