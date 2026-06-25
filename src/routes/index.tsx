@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type MouseEvent } from "react";
-import heroTwilight from "@/assets/hero-twilight.jpg";
+
 import blobRose from "@/assets/blob-rose.png";
 import motherBaby from "@/assets/mother-baby.jpg";
 import keralaArch from "@/assets/kerala-architecture.jpg";
