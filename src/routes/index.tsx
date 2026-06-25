@@ -144,35 +144,116 @@ function Hero() {
 
   return (
     <section className="relative overflow-hidden" style={{ backgroundColor: "#2A1B5C" }}>
-      {/* Illustrated backdrop */}
+      {/* Layer 1 — deep sky gradient (slowest) */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(180deg, #1A0F3D 0%, #2A1B5C 45%, #5B3A7A 80%, #8B5A8C 100%)",
+          transform: `translateY(${scrollY * 0.05}px)`,
+        }}
+        aria-hidden
+      />
+
+      {/* Layer 2 — twinkling stars */}
+      <div
+        className="absolute inset-0"
+        style={{ transform: `translateY(${scrollY * 0.15}px)` }}
+        aria-hidden
+      >
+        {Array.from({ length: 40 }).map((_, i) => {
+          const top = (i * 37) % 60;
+          const left = (i * 53) % 100;
+          const size = (i % 3) + 1;
+          return (
+            <span
+              key={i}
+              className="absolute rounded-full bg-white animate-pulse"
+              style={{
+                top: `${top}%`,
+                left: `${left}%`,
+                width: size,
+                height: size,
+                opacity: 0.4 + ((i % 5) / 10),
+                animationDelay: `${(i % 7) * 0.4}s`,
+                animationDuration: `${2 + (i % 4)}s`,
+              }}
+            />
+          );
+        })}
+      </div>
+
+      {/* Layer 3 — moon glow following cursor */}
+      <div
+        className="pointer-events-none absolute left-1/2 top-[15%] h-80 w-80 -translate-x-1/2 rounded-full blur-3xl opacity-60"
+        style={{
+          background: "radial-gradient(circle, #FFE9B0, transparent 70%)",
+          transform: `translate(calc(-50% + ${m.x * 25}px), calc(${m.y * 25}px + ${scrollY * 0.2}px))`,
+        }}
+        aria-hidden
+      />
+
+      {/* Layer 4 — illustrated twilight image (mid-depth) */}
       <div
         className="absolute inset-0"
         style={{
           backgroundImage: `url(${heroTwilight})`,
           backgroundSize: "cover",
           backgroundPosition: "center bottom",
-          transform: `translateY(${scrollY * 0.12}px) scale(1.05)`,
+          transform: `translate(${m.x * -10}px, ${scrollY * 0.25}px) scale(1.08)`,
+          willChange: "transform",
         }}
         aria-hidden
       />
+
+      {/* Layer 5 — distant hill silhouette */}
+      <svg
+        className="absolute inset-x-0 bottom-0 w-full"
+        viewBox="0 0 1440 240"
+        preserveAspectRatio="none"
+        style={{ transform: `translateY(${scrollY * 0.35}px)`, height: "30%" }}
+        aria-hidden
+      >
+        <path
+          fill="#1F1244"
+          opacity="0.85"
+          d="M0,160 C220,90 460,200 760,140 C1040,90 1240,200 1440,130 L1440,240 L0,240 Z"
+        />
+      </svg>
+
+      {/* Layer 6 — foreground palm silhouettes (fastest, mouse-tracked) */}
+      <div
+        className="pointer-events-none absolute inset-x-0 bottom-0 flex items-end justify-between px-2 sm:px-10"
+        style={{
+          transform: `translate(${m.x * 20}px, ${scrollY * 0.45}px)`,
+          willChange: "transform",
+        }}
+        aria-hidden
+      >
+        <svg width="180" height="320" viewBox="0 0 180 320" className="drop-shadow-2xl">
+          <path
+            fill="#0B0625"
+            d="M90 320 L82 140 C70 90 30 70 10 80 C40 60 70 70 84 110 C70 50 30 30 0 40 C40 10 80 30 90 90 C100 30 140 10 180 40 C150 30 110 50 96 110 C110 70 140 60 170 80 C150 70 110 90 98 140 Z"
+          />
+        </svg>
+        <svg width="220" height="380" viewBox="0 0 220 380" className="drop-shadow-2xl">
+          <path
+            fill="#0B0625"
+            d="M110 380 L100 160 C85 100 35 80 10 90 C50 65 90 75 105 125 C90 60 40 35 5 50 C50 15 100 35 110 105 C120 35 170 15 215 50 C180 35 130 60 115 125 C130 75 170 65 210 90 C185 80 135 100 120 160 Z"
+          />
+        </svg>
+      </div>
+
       {/* Subtle vignette so headline reads */}
       <div
         className="absolute inset-0"
         style={{
           background:
-            "linear-gradient(180deg, rgba(42,27,92,0.55) 0%, rgba(42,27,92,0.05) 35%, rgba(42,27,92,0) 60%, rgba(42,27,92,0.35) 100%)",
+            "linear-gradient(180deg, rgba(42,27,92,0.45) 0%, rgba(42,27,92,0) 35%, rgba(42,27,92,0) 60%, rgba(11,6,37,0.55) 100%)",
         }}
         aria-hidden
       />
-      {/* Floating moon glow following cursor */}
-      <div
-        className="pointer-events-none absolute left-1/2 top-[18%] h-72 w-72 -translate-x-1/2 rounded-full blur-3xl opacity-50"
-        style={{
-          background: "radial-gradient(circle, #FFE9B0, transparent 70%)",
-          transform: `translate(calc(-50% + ${m.x * 18}px), ${m.y * 18}px)`,
-        }}
-        aria-hidden
-      />
+
 
       <div className="relative mx-auto flex min-h-[92vh] max-w-5xl flex-col items-center justify-center px-6 pt-32 pb-40 text-center">
         <div className="reveal inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 backdrop-blur-sm">
