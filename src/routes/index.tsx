@@ -513,7 +513,7 @@ function Hero() {
         top: 0,
         left: 0,
         width: "100%",
-        height: "92vh",
+        height: "100vh",
         minHeight: "650px",
         overflow: "hidden",
         background: "#080318",
@@ -566,9 +566,10 @@ function Hero() {
           style={{
             position: "absolute",
             inset: 0,
-            background: `${phase.overlay}, url(${morningBg})`,
+            backgroundImage: `url(${morningBg})`,
             backgroundSize: "cover",
-            backgroundPosition: "center",
+            backgroundPosition: "top center",
+            backgroundRepeat: "no-repeat",
             opacity: phase.morningOpacity,
             transition: "opacity 1.5s ease-in-out",
             zIndex: 1
@@ -580,9 +581,10 @@ function Hero() {
           style={{
             position: "absolute",
             inset: 0,
-            background: `${phase.overlay}, url(${afternoonBg})`,
+            backgroundImage: `url(${afternoonBg})`,
             backgroundSize: "cover",
-            backgroundPosition: "center",
+            backgroundPosition: "top center",
+            backgroundRepeat: "no-repeat",
             opacity: phase.afternoonOpacity,
             transition: "opacity 1.5s ease-in-out",
             zIndex: 2
@@ -594,12 +596,25 @@ function Hero() {
           style={{
             position: "absolute",
             inset: 0,
-            background: `${phase.overlay}, url(${nightBg})`,
+            backgroundImage: `url(${nightBg})`,
             backgroundSize: "cover",
-            backgroundPosition: "center",
+            backgroundPosition: "top center",
+            backgroundRepeat: "no-repeat",
             opacity: phase.nightOpacity,
             transition: "opacity 1.5s ease-in-out",
             zIndex: 3
+          }}
+        />
+
+        {/* Phase color-correction overlay (sits above all image layers) */}
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            background: phase.overlay,
+            pointerEvents: "none",
+            transition: "background 1.5s ease-in-out",
+            zIndex: 4
           }}
         />
 
@@ -1487,7 +1502,7 @@ function Index() {
     <main>
       <Nav />
       <Hero />
-      <div style={{ height: "92vh", minHeight: "650px", pointerEvents: "none" }} />
+      <div style={{ height: "100vh", minHeight: "650px", pointerEvents: "none" }} />
       <Therapists />
       <Story />
       <Care />
