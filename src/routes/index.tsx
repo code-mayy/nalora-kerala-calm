@@ -11,6 +11,7 @@ import therapist2 from "@/assets/therapist-2.jpg";
 import therapist3 from "@/assets/therapist-3.jpg";
 import morningBg from "@/assets/image copy.png";
 import afternoonBg from "@/assets/image copy 3.png";
+import eveningBg from "@/assets/hero.png";
 import nightBg from "@/assets/image copy 2.png";
 import cloud1 from "@/assets/cloud_crop_1.png";
 import cloud4 from "@/assets/cloud_crop_4.png";
@@ -292,8 +293,8 @@ function getSunStyle(hour: number) {
 
 function getSkyPhase(hour: number) {
   // Night: 20:00 to 05:00
-  // Dawn: 05:00 to 08:00
-  // Morning: 08:00 to 12:00
+  // Dawn: 05:00 to 07:00
+  // Morning: 07:00 to 12:00
   // Afternoon: 12:00 to 16:00
   // Evening/Sunset: 16:00 to 20:00
   
@@ -308,10 +309,14 @@ function getSkyPhase(hour: number) {
     sunX = `${5 + tSun * 90}%`;
     sunY = `${12 + Math.sin(tSun * Math.PI) * 65}%`;
     
-    // Opacity transitions at sunrise (5) and sunset (19)
-    if (hour === 5) sunOpacity = 0.6;
-    else if (hour === 19) sunOpacity = 0.4;
-    else sunOpacity = 1.0;
+    // Smooth opacity transitions at sunrise (5 to 6) and sunset (18 to 19)
+    if (hour >= 5 && hour < 6) {
+      sunOpacity = (hour - 5);
+    } else if (hour > 18 && hour <= 19) {
+      sunOpacity = (19 - hour);
+    } else {
+      sunOpacity = 1.0;
+    }
     
     // Scale peaks at noon
     sunScale = 1.0 + Math.sin(tSun * Math.PI) * 0.1;
@@ -330,68 +335,72 @@ function getSkyPhase(hour: number) {
     moonX = `${5 + tMoon * 90}%`;
     moonY = `${15 + Math.sin(tMoon * Math.PI) * 55}%`;
     
-    // Opacity transitions
-    if (hour === 17 || hour === 7) moonOpacity = 0.1;
-    else if (hour === 18 || hour === 6) moonOpacity = 0.45;
-    else moonOpacity = 0.9;
+    // Smooth opacity transitions
+    if (hour >= 17 && hour < 19) {
+      // Fade in moon from 17:00 to 19:00
+      moonOpacity = ((hour - 17) / 2) * 0.9;
+    } else if (hour > 5 && hour <= 7) {
+      // Fade out moon from 5:00 to 7:00
+      moonOpacity = ((7 - hour) / 2) * 0.9;
+    } else {
+      moonOpacity = 0.9;
+    }
   }
   
   // 3. Stars Opacity
   let starsOpacity = 0;
   if (hour >= 20 || hour <= 4) {
     starsOpacity = 1.0;
-  } else if (hour === 19) {
-    starsOpacity = 0.4;
-  } else if (hour === 5) {
-    starsOpacity = 0.35;
-  } else if (hour === 18) {
-    starsOpacity = 0.1;
-  } else if (hour === 6) {
-    starsOpacity = 0.05;
+  } else if (hour > 18 && hour < 20) {
+    // Fade in stars from 18:00 to 20:00
+    starsOpacity = (hour - 18) / 2;
+  } else if (hour > 4 && hour < 6) {
+    // Fade out stars from 4:00 to 6:00
+    starsOpacity = (6 - hour) / 2;
   }
 
-  // 4. Calculate Background Cross-Fade Opacities (morningBg, afternoonBg, nightBg)
+  // 4. Calculate Background Cross-Fade Opacities (morningBg, afternoonBg, eveningBg, nightBg)
   let morningOpacity = 0;
   let afternoonOpacity = 0;
+  let eveningOpacity = 0;
   let nightOpacity = 0;
 
-  if (hour >= 5 && hour < 8) {
+  if (hour >= 5 && hour < 7) {
     // Dawn transition (Night -> Morning)
-    const t = (hour - 5) / 3; // 0 to 1
+    const t = (hour - 5) / 2; // 0 to 1
     morningOpacity = t;
     nightOpacity = 1 - t;
-    afternoonOpacity = 0;
-  } else if (hour >= 8 && hour < 12) {
-    // Morning
+  } else if (hour >= 7 && hour < 11) {
+    // Morning Peak
     morningOpacity = 1.0;
-    afternoonOpacity = 0;
-    nightOpacity = 0;
-  } else if (hour >= 12 && hour < 14) {
+  } else if (hour >= 11 && hour < 12) {
     // Morning -> Afternoon transition
-    const t = (hour - 12) / 2; // 0 to 1
+    const t = (hour - 11) / 1; // 0 to 1
     afternoonOpacity = t;
     morningOpacity = 1 - t;
-    nightOpacity = 0;
-  } else if (hour >= 14 && hour < 17) {
-    // Afternoon
+  } else if (hour >= 12 && hour < 16) {
+    // Afternoon Peak
     afternoonOpacity = 1.0;
-    morningOpacity = 0;
-    nightOpacity = 0;
-  } else if (hour >= 17 && hour < 20) {
-    // Afternoon -> Night transition
-    const t = (hour - 17) / 3; // 0 to 1
-    nightOpacity = t;
+  } else if (hour >= 16 && hour < 17) {
+    // Afternoon -> Evening transition
+    const t = (hour - 16) / 1; // 0 to 1
+    eveningOpacity = t;
     afternoonOpacity = 1 - t;
-    morningOpacity = 0;
+  } else if (hour >= 17 && hour < 19) {
+    // Evening Peak
+    eveningOpacity = 1.0;
+  } else if (hour >= 19 && hour < 20) {
+    // Evening -> Night transition
+    const t = (hour - 19) / 1; // 0 to 1
+    nightOpacity = t;
+    eveningOpacity = 1 - t;
   } else {
-    // Night
+    // Night Peak (20:00 to 5:00)
     nightOpacity = 1.0;
-    morningOpacity = 0;
-    afternoonOpacity = 0;
   }
 
   // 5. Return Phase specific configurations
-  if (hour >= 5 && hour < 8) {
+  if (hour >= 5 && hour < 7) {
     return {
       label: "Dawn",
       overlay: "linear-gradient(180deg, rgba(232, 168, 124, 0.25) 0%, rgba(107, 74, 122, 0.25) 60%, rgba(43, 27, 74, 0.4) 100%)",
@@ -401,12 +410,13 @@ function getSkyPhase(hour: number) {
       starsOpacity,
       morningOpacity,
       afternoonOpacity,
+      eveningOpacity,
       nightOpacity,
       invertImage: hour < 6.5,
       sun: { opacity: sunOpacity, left: sunX, bottom: sunY, scale: sunScale },
       moon: { opacity: moonOpacity, left: moonX, bottom: moonY }
     };
-  } else if (hour >= 8 && hour < 12) {
+  } else if (hour >= 7 && hour < 12) {
     return {
       label: "Morning",
       overlay: "linear-gradient(180deg, rgba(255, 243, 176, 0.1) 0%, rgba(168, 211, 237, 0.05) 60%, rgba(220, 238, 248, 0) 100%)",
@@ -416,6 +426,7 @@ function getSkyPhase(hour: number) {
       starsOpacity,
       morningOpacity,
       afternoonOpacity,
+      eveningOpacity,
       nightOpacity,
       invertImage: false,
       sun: { opacity: sunOpacity, left: sunX, bottom: sunY, scale: sunScale },
@@ -431,6 +442,7 @@ function getSkyPhase(hour: number) {
       starsOpacity,
       morningOpacity,
       afternoonOpacity,
+      eveningOpacity,
       nightOpacity,
       invertImage: false,
       sun: { opacity: sunOpacity, left: sunX, bottom: sunY, scale: sunScale },
@@ -446,6 +458,7 @@ function getSkyPhase(hour: number) {
       starsOpacity,
       morningOpacity,
       afternoonOpacity,
+      eveningOpacity,
       nightOpacity,
       invertImage: hour >= 18.5,
       sun: { opacity: sunOpacity, left: sunX, bottom: sunY, scale: sunScale },
@@ -461,6 +474,7 @@ function getSkyPhase(hour: number) {
       starsOpacity,
       morningOpacity,
       afternoonOpacity,
+      eveningOpacity,
       nightOpacity,
       invertImage: true,
       sun: { opacity: sunOpacity, left: sunX, bottom: sunY, scale: sunScale },
@@ -469,18 +483,41 @@ function getSkyPhase(hour: number) {
   }
 }
 
+const getIndianTimeString = (decimalHour: number) => {
+  const totalSeconds = Math.round(decimalHour * 3600);
+  const hours = Math.floor(totalSeconds / 3600) % 24;
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+  
+  const ampm = hours >= 12 ? 'PM' : 'AM';
+  const displayHours = hours % 12 || 12;
+  const displayMinutes = minutes.toString().padStart(2, '0');
+  const displaySeconds = seconds.toString().padStart(2, '0');
+  
+  return `${displayHours}:${displayMinutes}:${displaySeconds} ${ampm}`;
+};
+
 function Hero() {
   const skyRef = useRef<HTMLDivElement>(null);
-  const [hour, setHour] = useState<number>(12); // Default to noon for SSR safety
+  const [simulatedHour, setSimulatedHour] = useState<number | null>(null);
+  const [currentRealHour, setCurrentRealHour] = useState<number>(12);
+
+  const getIndianDecimalHour = () => {
+    const now = new Date();
+    // IST is UTC + 5:30
+    const istTime = new Date(now.getTime() + 5.5 * 60 * 60 * 1000);
+    return istTime.getUTCHours() + istTime.getUTCMinutes() / 60 + istTime.getUTCSeconds() / 3600;
+  };
 
   useEffect(() => {
-    setHour(new Date().getHours());
+    setCurrentRealHour(getIndianDecimalHour());
     const interval = setInterval(() => {
-      setHour(new Date().getHours());
-    }, 60000);
+      setCurrentRealHour(getIndianDecimalHour());
+    }, 1000);
     return () => clearInterval(interval);
   }, []);
 
+  const hour = simulatedHour !== null ? simulatedHour : currentRealHour;
   const phase = getSkyPhase(hour);
   const sunStyle = getSunStyle(hour);
 
@@ -591,6 +628,21 @@ function Hero() {
           }}
         />
 
+        {/* Evening Background Layer */}
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            backgroundImage: `url(${eveningBg})`,
+            backgroundSize: "cover",
+            backgroundPosition: "top center",
+            backgroundRepeat: "no-repeat",
+            opacity: phase.eveningOpacity,
+            transition: "opacity 1.5s ease-in-out",
+            zIndex: 3
+          }}
+        />
+
         {/* Night Background Layer */}
         <div
           style={{
@@ -602,7 +654,7 @@ function Hero() {
             backgroundRepeat: "no-repeat",
             opacity: phase.nightOpacity,
             transition: "opacity 1.5s ease-in-out",
-            zIndex: 3
+            zIndex: 4
           }}
         />
 
@@ -861,6 +913,100 @@ function Hero() {
             }}
           />
         </div>
+      </div>
+
+      {/* Time Simulation & IST Badge Control Panel */}
+      <div
+        style={{
+          position: "absolute",
+          bottom: "20px",
+          right: "20px",
+          zIndex: 40,
+          background: "rgba(255, 255, 255, 0.08)",
+          backdropFilter: "blur(16px)",
+          WebkitBackdropFilter: "blur(16px)",
+          border: "1px solid rgba(255, 255, 255, 0.15)",
+          borderRadius: "16px",
+          padding: "12px 18px",
+          color: "white",
+          fontFamily: "var(--font-sans, sans-serif)",
+          fontSize: "13px",
+          boxShadow: "0 8px 32px rgba(0, 0, 0, 0.35)",
+          display: "flex",
+          flexDirection: "column",
+          gap: "8px",
+          transition: "all 0.3s ease",
+          maxWidth: "280px"
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "12px" }}>
+          <div>
+            <div style={{ fontSize: "10px", textTransform: "uppercase", letterSpacing: "0.08em", opacity: 0.6 }}>
+              India Standard Time
+            </div>
+            <div style={{ fontWeight: 600, fontSize: "14px", marginTop: "2px" }}>
+              {getIndianTimeString(currentRealHour)}
+            </div>
+          </div>
+          <span
+            style={{
+              padding: "3px 8px",
+              borderRadius: "12px",
+              fontSize: "10px",
+              fontWeight: 600,
+              background: simulatedHour !== null ? "rgba(251, 146, 60, 0.2)" : "rgba(34, 197, 94, 0.2)",
+              color: simulatedHour !== null ? "#fb923c" : "#4ade80",
+              border: simulatedHour !== null ? "1px solid rgba(251, 146, 60, 0.3)" : "1px solid rgba(34, 197, 94, 0.3)"
+            }}
+          >
+            {simulatedHour !== null ? "Simulated" : "Live"}
+          </span>
+        </div>
+
+        {simulatedHour !== null && (
+          <div style={{ marginTop: "4px" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", fontSize: "11px", marginBottom: "4px" }}>
+              <span>Simulating:</span>
+              <span style={{ fontWeight: 600, color: "var(--accent)" }}>{getIndianTimeString(simulatedHour)} ({phase.label})</span>
+            </div>
+            <input
+              type="range"
+              min="0"
+              max="23.99"
+              step="0.05"
+              value={simulatedHour}
+              onChange={(e) => setSimulatedHour(parseFloat(e.target.value))}
+              style={{
+                width: "100%",
+                accentColor: "var(--accent)",
+                cursor: "pointer",
+                height: "4px",
+                borderRadius: "2px",
+                background: "rgba(255, 255, 255, 0.2)"
+              }}
+            />
+          </div>
+        )}
+
+        <button
+          onClick={() => setSimulatedHour(simulatedHour === null ? currentRealHour : null)}
+          style={{
+            background: "rgba(255, 255, 255, 0.15)",
+            border: "1px solid rgba(255, 255, 255, 0.2)",
+            borderRadius: "8px",
+            color: "white",
+            padding: "5px 10px",
+            fontSize: "11px",
+            fontWeight: 600,
+            cursor: "pointer",
+            transition: "all 0.2s ease",
+            textAlign: "center"
+          }}
+          onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(255, 255, 255, 0.25)")}
+          onMouseLeave={(e) => (e.currentTarget.style.background = "rgba(255, 255, 255, 0.15)")}
+        >
+          {simulatedHour !== null ? "Reset to Live IST Time" : "Open Time Simulator"}
+        </button>
       </div>
     </section>
   );
