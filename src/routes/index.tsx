@@ -1286,110 +1286,6 @@ function Care() {
   );
 }
 
-/* ---------- Family ecosystem with connection lines ---------- */
-const ROLES = [
-  { id: "mother", label: "Mother", desc: "At the heart of every Nalora circle â€” supported, never alone.", x: 50, y: 50, big: true },
-  { id: "partner", label: "Partner", desc: "Daily check-ins, conversation prompts and a private therapist channel.", x: 15, y: 18 },
-  { id: "baby", label: "Baby", desc: "Milestones tracked gently, with sleep and feeding rhythms.", x: 85, y: 18 },
-  { id: "grand", label: "Grandparents", desc: "Bite-sized guides on modern postpartum care, in their language.", x: 14, y: 82 },
-  { id: "therapist", label: "Therapist", desc: "Hand-picked, vernacular, available within 24 hours.", x: 86, y: 82 },
-];
-
-function Family() {
-  const [active, setActive] = useState("mother");
-  const cur = ROLES.find((r) => r.id === active)!;
-  const mother = ROLES[0];
-
-  return (
-    <section id="family" className="relative z-10 bg-[var(--ivory-deep)] py-28">
-      <div className="mx-auto max-w-6xl px-6">
-        <div className="reveal mx-auto max-w-3xl text-center">
-          <span className="chip">The Circle</span>
-          <h2 className="mt-5 font-display text-4xl leading-tight sm:text-5xl">
-            Healing is a <em className="italic text-rose">team sport.</em>
-          </h2>
-          <p className="mt-5 text-lg text-foreground/70">
-            Tap a role to see how Nalora supports each person in the circle.
-          </p>
-        </div>
-
-        <div className="reveal mt-16 grid gap-10 lg:grid-cols-[1fr_360px] lg:items-center">
-          <div className="relative aspect-square w-full rounded-[2.5rem] bg-card shadow-soft overflow-hidden">
-            <svg viewBox="0 0 100 100" className="absolute inset-0 h-full w-full" preserveAspectRatio="none">
-              {ROLES.slice(1).map((r) => {
-                const isActive = active === r.id || active === "mother";
-                return (
-                  <line
-                    key={r.id}
-                    x1={mother.x}
-                    y1={mother.y}
-                    x2={r.x}
-                    y2={r.y}
-                    stroke={isActive ? "var(--rose)" : "var(--coconut)"}
-                    strokeWidth="0.35"
-                    strokeDasharray={isActive ? "0" : "0.8 0.8"}
-                    className={isActive ? "animate-pulse-line" : ""}
-                    style={{ opacity: isActive ? 0.9 : 0.25 }}
-                  />
-                );
-              })}
-            </svg>
-
-            {ROLES.map((r) => {
-              const isActive = active === r.id;
-              return (
-                <button
-                  key={r.id}
-                  onClick={() => setActive(r.id)}
-                  className="absolute -translate-x-1/2 -translate-y-1/2"
-                  style={{ left: `${r.x}%`, top: `${r.y}%` }}
-                  aria-label={r.label}
-                >
-                  <span className="relative grid place-items-center">
-                    {isActive && (
-                      <span className="absolute h-full w-full rounded-full bg-rose/40 animate-ripple" />
-                    )}
-                    <span
-                      className={`grid place-items-center rounded-full font-display transition-all ${r.big ? "h-24 w-24 text-lg" : "h-16 w-16 text-sm"
-                        } ${isActive
-                          ? "bg-[var(--gradient-sunset)] text-white shadow-glow scale-110"
-                          : "bg-white text-foreground shadow-soft hover:scale-105"
-                        }`}
-                    >
-                      {r.label.split(" ")[0]}
-                    </span>
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-
-          <div className="rounded-3xl bg-card p-8 shadow-soft">
-            <span className="chip">{cur.label}</span>
-            <h3 className="mt-4 font-display text-3xl leading-tight">
-              How Nalora supports the <em className="italic text-rose">{cur.label.toLowerCase()}</em>
-            </h3>
-            <p className="mt-4 text-foreground/75 leading-relaxed">{cur.desc}</p>
-            <div className="mt-6 flex flex-wrap gap-2">
-              {ROLES.map((r) => (
-                <button
-                  key={r.id}
-                  onClick={() => setActive(r.id)}
-                  className={`rounded-full border px-3 py-1.5 text-xs transition ${active === r.id
-                      ? "border-rose bg-rose/10 text-rose"
-                      : "border-border text-foreground/60 hover:border-rose"
-                    }`}
-                >
-                  {r.label}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
 
 /* ---------- Timeline / Journey ---------- */
 const STAGES = [
@@ -1674,7 +1570,6 @@ function Index() {
       <Therapists />
       <Story />
       <Care />
-      <Family />
       <Journey />
       <Chat />
       <FinalCta />
