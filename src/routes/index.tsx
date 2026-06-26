@@ -1049,9 +1049,28 @@ const THERAPISTS = [
   },
 ];
 
+/* ---------- What is Nalora (Introduction) ---------- */
+function WhatIsNalora() {
+  return (
+    <section id="what-is-nalora" className="relative z-10 bg-background py-24 sm:py-32 rounded-t-[2.5rem] sm:rounded-t-[4rem] shadow-[0_-24px_50px_-20px_rgba(0,0,0,0.3)]">
+      <div className="mx-auto max-w-5xl px-6">
+        <div className="reveal mx-auto max-w-3xl text-center">
+          <span className="chip">Introduction</span>
+          <h2 className="mt-5 font-display text-4xl sm:text-5xl leading-tight">
+            What is <em className="italic text-rose">nalora</em>?
+          </h2>
+          <p className="mt-6 text-[17px] sm:text-lg text-foreground/70 leading-relaxed">
+            Nalora is a compassionate, research-backed digital ecosystem built to support emotional well-being throughout pregnancy and early motherhood. By combining thoughtful, culturally rooted support with evidence-based psychological frameworks, we help you understand, track, and process your emotional experiences with absolute clarity.
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Therapists() {
   return (
-    <section id="therapists" className="relative z-10 bg-background py-24 sm:py-32 rounded-t-[2.5rem] sm:rounded-t-[4rem] shadow-[0_-24px_50px_-20px_rgba(0,0,0,0.3)]">
+    <section id="therapists" className="relative z-10 bg-background py-16 sm:py-24 border-t border-border/40">
       <div className="mx-auto max-w-6xl px-6">
         <h2 className="reveal text-center font-display text-4xl sm:text-5xl">
           How can we <em className="italic text-rose">help you?</em>
@@ -1649,6 +1668,7 @@ function Index() {
       <Nav />
       <Hero />
       <div style={{ height: "100vh", minHeight: "650px", pointerEvents: "none" }} />
+      <WhatIsNalora />
       <Therapists />
       <Story />
       <Care />
