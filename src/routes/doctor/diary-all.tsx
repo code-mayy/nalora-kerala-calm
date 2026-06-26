@@ -7,7 +7,10 @@ export const Route = createFileRoute("/doctor/diary-all")({
   head: () => ({
     meta: [
       { title: "Patients Clinical Diary – Nalora" },
-      { name: "description", content: "Master database of all patients and their historical clinical logs." },
+      {
+        name: "description",
+        content: "Master database of all patients and their historical clinical logs.",
+      },
     ],
   }),
   component: DoctorDiaryAll,
@@ -15,11 +18,49 @@ export const Route = createFileRoute("/doctor/diary-all")({
 
 // Mock patients database
 const PATIENT_LIST = [
-  { id: 1, name: "Anjali Menon", age: 29, phone: "+91 94471 23456", lastConsultation: "2026-06-25", defaultLog: "Patient displays steady recovery. Anxiety scale down to 4/10. Sleep routine improved." },
-  { id: 2, name: "Priyanka Raj", age: 31, phone: "+91 98950 11223", lastConsultation: "2026-06-25", defaultLog: "Routine review. Discussed stress factors. Advised breathing exercises and partner support." },
-  { id: 3, name: "Sneha Nair", age: 27, phone: "+91 97440 55667", lastConsultation: "2026-06-25", defaultLog: "Acute distress due to difficult birth. Focusing on trauma release techniques and validation." },
-  { id: 4, name: "Divya Pillai", age: 33, phone: "+91 96560 33445", lastConsultation: "Pending", defaultLog: "No diary entries logged yet. Consultation scheduled." },
-  { id: 5, name: "Meera Krishnan", age: 26, phone: "+91 95670 99001", lastConsultation: "Pending", defaultLog: "No diary entries logged yet. Consultation scheduled." },
+  {
+    id: 1,
+    name: "Anjali Menon",
+    age: 29,
+    phone: "+91 94471 23456",
+    lastConsultation: "2026-06-25",
+    defaultLog:
+      "Patient displays steady recovery. Anxiety scale down to 4/10. Sleep routine improved.",
+  },
+  {
+    id: 2,
+    name: "Priyanka Raj",
+    age: 31,
+    phone: "+91 98950 11223",
+    lastConsultation: "2026-06-25",
+    defaultLog:
+      "Routine review. Discussed stress factors. Advised breathing exercises and partner support.",
+  },
+  {
+    id: 3,
+    name: "Sneha Nair",
+    age: 27,
+    phone: "+91 97440 55667",
+    lastConsultation: "2026-06-25",
+    defaultLog:
+      "Acute distress due to difficult birth. Focusing on trauma release techniques and validation.",
+  },
+  {
+    id: 4,
+    name: "Divya Pillai",
+    age: 33,
+    phone: "+91 96560 33445",
+    lastConsultation: "Pending",
+    defaultLog: "No diary entries logged yet. Consultation scheduled.",
+  },
+  {
+    id: 5,
+    name: "Meera Krishnan",
+    age: 26,
+    phone: "+91 95670 99001",
+    lastConsultation: "Pending",
+    defaultLog: "No diary entries logged yet. Consultation scheduled.",
+  },
 ];
 
 function DoctorDiaryAll() {
@@ -48,39 +89,74 @@ function DoctorDiaryAll() {
     }
   }, [patients]);
 
-  const filtered = patients.filter((p) =>
-    p.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filtered = patients.filter((p) => p.name.toLowerCase().includes(searchQuery.toLowerCase()));
 
   return (
     <ProtectedPage allowedRole="doctor">
-      <div style={{ minHeight: "100vh", background: "oklch(0.985 0.005 240)", fontFamily: "var(--font-sans)" }}>
+      <div
+        style={{
+          minHeight: "100vh",
+          background: "oklch(0.985 0.005 240)",
+          fontFamily: "var(--font-sans)",
+        }}
+      >
         <DoctorNav />
 
         {/* Header section */}
-        <div style={{ background: "linear-gradient(160deg, oklch(0.92 0.01 240) 0%, oklch(0.95 0.01 240) 100%)", borderBottom: "1px solid oklch(0.9 0.01 240)", padding: "48px 32px 40px" }}>
+        <div
+          style={{
+            background:
+              "linear-gradient(160deg, oklch(0.92 0.01 240) 0%, oklch(0.95 0.01 240) 100%)",
+            borderBottom: "1px solid oklch(0.9 0.01 240)",
+            padding: "48px 32px 40px",
+          }}
+        >
           <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
-            <p style={{ fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", color: "oklch(0.5 0.04 200)", marginBottom: "8px" }}>
+            <p
+              style={{
+                fontSize: "0.75rem",
+                fontWeight: 700,
+                letterSpacing: "0.15em",
+                textTransform: "uppercase",
+                color: "oklch(0.5 0.04 200)",
+                marginBottom: "8px",
+              }}
+            >
               Clinical Documentation
             </p>
-            <h1 style={{ fontFamily: "var(--font-display)", fontSize: "2.2rem", fontWeight: 600, color: "var(--charcoal)", margin: 0 }}>
+            <h1
+              style={{
+                fontFamily: "var(--font-display)",
+                fontSize: "2.2rem",
+                fontWeight: 600,
+                color: "var(--charcoal)",
+                margin: 0,
+              }}
+            >
               Master Patients Diary
             </h1>
             <p style={{ color: "oklch(0.55 0.01 240)", fontSize: "0.95rem", marginTop: "6px" }}>
-              Browse your assigned patient files, inspect clinical history timelines, and add therapeutic entries.
+              Browse your assigned patient files, inspect clinical history timelines, and add
+              therapeutic entries.
             </p>
           </div>
         </div>
 
         {/* Main Body */}
         <div style={{ maxWidth: "1000px", margin: "32px auto", padding: "0 24px 80px" }}>
-          
           {/* Controls */}
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "28px" }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginBottom: "28px",
+            }}
+          >
             <div style={{ fontSize: "0.9rem", fontWeight: 600, color: "oklch(0.5 0.01 240)" }}>
               Showing {filtered.length} Patients
             </div>
-            
+
             {/* Search */}
             <div style={{ position: "relative", width: "100%", maxWidth: "320px" }}>
               <input
@@ -100,14 +176,30 @@ function DoctorDiaryAll() {
                   boxSizing: "border-box",
                   transition: "border-color 0.2s",
                 }}
-                onFocus={(e) => { e.target.style.borderColor = "oklch(0.4 0.03 240)"; }}
-                onBlur={(e) => { e.target.style.borderColor = "oklch(0.88 0.02 240)"; }}
+                onFocus={(e) => {
+                  e.target.style.borderColor = "oklch(0.4 0.03 240)";
+                }}
+                onBlur={(e) => {
+                  e.target.style.borderColor = "oklch(0.88 0.02 240)";
+                }}
               />
               <svg
-                style={{ position: "absolute", left: "12px", top: "50%", transform: "translateY(-50%)", color: "oklch(0.6 0.01 240)" }}
-                width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"
+                style={{
+                  position: "absolute",
+                  left: "12px",
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  color: "oklch(0.6 0.01 240)",
+                }}
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
               >
-                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                <circle cx="11" cy="11" r="8" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
               </svg>
             </div>
           </div>
@@ -136,19 +228,42 @@ function DoctorDiaryAll() {
                   <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
                     <span
                       style={{
-                        width: "44px", height: "44px", borderRadius: "50%",
-                        background: "linear-gradient(135deg, oklch(0.4 0.03 240 / 0.1), oklch(0.5 0.04 200 / 0.1))",
-                        display: "grid", placeItems: "center", color: "oklch(0.4 0.03 240)",
-                        fontFamily: "var(--font-display)", fontSize: "1.05rem", fontWeight: 700,
+                        width: "44px",
+                        height: "44px",
+                        borderRadius: "50%",
+                        background:
+                          "linear-gradient(135deg, oklch(0.4 0.03 240 / 0.1), oklch(0.5 0.04 200 / 0.1))",
+                        display: "grid",
+                        placeItems: "center",
+                        color: "oklch(0.4 0.03 240)",
+                        fontFamily: "var(--font-display)",
+                        fontSize: "1.05rem",
+                        fontWeight: 700,
                       }}
                     >
-                      {patient.name.split(" ").map((w) => w[0]).join("")}
+                      {patient.name
+                        .split(" ")
+                        .map((w) => w[0])
+                        .join("")}
                     </span>
                     <div>
-                      <h3 style={{ fontSize: "1.12rem", fontWeight: 700, color: "var(--charcoal)", margin: 0 }}>
+                      <h3
+                        style={{
+                          fontSize: "1.12rem",
+                          fontWeight: 700,
+                          color: "var(--charcoal)",
+                          margin: 0,
+                        }}
+                      >
                         {patient.name}
                       </h3>
-                      <p style={{ fontSize: "0.84rem", color: "oklch(0.55 0.01 240)", margin: "3px 0 0" }}>
+                      <p
+                        style={{
+                          fontSize: "0.84rem",
+                          color: "oklch(0.55 0.01 240)",
+                          margin: "3px 0 0",
+                        }}
+                      >
                         Age: {patient.age} · Phone: {patient.phone.slice(0, 10)}...
                       </p>
                     </div>
@@ -156,10 +271,30 @@ function DoctorDiaryAll() {
 
                   {/* Latest Diary Summary */}
                   <div style={{ padding: "0 10px" }}>
-                    <div style={{ fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", color: "oklch(0.5 0.04 200)", letterSpacing: "0.06em", marginBottom: "4px" }}>
+                    <div
+                      style={{
+                        fontSize: "0.75rem",
+                        fontWeight: 700,
+                        textTransform: "uppercase",
+                        color: "oklch(0.5 0.04 200)",
+                        letterSpacing: "0.06em",
+                        marginBottom: "4px",
+                      }}
+                    >
                       Latest clinical timeline log
                     </div>
-                    <p style={{ fontSize: "0.88rem", color: "oklch(0.45 0.01 240)", margin: 0, lineHeight: 1.45, display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
+                    <p
+                      style={{
+                        fontSize: "0.88rem",
+                        color: "oklch(0.45 0.01 240)",
+                        margin: 0,
+                        lineHeight: 1.45,
+                        display: "-webkit-box",
+                        WebkitLineClamp: 2,
+                        WebkitBoxOrient: "vertical",
+                        overflow: "hidden",
+                      }}
+                    >
                       "{activeLog}"
                     </p>
                   </div>
@@ -181,20 +316,23 @@ function DoctorDiaryAll() {
                         textDecoration: "none",
                         transition: "all 0.2s",
                       }}
-                      onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "oklch(0.4 0.03 240 / 0.05)"; }}
-                      onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "white"; }}
+                      onMouseEnter={(e) => {
+                        (e.currentTarget as HTMLElement).style.background =
+                          "oklch(0.4 0.03 240 / 0.05)";
+                      }}
+                      onMouseLeave={(e) => {
+                        (e.currentTarget as HTMLElement).style.background = "white";
+                      }}
                     >
                       Open File
                     </Link>
                   </div>
-
                 </div>
               );
             })}
           </div>
-
         </div>
-        
+
         <style>{`
           @media (max-width: 920px) {
             .patient-diary-row {

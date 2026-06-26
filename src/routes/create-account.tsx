@@ -5,7 +5,11 @@ export const Route = createFileRoute("/create-account")({
   head: () => ({
     meta: [
       { title: "Create Account – Nalora" },
-      { name: "description", content: "Join Nalora and begin your postpartum care journey. Create your personal account in minutes." },
+      {
+        name: "description",
+        content:
+          "Join Nalora and begin your postpartum care journey. Create your personal account in minutes.",
+      },
     ],
   }),
   component: CreateAccount,
@@ -45,11 +49,12 @@ function StepDots({ current, total }: { current: number; total: number }) {
             width: i === current ? "28px" : "8px",
             height: "8px",
             borderRadius: "99px",
-            background: i === current
-              ? "var(--rose)"
-              : i < current
-              ? "var(--coconut)"
-              : "oklch(0.85 0.01 60)",
+            background:
+              i === current
+                ? "var(--rose)"
+                : i < current
+                  ? "var(--coconut)"
+                  : "oklch(0.85 0.01 60)",
           }}
         />
       ))}
@@ -78,7 +83,13 @@ function InputField({
     <div className="flex flex-col gap-1.5">
       <label
         htmlFor={id}
-        style={{ fontSize: "0.8rem", fontWeight: 600, letterSpacing: "0.05em", color: "oklch(0.45 0.01 60)", textTransform: "uppercase" }}
+        style={{
+          fontSize: "0.8rem",
+          fontWeight: 600,
+          letterSpacing: "0.05em",
+          color: "oklch(0.45 0.01 60)",
+          textTransform: "uppercase",
+        }}
       >
         {label}
         {required && <span style={{ color: "var(--rose)", marginLeft: "4px" }}>*</span>}
@@ -116,37 +127,100 @@ function InputField({
   );
 }
 
-function Step1({ data, update }: { data: FormData; update: (k: keyof FormData, v: string) => void }) {
+function Step1({
+  data,
+  update,
+}: {
+  data: FormData;
+  update: (k: keyof FormData, v: string) => void;
+}) {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
       <div style={{ marginBottom: "4px" }}>
-        <h2 style={{ fontFamily: "var(--font-display)", fontSize: "1.7rem", fontWeight: 600, color: "var(--charcoal)", marginBottom: "6px" }}>
+        <h2
+          style={{
+            fontFamily: "var(--font-display)",
+            fontSize: "1.7rem",
+            fontWeight: 600,
+            color: "var(--charcoal)",
+            marginBottom: "6px",
+          }}
+        >
           About You
         </h2>
-        <p style={{ color: "oklch(0.55 0.01 60)", fontSize: "0.9rem" }}>Let's start with your basic details.</p>
+        <p style={{ color: "oklch(0.55 0.01 60)", fontSize: "0.9rem" }}>
+          Let's start with your basic details.
+        </p>
       </div>
-      <InputField label="Full Name" id="name" value={data.name} onChange={(v) => update("name", v)} placeholder="e.g. Anjali Menon" required />
+      <InputField
+        label="Full Name"
+        id="name"
+        value={data.name}
+        onChange={(v) => update("name", v)}
+        placeholder="e.g. Anjali Menon"
+        required
+      />
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
-        <InputField label="Email Address" id="email" type="email" value={data.email} onChange={(v) => update("email", v)} placeholder="you@email.com" required />
-        <InputField label="Phone Number" id="phone" type="tel" value={data.phone} onChange={(v) => update("phone", v)} placeholder="+91 98765 43210" required />
+        <InputField
+          label="Email Address"
+          id="email"
+          type="email"
+          value={data.email}
+          onChange={(v) => update("email", v)}
+          placeholder="you@email.com"
+          required
+        />
+        <InputField
+          label="Phone Number"
+          id="phone"
+          type="tel"
+          value={data.phone}
+          onChange={(v) => update("phone", v)}
+          placeholder="+91 98765 43210"
+          required
+        />
       </div>
     </div>
   );
 }
 
-function Step2({ data, update }: { data: FormData; update: (k: keyof FormData, v: string) => void }) {
+function Step2({
+  data,
+  update,
+}: {
+  data: FormData;
+  update: (k: keyof FormData, v: string) => void;
+}) {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
       <div style={{ marginBottom: "4px" }}>
-        <h2 style={{ fontFamily: "var(--font-display)", fontSize: "1.7rem", fontWeight: 600, color: "var(--charcoal)", marginBottom: "6px" }}>
+        <h2
+          style={{
+            fontFamily: "var(--font-display)",
+            fontSize: "1.7rem",
+            fontWeight: 600,
+            color: "var(--charcoal)",
+            marginBottom: "6px",
+          }}
+        >
           Personal Details
         </h2>
-        <p style={{ color: "oklch(0.55 0.01 60)", fontSize: "0.9rem" }}>Help us personalise your care experience.</p>
+        <p style={{ color: "oklch(0.55 0.01 60)", fontSize: "0.9rem" }}>
+          Help us personalise your care experience.
+        </p>
       </div>
 
       {/* Gender */}
       <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-        <label style={{ fontSize: "0.8rem", fontWeight: 600, letterSpacing: "0.05em", color: "oklch(0.45 0.01 60)", textTransform: "uppercase" }}>
+        <label
+          style={{
+            fontSize: "0.8rem",
+            fontWeight: 600,
+            letterSpacing: "0.05em",
+            color: "oklch(0.45 0.01 60)",
+            textTransform: "uppercase",
+          }}
+        >
           Gender <span style={{ color: "var(--rose)" }}>*</span>
         </label>
         <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
@@ -174,7 +248,15 @@ function Step2({ data, update }: { data: FormData; update: (k: keyof FormData, v
         </div>
       </div>
 
-      <InputField label="Age" id="age" type="number" value={data.age} onChange={(v) => update("age", v)} placeholder="e.g. 28" required />
+      <InputField
+        label="Age"
+        id="age"
+        type="number"
+        value={data.age}
+        onChange={(v) => update("age", v)}
+        placeholder="e.g. 28"
+        required
+      />
       <InputField
         label="Home Address"
         id="address"
@@ -187,11 +269,25 @@ function Step2({ data, update }: { data: FormData; update: (k: keyof FormData, v
   );
 }
 
-function Step3({ data, update }: { data: FormData; update: (k: keyof FormData, v: string) => void }) {
+function Step3({
+  data,
+  update,
+}: {
+  data: FormData;
+  update: (k: keyof FormData, v: string) => void;
+}) {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
       <div style={{ marginBottom: "4px" }}>
-        <h2 style={{ fontFamily: "var(--font-display)", fontSize: "1.7rem", fontWeight: 600, color: "var(--charcoal)", marginBottom: "6px" }}>
+        <h2
+          style={{
+            fontFamily: "var(--font-display)",
+            fontSize: "1.7rem",
+            fontWeight: 600,
+            color: "var(--charcoal)",
+            marginBottom: "6px",
+          }}
+        >
           Emergency Contact
         </h2>
         <p style={{ color: "oklch(0.55 0.01 60)", fontSize: "0.9rem" }}>
@@ -209,10 +305,26 @@ function Step3({ data, update }: { data: FormData; update: (k: keyof FormData, v
           lineHeight: 1.6,
         }}
       >
-        💛 A bystander can be your partner, parent, or close friend — someone who will journey alongside you.
+        💛 A bystander can be your partner, parent, or close friend — someone who will journey
+        alongside you.
       </div>
-      <InputField label="Bystander's Full Name" id="bystanderName" value={data.bystanderName} onChange={(v) => update("bystanderName", v)} placeholder="e.g. Rahul Menon" required />
-      <InputField label="Bystander's Phone Number" id="bystanderPhone" type="tel" value={data.bystanderPhone} onChange={(v) => update("bystanderPhone", v)} placeholder="+91 98765 43210" required />
+      <InputField
+        label="Bystander's Full Name"
+        id="bystanderName"
+        value={data.bystanderName}
+        onChange={(v) => update("bystanderName", v)}
+        placeholder="e.g. Rahul Menon"
+        required
+      />
+      <InputField
+        label="Bystander's Phone Number"
+        id="bystanderPhone"
+        type="tel"
+        value={data.bystanderPhone}
+        onChange={(v) => update("bystanderPhone", v)}
+        placeholder="+91 98765 43210"
+        required
+      />
     </div>
   );
 }
@@ -235,14 +347,39 @@ function SuccessScreen() {
           animation: "pop 0.4s ease",
         }}
       >
-        <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+        <svg
+          width="38"
+          height="38"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="white"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
           <polyline points="20 6 9 17 4 12" />
         </svg>
       </div>
-      <h2 style={{ fontFamily: "var(--font-display)", fontSize: "2rem", fontWeight: 600, color: "var(--charcoal)", marginBottom: "12px" }}>
+      <h2
+        style={{
+          fontFamily: "var(--font-display)",
+          fontSize: "2rem",
+          fontWeight: 600,
+          color: "var(--charcoal)",
+          marginBottom: "12px",
+        }}
+      >
         Welcome to Nalora 🌸
       </h2>
-      <p style={{ color: "oklch(0.55 0.01 60)", fontSize: "0.95rem", maxWidth: "340px", margin: "0 auto 32px", lineHeight: 1.7 }}>
+      <p
+        style={{
+          color: "oklch(0.55 0.01 60)",
+          fontSize: "0.95rem",
+          maxWidth: "340px",
+          margin: "0 auto 32px",
+          lineHeight: 1.7,
+        }}
+      >
         Your account has been created. You're now part of a caring community built just for you.
       </p>
       <Link
@@ -269,7 +406,14 @@ function SuccessScreen() {
         }}
       >
         Go to Home
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.5"
+        >
           <path d="M5 12h14M12 5l7 7-7 7" />
         </svg>
       </Link>
@@ -307,7 +451,8 @@ function CreateAccount() {
     <div
       style={{
         minHeight: "100vh",
-        background: "linear-gradient(135deg, oklch(0.985 0.012 60) 0%, oklch(0.96 0.03 18) 50%, oklch(0.97 0.02 55) 100%)",
+        background:
+          "linear-gradient(135deg, oklch(0.985 0.012 60) 0%, oklch(0.96 0.03 18) 50%, oklch(0.97 0.02 55) 100%)",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -380,7 +525,14 @@ function CreateAccount() {
                 fontWeight: 500,
               }}
             >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+              >
                 <path d="M19 12H5M12 19l-7-7 7-7" />
               </svg>
               Back to Nalora
@@ -400,10 +552,28 @@ function CreateAccount() {
             </span>
           </div>
           <div style={{ marginTop: "20px" }}>
-            <p style={{ color: "oklch(1 0 0 / 0.75)", fontSize: "0.78rem", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: "4px" }}>
+            <p
+              style={{
+                color: "oklch(1 0 0 / 0.75)",
+                fontSize: "0.78rem",
+                fontWeight: 600,
+                letterSpacing: "0.1em",
+                textTransform: "uppercase",
+                marginBottom: "4px",
+              }}
+            >
               Create Account
             </p>
-            <h1 style={{ fontFamily: "var(--font-display)", fontSize: "1.9rem", fontWeight: 600, color: "white", margin: 0, lineHeight: 1.2 }}>
+            <h1
+              style={{
+                fontFamily: "var(--font-display)",
+                fontSize: "1.9rem",
+                fontWeight: 600,
+                color: "white",
+                margin: 0,
+                lineHeight: 1.2,
+              }}
+            >
               nalora
             </h1>
           </div>
@@ -431,14 +601,26 @@ function CreateAccount() {
               <StepDots current={step} total={TOTAL_STEPS} />
 
               {/* Step labels */}
-              <div style={{ display: "flex", justifyContent: "center", gap: "20px", marginBottom: "28px" }}>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  gap: "20px",
+                  marginBottom: "28px",
+                }}
+              >
                 {STEP_LABELS.map((label, i) => (
                   <span
                     key={label}
                     style={{
                       fontSize: "0.75rem",
                       fontWeight: 600,
-                      color: i === step ? "var(--rose)" : i < step ? "var(--coconut)" : "oklch(0.75 0.01 60)",
+                      color:
+                        i === step
+                          ? "var(--rose)"
+                          : i < step
+                            ? "var(--coconut)"
+                            : "oklch(0.75 0.01 60)",
                       letterSpacing: "0.03em",
                       transition: "color 0.2s",
                     }}
@@ -473,8 +655,14 @@ function CreateAccount() {
                       cursor: "pointer",
                       transition: "all 0.2s",
                     }}
-                    onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.borderColor = "var(--rose)"; (e.currentTarget as HTMLElement).style.color = "var(--rose)"; }}
-                    onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.borderColor = "oklch(0.88 0.02 55)"; (e.currentTarget as HTMLElement).style.color = "oklch(0.45 0.01 60)"; }}
+                    onMouseEnter={(e) => {
+                      (e.currentTarget as HTMLElement).style.borderColor = "var(--rose)";
+                      (e.currentTarget as HTMLElement).style.color = "var(--rose)";
+                    }}
+                    onMouseLeave={(e) => {
+                      (e.currentTarget as HTMLElement).style.borderColor = "oklch(0.88 0.02 55)";
+                      (e.currentTarget as HTMLElement).style.color = "oklch(0.45 0.01 60)";
+                    }}
                   >
                     Back
                   </button>
@@ -497,11 +685,13 @@ function CreateAccount() {
                   }}
                   onMouseEnter={(e) => {
                     (e.currentTarget as HTMLElement).style.transform = "translateY(-1px)";
-                    (e.currentTarget as HTMLElement).style.boxShadow = "0 12px 32px oklch(0.74 0.11 18 / 0.38)";
+                    (e.currentTarget as HTMLElement).style.boxShadow =
+                      "0 12px 32px oklch(0.74 0.11 18 / 0.38)";
                   }}
                   onMouseLeave={(e) => {
                     (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
-                    (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 24px oklch(0.74 0.11 18 / 0.28)";
+                    (e.currentTarget as HTMLElement).style.boxShadow =
+                      "0 8px 24px oklch(0.74 0.11 18 / 0.28)";
                   }}
                 >
                   {step < TOTAL_STEPS - 1 ? "Continue →" : "Create My Account"}
@@ -509,9 +699,19 @@ function CreateAccount() {
               </div>
 
               {step === 0 && (
-                <p style={{ textAlign: "center", marginTop: "18px", fontSize: "0.8rem", color: "oklch(0.65 0.01 60)" }}>
+                <p
+                  style={{
+                    textAlign: "center",
+                    marginTop: "18px",
+                    fontSize: "0.8rem",
+                    color: "oklch(0.65 0.01 60)",
+                  }}
+                >
                   Already have an account?{" "}
-                  <a href="#" style={{ color: "var(--rose)", fontWeight: 600, textDecoration: "none" }}>
+                  <a
+                    href="#"
+                    style={{ color: "var(--rose)", fontWeight: 600, textDecoration: "none" }}
+                  >
                     Sign in
                   </a>
                 </p>

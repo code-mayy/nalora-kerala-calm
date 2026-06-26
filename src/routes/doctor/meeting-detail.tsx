@@ -12,74 +12,130 @@ export const Route = createFileRoute("/doctor/meeting-detail")({
   head: () => ({
     meta: [
       { title: "Consultation Console – Nalora" },
-      { name: "description", content: "Clinical console to launch Google Meet and log patient session notes." },
+      {
+        name: "description",
+        content: "Clinical console to launch Google Meet and log patient session notes.",
+      },
     ],
   }),
   component: MeetingDetail,
 });
 
 // Mock database mapping id -> patient details
-const PATIENT_DETAILS: Record<number, {
-  id: number;
-  patient: string;
-  age: number;
-  email: string;
-  phone: string;
-  address: string;
-  bystanderName: string;
-  bystanderPhone: string;
-  gender: string;
-  time: string;
-  type: string;
-  status: string;
-  meetLink: string;
-  history: string[];
-}> = {
+const PATIENT_DETAILS: Record<
+  number,
+  {
+    id: number;
+    patient: string;
+    age: number;
+    email: string;
+    phone: string;
+    address: string;
+    bystanderName: string;
+    bystanderPhone: string;
+    gender: string;
+    time: string;
+    type: string;
+    status: string;
+    meetLink: string;
+    history: string[];
+  }
+> = {
   1: {
-    id: 1, patient: "Anjali Menon", age: 29, gender: "Female",
-    email: "anjali@example.com", phone: "+91 94471 23456",
+    id: 1,
+    patient: "Anjali Menon",
+    age: 29,
+    gender: "Female",
+    email: "anjali@example.com",
+    phone: "+91 94471 23456",
     address: "TC 4/1234, Kowdiar, Trivandrum, Kerala",
-    bystanderName: "Harish Menon (Husband)", bystanderPhone: "+91 94471 98765",
-    time: "09:00 AM", type: "Postpartum Anxiety Session", status: "completed",
+    bystanderName: "Harish Menon (Husband)",
+    bystanderPhone: "+91 94471 98765",
+    time: "09:00 AM",
+    type: "Postpartum Anxiety Session",
+    status: "completed",
     meetLink: "https://meet.google.com/abc-defg-hij",
-    history: ["Completed initial intake questionnaire (2026-06-20)", "Reported moderate postpartum sleep anxiety levels."]
+    history: [
+      "Completed initial intake questionnaire (2026-06-20)",
+      "Reported moderate postpartum sleep anxiety levels.",
+    ],
   },
   2: {
-    id: 2, patient: "Priyanka Raj", age: 31, gender: "Female",
-    email: "priyanka.raj@example.com", phone: "+91 98950 11223",
+    id: 2,
+    patient: "Priyanka Raj",
+    age: 31,
+    gender: "Female",
+    email: "priyanka.raj@example.com",
+    phone: "+91 98950 11223",
     address: "Villa 12, Sobha City, Thrissur, Kerala",
-    bystanderName: "Rajesh K. (Husband)", bystanderPhone: "+91 98950 44556",
-    time: "11:30 AM", type: "PPD Routine Followup", status: "completed",
+    bystanderName: "Rajesh K. (Husband)",
+    bystanderPhone: "+91 98950 44556",
+    time: "11:30 AM",
+    type: "PPD Routine Followup",
+    status: "completed",
     meetLink: "https://meet.google.com/abc-defg-hij",
-    history: ["Intake review completed (2026-06-22)", "Struggling with lack of social support and exhaustion."]
+    history: [
+      "Intake review completed (2026-06-22)",
+      "Struggling with lack of social support and exhaustion.",
+    ],
   },
   3: {
-    id: 3, patient: "Sneha Nair", age: 27, gender: "Female",
-    email: "sneha.nair@example.com", phone: "+91 97440 55667",
+    id: 3,
+    patient: "Sneha Nair",
+    age: 27,
+    gender: "Female",
+    email: "sneha.nair@example.com",
+    phone: "+91 97440 55667",
     address: "Flat 4B, Heera Heights, Kochi, Kerala",
-    bystanderName: "Radha Nair (Mother)", bystanderPhone: "+91 97440 99887",
-    time: "02:00 PM", type: "Birth Trauma Consultation", status: "in-progress",
+    bystanderName: "Radha Nair (Mother)",
+    bystanderPhone: "+91 97440 99887",
+    time: "02:00 PM",
+    type: "Birth Trauma Consultation",
+    status: "in-progress",
     meetLink: "https://meet.google.com/abc-defg-hij",
-    history: ["Difficult delivery experience leading to acute birth stress", "Husband traveling, mother supporting locally."]
+    history: [
+      "Difficult delivery experience leading to acute birth stress",
+      "Husband traveling, mother supporting locally.",
+    ],
   },
   4: {
-    id: 4, patient: "Divya Pillai", age: 33, gender: "Female",
-    email: "divya.p@example.com", phone: "+91 96560 33445",
+    id: 4,
+    patient: "Divya Pillai",
+    age: 33,
+    gender: "Female",
+    email: "divya.p@example.com",
+    phone: "+91 96560 33445",
     address: "Pillai House, Haripad, Alappuzha, Kerala",
-    bystanderName: "Prashanth Pillai (Husband)", bystanderPhone: "+91 96560 77889",
-    time: "04:00 PM", type: "Hormonal Mood Shifts Review", status: "upcoming",
+    bystanderName: "Prashanth Pillai (Husband)",
+    bystanderPhone: "+91 96560 77889",
+    time: "04:00 PM",
+    type: "Hormonal Mood Shifts Review",
+    status: "upcoming",
     meetLink: "https://meet.google.com/klm-nopq-rst",
-    history: ["Hormonal mood shifts starting week 3 postpartum", "Exhibiting severe mood fluctuations during evenings."]
+    history: [
+      "Hormonal mood shifts starting week 3 postpartum",
+      "Exhibiting severe mood fluctuations during evenings.",
+    ],
   },
   5: {
-    id: 5, patient: "Meera Krishnan", age: 26, gender: "Female",
-    email: "meera.krishnan@example.com", phone: "+91 95670 99001",
+    id: 5,
+    patient: "Meera Krishnan",
+    age: 26,
+    gender: "Female",
+    email: "meera.krishnan@example.com",
+    phone: "+91 95670 99001",
     address: "Krishna Nivas, Calicut, Kerala",
-    bystanderName: "Krishnan Unni (Father)", bystanderPhone: "+91 95670 11224",
-    time: "06:30 PM", type: "First Time Motherhood Exhaustion", status: "upcoming",
+    bystanderName: "Krishnan Unni (Father)",
+    bystanderPhone: "+91 95670 11224",
+    time: "06:30 PM",
+    type: "First Time Motherhood Exhaustion",
+    status: "upcoming",
     meetLink: "https://meet.google.com/uvw-xyz1-abc",
-    history: ["Overwhelmed by new breastfeeding routines and severe sleep deficit", "Has mild postpartum sadness signs."]
-  }
+    history: [
+      "Overwhelmed by new breastfeeding routines and severe sleep deficit",
+      "Has mild postpartum sadness signs.",
+    ],
+  },
 };
 
 function MeetingDetail() {
@@ -116,12 +172,12 @@ function MeetingDetail() {
       const storageKey = `nalora_patient_diary_logs_${info.id}`;
       const existingLogsRaw = localStorage.getItem(storageKey);
       const existingLogs = existingLogsRaw ? JSON.parse(existingLogsRaw) : [];
-      
+
       const newLog = {
         date: new Date().toISOString().split("T")[0],
-        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
         author: "Dr. Aisha Menon",
-        text: diaryNote
+        text: diaryNote,
       };
 
       localStorage.setItem(storageKey, JSON.stringify([newLog, ...existingLogs]));
@@ -134,7 +190,13 @@ function MeetingDetail() {
 
   return (
     <ProtectedPage allowedRole="doctor">
-      <div style={{ minHeight: "100vh", background: "oklch(0.985 0.005 240)", fontFamily: "var(--font-sans)" }}>
+      <div
+        style={{
+          minHeight: "100vh",
+          background: "oklch(0.985 0.005 240)",
+          fontFamily: "var(--font-sans)",
+        }}
+      >
         <DoctorNav />
 
         {/* Back and Breadcrumbs */}
@@ -169,23 +231,61 @@ function MeetingDetail() {
         >
           {/* Patient Card Detail Panel (Left) */}
           <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
-            
             {/* Patient General Info Card */}
-            <div style={{ background: "white", padding: "28px", borderRadius: "24px", border: "1px solid oklch(0.92 0.01 240)", boxShadow: "0 4px 20px oklch(0 0 0 / 0.01)" }}>
-              <div style={{ textAlign: "center", paddingBottom: "20px", borderBottom: "1px solid oklch(0.95 0.01 240)", marginBottom: "20px" }}>
+            <div
+              style={{
+                background: "white",
+                padding: "28px",
+                borderRadius: "24px",
+                border: "1px solid oklch(0.92 0.01 240)",
+                boxShadow: "0 4px 20px oklch(0 0 0 / 0.01)",
+              }}
+            >
+              <div
+                style={{
+                  textAlign: "center",
+                  paddingBottom: "20px",
+                  borderBottom: "1px solid oklch(0.95 0.01 240)",
+                  marginBottom: "20px",
+                }}
+              >
                 <span
                   style={{
-                    width: "60px", height: "60px", borderRadius: "50%",
+                    width: "60px",
+                    height: "60px",
+                    borderRadius: "50%",
                     background: "linear-gradient(135deg, oklch(0.4 0.03 240), oklch(0.5 0.04 200))",
-                    display: "grid", placeItems: "center", color: "white",
-                    fontFamily: "var(--font-display)", fontSize: "1.6rem", fontWeight: 600,
+                    display: "grid",
+                    placeItems: "center",
+                    color: "white",
+                    fontFamily: "var(--font-display)",
+                    fontSize: "1.6rem",
+                    fontWeight: 600,
                     margin: "0 auto 12px",
                   }}
                 >
-                  {info.patient.split(" ").map((w) => w[0]).join("")}
+                  {info.patient
+                    .split(" ")
+                    .map((w) => w[0])
+                    .join("")}
                 </span>
-                <h2 style={{ fontSize: "1.35rem", fontWeight: 700, color: "var(--charcoal)", margin: 0 }}>{info.patient}</h2>
-                <p style={{ fontSize: "0.84rem", color: "oklch(0.55 0.01 240)", margin: "4px 0 12px" }}>
+                <h2
+                  style={{
+                    fontSize: "1.35rem",
+                    fontWeight: 700,
+                    color: "var(--charcoal)",
+                    margin: 0,
+                  }}
+                >
+                  {info.patient}
+                </h2>
+                <p
+                  style={{
+                    fontSize: "0.84rem",
+                    color: "oklch(0.55 0.01 240)",
+                    margin: "4px 0 12px",
+                  }}
+                >
                   {info.gender} · {info.age} years old
                 </p>
 
@@ -210,11 +310,30 @@ function MeetingDetail() {
                       boxShadow: "0 4px 14px oklch(0.4 0.03 240 / 0.25)",
                     }}
                   >
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                    >
+                      <path d="M23 7l-7 5 7 5V7z" />
+                      <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
+                    </svg>
                     Launch Google Meet
                   </a>
                 ) : (
-                  <div style={{ padding: "8px", borderRadius: "8px", background: "oklch(0.95 0.02 145)", color: "oklch(0.35 0.06 145)", fontSize: "0.84rem", fontWeight: 700 }}>
+                  <div
+                    style={{
+                      padding: "8px",
+                      borderRadius: "8px",
+                      background: "oklch(0.95 0.02 145)",
+                      color: "oklch(0.35 0.06 145)",
+                      fontSize: "0.84rem",
+                      fontWeight: 700,
+                    }}
+                  >
                     Consultation Completed ✓
                   </div>
                 )}
@@ -223,51 +342,165 @@ function MeetingDetail() {
               {/* Patient Fields */}
               <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
                 <div>
-                  <label style={{ display: "block", fontSize: "0.75rem", fontWeight: 700, color: "oklch(0.55 0.01 240)", textTransform: "uppercase", letterSpacing: "0.05em" }}>Contact Email</label>
-                  <span style={{ fontSize: "0.92rem", color: "var(--charcoal)", fontWeight: 500 }}>{info.email}</span>
+                  <label
+                    style={{
+                      display: "block",
+                      fontSize: "0.75rem",
+                      fontWeight: 700,
+                      color: "oklch(0.55 0.01 240)",
+                      textTransform: "uppercase",
+                      letterSpacing: "0.05em",
+                    }}
+                  >
+                    Contact Email
+                  </label>
+                  <span style={{ fontSize: "0.92rem", color: "var(--charcoal)", fontWeight: 500 }}>
+                    {info.email}
+                  </span>
                 </div>
                 <div>
-                  <label style={{ display: "block", fontSize: "0.75rem", fontWeight: 700, color: "oklch(0.55 0.01 240)", textTransform: "uppercase", letterSpacing: "0.05em" }}>Phone Number</label>
-                  <span style={{ fontSize: "0.92rem", color: "var(--charcoal)", fontWeight: 500 }}>{info.phone}</span>
+                  <label
+                    style={{
+                      display: "block",
+                      fontSize: "0.75rem",
+                      fontWeight: 700,
+                      color: "oklch(0.55 0.01 240)",
+                      textTransform: "uppercase",
+                      letterSpacing: "0.05em",
+                    }}
+                  >
+                    Phone Number
+                  </label>
+                  <span style={{ fontSize: "0.92rem", color: "var(--charcoal)", fontWeight: 500 }}>
+                    {info.phone}
+                  </span>
                 </div>
                 <div>
-                  <label style={{ display: "block", fontSize: "0.75rem", fontWeight: 700, color: "oklch(0.55 0.01 240)", textTransform: "uppercase", letterSpacing: "0.05em" }}>Kerala Address</label>
-                  <span style={{ fontSize: "0.88rem", color: "var(--charcoal)", lineHeight: 1.4 }}>{info.address}</span>
+                  <label
+                    style={{
+                      display: "block",
+                      fontSize: "0.75rem",
+                      fontWeight: 700,
+                      color: "oklch(0.55 0.01 240)",
+                      textTransform: "uppercase",
+                      letterSpacing: "0.05em",
+                    }}
+                  >
+                    Kerala Address
+                  </label>
+                  <span style={{ fontSize: "0.88rem", color: "var(--charcoal)", lineHeight: 1.4 }}>
+                    {info.address}
+                  </span>
                 </div>
                 <div>
-                  <label style={{ display: "block", fontSize: "0.75rem", fontWeight: 700, color: "oklch(0.55 0.01 240)", textTransform: "uppercase", letterSpacing: "0.05em" }}>Bystander / Emergency Caretaker</label>
-                  <span style={{ fontSize: "0.9rem", color: "var(--charcoal)", fontWeight: 600 }}>{info.bystanderName}</span>
-                  <div style={{ fontSize: "0.84rem", color: "oklch(0.55 0.01 240)", marginTop: "2px" }}>{info.bystanderPhone}</div>
+                  <label
+                    style={{
+                      display: "block",
+                      fontSize: "0.75rem",
+                      fontWeight: 700,
+                      color: "oklch(0.55 0.01 240)",
+                      textTransform: "uppercase",
+                      letterSpacing: "0.05em",
+                    }}
+                  >
+                    Bystander / Emergency Caretaker
+                  </label>
+                  <span style={{ fontSize: "0.9rem", color: "var(--charcoal)", fontWeight: 600 }}>
+                    {info.bystanderName}
+                  </span>
+                  <div
+                    style={{ fontSize: "0.84rem", color: "oklch(0.55 0.01 240)", marginTop: "2px" }}
+                  >
+                    {info.bystanderPhone}
+                  </div>
                 </div>
               </div>
             </div>
 
             {/* Quick Session Context */}
-            <div style={{ background: "white", padding: "24px", borderRadius: "20px", border: "1px solid oklch(0.92 0.01 240)", boxShadow: "0 4px 16px oklch(0 0 0 / 0.01)" }}>
-              <h3 style={{ fontSize: "0.94rem", fontWeight: 700, color: "var(--charcoal)", margin: "0 0 12px" }}>Previous Case Notes</h3>
+            <div
+              style={{
+                background: "white",
+                padding: "24px",
+                borderRadius: "20px",
+                border: "1px solid oklch(0.92 0.01 240)",
+                boxShadow: "0 4px 16px oklch(0 0 0 / 0.01)",
+              }}
+            >
+              <h3
+                style={{
+                  fontSize: "0.94rem",
+                  fontWeight: 700,
+                  color: "var(--charcoal)",
+                  margin: "0 0 12px",
+                }}
+              >
+                Previous Case Notes
+              </h3>
               <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
                 {info.history.map((hist, idx) => (
-                  <div key={idx} style={{ padding: "10px 12px", background: "oklch(0.99 0.003 240)", borderLeft: "3.5px solid oklch(0.5 0.04 200 / 0.6)", borderRadius: "6px", fontSize: "0.84rem", color: "oklch(0.45 0.01 240)", lineHeight: 1.4 }}>
+                  <div
+                    key={idx}
+                    style={{
+                      padding: "10px 12px",
+                      background: "oklch(0.99 0.003 240)",
+                      borderLeft: "3.5px solid oklch(0.5 0.04 200 / 0.6)",
+                      borderRadius: "6px",
+                      fontSize: "0.84rem",
+                      color: "oklch(0.45 0.01 240)",
+                      lineHeight: 1.4,
+                    }}
+                  >
                     {hist}
                   </div>
                 ))}
               </div>
             </div>
-
           </div>
 
           {/* Console Workspaces (Right) */}
           <div style={{ display: "flex", flexDirection: "column", gap: "28px" }}>
-            
             {/* Real-time Patient Session Notes Card */}
-            <div style={{ background: "white", padding: "32px", borderRadius: "24px", border: "1px solid oklch(0.92 0.01 240)", boxShadow: "0 4px 20px oklch(0 0 0 / 0.01)" }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px" }}>
+            <div
+              style={{
+                background: "white",
+                padding: "32px",
+                borderRadius: "24px",
+                border: "1px solid oklch(0.92 0.01 240)",
+                boxShadow: "0 4px 20px oklch(0 0 0 / 0.01)",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  marginBottom: "16px",
+                }}
+              >
                 <div>
-                  <h3 style={{ fontSize: "1.25rem", fontWeight: 700, color: "var(--charcoal)", margin: 0 }}>Real-time Consultation Notes</h3>
-                  <p style={{ fontSize: "0.84rem", color: "oklch(0.55 0.01 240)", marginTop: "2px" }}>Draft clinical notes during the call. These are autosaved to draft.</p>
+                  <h3
+                    style={{
+                      fontSize: "1.25rem",
+                      fontWeight: 700,
+                      color: "var(--charcoal)",
+                      margin: 0,
+                    }}
+                  >
+                    Real-time Consultation Notes
+                  </h3>
+                  <p
+                    style={{ fontSize: "0.84rem", color: "oklch(0.55 0.01 240)", marginTop: "2px" }}
+                  >
+                    Draft clinical notes during the call. These are autosaved to draft.
+                  </p>
                 </div>
                 {savedNotesMessage && (
-                  <span style={{ fontSize: "0.84rem", color: "oklch(0.4 0.03 240)", fontWeight: 600 }}>{savedNotesMessage}</span>
+                  <span
+                    style={{ fontSize: "0.84rem", color: "oklch(0.4 0.03 240)", fontWeight: 600 }}
+                  >
+                    {savedNotesMessage}
+                  </span>
                 )}
               </div>
 
@@ -291,8 +524,12 @@ function MeetingDetail() {
                   lineHeight: 1.5,
                   transition: "border-color 0.2s",
                 }}
-                onFocus={(e) => { e.target.style.borderColor = "oklch(0.4 0.03 240)"; }}
-                onBlur={(e) => { e.target.style.borderColor = "oklch(0.88 0.02 240)"; }}
+                onFocus={(e) => {
+                  e.target.style.borderColor = "oklch(0.4 0.03 240)";
+                }}
+                onBlur={(e) => {
+                  e.target.style.borderColor = "oklch(0.88 0.02 240)";
+                }}
               />
 
               <div style={{ display: "flex", justifyContent: "flex-end", marginTop: "14px" }}>
@@ -309,8 +546,13 @@ function MeetingDetail() {
                     cursor: "pointer",
                     transition: "all 0.2s",
                   }}
-                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "oklch(0.4 0.03 240 / 0.05)"; }}
-                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "white"; }}
+                  onMouseEnter={(e) => {
+                    (e.currentTarget as HTMLElement).style.background =
+                      "oklch(0.4 0.03 240 / 0.05)";
+                  }}
+                  onMouseLeave={(e) => {
+                    (e.currentTarget as HTMLElement).style.background = "white";
+                  }}
                 >
                   Save Draft Notes
                 </button>
@@ -318,14 +560,45 @@ function MeetingDetail() {
             </div>
 
             {/* Permanent Patient Diary Records Card */}
-            <div style={{ background: "white", padding: "32px", borderRadius: "24px", border: "1px solid oklch(0.92 0.01 240)", boxShadow: "0 4px 20px oklch(0 0 0 / 0.01)" }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px" }}>
+            <div
+              style={{
+                background: "white",
+                padding: "32px",
+                borderRadius: "24px",
+                border: "1px solid oklch(0.92 0.01 240)",
+                boxShadow: "0 4px 20px oklch(0 0 0 / 0.01)",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  marginBottom: "16px",
+                }}
+              >
                 <div>
-                  <h3 style={{ fontSize: "1.25rem", fontWeight: 700, color: "var(--charcoal)", margin: 0 }}>Append to Patient's Permanent Clinical Diary</h3>
-                  <p style={{ fontSize: "0.84rem", color: "oklch(0.55 0.01 240)", marginTop: "2px" }}>Write the formal diagnosis, care summaries, or treatment recommendations that commit to the patient's record timeline.</p>
+                  <h3
+                    style={{
+                      fontSize: "1.25rem",
+                      fontWeight: 700,
+                      color: "var(--charcoal)",
+                      margin: 0,
+                    }}
+                  >
+                    Append to Patient's Permanent Clinical Diary
+                  </h3>
+                  <p
+                    style={{ fontSize: "0.84rem", color: "oklch(0.55 0.01 240)", marginTop: "2px" }}
+                  >
+                    Write the formal diagnosis, care summaries, or treatment recommendations that
+                    commit to the patient's record timeline.
+                  </p>
                 </div>
                 {savedDiaryMessage && (
-                  <span style={{ fontSize: "0.84rem", color: "#16a34a", fontWeight: 600 }}>{savedDiaryMessage}</span>
+                  <span style={{ fontSize: "0.84rem", color: "#16a34a", fontWeight: 600 }}>
+                    {savedDiaryMessage}
+                  </span>
                 )}
               </div>
 
@@ -349,11 +622,23 @@ function MeetingDetail() {
                   lineHeight: 1.5,
                   transition: "border-color 0.2s",
                 }}
-                onFocus={(e) => { e.target.style.borderColor = "oklch(0.4 0.03 240)"; }}
-                onBlur={(e) => { e.target.style.borderColor = "oklch(0.88 0.02 240)"; }}
+                onFocus={(e) => {
+                  e.target.style.borderColor = "oklch(0.4 0.03 240)";
+                }}
+                onBlur={(e) => {
+                  e.target.style.borderColor = "oklch(0.88 0.02 240)";
+                }}
               />
 
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "14px" }} className="diary-footer">
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  marginTop: "14px",
+                }}
+                className="diary-footer"
+              >
                 <Link
                   to="/doctor/diary-all"
                   style={{
@@ -380,14 +665,17 @@ function MeetingDetail() {
                     transition: "all 0.2s",
                     boxShadow: "0 4px 12px oklch(0.4 0.03 240 / 0.2)",
                   }}
-                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "oklch(0.35 0.03 240)"; }}
-                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "oklch(0.4 0.03 240)"; }}
+                  onMouseEnter={(e) => {
+                    (e.currentTarget as HTMLElement).style.background = "oklch(0.35 0.03 240)";
+                  }}
+                  onMouseLeave={(e) => {
+                    (e.currentTarget as HTMLElement).style.background = "oklch(0.4 0.03 240)";
+                  }}
                 >
                   Commit to Diary Timeline
                 </button>
               </div>
             </div>
-
           </div>
         </div>
       </div>

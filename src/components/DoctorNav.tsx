@@ -21,7 +21,13 @@ export function DoctorNav() {
   }
 
   const initials = user?.name
-    ? user.name.replace("Dr. ", "").split(" ").map((w) => w[0]).join("").slice(0, 2).toUpperCase()
+    ? user.name
+        .replace("Dr. ", "")
+        .split(" ")
+        .map((w) => w[0])
+        .join("")
+        .slice(0, 2)
+        .toUpperCase()
     : "DR";
 
   return (
@@ -50,32 +56,85 @@ export function DoctorNav() {
         {/* Logo */}
         <Link
           to="/doctor/dashboard"
-          style={{ display: "flex", alignItems: "center", gap: "8px", textDecoration: "none", flexShrink: 0 }}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "8px",
+            textDecoration: "none",
+            flexShrink: 0,
+          }}
         >
           <span
             style={{
-              width: "36px", height: "36px", borderRadius: "50%",
+              width: "36px",
+              height: "36px",
+              borderRadius: "50%",
               background: "linear-gradient(135deg, oklch(0.4 0.03 240), oklch(0.5 0.04 200))",
-              display: "grid", placeItems: "center", color: "white",
-              fontFamily: "var(--font-display)", fontSize: "1.1rem", fontWeight: 600,
+              display: "grid",
+              placeItems: "center",
+              color: "white",
+              fontFamily: "var(--font-display)",
+              fontSize: "1.1rem",
+              fontWeight: 600,
               boxShadow: "0 4px 12px oklch(0.4 0.03 240 / 0.25)",
             }}
           >
             n
           </span>
-          <span style={{ fontFamily: "var(--font-display)", fontSize: "1.4rem", color: "var(--charcoal)", letterSpacing: "-0.02em" }}>
-            nalora <span style={{ fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", color: "oklch(0.5 0.04 200)", verticalAlign: "middle", border: "1px solid oklch(0.5 0.04 200 / 0.3)", padding: "1px 6px", borderRadius: "6px", marginLeft: "4px" }}>Doctor</span>
+          <span
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "1.4rem",
+              color: "var(--charcoal)",
+              letterSpacing: "-0.02em",
+            }}
+          >
+            nalora{" "}
+            <span
+              style={{
+                fontSize: "0.75rem",
+                fontWeight: 700,
+                textTransform: "uppercase",
+                color: "oklch(0.5 0.04 200)",
+                verticalAlign: "middle",
+                border: "1px solid oklch(0.5 0.04 200 / 0.3)",
+                padding: "1px 6px",
+                borderRadius: "6px",
+                marginLeft: "4px",
+              }}
+            >
+              Doctor
+            </span>
           </span>
         </Link>
 
         {/* Desktop nav links */}
-        <nav style={{ display: "flex", alignItems: "center", gap: "22px", flexShrink: 0 }} className="desktop-doctor-nav">
+        <nav
+          style={{ display: "flex", alignItems: "center", gap: "22px", flexShrink: 0 }}
+          className="desktop-doctor-nav"
+        >
           {PAGES.map(({ to, label }) => (
             <Link
               key={to}
               to={to}
-              style={{ fontSize: "0.845rem", fontWeight: 500, color: "oklch(0.5 0.01 240)", textDecoration: "none", transition: "color 0.2s", whiteSpace: "nowrap" }}
-              activeProps={{ style: { fontSize: "0.845rem", fontWeight: 700, color: "oklch(0.4 0.03 240)", textDecoration: "none", transition: "color 0.2s", whiteSpace: "nowrap" } }}
+              style={{
+                fontSize: "0.845rem",
+                fontWeight: 500,
+                color: "oklch(0.5 0.01 240)",
+                textDecoration: "none",
+                transition: "color 0.2s",
+                whiteSpace: "nowrap",
+              }}
+              activeProps={{
+                style: {
+                  fontSize: "0.845rem",
+                  fontWeight: 700,
+                  color: "oklch(0.4 0.03 240)",
+                  textDecoration: "none",
+                  transition: "color 0.2s",
+                  whiteSpace: "nowrap",
+                },
+              }}
             >
               {label}
             </Link>
@@ -90,33 +149,66 @@ export function DoctorNav() {
               <button
                 onClick={() => setProfileOpen((o) => !o)}
                 style={{
-                  display: "flex", alignItems: "center", gap: "10px",
-                  padding: "7px 12px 7px 7px", borderRadius: "99px",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
+                  padding: "7px 12px 7px 7px",
+                  borderRadius: "99px",
                   border: "1.5px solid oklch(0.88 0.02 240)",
-                  background: "white", cursor: "pointer",
+                  background: "white",
+                  cursor: "pointer",
                   transition: "border-color 0.2s, box-shadow 0.2s",
                   boxShadow: profileOpen ? "0 0 0 3px oklch(0.4 0.03 240 / 0.12)" : "none",
                 }}
-                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.borderColor = "oklch(0.4 0.03 240)"; }}
-                onMouseLeave={(e) => { if (!profileOpen) (e.currentTarget as HTMLElement).style.borderColor = "oklch(0.88 0.02 240)"; }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLElement).style.borderColor = "oklch(0.4 0.03 240)";
+                }}
+                onMouseLeave={(e) => {
+                  if (!profileOpen)
+                    (e.currentTarget as HTMLElement).style.borderColor = "oklch(0.88 0.02 240)";
+                }}
               >
                 {/* Avatar */}
                 <span
                   style={{
-                    width: "30px", height: "30px", borderRadius: "50%",
+                    width: "30px",
+                    height: "30px",
+                    borderRadius: "50%",
                     background: "linear-gradient(135deg, oklch(0.4 0.03 240), oklch(0.5 0.04 200))",
-                    display: "grid", placeItems: "center",
-                    color: "white", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.04em",
+                    display: "grid",
+                    placeItems: "center",
+                    color: "white",
+                    fontWeight: 700,
+                    fontSize: "0.72rem",
+                    letterSpacing: "0.04em",
                   }}
                 >
                   {initials}
                 </span>
-                <span style={{ fontSize: "0.82rem", fontWeight: 600, color: "var(--charcoal)", maxWidth: "120px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                <span
+                  style={{
+                    fontSize: "0.82rem",
+                    fontWeight: 600,
+                    color: "var(--charcoal)",
+                    maxWidth: "120px",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
+                  }}
+                >
                   {user.name}
                 </span>
                 <svg
-                  width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="oklch(0.6 0.01 240)" strokeWidth="2.5"
-                  style={{ transition: "transform 0.2s", transform: profileOpen ? "rotate(180deg)" : "rotate(0)" }}
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="oklch(0.6 0.01 240)"
+                  strokeWidth="2.5"
+                  style={{
+                    transition: "transform 0.2s",
+                    transform: profileOpen ? "rotate(180deg)" : "rotate(0)",
+                  }}
                 >
                   <path d="M6 9l6 6 6-6" />
                 </svg>
@@ -126,22 +218,43 @@ export function DoctorNav() {
               {profileOpen && (
                 <div
                   style={{
-                    position: "absolute", top: "calc(100% + 10px)", right: 0,
-                    background: "white", borderRadius: "16px",
+                    position: "absolute",
+                    top: "calc(100% + 10px)",
+                    right: 0,
+                    background: "white",
+                    borderRadius: "16px",
                     border: "1px solid oklch(0.9 0.02 240)",
                     boxShadow: "0 16px 48px oklch(0 0 0 / 0.12)",
-                    minWidth: "220px", overflow: "hidden",
+                    minWidth: "220px",
+                    overflow: "hidden",
                     animation: "dropIn 0.18s ease",
                   }}
                   onMouseLeave={() => setProfileOpen(false)}
                 >
                   {/* User info */}
-                  <div style={{ padding: "16px 18px", borderBottom: "1px solid oklch(0.93 0.01 240)", background: "oklch(0.975 0.005 240)" }}>
-                    <div style={{ fontSize: "0.88rem", fontWeight: 700, color: "var(--charcoal)" }}>{user.name}</div>
-                    <div style={{ fontSize: "0.72rem", color: "oklch(0.5 0.04 200)", fontWeight: 600, marginTop: "2px" }}>
+                  <div
+                    style={{
+                      padding: "16px 18px",
+                      borderBottom: "1px solid oklch(0.93 0.01 240)",
+                      background: "oklch(0.975 0.005 240)",
+                    }}
+                  >
+                    <div style={{ fontSize: "0.88rem", fontWeight: 700, color: "var(--charcoal)" }}>
+                      {user.name}
+                    </div>
+                    <div
+                      style={{
+                        fontSize: "0.72rem",
+                        color: "oklch(0.5 0.04 200)",
+                        fontWeight: 600,
+                        marginTop: "2px",
+                      }}
+                    >
                       {user.specialization || "Psychologist"}
                     </div>
-                    <div style={{ fontSize: "0.7rem", color: "oklch(0.6 0.01 240)", marginTop: "2px" }}>
+                    <div
+                      style={{ fontSize: "0.7rem", color: "oklch(0.6 0.01 240)", marginTop: "2px" }}
+                    >
                       {user.email}
                     </div>
                   </div>
@@ -150,18 +263,39 @@ export function DoctorNav() {
                     <button
                       onClick={handleLogout}
                       style={{
-                        width: "100%", padding: "10px 12px", borderRadius: "10px",
-                        border: "none", background: "none", cursor: "pointer",
-                        fontSize: "0.84rem", fontWeight: 600, color: "oklch(0.5 0.1 18)",
-                        display: "flex", alignItems: "center", gap: "8px",
+                        width: "100%",
+                        padding: "10px 12px",
+                        borderRadius: "10px",
+                        border: "none",
+                        background: "none",
+                        cursor: "pointer",
+                        fontSize: "0.84rem",
+                        fontWeight: 600,
+                        color: "oklch(0.5 0.1 18)",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "8px",
                         transition: "background 0.15s",
                         fontFamily: "var(--font-sans)",
                       }}
-                      onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "oklch(0.97 0.02 18)"; }}
-                      onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "none"; }}
+                      onMouseEnter={(e) => {
+                        (e.currentTarget as HTMLElement).style.background = "oklch(0.97 0.02 18)";
+                      }}
+                      onMouseLeave={(e) => {
+                        (e.currentTarget as HTMLElement).style.background = "none";
+                      }}
                     >
-                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>
+                      <svg
+                        width="15"
+                        height="15"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                      >
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                        <polyline points="16 17 21 12 16 7" />
+                        <line x1="21" y1="12" x2="9" y2="12" />
                       </svg>
                       Sign Out
                     </button>
@@ -173,10 +307,14 @@ export function DoctorNav() {
             <Link
               to="/login"
               style={{
-                padding: "9px 18px", borderRadius: "99px",
+                padding: "9px 18px",
+                borderRadius: "99px",
                 border: "1.5px solid oklch(0.5 0.04 200)",
-                color: "oklch(0.5 0.04 200)", fontSize: "0.84rem", fontWeight: 600,
-                textDecoration: "none", transition: "all 0.2s",
+                color: "oklch(0.5 0.04 200)",
+                fontSize: "0.84rem",
+                fontWeight: 600,
+                textDecoration: "none",
+                transition: "all 0.2s",
               }}
             >
               Sign In
@@ -187,17 +325,24 @@ export function DoctorNav() {
           <button
             onClick={() => setMenuOpen((o) => !o)}
             style={{
-              padding: "8px", borderRadius: "10px", border: "1.5px solid oklch(0.88 0.02 240)",
-              background: "white", cursor: "pointer", display: "none",
+              padding: "8px",
+              borderRadius: "10px",
+              border: "1.5px solid oklch(0.88 0.02 240)",
+              background: "white",
+              cursor: "pointer",
+              display: "none",
             }}
             className="mobile-doctor-menu-btn"
           >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--charcoal)" strokeWidth="2.5">
-              {menuOpen ? (
-                <path d="M18 6L6 18M6 6l12 12" />
-              ) : (
-                <path d="M3 12h18M3 6h18M3 18h18" />
-              )}
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="var(--charcoal)"
+              strokeWidth="2.5"
+            >
+              {menuOpen ? <path d="M18 6L6 18M6 6l12 12" /> : <path d="M3 12h18M3 6h18M3 18h18" />}
             </svg>
           </button>
         </div>
@@ -222,8 +367,22 @@ export function DoctorNav() {
               key={to}
               to={to}
               onClick={() => setMenuOpen(false)}
-              style={{ fontSize: "0.9rem", fontWeight: 500, color: "oklch(0.5 0.01 240)", textDecoration: "none", padding: "8px 0" }}
-              activeProps={{ style: { fontSize: "0.9rem", fontWeight: 700, color: "oklch(0.4 0.03 240)", textDecoration: "none", padding: "8px 0" } }}
+              style={{
+                fontSize: "0.9rem",
+                fontWeight: 500,
+                color: "oklch(0.5 0.01 240)",
+                textDecoration: "none",
+                padding: "8px 0",
+              }}
+              activeProps={{
+                style: {
+                  fontSize: "0.9rem",
+                  fontWeight: 700,
+                  color: "oklch(0.4 0.03 240)",
+                  textDecoration: "none",
+                  padding: "8px 0",
+                },
+              }}
             >
               {label}
             </Link>

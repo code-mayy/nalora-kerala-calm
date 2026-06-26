@@ -10,7 +10,11 @@ export const Route = createFileRoute("/bookings")({
   head: () => ({
     meta: [
       { title: "Your Bookings – Nalora" },
-      { name: "description", content: "View and track your upcoming appointments, past session histories, and cancelled sessions on Nalora." },
+      {
+        name: "description",
+        content:
+          "View and track your upcoming appointments, past session histories, and cancelled sessions on Nalora.",
+      },
     ],
   }),
   component: BookingsPage,
@@ -64,7 +68,8 @@ const BOOKINGS: Booking[] = [
     type: "Video Call · 60 min",
     price: "₹1,200",
     status: "past",
-    sessionNote: "Focused on birth trauma processing and coping strategies. Follow-up exercises assigned.",
+    sessionNote:
+      "Focused on birth trauma processing and coping strategies. Follow-up exercises assigned.",
   },
   {
     id: 4,
@@ -76,7 +81,8 @@ const BOOKINGS: Booking[] = [
     type: "Video Call · 60 min",
     price: "₹1,000",
     status: "past",
-    sessionNote: "Introductory session. Discussed postpartum anxiety triggers and sleep support plan.",
+    sessionNote:
+      "Introductory session. Discussed postpartum anxiety triggers and sleep support plan.",
   },
   {
     id: 5,
@@ -112,42 +118,119 @@ function BookingCard({ booking, onCancel }: { booking: Booking; onCancel?: (id: 
         transition: "box-shadow 0.25s",
         boxShadow: "0 2px 12px oklch(0 0 0 / 0.04)",
       }}
-      onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 32px oklch(0 0 0 / 0.09)"; }}
-      onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.boxShadow = "0 2px 12px oklch(0 0 0 / 0.04)"; }}
+      onMouseEnter={(e) => {
+        (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 32px oklch(0 0 0 / 0.09)";
+      }}
+      onMouseLeave={(e) => {
+        (e.currentTarget as HTMLElement).style.boxShadow = "0 2px 12px oklch(0 0 0 / 0.04)";
+      }}
     >
       {/* Status bar */}
-      <div style={{ height: "4px", background: `linear-gradient(90deg, ${cfg.color}, ${cfg.dot})` }} />
+      <div
+        style={{ height: "4px", background: `linear-gradient(90deg, ${cfg.color}, ${cfg.dot})` }}
+      />
 
       <div style={{ padding: "20px 24px" }}>
-        <div style={{ display: "flex", gap: "14px", alignItems: "flex-start", justifyContent: "space-between" }}>
+        <div
+          style={{
+            display: "flex",
+            gap: "14px",
+            alignItems: "flex-start",
+            justifyContent: "space-between",
+          }}
+        >
           <div style={{ display: "flex", gap: "14px", alignItems: "center", flex: 1 }}>
             {booking.doctorImg ? (
-              <img src={booking.doctorImg} alt={booking.doctorName} style={{ width: "52px", height: "52px", borderRadius: "12px", objectFit: "cover", flexShrink: 0 }} />
+              <img
+                src={booking.doctorImg}
+                alt={booking.doctorName}
+                style={{
+                  width: "52px",
+                  height: "52px",
+                  borderRadius: "12px",
+                  objectFit: "cover",
+                  flexShrink: 0,
+                }}
+              />
             ) : (
-              <div style={{ width: "52px", height: "52px", borderRadius: "12px", background: "oklch(0.95 0.02 18)", display: "grid", placeItems: "center", fontFamily: "var(--font-display)", fontSize: "1.4rem", color: "var(--rose)", fontWeight: 600, flexShrink: 0 }}>
+              <div
+                style={{
+                  width: "52px",
+                  height: "52px",
+                  borderRadius: "12px",
+                  background: "oklch(0.95 0.02 18)",
+                  display: "grid",
+                  placeItems: "center",
+                  fontFamily: "var(--font-display)",
+                  fontSize: "1.4rem",
+                  color: "var(--rose)",
+                  fontWeight: 600,
+                  flexShrink: 0,
+                }}
+              >
                 {booking.doctorName.charAt(0)}
               </div>
             )}
             <div>
-              <h3 style={{ fontFamily: "var(--font-display)", fontSize: "1rem", fontWeight: 600, color: "var(--charcoal)", margin: 0 }}>{booking.doctorName}</h3>
-              <p style={{ fontSize: "0.76rem", color: "var(--rose)", fontWeight: 500, margin: "2px 0 0" }}>{booking.doctorRole}</p>
+              <h3
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontSize: "1rem",
+                  fontWeight: 600,
+                  color: "var(--charcoal)",
+                  margin: 0,
+                }}
+              >
+                {booking.doctorName}
+              </h3>
+              <p
+                style={{
+                  fontSize: "0.76rem",
+                  color: "var(--rose)",
+                  fontWeight: 500,
+                  margin: "2px 0 0",
+                }}
+              >
+                {booking.doctorRole}
+              </p>
             </div>
           </div>
           <span
             style={{
-              display: "inline-flex", alignItems: "center", gap: "5px",
-              padding: "5px 11px", borderRadius: "99px",
-              background: cfg.bg, color: cfg.color,
-              fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.04em",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "5px",
+              padding: "5px 11px",
+              borderRadius: "99px",
+              background: cfg.bg,
+              color: cfg.color,
+              fontSize: "0.72rem",
+              fontWeight: 700,
+              letterSpacing: "0.04em",
               flexShrink: 0,
             }}
           >
-            <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: cfg.dot, display: "block" }} />
+            <span
+              style={{
+                width: "6px",
+                height: "6px",
+                borderRadius: "50%",
+                background: cfg.dot,
+                display: "block",
+              }}
+            />
             {cfg.label}
           </span>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(140px, 1fr))", gap: "10px", marginTop: "18px" }}>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill, minmax(140px, 1fr))",
+            gap: "10px",
+            marginTop: "18px",
+          }}
+        >
           {[
             { icon: "📅", label: booking.date },
             { icon: "🕐", label: booking.time },
@@ -157,10 +240,15 @@ function BookingCard({ booking, onCancel }: { booking: Booking; onCancel?: (id: 
             <div
               key={label}
               style={{
-                display: "flex", alignItems: "center", gap: "6px",
-                padding: "9px 12px", borderRadius: "10px",
+                display: "flex",
+                alignItems: "center",
+                gap: "6px",
+                padding: "9px 12px",
+                borderRadius: "10px",
                 background: "oklch(0.97 0.01 60)",
-                fontSize: "0.8rem", color: "oklch(0.45 0.01 60)", fontWeight: 500,
+                fontSize: "0.8rem",
+                color: "oklch(0.45 0.01 60)",
+                fontWeight: 500,
               }}
             >
               <span>{icon}</span> {label}
@@ -172,27 +260,64 @@ function BookingCard({ booking, onCancel }: { booking: Booking; onCancel?: (id: 
           <div style={{ marginTop: "14px" }}>
             <button
               onClick={() => setExpanded((e) => !e)}
-              style={{ background: "none", border: "none", cursor: "pointer", fontSize: "0.78rem", color: "oklch(0.55 0.05 55)", fontWeight: 600, padding: 0, display: "flex", alignItems: "center", gap: "4px" }}
+              style={{
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+                fontSize: "0.78rem",
+                color: "oklch(0.55 0.05 55)",
+                fontWeight: 600,
+                padding: 0,
+                display: "flex",
+                alignItems: "center",
+                gap: "4px",
+              }}
             >
-              {expanded ? "▲" : "▼"} {booking.status === "cancelled" ? "Cancellation note" : "Session note"}
+              {expanded ? "▲" : "▼"}{" "}
+              {booking.status === "cancelled" ? "Cancellation note" : "Session note"}
             </button>
             {expanded && (
-              <div style={{ marginTop: "10px", padding: "12px 16px", borderRadius: "12px", background: "oklch(0.97 0.015 60)", border: "1px solid oklch(0.91 0.02 55)", fontSize: "0.82rem", color: "oklch(0.45 0.01 60)", lineHeight: 1.65 }}>
+              <div
+                style={{
+                  marginTop: "10px",
+                  padding: "12px 16px",
+                  borderRadius: "12px",
+                  background: "oklch(0.97 0.015 60)",
+                  border: "1px solid oklch(0.91 0.02 55)",
+                  fontSize: "0.82rem",
+                  color: "oklch(0.45 0.01 60)",
+                  lineHeight: 1.65,
+                }}
+              >
                 {booking.sessionNote}
               </div>
             )}
           </div>
         )}
 
-        <div style={{ display: "flex", gap: "10px", marginTop: "18px", paddingTop: "16px", borderTop: "1px solid oklch(0.94 0.01 60)" }}>
+        <div
+          style={{
+            display: "flex",
+            gap: "10px",
+            marginTop: "18px",
+            paddingTop: "16px",
+            borderTop: "1px solid oklch(0.94 0.01 60)",
+          }}
+        >
           {booking.status === "upcoming" && (
             <>
               <Link
                 to="/book-session"
                 style={{
-                  flex: 1, padding: "11px", borderRadius: "12px", textAlign: "center",
+                  flex: 1,
+                  padding: "11px",
+                  borderRadius: "12px",
+                  textAlign: "center",
                   background: "linear-gradient(135deg, var(--rose), var(--sunset))",
-                  color: "white", fontSize: "0.84rem", fontWeight: 600, textDecoration: "none",
+                  color: "white",
+                  fontSize: "0.84rem",
+                  fontWeight: 600,
+                  textDecoration: "none",
                   boxShadow: "0 4px 14px oklch(0.74 0.11 18 / 0.22)",
                 }}
               >
@@ -201,9 +326,15 @@ function BookingCard({ booking, onCancel }: { booking: Booking; onCancel?: (id: 
               <button
                 onClick={() => onCancel?.(booking.id)}
                 style={{
-                  flex: 1, padding: "11px", borderRadius: "12px",
-                  border: "1.5px solid oklch(0.88 0.02 55)", background: "white",
-                  color: "oklch(0.5 0.01 60)", fontSize: "0.84rem", fontWeight: 500, cursor: "pointer",
+                  flex: 1,
+                  padding: "11px",
+                  borderRadius: "12px",
+                  border: "1.5px solid oklch(0.88 0.02 55)",
+                  background: "white",
+                  color: "oklch(0.5 0.01 60)",
+                  fontSize: "0.84rem",
+                  fontWeight: 500,
+                  cursor: "pointer",
                 }}
               >
                 Cancel
@@ -215,9 +346,15 @@ function BookingCard({ booking, onCancel }: { booking: Booking; onCancel?: (id: 
               <Link
                 to="/feedback"
                 style={{
-                  flex: 1, padding: "11px", borderRadius: "12px", textAlign: "center",
+                  flex: 1,
+                  padding: "11px",
+                  borderRadius: "12px",
+                  textAlign: "center",
                   background: "linear-gradient(135deg, var(--rose), var(--sunset))",
-                  color: "white", fontSize: "0.84rem", fontWeight: 600, textDecoration: "none",
+                  color: "white",
+                  fontSize: "0.84rem",
+                  fontWeight: 600,
+                  textDecoration: "none",
                 }}
               >
                 Leave Feedback
@@ -225,9 +362,16 @@ function BookingCard({ booking, onCancel }: { booking: Booking; onCancel?: (id: 
               <Link
                 to="/book-session"
                 style={{
-                  flex: 1, padding: "11px", borderRadius: "12px", textAlign: "center",
-                  border: "1.5px solid oklch(0.88 0.02 55)", background: "white",
-                  color: "oklch(0.45 0.01 60)", fontSize: "0.84rem", fontWeight: 500, textDecoration: "none",
+                  flex: 1,
+                  padding: "11px",
+                  borderRadius: "12px",
+                  textAlign: "center",
+                  border: "1.5px solid oklch(0.88 0.02 55)",
+                  background: "white",
+                  color: "oklch(0.45 0.01 60)",
+                  fontSize: "0.84rem",
+                  fontWeight: 500,
+                  textDecoration: "none",
                 }}
               >
                 Book Again
@@ -238,9 +382,16 @@ function BookingCard({ booking, onCancel }: { booking: Booking; onCancel?: (id: 
             <Link
               to="/book-session"
               style={{
-                flex: 1, padding: "11px", borderRadius: "12px", textAlign: "center",
-                background: "oklch(0.97 0.01 60)", border: "1.5px solid oklch(0.88 0.02 55)",
-                color: "oklch(0.45 0.01 60)", fontSize: "0.84rem", fontWeight: 500, textDecoration: "none",
+                flex: 1,
+                padding: "11px",
+                borderRadius: "12px",
+                textAlign: "center",
+                background: "oklch(0.97 0.01 60)",
+                border: "1.5px solid oklch(0.88 0.02 55)",
+                color: "oklch(0.45 0.01 60)",
+                fontSize: "0.84rem",
+                fontWeight: 500,
+                textDecoration: "none",
               }}
             >
               Book a New Session
@@ -277,102 +428,158 @@ function BookingsPage() {
 
   return (
     <ProtectedPage allowedRole="patient">
-    <div style={{ minHeight: "100vh", background: "var(--ivory)", fontFamily: "var(--font-sans)" }}>
-      <InnerNav />
+      <div
+        style={{ minHeight: "100vh", background: "var(--ivory)", fontFamily: "var(--font-sans)" }}
+      >
+        <InnerNav />
 
-      {/* Hero */}
-      <div style={{ background: "linear-gradient(160deg, oklch(0.96 0.03 18) 0%, oklch(0.97 0.025 55) 100%)", padding: "52px 24px 36px", textAlign: "center" }}>
-        <p style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--rose)", marginBottom: "8px" }}>My Appointments</p>
-        <h1 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(1.8rem, 4vw, 2.6rem)", fontWeight: 600, color: "var(--charcoal)", margin: "0 0 14px" }}>
-          Your Bookings
-        </h1>
-        <p style={{ fontSize: "0.92rem", color: "oklch(0.55 0.01 60)", maxWidth: "400px", margin: "0 auto 28px", lineHeight: 1.7 }}>
-          Track your upcoming sessions, view past history, and manage your appointments.
-        </p>
-        <Link
-          to="/book-session"
+        {/* Hero */}
+        <div
           style={{
-            display: "inline-flex", alignItems: "center", gap: "8px",
-            padding: "13px 28px", borderRadius: "99px",
-            background: "linear-gradient(135deg, var(--rose), var(--sunset))",
-            color: "white", fontWeight: 600, fontSize: "0.9rem", textDecoration: "none",
-            boxShadow: "0 8px 24px oklch(0.74 0.11 18 / 0.28)",
+            background:
+              "linear-gradient(160deg, oklch(0.96 0.03 18) 0%, oklch(0.97 0.025 55) 100%)",
+            padding: "52px 24px 36px",
+            textAlign: "center",
           }}
         >
-          + Book New Session
-        </Link>
-      </div>
-
-      <div style={{ maxWidth: "860px", margin: "0 auto", padding: "32px 24px 80px" }}>
-        {/* Tabs */}
-        <div style={{ display: "flex", gap: "8px", marginBottom: "28px", flexWrap: "wrap" }}>
-          {TABS.map(({ key, label, emoji }) => (
-            <button
-              key={key}
-              onClick={() => setActiveTab(key)}
-              style={{
-                padding: "11px 20px",
-                borderRadius: "99px",
-                border: `2px solid ${activeTab === key ? "var(--rose)" : "oklch(0.89 0.02 55)"}`,
-                background: activeTab === key ? "oklch(0.74 0.11 18 / 0.09)" : "white",
-                color: activeTab === key ? "var(--rose)" : "oklch(0.5 0.01 60)",
-                fontWeight: activeTab === key ? 700 : 500,
-                fontSize: "0.85rem",
-                cursor: "pointer",
-                transition: "all 0.2s",
-                display: "flex",
-                alignItems: "center",
-                gap: "6px",
-              }}
-            >
-              <span>{emoji}</span>
-              {label}
-              <span
-                style={{
-                  minWidth: "20px", height: "20px", borderRadius: "99px",
-                  background: activeTab === key ? "var(--rose)" : "oklch(0.9 0.01 60)",
-                  color: activeTab === key ? "white" : "oklch(0.55 0.01 60)",
-                  fontSize: "0.7rem", fontWeight: 700, display: "grid", placeItems: "center",
-                  padding: "0 5px",
-                }}
-              >
-                {counts[key]}
-              </span>
-            </button>
-          ))}
+          <p
+            style={{
+              fontSize: "0.72rem",
+              fontWeight: 700,
+              letterSpacing: "0.15em",
+              textTransform: "uppercase",
+              color: "var(--rose)",
+              marginBottom: "8px",
+            }}
+          >
+            My Appointments
+          </p>
+          <h1
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "clamp(1.8rem, 4vw, 2.6rem)",
+              fontWeight: 600,
+              color: "var(--charcoal)",
+              margin: "0 0 14px",
+            }}
+          >
+            Your Bookings
+          </h1>
+          <p
+            style={{
+              fontSize: "0.92rem",
+              color: "oklch(0.55 0.01 60)",
+              maxWidth: "400px",
+              margin: "0 auto 28px",
+              lineHeight: 1.7,
+            }}
+          >
+            Track your upcoming sessions, view past history, and manage your appointments.
+          </p>
+          <Link
+            to="/book-session"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "8px",
+              padding: "13px 28px",
+              borderRadius: "99px",
+              background: "linear-gradient(135deg, var(--rose), var(--sunset))",
+              color: "white",
+              fontWeight: 600,
+              fontSize: "0.9rem",
+              textDecoration: "none",
+              boxShadow: "0 8px 24px oklch(0.74 0.11 18 / 0.28)",
+            }}
+          >
+            + Book New Session
+          </Link>
         </div>
 
-        {/* Booking list */}
-        {filtered.length === 0 ? (
-          <div style={{ textAlign: "center", padding: "80px 20px", color: "oklch(0.6 0.01 60)" }}>
-            <div style={{ fontSize: "3rem", marginBottom: "14px" }}>
-              {activeTab === "upcoming" ? "📅" : activeTab === "past" ? "📋" : "🚫"}
-            </div>
-            <p style={{ fontSize: "1rem", marginBottom: "20px" }}>
-              {activeTab === "upcoming" ? "No upcoming sessions." : activeTab === "past" ? "No past sessions yet." : "No cancelled sessions."}
-            </p>
-            {activeTab === "upcoming" && (
-              <Link
-                to="/book-session"
+        <div style={{ maxWidth: "860px", margin: "0 auto", padding: "32px 24px 80px" }}>
+          {/* Tabs */}
+          <div style={{ display: "flex", gap: "8px", marginBottom: "28px", flexWrap: "wrap" }}>
+            {TABS.map(({ key, label, emoji }) => (
+              <button
+                key={key}
+                onClick={() => setActiveTab(key)}
                 style={{
-                  display: "inline-flex", padding: "12px 28px", borderRadius: "99px",
-                  background: "linear-gradient(135deg, var(--rose), var(--sunset))",
-                  color: "white", fontWeight: 600, fontSize: "0.9rem", textDecoration: "none",
+                  padding: "11px 20px",
+                  borderRadius: "99px",
+                  border: `2px solid ${activeTab === key ? "var(--rose)" : "oklch(0.89 0.02 55)"}`,
+                  background: activeTab === key ? "oklch(0.74 0.11 18 / 0.09)" : "white",
+                  color: activeTab === key ? "var(--rose)" : "oklch(0.5 0.01 60)",
+                  fontWeight: activeTab === key ? 700 : 500,
+                  fontSize: "0.85rem",
+                  cursor: "pointer",
+                  transition: "all 0.2s",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "6px",
                 }}
               >
-                Book Your First Session
-              </Link>
-            )}
-          </div>
-        ) : (
-          <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-            {filtered.map((b) => (
-              <BookingCard key={b.id} booking={b} onCancel={cancelBooking} />
+                <span>{emoji}</span>
+                {label}
+                <span
+                  style={{
+                    minWidth: "20px",
+                    height: "20px",
+                    borderRadius: "99px",
+                    background: activeTab === key ? "var(--rose)" : "oklch(0.9 0.01 60)",
+                    color: activeTab === key ? "white" : "oklch(0.55 0.01 60)",
+                    fontSize: "0.7rem",
+                    fontWeight: 700,
+                    display: "grid",
+                    placeItems: "center",
+                    padding: "0 5px",
+                  }}
+                >
+                  {counts[key]}
+                </span>
+              </button>
             ))}
           </div>
-        )}
+
+          {/* Booking list */}
+          {filtered.length === 0 ? (
+            <div style={{ textAlign: "center", padding: "80px 20px", color: "oklch(0.6 0.01 60)" }}>
+              <div style={{ fontSize: "3rem", marginBottom: "14px" }}>
+                {activeTab === "upcoming" ? "📅" : activeTab === "past" ? "📋" : "🚫"}
+              </div>
+              <p style={{ fontSize: "1rem", marginBottom: "20px" }}>
+                {activeTab === "upcoming"
+                  ? "No upcoming sessions."
+                  : activeTab === "past"
+                    ? "No past sessions yet."
+                    : "No cancelled sessions."}
+              </p>
+              {activeTab === "upcoming" && (
+                <Link
+                  to="/book-session"
+                  style={{
+                    display: "inline-flex",
+                    padding: "12px 28px",
+                    borderRadius: "99px",
+                    background: "linear-gradient(135deg, var(--rose), var(--sunset))",
+                    color: "white",
+                    fontWeight: 600,
+                    fontSize: "0.9rem",
+                    textDecoration: "none",
+                  }}
+                >
+                  Book Your First Session
+                </Link>
+              )}
+            </div>
+          ) : (
+            <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+              {filtered.map((b) => (
+                <BookingCard key={b.id} booking={b} onCancel={cancelBooking} />
+              ))}
+            </div>
+          )}
+        </div>
       </div>
-    </div>
     </ProtectedPage>
   );
 }

@@ -12,7 +12,11 @@ export type AuthUser = {
 type AuthContextType = {
   user: AuthUser | null;
   isLoading: boolean;
-  login: (emailOrPhone: string, password: string, isDoctor?: boolean) => Promise<{ ok: boolean; error?: string }>;
+  login: (
+    emailOrPhone: string,
+    password: string,
+    isDoctor?: boolean,
+  ) => Promise<{ ok: boolean; error?: string }>;
   logout: () => void;
 };
 
@@ -37,7 +41,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setIsLoading(false);
   }, []);
 
-  async function login(emailOrPhone: string, password: string, isDoctor?: boolean): Promise<{ ok: boolean; error?: string }> {
+  async function login(
+    emailOrPhone: string,
+    password: string,
+    isDoctor?: boolean,
+  ): Promise<{ ok: boolean; error?: string }> {
     // Simulate API call
     await new Promise((r) => setTimeout(r, 900));
 
@@ -103,7 +111,13 @@ export function useAuth() {
 }
 
 /** Wrap any page that requires authentication. Redirects to /login if not logged in. */
-export function ProtectedPage({ children, allowedRole }: { children: ReactNode; allowedRole?: "patient" | "doctor" }) {
+export function ProtectedPage({
+  children,
+  allowedRole,
+}: {
+  children: ReactNode;
+  allowedRole?: "patient" | "doctor";
+}) {
   const { user, isLoading } = useAuth();
   const navigate = useNavigate();
 

@@ -80,10 +80,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Nalora — Emotional Support for Motherhood" },
-      { name: "description", content: "A digital emotional support ecosystem for motherhood and postpartum care, rooted in Kerala warmth and modern care." },
+      {
+        name: "description",
+        content:
+          "A digital emotional support ecosystem for motherhood and postpartum care, rooted in Kerala warmth and modern care.",
+      },
       { name: "author", content: "Nalora" },
       { property: "og:title", content: "Nalora — Emotional Support for Motherhood" },
-      { property: "og:description", content: "Kerala-rooted, AI-supported postpartum care for mothers and the family around them." },
+      {
+        property: "og:description",
+        content:
+          "Kerala-rooted, AI-supported postpartum care for mothers and the family around them.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],

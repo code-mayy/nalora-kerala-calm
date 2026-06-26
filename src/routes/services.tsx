@@ -5,7 +5,11 @@ export const Route = createFileRoute("/services")({
   head: () => ({
     meta: [
       { title: "Our Services – Nalora" },
-      { name: "description", content: "Explore Nalora's postpartum care services including 24/7 AI chat support, professional therapist matching, family circles, and vernacular libraries." },
+      {
+        name: "description",
+        content:
+          "Explore Nalora's postpartum care services including 24/7 AI chat support, professional therapist matching, family circles, and vernacular libraries.",
+      },
     ],
   }),
   component: ServicesPage,
@@ -17,7 +21,9 @@ function Footer() {
       <div className="mx-auto grid max-w-6xl gap-10 px-6 md:grid-cols-4">
         <div>
           <div className="flex items-center gap-2">
-            <span className="grid h-9 w-9 place-items-center rounded-full bg-[var(--gradient-sunset)] text-white font-display">n</span>
+            <span className="grid h-9 w-9 place-items-center rounded-full bg-[var(--gradient-sunset)] text-white font-display">
+              n
+            </span>
             <span className="font-display text-xl">nalora</span>
           </div>
           <p className="mt-4 text-sm text-foreground/60 max-w-xs">
@@ -30,10 +36,16 @@ function Footer() {
           ["Support", ["Help centre", "Privacy", "Terms", "Contact"]],
         ].map(([h, items]) => (
           <div key={h as string}>
-            <div className="font-display text-sm uppercase tracking-[0.16em] text-foreground/60">{h}</div>
+            <div className="font-display text-sm uppercase tracking-[0.16em] text-foreground/60">
+              {h}
+            </div>
             <ul className="mt-4 space-y-2.5 text-sm">
               {(items as string[]).map((i) => (
-                <li key={i}><a href="#" className="text-foreground/75 hover:text-rose transition">{i}</a></li>
+                <li key={i}>
+                  <a href="#" className="text-foreground/75 hover:text-rose transition">
+                    {i}
+                  </a>
+                </li>
               ))}
             </ul>
           </div>
@@ -54,15 +66,25 @@ function ServicesPage() {
       {/* Hero Section */}
       <section
         style={{
-          background: "linear-gradient(160deg, oklch(0.96 0.02 145) 0%, oklch(0.97 0.025 55) 60%, oklch(0.96 0.03 18) 100%)",
+          background:
+            "linear-gradient(160deg, oklch(0.96 0.02 145) 0%, oklch(0.97 0.025 55) 60%, oklch(0.96 0.03 18) 100%)",
           padding: "80px 24px 70px",
           textAlign: "center",
           position: "relative",
-          overflow: "hidden"
+          overflow: "hidden",
         }}
       >
         <div style={{ maxWidth: "800px", margin: "0 auto", position: "relative", zIndex: 1 }}>
-          <p style={{ fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--rose)", marginBottom: "12px" }}>
+          <p
+            style={{
+              fontSize: "0.75rem",
+              fontWeight: 700,
+              letterSpacing: "0.18em",
+              textTransform: "uppercase",
+              color: "var(--rose)",
+              marginBottom: "12px",
+            }}
+          >
             What We Offer
           </p>
           <h1
@@ -75,54 +97,87 @@ function ServicesPage() {
               lineHeight: 1.15,
             }}
           >
-            Holistic Postpartum Care,<br />
+            Holistic Postpartum Care,
+            <br />
             <em className="italic text-rose">Whenever You Need It</em>
           </h1>
-          <p style={{ fontSize: "1.1rem", color: "oklch(0.45 0.01 60)", maxWidth: "600px", margin: "0 auto 40px", lineHeight: 1.8 }}>
-            Whether you need a late-night companion, direct counseling with maternal experts, or family integration, we have customized services tailored for your journey.
+          <p
+            style={{
+              fontSize: "1.1rem",
+              color: "oklch(0.45 0.01 60)",
+              maxWidth: "600px",
+              margin: "0 auto 40px",
+              lineHeight: 1.8,
+            }}
+          >
+            Whether you need a late-night companion, direct counseling with maternal experts, or
+            family integration, we have customized services tailored for your journey.
           </p>
         </div>
       </section>
 
       {/* Core Services Detailed Grid */}
       <section style={{ padding: "80px 24px", maxWidth: "1100px", margin: "0 auto" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "40px" }} className="md:grid-cols-2">
+        <div
+          style={{ display: "grid", gridTemplateColumns: "1fr", gap: "40px" }}
+          className="md:grid-cols-2"
+        >
           {[
             {
               title: "Late-Night Companion (AI Chat)",
               desc: "An always-active, empathetic AI companion trained in maternal mental health. Available in local languages (Malayalam, Tamil, Kannada, Hindi) to answer your concerns, help you track symptoms, or simply listen to your story at 3 AM without judgment.",
-              benefits: ["24/7 Availability", "Vernacular Conversations", "Perinatal Guidelines Trained"],
+              benefits: [
+                "24/7 Availability",
+                "Vernacular Conversations",
+                "Perinatal Guidelines Trained",
+              ],
               icon: "🌙",
-              color: "#E8F5E9"
+              color: "#E8F5E9",
             },
             {
               title: "Perinatal Therapist Matching",
               desc: "Direct virtual consultations with certified maternal mental health psychologists and perinatal psychiatrists. We assess your specific challenges (postpartum anxiety, baby blues, trauma, or relationship stress) and pair you with a specialist in under 24 hours.",
-              benefits: ["Licensed Professionals Only", "Tailored Matching Assessment", "Secure Video/Audio Consults"],
+              benefits: [
+                "Licensed Professionals Only",
+                "Tailored Matching Assessment",
+                "Secure Video/Audio Consults",
+              ],
               icon: "🩺",
-              color: "#FFF3E0"
+              color: "#FFF3E0",
             },
             {
               title: "Family Circle Integration",
               desc: "Motherhood is a shared ecosystem. Nalora allows you to securely invite your partner, parents, or in-laws into your care plan, sharing updates, notifications, and guided educational tips so they know how to support you.",
-              benefits: ["Partner Syncing", "Support Coordination", "Educational Guides for Family"],
+              benefits: [
+                "Partner Syncing",
+                "Support Coordination",
+                "Educational Guides for Family",
+              ],
               icon: "👨‍👩‍👧‍👦",
-              color: "#E3F2FD"
+              color: "#E3F2FD",
             },
             {
               title: "Recovery Rhythms & Tracking",
               desc: "A beautiful, interactive space to log your daily sleep, mood shifts, anxiety levels, and baby's feeding cycles. The platform analyzes your patterns and offers gentle, personalized care tips to balance your body and mind.",
-              benefits: ["Insightful Weekly Reports", "Customized Health Nudges", "Mood & Rest Correlation"],
+              benefits: [
+                "Insightful Weekly Reports",
+                "Customized Health Nudges",
+                "Mood & Rest Correlation",
+              ],
               icon: "📊",
-              color: "#FCE4EC"
+              color: "#FCE4EC",
             },
             {
               title: "Vernacular Audio Library",
               desc: "Access a rich repository of guided meditations, stories, and postpartum care techniques recorded by local experts in regional languages. Designed to fit into your brief moments of quiet throughout the day.",
-              benefits: ["Traditional Wellness Insights", "Guided Breathing & Relaxations", "Malayalam & Regional Audio Guides"],
+              benefits: [
+                "Traditional Wellness Insights",
+                "Guided Breathing & Relaxations",
+                "Malayalam & Regional Audio Guides",
+              ],
               icon: "🎧",
-              color: "#EDE7F6"
-            }
+              color: "#EDE7F6",
+            },
           ].map((s) => (
             <div
               key={s.title}
@@ -134,25 +189,71 @@ function ServicesPage() {
                 boxShadow: "var(--shadow-soft)",
                 display: "flex",
                 flexDirection: "column",
-                justifyContent: "space-between"
+                justifyContent: "space-between",
               }}
             >
               <div>
-                <div style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "20px" }}>
-                  <span style={{ fontSize: "1.8rem", width: "48px", height: "48px", borderRadius: "14px", background: s.color, display: "grid", placeItems: "center" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "16px",
+                    marginBottom: "20px",
+                  }}
+                >
+                  <span
+                    style={{
+                      fontSize: "1.8rem",
+                      width: "48px",
+                      height: "48px",
+                      borderRadius: "14px",
+                      background: s.color,
+                      display: "grid",
+                      placeItems: "center",
+                    }}
+                  >
                     {s.icon}
                   </span>
-                  <h3 style={{ fontSize: "1.35rem", fontWeight: 600, color: "var(--charcoal)", fontFamily: "var(--font-sans)" }}>
+                  <h3
+                    style={{
+                      fontSize: "1.35rem",
+                      fontWeight: 600,
+                      color: "var(--charcoal)",
+                      fontFamily: "var(--font-sans)",
+                    }}
+                  >
                     {s.title}
                   </h3>
                 </div>
-                <p style={{ color: "oklch(0.5 0.01 60)", fontSize: "0.95rem", lineHeight: 1.7, marginBottom: "24px" }}>
+                <p
+                  style={{
+                    color: "oklch(0.5 0.01 60)",
+                    fontSize: "0.95rem",
+                    lineHeight: 1.7,
+                    marginBottom: "24px",
+                  }}
+                >
                   {s.desc}
                 </p>
               </div>
 
-              <div style={{ borderTop: "1px solid var(--border)", paddingTop: "20px", marginTop: "10px" }}>
-                <h4 style={{ fontSize: "0.8rem", textTransform: "uppercase", letterSpacing: "0.08em", color: "oklch(0.6 0.01 60)", marginBottom: "10px", fontWeight: 700 }}>
+              <div
+                style={{
+                  borderTop: "1px solid var(--border)",
+                  paddingTop: "20px",
+                  marginTop: "10px",
+                }}
+              >
+                <h4
+                  style={{
+                    fontSize: "0.8rem",
+                    textTransform: "uppercase",
+                    letterSpacing: "0.08em",
+                    color: "oklch(0.6 0.01 60)",
+                    marginBottom: "10px",
+                    fontWeight: 700,
+                  }}
+                >
                   Key Benefits
                 </h4>
                 <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
@@ -166,7 +267,7 @@ function ServicesPage() {
                         fontSize: "0.78rem",
                         color: "var(--charcoal)",
                         fontWeight: 500,
-                        border: "1px solid var(--border)"
+                        border: "1px solid var(--border)",
                       }}
                     >
                       {b}
@@ -189,13 +290,37 @@ function ServicesPage() {
             Begin your recovery in three simple steps.
           </p>
 
-          <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "30px" }} className="md:grid-cols-3">
+          <div
+            style={{ display: "grid", gridTemplateColumns: "1fr", gap: "30px" }}
+            className="md:grid-cols-3"
+          >
             {[
-              { step: "1", title: "Setup Profile", desc: "Create an account and answer a brief wellness assessment about your health history and preferences." },
-              { step: "2", title: "Customize Plan", desc: "Get matched with a dedicated psychologist and invite family members to coordinate care." },
-              { step: "3", title: "Daily Check-ins", desc: "Interact with our AI companion, log parameters, and attend virtual therapy sessions weekly." }
+              {
+                step: "1",
+                title: "Setup Profile",
+                desc: "Create an account and answer a brief wellness assessment about your health history and preferences.",
+              },
+              {
+                step: "2",
+                title: "Customize Plan",
+                desc: "Get matched with a dedicated psychologist and invite family members to coordinate care.",
+              },
+              {
+                step: "3",
+                title: "Daily Check-ins",
+                desc: "Interact with our AI companion, log parameters, and attend virtual therapy sessions weekly.",
+              },
             ].map((step) => (
-              <div key={step.step} style={{ background: "white", padding: "30px", borderRadius: "20px", border: "1px solid var(--border)", position: "relative" }}>
+              <div
+                key={step.step}
+                style={{
+                  background: "white",
+                  padding: "30px",
+                  borderRadius: "20px",
+                  border: "1px solid var(--border)",
+                  position: "relative",
+                }}
+              >
                 <span
                   style={{
                     position: "absolute",
@@ -210,12 +335,21 @@ function ServicesPage() {
                     display: "grid",
                     placeItems: "center",
                     fontWeight: 700,
-                    fontSize: "0.85rem"
+                    fontSize: "0.85rem",
                   }}
                 >
                   {step.step}
                 </span>
-                <h3 style={{ fontSize: "1.15rem", marginTop: "10px", marginBottom: "12px", color: "var(--charcoal)", fontFamily: "var(--font-sans)", fontWeight: 600 }}>
+                <h3
+                  style={{
+                    fontSize: "1.15rem",
+                    marginTop: "10px",
+                    marginBottom: "12px",
+                    color: "var(--charcoal)",
+                    fontFamily: "var(--font-sans)",
+                    fontWeight: 600,
+                  }}
+                >
                   {step.title}
                 </h3>
                 <p style={{ color: "oklch(0.5 0.01 60)", fontSize: "0.88rem", lineHeight: 1.6 }}>
@@ -234,7 +368,8 @@ function ServicesPage() {
             Let's customize <em className="italic text-rose">your plan</em>
           </h2>
           <p style={{ color: "oklch(0.5 0.01 60)", marginBottom: "32px", lineHeight: 1.7 }}>
-            Your first week is entirely free. Start monitoring your progress and talking with our guides today.
+            Your first week is entirely free. Start monitoring your progress and talking with our
+            guides today.
           </p>
           <Link
             to="/login"
@@ -250,10 +385,14 @@ function ServicesPage() {
               fontWeight: 600,
               textDecoration: "none",
               boxShadow: "0 6px 20px oklch(0.74 0.11 18 / 0.3)",
-              transition: "transform 0.2s"
+              transition: "transform 0.2s",
             }}
-            onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)"; }}
-            onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.transform = "translateY(0)"; }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)";
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
+            }}
           >
             Start Free Trial
           </Link>

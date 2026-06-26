@@ -10,7 +10,10 @@ export const Route = createFileRoute("/feedback")({
   head: () => ({
     meta: [
       { title: "Feedback – Nalora" },
-      { name: "description", content: "Rate and write performance reviews for your completed Nalora sessions." },
+      {
+        name: "description",
+        content: "Rate and write performance reviews for your completed Nalora sessions.",
+      },
     ],
   }),
   component: FeedbackPage,
@@ -57,8 +60,14 @@ const SESSIONS: Session[] = [
 ];
 
 const FEEDBACK_TAGS = [
-  "Very helpful", "Felt heard", "Calming", "Professional",
-  "Great listener", "Practical advice", "Would recommend", "Punctual",
+  "Very helpful",
+  "Felt heard",
+  "Calming",
+  "Professional",
+  "Great listener",
+  "Practical advice",
+  "Would recommend",
+  "Punctual",
 ];
 
 function StarInput({ value, onChange }: { value: number; onChange: (v: number) => void }) {
@@ -72,7 +81,14 @@ function StarInput({ value, onChange }: { value: number; onChange: (v: number) =
           onMouseEnter={() => setHover(star)}
           onMouseLeave={() => setHover(0)}
           onClick={() => onChange(star)}
-          style={{ background: "none", border: "none", cursor: "pointer", padding: "2px", transition: "transform 0.15s", transform: hover >= star || value >= star ? "scale(1.15)" : "scale(1)" }}
+          style={{
+            background: "none",
+            border: "none",
+            cursor: "pointer",
+            padding: "2px",
+            transition: "transform 0.15s",
+            transform: hover >= star || value >= star ? "scale(1.15)" : "scale(1)",
+          }}
         >
           <svg
             width="32"
@@ -81,7 +97,11 @@ function StarInput({ value, onChange }: { value: number; onChange: (v: number) =
             fill={(hover || value) >= star ? "#F5A25D" : "none"}
             stroke={(hover || value) >= star ? "#F5A25D" : "#d4d4d4"}
             strokeWidth="1.5"
-            style={{ transition: "fill 0.15s, stroke 0.15s", filter: (hover || value) >= star ? "drop-shadow(0 2px 4px rgba(245,162,93,0.4))" : "none" }}
+            style={{
+              transition: "fill 0.15s, stroke 0.15s",
+              filter:
+                (hover || value) >= star ? "drop-shadow(0 2px 4px rgba(245,162,93,0.4))" : "none",
+            }}
           >
             <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
           </svg>
@@ -107,7 +127,7 @@ function ReviewCard({ session, onSubmit }: { session: Session; onSubmit: (id: nu
   const [anonymous, setAnonymous] = useState(false);
 
   function toggleTag(tag: string) {
-    setTags((prev) => prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]);
+    setTags((prev) => (prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]));
   }
 
   function handleSubmit() {
@@ -126,25 +146,72 @@ function ReviewCard({ session, onSubmit }: { session: Session; onSubmit: (id: nu
         boxShadow: "0 2px 12px oklch(0 0 0 / 0.04)",
         transition: "box-shadow 0.25s",
       }}
-      onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 32px oklch(0 0 0 / 0.08)"; }}
-      onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.boxShadow = "0 2px 12px oklch(0 0 0 / 0.04)"; }}
+      onMouseEnter={(e) => {
+        (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 32px oklch(0 0 0 / 0.08)";
+      }}
+      onMouseLeave={(e) => {
+        (e.currentTarget as HTMLElement).style.boxShadow = "0 2px 12px oklch(0 0 0 / 0.04)";
+      }}
     >
       {/* Accent bar */}
-      <div style={{ height: "4px", background: submitted ? "linear-gradient(90deg, var(--coconut), #4ade80)" : "linear-gradient(90deg, var(--rose), var(--sunset))" }} />
+      <div
+        style={{
+          height: "4px",
+          background: submitted
+            ? "linear-gradient(90deg, var(--coconut), #4ade80)"
+            : "linear-gradient(90deg, var(--rose), var(--sunset))",
+        }}
+      />
 
       <div style={{ padding: "24px 28px" }}>
         {/* Doctor info row */}
         <div style={{ display: "flex", gap: "14px", alignItems: "center", marginBottom: "20px" }}>
           {session.doctorImg ? (
-            <img src={session.doctorImg} alt={session.doctorName} style={{ width: "52px", height: "52px", borderRadius: "12px", objectFit: "cover" }} />
+            <img
+              src={session.doctorImg}
+              alt={session.doctorName}
+              style={{ width: "52px", height: "52px", borderRadius: "12px", objectFit: "cover" }}
+            />
           ) : (
-            <div style={{ width: "52px", height: "52px", borderRadius: "12px", background: "oklch(0.96 0.02 18)", display: "grid", placeItems: "center", fontFamily: "var(--font-display)", fontSize: "1.4rem", color: "var(--rose)", fontWeight: 600 }}>
+            <div
+              style={{
+                width: "52px",
+                height: "52px",
+                borderRadius: "12px",
+                background: "oklch(0.96 0.02 18)",
+                display: "grid",
+                placeItems: "center",
+                fontFamily: "var(--font-display)",
+                fontSize: "1.4rem",
+                color: "var(--rose)",
+                fontWeight: 600,
+              }}
+            >
               {session.doctorName.charAt(0)}
             </div>
           )}
           <div style={{ flex: 1 }}>
-            <h3 style={{ fontFamily: "var(--font-display)", fontSize: "1.05rem", fontWeight: 600, color: "var(--charcoal)", margin: 0 }}>{session.doctorName}</h3>
-            <p style={{ fontSize: "0.76rem", color: "var(--rose)", fontWeight: 500, margin: "2px 0 0" }}>{session.doctorRole}</p>
+            <h3
+              style={{
+                fontFamily: "var(--font-display)",
+                fontSize: "1.05rem",
+                fontWeight: 600,
+                color: "var(--charcoal)",
+                margin: 0,
+              }}
+            >
+              {session.doctorName}
+            </h3>
+            <p
+              style={{
+                fontSize: "0.76rem",
+                color: "var(--rose)",
+                fontWeight: 500,
+                margin: "2px 0 0",
+              }}
+            >
+              {session.doctorRole}
+            </p>
           </div>
           <div style={{ textAlign: "right" }}>
             <div style={{ fontSize: "0.76rem", color: "oklch(0.6 0.01 60)" }}>{session.date}</div>
@@ -157,17 +224,36 @@ function ReviewCard({ session, onSubmit }: { session: Session; onSubmit: (id: nu
           <div style={{ textAlign: "center", padding: "28px 16px" }}>
             <div
               style={{
-                width: "56px", height: "56px", borderRadius: "50%",
+                width: "56px",
+                height: "56px",
+                borderRadius: "50%",
                 background: "linear-gradient(135deg, var(--coconut), #4ade80)",
-                display: "grid", placeItems: "center", margin: "0 auto 16px",
+                display: "grid",
+                placeItems: "center",
+                margin: "0 auto 16px",
                 boxShadow: "0 8px 24px oklch(0.62 0.08 145 / 0.3)",
               }}
             >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="white"
+                strokeWidth="2.5"
+              >
                 <polyline points="20 6 9 17 4 12" />
               </svg>
             </div>
-            <p style={{ fontFamily: "var(--font-display)", fontSize: "1.1rem", fontWeight: 600, color: "var(--charcoal)", marginBottom: "6px" }}>
+            <p
+              style={{
+                fontFamily: "var(--font-display)",
+                fontSize: "1.1rem",
+                fontWeight: 600,
+                color: "var(--charcoal)",
+                marginBottom: "6px",
+              }}
+            >
               Thank you for your feedback!
             </p>
             <p style={{ fontSize: "0.82rem", color: "oklch(0.58 0.01 60)" }}>
@@ -179,13 +265,29 @@ function ReviewCard({ session, onSubmit }: { session: Session; onSubmit: (id: nu
           <div>
             {/* Star rating */}
             <div style={{ marginBottom: "20px" }}>
-              <div style={{ fontSize: "0.8rem", fontWeight: 600, letterSpacing: "0.05em", textTransform: "uppercase", color: "oklch(0.5 0.01 60)", marginBottom: "10px" }}>
+              <div
+                style={{
+                  fontSize: "0.8rem",
+                  fontWeight: 600,
+                  letterSpacing: "0.05em",
+                  textTransform: "uppercase",
+                  color: "oklch(0.5 0.01 60)",
+                  marginBottom: "10px",
+                }}
+              >
                 How was your session?
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
                 <StarInput value={rating} onChange={setRating} />
                 {rating > 0 && (
-                  <span style={{ fontSize: "0.85rem", fontWeight: 600, color: "oklch(0.55 0.07 55)", animation: "fadeIn 0.2s ease" }}>
+                  <span
+                    style={{
+                      fontSize: "0.85rem",
+                      fontWeight: 600,
+                      color: "oklch(0.55 0.07 55)",
+                      animation: "fadeIn 0.2s ease",
+                    }}
+                  >
                     {RATING_LABELS[rating]}
                   </span>
                 )}
@@ -194,7 +296,16 @@ function ReviewCard({ session, onSubmit }: { session: Session; onSubmit: (id: nu
 
             {/* Quick tags */}
             <div style={{ marginBottom: "20px" }}>
-              <div style={{ fontSize: "0.8rem", fontWeight: 600, letterSpacing: "0.05em", textTransform: "uppercase", color: "oklch(0.5 0.01 60)", marginBottom: "10px" }}>
+              <div
+                style={{
+                  fontSize: "0.8rem",
+                  fontWeight: 600,
+                  letterSpacing: "0.05em",
+                  textTransform: "uppercase",
+                  color: "oklch(0.5 0.01 60)",
+                  marginBottom: "10px",
+                }}
+              >
                 What stood out? (optional)
               </div>
               <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
@@ -224,7 +335,17 @@ function ReviewCard({ session, onSubmit }: { session: Session; onSubmit: (id: nu
 
             {/* Written review */}
             <div style={{ marginBottom: "16px" }}>
-              <label style={{ fontSize: "0.8rem", fontWeight: 600, letterSpacing: "0.05em", textTransform: "uppercase", color: "oklch(0.5 0.01 60)", display: "block", marginBottom: "8px" }}>
+              <label
+                style={{
+                  fontSize: "0.8rem",
+                  fontWeight: 600,
+                  letterSpacing: "0.05em",
+                  textTransform: "uppercase",
+                  color: "oklch(0.5 0.01 60)",
+                  display: "block",
+                  marginBottom: "8px",
+                }}
+              >
                 Written Review (optional)
               </label>
               <textarea
@@ -247,28 +368,61 @@ function ReviewCard({ session, onSubmit }: { session: Session; onSubmit: (id: nu
                   boxSizing: "border-box",
                   transition: "border-color 0.2s",
                 }}
-                onFocus={(e) => { e.target.style.borderColor = "var(--rose)"; }}
-                onBlur={(e) => { e.target.style.borderColor = "oklch(0.88 0.02 55)"; }}
+                onFocus={(e) => {
+                  e.target.style.borderColor = "var(--rose)";
+                }}
+                onBlur={(e) => {
+                  e.target.style.borderColor = "oklch(0.88 0.02 55)";
+                }}
               />
-              <div style={{ fontSize: "0.7rem", color: "oklch(0.7 0.01 60)", marginTop: "4px", textAlign: "right" }}>{review.length}/500</div>
+              <div
+                style={{
+                  fontSize: "0.7rem",
+                  color: "oklch(0.7 0.01 60)",
+                  marginTop: "4px",
+                  textAlign: "right",
+                }}
+              >
+                {review.length}/500
+              </div>
             </div>
 
             {/* Anonymous toggle */}
-            <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "20px" }}>
+            <div
+              style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "20px" }}
+            >
               <button
                 type="button"
                 onClick={() => setAnonymous((a) => !a)}
                 style={{
-                  width: "42px", height: "24px", borderRadius: "99px", border: "none", cursor: "pointer", padding: "2px",
+                  width: "42px",
+                  height: "24px",
+                  borderRadius: "99px",
+                  border: "none",
+                  cursor: "pointer",
+                  padding: "2px",
                   background: anonymous ? "var(--rose)" : "oklch(0.88 0.02 55)",
                   transition: "background 0.2s",
-                  display: "flex", alignItems: "center",
+                  display: "flex",
+                  alignItems: "center",
                   justifyContent: anonymous ? "flex-end" : "flex-start",
                 }}
               >
-                <span style={{ width: "20px", height: "20px", borderRadius: "50%", background: "white", display: "block", boxShadow: "0 1px 4px rgba(0,0,0,0.2)", transition: "all 0.2s" }} />
+                <span
+                  style={{
+                    width: "20px",
+                    height: "20px",
+                    borderRadius: "50%",
+                    background: "white",
+                    display: "block",
+                    boxShadow: "0 1px 4px rgba(0,0,0,0.2)",
+                    transition: "all 0.2s",
+                  }}
+                />
               </button>
-              <span style={{ fontSize: "0.82rem", color: "oklch(0.5 0.01 60)" }}>Submit anonymously</span>
+              <span style={{ fontSize: "0.82rem", color: "oklch(0.5 0.01 60)" }}>
+                Submit anonymously
+              </span>
             </div>
 
             <button
@@ -279,7 +433,10 @@ function ReviewCard({ session, onSubmit }: { session: Session; onSubmit: (id: nu
                 padding: "14px",
                 borderRadius: "14px",
                 border: "none",
-                background: rating > 0 ? "linear-gradient(135deg, var(--rose), var(--sunset))" : "oklch(0.92 0.01 60)",
+                background:
+                  rating > 0
+                    ? "linear-gradient(135deg, var(--rose), var(--sunset))"
+                    : "oklch(0.92 0.01 60)",
                 color: "white",
                 fontWeight: 700,
                 fontSize: "0.92rem",
@@ -310,95 +467,189 @@ function FeedbackPage() {
 
   return (
     <ProtectedPage allowedRole="patient">
-    <div style={{ minHeight: "100vh", background: "var(--ivory)", fontFamily: "var(--font-sans)" }}>
-      <InnerNav />
+      <div
+        style={{ minHeight: "100vh", background: "var(--ivory)", fontFamily: "var(--font-sans)" }}
+      >
+        <InnerNav />
 
-      {/* Hero */}
-      <div style={{ background: "linear-gradient(160deg, oklch(0.96 0.03 18) 0%, oklch(0.97 0.025 55) 100%)", padding: "52px 24px 36px", textAlign: "center" }}>
-        <p style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--rose)", marginBottom: "8px" }}>Share Your Experience</p>
-        <h1 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(1.8rem, 4vw, 2.6rem)", fontWeight: 600, color: "var(--charcoal)", margin: "0 0 14px" }}>
-          Session Feedback
-        </h1>
-        <p style={{ fontSize: "0.92rem", color: "oklch(0.55 0.01 60)", maxWidth: "440px", margin: "0 auto", lineHeight: 1.7 }}>
-          Your honest reviews help other mothers find the right support and help us improve every session.
-        </p>
-      </div>
-
-      <div style={{ maxWidth: "760px", margin: "0 auto", padding: "36px 24px 80px" }}>
-        {/* Stats bar */}
+        {/* Hero */}
         <div
           style={{
-            display: "flex", gap: "16px", marginBottom: "32px", padding: "18px 24px",
-            borderRadius: "18px", background: "white", border: "1px solid oklch(0.92 0.02 55)",
-            boxShadow: "0 2px 12px oklch(0 0 0 / 0.04)",
-            flexWrap: "wrap",
+            background:
+              "linear-gradient(160deg, oklch(0.96 0.03 18) 0%, oklch(0.97 0.025 55) 100%)",
+            padding: "52px 24px 36px",
+            textAlign: "center",
           }}
         >
-          {[
-            { label: "Total Sessions", value: sessions.length, icon: "🎯" },
-            { label: "Reviewed", value: done.length, icon: "✅" },
-            { label: "Pending Review", value: pending.length, icon: "📝" },
-          ].map(({ label, value, icon }) => (
-            <div key={label} style={{ flex: 1, minWidth: "100px", textAlign: "center" }}>
-              <div style={{ fontSize: "1.6rem", marginBottom: "4px" }}>{icon}</div>
-              <div style={{ fontFamily: "var(--font-display)", fontSize: "1.5rem", fontWeight: 700, color: "var(--charcoal)" }}>{value}</div>
-              <div style={{ fontSize: "0.75rem", color: "oklch(0.6 0.01 60)", marginTop: "2px" }}>{label}</div>
-            </div>
-          ))}
+          <p
+            style={{
+              fontSize: "0.72rem",
+              fontWeight: 700,
+              letterSpacing: "0.15em",
+              textTransform: "uppercase",
+              color: "var(--rose)",
+              marginBottom: "8px",
+            }}
+          >
+            Share Your Experience
+          </p>
+          <h1
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "clamp(1.8rem, 4vw, 2.6rem)",
+              fontWeight: 600,
+              color: "var(--charcoal)",
+              margin: "0 0 14px",
+            }}
+          >
+            Session Feedback
+          </h1>
+          <p
+            style={{
+              fontSize: "0.92rem",
+              color: "oklch(0.55 0.01 60)",
+              maxWidth: "440px",
+              margin: "0 auto",
+              lineHeight: 1.7,
+            }}
+          >
+            Your honest reviews help other mothers find the right support and help us improve every
+            session.
+          </p>
         </div>
 
-        {/* Pending reviews */}
-        {pending.length > 0 && (
-          <div style={{ marginBottom: "36px" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "16px" }}>
-              <span
+        <div style={{ maxWidth: "760px", margin: "0 auto", padding: "36px 24px 80px" }}>
+          {/* Stats bar */}
+          <div
+            style={{
+              display: "flex",
+              gap: "16px",
+              marginBottom: "32px",
+              padding: "18px 24px",
+              borderRadius: "18px",
+              background: "white",
+              border: "1px solid oklch(0.92 0.02 55)",
+              boxShadow: "0 2px 12px oklch(0 0 0 / 0.04)",
+              flexWrap: "wrap",
+            }}
+          >
+            {[
+              { label: "Total Sessions", value: sessions.length, icon: "🎯" },
+              { label: "Reviewed", value: done.length, icon: "✅" },
+              { label: "Pending Review", value: pending.length, icon: "📝" },
+            ].map(({ label, value, icon }) => (
+              <div key={label} style={{ flex: 1, minWidth: "100px", textAlign: "center" }}>
+                <div style={{ fontSize: "1.6rem", marginBottom: "4px" }}>{icon}</div>
+                <div
+                  style={{
+                    fontFamily: "var(--font-display)",
+                    fontSize: "1.5rem",
+                    fontWeight: 700,
+                    color: "var(--charcoal)",
+                  }}
+                >
+                  {value}
+                </div>
+                <div style={{ fontSize: "0.75rem", color: "oklch(0.6 0.01 60)", marginTop: "2px" }}>
+                  {label}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Pending reviews */}
+          {pending.length > 0 && (
+            <div style={{ marginBottom: "36px" }}>
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "16px" }}
+              >
+                <span
+                  style={{
+                    width: "8px",
+                    height: "8px",
+                    borderRadius: "50%",
+                    background: "var(--rose)",
+                    display: "block",
+                    animation: "pulse-dot 2s infinite",
+                  }}
+                />
+                <h2
+                  style={{
+                    fontFamily: "var(--font-display)",
+                    fontSize: "1.15rem",
+                    fontWeight: 600,
+                    color: "var(--charcoal)",
+                    margin: 0,
+                  }}
+                >
+                  Awaiting Your Review
+                </h2>
+                <span
+                  style={{
+                    fontSize: "0.75rem",
+                    padding: "3px 10px",
+                    borderRadius: "99px",
+                    background: "oklch(0.74 0.11 18 / 0.1)",
+                    color: "var(--rose)",
+                    fontWeight: 700,
+                  }}
+                >
+                  {pending.length}
+                </span>
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+                {pending.map((s) => (
+                  <ReviewCard key={s.id} session={s} onSubmit={markReviewed} />
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Completed reviews */}
+          {done.length > 0 && (
+            <div>
+              <h2
                 style={{
-                  width: "8px", height: "8px", borderRadius: "50%",
-                  background: "var(--rose)", display: "block",
-                  animation: "pulse-dot 2s infinite",
+                  fontFamily: "var(--font-display)",
+                  fontSize: "1.15rem",
+                  fontWeight: 600,
+                  color: "oklch(0.55 0.01 60)",
+                  margin: "0 0 16px",
                 }}
-              />
-              <h2 style={{ fontFamily: "var(--font-display)", fontSize: "1.15rem", fontWeight: 600, color: "var(--charcoal)", margin: 0 }}>
-                Awaiting Your Review
+              >
+                Reviewed Sessions
               </h2>
-              <span style={{ fontSize: "0.75rem", padding: "3px 10px", borderRadius: "99px", background: "oklch(0.74 0.11 18 / 0.1)", color: "var(--rose)", fontWeight: 700 }}>
-                {pending.length}
-              </span>
+              <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+                {done.map((s) => (
+                  <ReviewCard key={s.id} session={s} onSubmit={markReviewed} />
+                ))}
+              </div>
             </div>
-            <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-              {pending.map((s) => (
-                <ReviewCard key={s.id} session={s} onSubmit={markReviewed} />
-              ))}
+          )}
+
+          {sessions.length === 0 && (
+            <div style={{ textAlign: "center", padding: "80px 20px", color: "oklch(0.6 0.01 60)" }}>
+              <div style={{ fontSize: "3rem", marginBottom: "14px" }}>📋</div>
+              <p style={{ marginBottom: "20px" }}>You haven't completed any sessions yet.</p>
+              <Link
+                to="/book-session"
+                style={{
+                  padding: "12px 28px",
+                  borderRadius: "99px",
+                  background: "linear-gradient(135deg, var(--rose), var(--sunset))",
+                  color: "white",
+                  fontWeight: 600,
+                  fontSize: "0.9rem",
+                  textDecoration: "none",
+                }}
+              >
+                Book Your First Session
+              </Link>
             </div>
-          </div>
-        )}
+          )}
+        </div>
 
-        {/* Completed reviews */}
-        {done.length > 0 && (
-          <div>
-            <h2 style={{ fontFamily: "var(--font-display)", fontSize: "1.15rem", fontWeight: 600, color: "oklch(0.55 0.01 60)", margin: "0 0 16px" }}>
-              Reviewed Sessions
-            </h2>
-            <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-              {done.map((s) => (
-                <ReviewCard key={s.id} session={s} onSubmit={markReviewed} />
-              ))}
-            </div>
-          </div>
-        )}
-
-        {sessions.length === 0 && (
-          <div style={{ textAlign: "center", padding: "80px 20px", color: "oklch(0.6 0.01 60)" }}>
-            <div style={{ fontSize: "3rem", marginBottom: "14px" }}>📋</div>
-            <p style={{ marginBottom: "20px" }}>You haven't completed any sessions yet.</p>
-            <Link to="/book-session" style={{ padding: "12px 28px", borderRadius: "99px", background: "linear-gradient(135deg, var(--rose), var(--sunset))", color: "white", fontWeight: 600, fontSize: "0.9rem", textDecoration: "none" }}>
-              Book Your First Session
-            </Link>
-          </div>
-        )}
-      </div>
-
-      <style>{`
+        <style>{`
         @keyframes fadeIn {
           from { opacity: 0; transform: translateX(6px); }
           to { opacity: 1; transform: translateX(0); }
@@ -408,7 +659,7 @@ function FeedbackPage() {
           50% { opacity: 0.5; transform: scale(1.4); }
         }
       `}</style>
-    </div>
+      </div>
     </ProtectedPage>
   );
 }
