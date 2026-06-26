@@ -13,10 +13,11 @@ import morningBg from "@/assets/image copy.png";
 import afternoonBg from "@/assets/image copy 3.png";
 import eveningBg from "@/assets/hero.png";
 import nightBg from "@/assets/image copy 2.png";
-import cloud1 from "@/assets/cloud_crop_1.png";
-import cloud4 from "@/assets/cloud_crop_4.png";
-import cloud6 from "@/assets/cloud_crop_6.png";
-import cloud7 from "@/assets/cloud_crop_7.png";
+import cloud1 from "@/assets/IMG_20260626_215755.png";
+import cloud2 from "@/assets/IMG_20260626_215815.png";
+import cloud3 from "@/assets/IMG_20260626_215818.png";
+import cloud4 from "@/assets/IMG_20260626_215821.png";
+import cloud5 from "@/assets/IMG_20260626_215824.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -258,10 +259,11 @@ const STATIC_STARS = [
 ];
 
 const CLOUDS_CONFIG = [
-  { id: 1, img: cloud1, width: "260px", height: "60px", top: "15%", duration: "75s", delay: "0s", opacity: 0.55 },
-  { id: 2, img: cloud4, width: "320px", height: "84px", top: "35%", duration: "95s", delay: "-25s", opacity: 0.6 },
-  { id: 3, img: cloud6, width: "300px", height: "84px", top: "8%", duration: "125s", delay: "-60s", opacity: 0.65 },
-  { id: 4, img: cloud7, width: "250px", height: "87px", top: "52%", duration: "60s", delay: "-15s", opacity: 0.45 }
+  { id: 1, img: cloud1, width: "320px", height: "85px", top: "10%", duration: "75s", delay: "0s", opacity: 0.7 },
+  { id: 2, img: cloud2, width: "380px", height: "100px", top: "30%", duration: "95s", delay: "-25s", opacity: 0.7 },
+  { id: 3, img: cloud3, width: "260px", height: "80px", top: "8%", duration: "115s", delay: "-55s", opacity: 0.65 },
+  { id: 4, img: cloud4, width: "350px", height: "90px", top: "48%", duration: "60s", delay: "-15s", opacity: 0.65 },
+  { id: 5, img: cloud5, width: "300px", height: "85px", top: "22%", duration: "100s", delay: "-40s", opacity: 0.7 },
 ];
 
 function getSunStyle(hour: number) {
