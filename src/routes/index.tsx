@@ -81,6 +81,7 @@ function Nav() {
   const { user, logout } = useAuth();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
 
   useEffect(() => {
     const on = () => setScrolled(window.scrollY > 40);
@@ -88,6 +89,40 @@ function Nav() {
     window.addEventListener("scroll", on, { passive: true });
     return () => window.removeEventListener("scroll", on);
   }, []);
+
+  const roleSpecificPages = user
+    ? user.role === "doctor"
+      ? [
+          { to: "/doctor/dashboard", label: "Dashboard" },
+          { to: "/doctor/meetings", label: "Meetings" },
+          { to: "/doctor/google-calendar", label: "Google Calendar" },
+          { to: "/doctor/diary-all", label: "Patients Diary" },
+        ]
+      : [
+          { to: "/doctors", label: "Our Doctors" },
+          { to: "/book-session", label: "Book a Session" },
+          { to: "/bookings", label: "Your Bookings" },
+          { to: "/feedback", label: "Feedback" },
+        ]
+    : [];
+
+  const pages = [
+    { to: "/", label: "Home" },
+    { to: "/about", label: "About Us" },
+    { to: "/services", label: "Services" },
+    { to: "/contact", label: "Contact" },
+    ...roleSpecificPages,
+  ];
+
+  const initials = user?.name
+    ? user.name
+        .replace("Dr. ", "")
+        .split(" ")
+        .map((w) => w[0])
+        .join("")
+        .slice(0, 2)
+        .toUpperCase()
+    : "N";
 
   return (
     <header
@@ -109,11 +144,27 @@ function Nav() {
             n
           </span>
           <span
-            className={`font-display text-2xl tracking-tight transition ${
+            className={`font-display text-2xl tracking-tight transition flex items-center gap-1.5 ${
               scrolled ? "text-foreground" : "text-white"
             }`}
           >
             nalora
+            {user?.role === "doctor" && (
+              <span
+                style={{
+                  fontSize: "0.7rem",
+                  fontWeight: 700,
+                  textTransform: "uppercase",
+                  color: scrolled ? "oklch(0.5 0.04 200)" : "white",
+                  border: scrolled ? "1px solid oklch(0.5 0.04 200 / 0.3)" : "1px solid rgba(255,255,255,0.4)",
+                  padding: "1px 6px",
+                  borderRadius: "6px",
+                  marginLeft: "4px",
+                }}
+              >
+                Doctor
+              </span>
+            )}
           </span>
         </Link>
         <nav
@@ -121,65 +172,192 @@ function Nav() {
             scrolled ? "text-foreground/80" : "text-white/90"
           }`}
         >
-          <Link to="/" className="hover:opacity-70 transition">
-            Home
-          </Link>
-          <Link to="/about" className="hover:opacity-70 transition">
-            About Us
-          </Link>
-          <Link to="/services" className="hover:opacity-70 transition">
-            Services
-          </Link>
-          {user && (
-            <Link to="/bookings" className="hover:opacity-70 transition">
-              Bookings
+          {pages.map(({ to, label }) => (
+            <Link key={to} to={to} className="hover:opacity-70 transition">
+              {label}
             </Link>
-          )}
-          <Link to="/contact" className="hover:opacity-70 transition">
-            Contact
-          </Link>
+          ))}
         </nav>
         <div className="hidden sm:flex items-center gap-3">
           {user ? (
-            <div className="flex items-center gap-4">
-              <span
-                className={`text-sm font-semibold ${scrolled ? "text-foreground/80" : "text-white/90"}`}
-              >
-                Hi, {user.name.split(" ")[0]}
-              </span>
+            /* ── Logged-in state ── */
+            <div style={{ position: "relative" }}>
               <button
-                onClick={() => logout()}
-                className={`inline-flex items-center gap-2 rounded-full border px-5 py-2.5 text-sm font-medium transition hover:-translate-y-0.5 ${
-                  scrolled
-                    ? "border-[var(--rose)] text-[var(--rose)] hover:bg-[var(--rose)]/10"
-                    : "border-white/80 text-white hover:bg-white/10"
-                }`}
-                style={{ cursor: "pointer" }}
+                onClick={() => setProfileOpen((o) => !o)}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
+                  padding: "7px 12px 7px 7px",
+                  borderRadius: "99px",
+                  border: scrolled ? "1.5px solid oklch(0.88 0.02 55)" : "1.5px solid rgba(255,255,255,0.4)",
+                  background: scrolled ? "white" : "rgba(255, 255, 255, 0.1)",
+                  cursor: "pointer",
+                  color: scrolled ? "var(--charcoal)" : "white",
+                  backdropFilter: scrolled ? "none" : "blur(8px)",
+                  transition: "border-color 0.2s, box-shadow 0.2s, background-color 0.2s",
+                }}
               >
-                Sign Out
+                {/* Avatar */}
+                <span
+                  style={{
+                    width: "30px",
+                    height: "30px",
+                    borderRadius: "50%",
+                    background: user.role === "doctor"
+                      ? "linear-gradient(135deg, oklch(0.4 0.03 240), oklch(0.5 0.04 200))"
+                      : "linear-gradient(135deg, var(--rose), var(--sunset))",
+                    display: "grid",
+                    placeItems: "center",
+                    color: "white",
+                    fontWeight: 700,
+                    fontSize: "0.72rem",
+                    letterSpacing: "0.04em",
+                  }}
+                >
+                  {initials}
+                </span>
+                <span style={{ fontSize: "0.82rem", fontWeight: 600, maxWidth: "100px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                  {user.name.split(" ")[0]}
+                </span>
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  style={{
+                    transition: "transform 0.2s",
+                    transform: profileOpen ? "rotate(180deg)" : "rotate(0)",
+                  }}
+                >
+                  <path d="M6 9l6 6 6-6" />
+                </svg>
               </button>
-              {user.role === "doctor" ? (
-                <Link
-                  to="/doctor/dashboard"
-                  className={`inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition ${
-                    scrolled
-                      ? "bg-[var(--gradient-sunset)] text-white shadow-soft hover:-translate-y-0.5"
-                      : "bg-white/95 text-foreground hover:bg-white"
-                  }`}
+
+              {/* Dropdown */}
+              {profileOpen && (
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "calc(100% + 10px)",
+                    right: 0,
+                    background: "white",
+                    borderRadius: "16px",
+                    border: "1px solid oklch(0.9 0.02 55)",
+                    boxShadow: "0 16px 48px oklch(0 0 0 / 0.12)",
+                    minWidth: "200px",
+                    overflow: "hidden",
+                    animation: "dropIn 0.18s ease",
+                  }}
+                  onMouseLeave={() => setProfileOpen(false)}
                 >
-                  Dashboard
-                </Link>
-              ) : (
-                <Link
-                  to="/book-session"
-                  className={`inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition ${
-                    scrolled
-                      ? "bg-[var(--gradient-sunset)] text-white shadow-soft hover:-translate-y-0.5"
-                      : "bg-white/95 text-foreground hover:bg-white"
-                  }`}
-                >
-                  Book a Session
-                </Link>
+                  {/* User info */}
+                  <div
+                    style={{
+                      padding: "16px 18px",
+                      borderBottom: "1px solid oklch(0.93 0.01 60)",
+                      background: "oklch(0.975 0.012 60)",
+                      textAlign: "left",
+                    }}
+                  >
+                    <div style={{ fontSize: "0.88rem", fontWeight: 700, color: "var(--charcoal)" }}>
+                      {user.name}
+                    </div>
+                    {user.specialization && (
+                      <div
+                        style={{
+                          fontSize: "0.72rem",
+                          color: "oklch(0.5 0.04 200)",
+                          fontWeight: 600,
+                          marginTop: "2px",
+                        }}
+                      >
+                        {user.specialization}
+                      </div>
+                    )}
+                    <div
+                      style={{ fontSize: "0.74rem", color: "oklch(0.6 0.01 60)", marginTop: "2px" }}
+                    >
+                      {user.email || user.phone}
+                    </div>
+                  </div>
+
+                  {/* Nav links in dropdown for quick access */}
+                  {roleSpecificPages.slice(0, 3).map(({ to, label }) => (
+                    <Link
+                      key={to}
+                      to={to}
+                      onClick={() => setProfileOpen(false)}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "10px",
+                        padding: "12px 18px",
+                        textDecoration: "none",
+                        fontSize: "0.84rem",
+                        color: "oklch(0.45 0.01 60)",
+                        fontWeight: 500,
+                        transition: "background 0.15s",
+                        textAlign: "left",
+                      }}
+                      onMouseEnter={(e) => {
+                        (e.currentTarget as HTMLElement).style.background = "oklch(0.97 0.015 60)";
+                      }}
+                      onMouseLeave={(e) => {
+                        (e.currentTarget as HTMLElement).style.background = "transparent";
+                      }}
+                    >
+                      {label}
+                    </Link>
+                  ))}
+
+                  <div style={{ borderTop: "1px solid oklch(0.93 0.01 60)", padding: "6px" }}>
+                    <button
+                      onClick={() => {
+                        setProfileOpen(false);
+                        logout();
+                      }}
+                      style={{
+                        width: "100%",
+                        padding: "10px 12px",
+                        borderRadius: "10px",
+                        border: "none",
+                        background: "none",
+                        cursor: "pointer",
+                        fontSize: "0.84rem",
+                        fontWeight: 600,
+                        color: "oklch(0.5 0.1 18)",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "8px",
+                        transition: "background 0.15s",
+                        fontFamily: "var(--font-sans)",
+                      }}
+                      onMouseEnter={(e) => {
+                        (e.currentTarget as HTMLElement).style.background = "oklch(0.97 0.02 18)";
+                      }}
+                      onMouseLeave={(e) => {
+                        (e.currentTarget as HTMLElement).style.background = "none";
+                      }}
+                    >
+                      <svg
+                        width="15"
+                        height="15"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                      >
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                        <polyline points="16 17 21 12 16 7" />
+                        <line x1="21" y1="12" x2="9" y2="12" />
+                      </svg>
+                      Sign Out
+                    </button>
+                  </div>
+                </div>
               )}
             </div>
           ) : (
@@ -229,67 +407,40 @@ function Nav() {
 
       {menuOpen && (
         <div className="md:hidden bg-[var(--ivory-deep)]/95 backdrop-blur-md border-b border-border/60 px-6 py-4 flex flex-col gap-4">
-          <Link
-            to="/"
-            onClick={() => setMenuOpen(false)}
-            className="text-foreground/80 hover:text-rose font-medium py-1"
-          >
-            Home
-          </Link>
-          <Link
-            to="/about"
-            onClick={() => setMenuOpen(false)}
-            className="text-foreground/80 hover:text-rose font-medium py-1"
-          >
-            About Us
-          </Link>
-          <Link
-            to="/services"
-            onClick={() => setMenuOpen(false)}
-            className="text-foreground/80 hover:text-rose font-medium py-1"
-          >
-            Services
-          </Link>
-          {user && (
+          {pages.map(({ to, label }) => (
             <Link
-              to="/bookings"
+              key={to}
+              to={to}
               onClick={() => setMenuOpen(false)}
               className="text-foreground/80 hover:text-rose font-medium py-1"
             >
-              Bookings
+              {label}
             </Link>
-          )}
-          <Link
-            to="/contact"
-            onClick={() => setMenuOpen(false)}
-            className="text-foreground/80 hover:text-rose font-medium py-1"
-          >
-            Contact
-          </Link>
+          ))}
 
           <div className="border-t border-border/40 pt-4 flex flex-col gap-3">
             {user ? (
               <>
-                <div className="text-sm font-semibold text-foreground/80 py-1">
+                <div className="text-sm font-semibold text-foreground/80 py-1 flex items-center gap-2">
+                  <span
+                    style={{
+                      width: "28px",
+                      height: "28px",
+                      borderRadius: "50%",
+                      background: user.role === "doctor"
+                        ? "linear-gradient(135deg, oklch(0.4 0.03 240), oklch(0.5 0.04 200))"
+                        : "linear-gradient(135deg, var(--rose), var(--sunset))",
+                      display: "grid",
+                      placeItems: "center",
+                      color: "white",
+                      fontWeight: 700,
+                      fontSize: "0.68rem",
+                    }}
+                  >
+                    {initials}
+                  </span>
                   Logged in as {user.name}
                 </div>
-                {user.role === "doctor" ? (
-                  <Link
-                    to="/doctor/dashboard"
-                    onClick={() => setMenuOpen(false)}
-                    className="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--gradient-sunset)] text-white px-5 py-2.5 text-sm font-medium shadow-soft"
-                  >
-                    Dashboard
-                  </Link>
-                ) : (
-                  <Link
-                    to="/book-session"
-                    onClick={() => setMenuOpen(false)}
-                    className="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--gradient-sunset)] text-white px-5 py-2.5 text-sm font-medium shadow-soft"
-                  >
-                    Book a Session
-                  </Link>
-                )}
                 <button
                   onClick={() => {
                     setMenuOpen(false);

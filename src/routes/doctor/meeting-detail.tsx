@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
-import { DoctorNav } from "@/components/DoctorNav";
+import { InnerNav } from "@/components/InnerNav";
 import { ProtectedPage } from "@/context/AuthContext";
 
 export const Route = createFileRoute("/doctor/meeting-detail")({
@@ -197,7 +197,7 @@ function MeetingDetail() {
           fontFamily: "var(--font-sans)",
         }}
       >
-        <DoctorNav />
+        <InnerNav />
 
         {/* Back and Breadcrumbs */}
         <div style={{ maxWidth: "1200px", margin: "24px auto 0", padding: "0 24px" }}>

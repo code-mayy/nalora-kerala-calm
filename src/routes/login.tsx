@@ -28,14 +28,10 @@ function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  // If already logged in, redirect based on role
+  // If already logged in, redirect to home page
   useEffect(() => {
     if (user) {
-      if (user.role === "doctor") {
-        navigate({ to: "/doctor/dashboard" });
-      } else {
-        navigate({ to: "/doctors" });
-      }
+      navigate({ to: "/" });
     }
   }, [user, navigate]);
 
@@ -60,11 +56,7 @@ function LoginPage() {
     const res = await login(credential.trim(), password, isDoctor);
     setLoading(false);
     if (res.ok) {
-      if (isDoctor) {
-        navigate({ to: "/doctor/dashboard" });
-      } else {
-        navigate({ to: "/doctors" });
-      }
+      navigate({ to: "/" });
     } else {
       setError(res.error ?? "Login failed. Please try again.");
     }

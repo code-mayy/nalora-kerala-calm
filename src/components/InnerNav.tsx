@@ -2,14 +2,6 @@ import { Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 
-const AUTH_PAGES = [
-  { to: "/doctors", label: "Our Doctors" },
-  { to: "/ai-chat", label: "Free AI Chat" },
-  { to: "/book-session", label: "Book a Session" },
-  { to: "/bookings", label: "Your Bookings" },
-  { to: "/feedback", label: "Feedback" },
-] as const;
-
 const PUBLIC_PAGES = [
   { to: "/", label: "Home" },
   { to: "/about", label: "About Us" },
@@ -17,12 +9,36 @@ const PUBLIC_PAGES = [
   { to: "/contact", label: "Contact" },
 ] as const;
 
+const DOCTOR_PAGES = [
+  { to: "/doctor/dashboard", label: "Dashboard" },
+  { to: "/doctor/meetings", label: "Meetings" },
+  { to: "/doctor/google-calendar", label: "Google Calendar" },
+  { to: "/doctor/diary-all", label: "Patients Diary" },
+] as const;
+
+const PATIENT_PAGES = [
+  { to: "/doctors", label: "Our Doctors" },
+  { to: "/book-session", label: "Book a Session" },
+  { to: "/bookings", label: "Your Bookings" },
+  { to: "/feedback", label: "Feedback" },
+] as const;
+
 export function InnerNav() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
-  const pages = user ? AUTH_PAGES : PUBLIC_PAGES;
+
+  const roleSpecificPages = user
+    ? user.role === "doctor"
+      ? DOCTOR_PAGES
+      : PATIENT_PAGES
+    : [];
+
+  const pages = [
+    ...PUBLIC_PAGES,
+    ...roleSpecificPages,
+  ];
 
   function handleLogout() {
     logout();
@@ -31,6 +47,7 @@ export function InnerNav() {
 
   const initials = user?.name
     ? user.name
+        .replace("Dr. ", "")
         .split(" ")
         .map((w) => w[0])
         .join("")
@@ -77,14 +94,18 @@ export function InnerNav() {
               width: "36px",
               height: "36px",
               borderRadius: "50%",
-              background: "linear-gradient(135deg, var(--rose), var(--sunset))",
+              background: user?.role === "doctor" 
+                ? "linear-gradient(135deg, oklch(0.4 0.03 240), oklch(0.5 0.04 200))"
+                : "linear-gradient(135deg, var(--rose), var(--sunset))",
               display: "grid",
               placeItems: "center",
               color: "white",
               fontFamily: "var(--font-display)",
               fontSize: "1.1rem",
               fontWeight: 600,
-              boxShadow: "0 4px 12px oklch(0.74 0.11 18 / 0.28)",
+              boxShadow: user?.role === "doctor"
+                ? "0 4px 12px oklch(0.4 0.03 240 / 0.25)"
+                : "0 4px 12px oklch(0.74 0.11 18 / 0.28)",
             }}
           >
             n
@@ -95,9 +116,29 @@ export function InnerNav() {
               fontSize: "1.4rem",
               color: "var(--charcoal)",
               letterSpacing: "-0.02em",
+              display: "flex",
+              alignItems: "center",
+              gap: "4px",
             }}
           >
             nalora
+            {user?.role === "doctor" && (
+              <span
+                style={{
+                  fontSize: "0.75rem",
+                  fontWeight: 700,
+                  textTransform: "uppercase",
+                  color: "oklch(0.5 0.04 200)",
+                  verticalAlign: "middle",
+                  border: "1px solid oklch(0.5 0.04 200 / 0.3)",
+                  padding: "1px 6px",
+                  borderRadius: "6px",
+                  marginLeft: "4px",
+                }}
+              >
+                Doctor
+              </span>
+            )}
           </span>
         </Link>
 
@@ -106,11 +147,10 @@ export function InnerNav() {
           className="hidden md:flex"
           style={{ display: "flex", alignItems: "center", gap: "22px", flexShrink: 0 }}
         >
-          {pages.map(({ to, hash, label }) => (
+          {pages.map(({ to, label }) => (
             <Link
-              key={to + (hash || "")}
+              key={to}
               to={to}
-              hash={hash}
               style={{
                 fontSize: "0.845rem",
                 fontWeight: 500,
@@ -123,7 +163,7 @@ export function InnerNav() {
                 style: {
                   fontSize: "0.845rem",
                   fontWeight: 700,
-                  color: "var(--rose)",
+                  color: user?.role === "doctor" ? "oklch(0.4 0.03 240)" : "var(--rose)",
                   textDecoration: "none",
                   transition: "color 0.2s",
                   whiteSpace: "nowrap",
@@ -155,7 +195,7 @@ export function InnerNav() {
                   boxShadow: profileOpen ? "0 0 0 3px oklch(0.74 0.11 18 / 0.12)" : "none",
                 }}
                 onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLElement).style.borderColor = "var(--rose)";
+                  (e.currentTarget as HTMLElement).style.borderColor = user.role === "doctor" ? "oklch(0.4 0.03 240)" : "var(--rose)";
                 }}
                 onMouseLeave={(e) => {
                   if (!profileOpen)
@@ -168,7 +208,9 @@ export function InnerNav() {
                     width: "30px",
                     height: "30px",
                     borderRadius: "50%",
-                    background: "linear-gradient(135deg, var(--rose), var(--sunset))",
+                    background: user.role === "doctor" 
+                      ? "linear-gradient(135deg, oklch(0.4 0.03 240), oklch(0.5 0.04 200))"
+                      : "linear-gradient(135deg, var(--rose), var(--sunset))",
                     display: "grid",
                     placeItems: "center",
                     color: "white",
@@ -236,6 +278,18 @@ export function InnerNav() {
                     <div style={{ fontSize: "0.88rem", fontWeight: 700, color: "var(--charcoal)" }}>
                       {user.name}
                     </div>
+                    {user.specialization && (
+                      <div
+                        style={{
+                          fontSize: "0.72rem",
+                          color: "oklch(0.5 0.04 200)",
+                          fontWeight: 600,
+                          marginTop: "2px",
+                        }}
+                      >
+                        {user.specialization}
+                      </div>
+                    )}
                     <div
                       style={{ fontSize: "0.74rem", color: "oklch(0.6 0.01 60)", marginTop: "2px" }}
                     >
@@ -244,7 +298,7 @@ export function InnerNav() {
                   </div>
 
                   {/* Nav links in dropdown for quick access */}
-                  {AUTH_PAGES.slice(0, 3).map(({ to, label }) => (
+                  {roleSpecificPages.slice(0, 3).map(({ to, label }) => (
                     <Link
                       key={to}
                       to={to}
@@ -395,7 +449,9 @@ export function InnerNav() {
                   width: "32px",
                   height: "32px",
                   borderRadius: "50%",
-                  background: "linear-gradient(135deg, var(--rose), var(--sunset))",
+                  background: user.role === "doctor" 
+                    ? "linear-gradient(135deg, oklch(0.4 0.03 240), oklch(0.5 0.04 200))"
+                    : "linear-gradient(135deg, var(--rose), var(--sunset))",
                   display: "grid",
                   placeItems: "center",
                   color: "white",
@@ -415,11 +471,10 @@ export function InnerNav() {
               </div>
             </div>
           )}
-          {pages.map(({ to, hash, label }) => (
+          {pages.map(({ to, label }) => (
             <Link
-              key={to + (hash || "")}
+              key={to}
               to={to}
-              hash={hash}
               onClick={() => setMenuOpen(false)}
               style={{
                 display: "block",
@@ -436,7 +491,7 @@ export function InnerNav() {
                   padding: "12px 0",
                   fontSize: "0.92rem",
                   fontWeight: 700,
-                  color: "var(--rose)",
+                  color: user?.role === "doctor" ? "oklch(0.4 0.03 240)" : "var(--rose)",
                   textDecoration: "none",
                   borderBottom: "1px solid oklch(0.93 0.01 55)",
                 },

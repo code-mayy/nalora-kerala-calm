@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { DoctorNav } from "@/components/DoctorNav";
+import { InnerNav } from "@/components/InnerNav";
 import { ProtectedPage } from "@/context/AuthContext";
 
 export const Route = createFileRoute("/doctor/google-calendar")({
@@ -86,7 +86,7 @@ function DoctorCalendar() {
           fontFamily: "var(--font-sans)",
         }}
       >
-        <DoctorNav />
+        <InnerNav />
 
         {/* Header section */}
         <div
