@@ -5,6 +5,8 @@ import { Sun, CloudSun, Sunset, Moon, Sparkles } from "lucide-react";
 
 import blobRose from "@/assets/blob-rose.png";
 import motherBaby from "@/assets/mother-baby.png";
+import introImg from "@/assets/image.png";
+import introOverlayImg from "@/assets/image copy 4.png";
 import keralaArch from "@/assets/kerala-architecture.jpg";
 import therapist1 from "@/assets/therapist-1.jpg";
 import therapist2 from "@/assets/therapist-2.jpg";
@@ -1396,14 +1398,20 @@ function WhatIsNalora() {
         </div>
       </div>
 
-      {/* Right Pane - Full Bleed Image */}
-      <div className="relative min-h-[350px] md:min-h-full w-full bg-white overflow-hidden">
+      {/* Right Pane - Base background mirrored to the left, overlay frame aligned bottom-right and sized up to 95% */}
+      <div className="relative min-h-[380px] md:min-h-full w-full bg-white overflow-hidden">
+        {/* Base Image (Mirrored horizontally to the left) */}
         <img
-          src={motherBaby}
-          alt="Mother and baby sharing a calm, emotional moment"
-          className="absolute inset-0 w-full h-full object-cover"
+          src={introImg}
+          alt="Motherhood background pattern"
+          className="absolute inset-0 w-full h-full object-cover scale-x-[-1]"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/10 to-transparent pointer-events-none" />
+        {/* Frame / Overlay Image (Aligned bottom-right and increased size) */}
+        <img
+          src={introOverlayImg}
+          alt="Visual frame overlay"
+          className="absolute right-0 bottom-0 w-[95%] h-[95%] object-contain object-bottom-right pointer-events-none z-10"
+        />
       </div>
     </section>
   );
