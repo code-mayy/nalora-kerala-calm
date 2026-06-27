@@ -64,6 +64,7 @@ function Footer() {
 
 function AboutPage() {
   const [isReadMore, setIsReadMore] = useState(false);
+  const [isStoryReadMore, setIsStoryReadMore] = useState(false);
   return (
     <div style={{ minHeight: "100vh", background: "var(--ivory)", fontFamily: "var(--font-sans)" }}>
       <InnerNav />
@@ -158,23 +159,74 @@ function AboutPage() {
       </section>
 
       {/* The Story Section */}
-      <section style={{ padding: "80px 24px", maxWidth: "750px", margin: "0 auto", textAlign: "center" }}>
-        <h2
-          style={{
-            fontSize: "2.4rem",
-            marginBottom: "28px",
-            color: "var(--charcoal)",
-            lineHeight: 1.2,
-          }}
+      <section style={{ padding: "80px 24px", maxWidth: "1100px", margin: "0 auto" }}>
+        <div
+          className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center"
         >
-          Why <span className="text-rose">Nalora</span> was born
-        </h2>
-        <p style={{ color: "oklch(0.45 0.01 60)", marginBottom: "24px", lineHeight: 1.8, textAlign: "left" }}>
-          In Kerala, postpartum recovery was never a solitary journey. It was defined by the <strong className="font-semibold text-charcoal">Prasava Raksha</strong>—a sacred forty-day period of personalized herbal wellness, nourishing traditional diets, comforting massages, and a protective circle of wisdom that enveloped a new mother. But as families transitioned into modern nuclear homes and fast-paced digital workspaces, that essential circle began to fade, leaving mothers to navigate the complex emotional landscape of early motherhood in isolation.
-        </p>
-        <p style={{ color: "oklch(0.45 0.01 60)", marginBottom: "0", lineHeight: 1.8, textAlign: "left" }}>
-          Nalora was born to bridge this gap, rebuilding that maternal cradle for the modern era. We combine culturally rooted, vernacular counseling with modern perinatal psychology and private family circles. Our mission is to ensure that no mother feels alone in the dark, translating ancient support systems into a gentle digital sanctuary that is always awake, listening, and holding her close.
-        </p>
+          {/* Left Column - Text Content */}
+          <div style={{ textAlign: "left" }}>
+            <h2
+              className="font-display"
+              style={{
+                fontSize: "2.8rem",
+                fontWeight: 600,
+                marginBottom: "24px",
+                color: "var(--charcoal)",
+                lineHeight: 1.2,
+              }}
+            >
+              Why <span className="text-rose">Nalora</span> was born
+            </h2>
+            
+            <p style={{ color: "oklch(0.45 0.01 60)", marginBottom: "20px", lineHeight: 1.8 }} className="text-[15px] sm:text-base font-sans font-normal">
+              In Kerala, postpartum recovery was never a solitary journey. It was defined by the <strong className="font-semibold text-charcoal">Prasava Raksha</strong>—a sacred forty-day period of personalized herbal wellness, nourishing traditional diets, comforting massages, and a protective circle of wisdom that enveloped a new mother. But as families transitioned into modern nuclear homes and fast-paced digital workspaces, that essential circle began to fade, leaving mothers to navigate the complex emotional landscape of early motherhood in isolation.
+            </p>
+
+            {isStoryReadMore && (
+              <p style={{ color: "oklch(0.45 0.01 60)", marginBottom: "20px", lineHeight: 1.8 }} className="text-[15px] sm:text-base font-sans font-normal transition-all duration-300">
+                Nalora was born to bridge this gap, rebuilding that maternal cradle for the modern era. We combine culturally rooted, vernacular counseling with modern perinatal psychology and private family circles. Our mission is to ensure that no mother feels alone in the dark, translating ancient support systems into a gentle digital sanctuary that is always awake, listening, and holding her close.
+              </p>
+            )}
+
+            <button
+              onClick={() => setIsStoryReadMore(!isStoryReadMore)}
+              style={{
+                background: "#121212", // dark pill button matching user screenshot
+                color: "white",
+                border: "none",
+                padding: "10px 24px",
+                borderRadius: "30px",
+                fontSize: "0.9rem",
+                fontWeight: 700,
+                cursor: "pointer",
+                marginTop: "12px",
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                transition: "all 0.2s ease",
+                boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
+                fontFamily: "var(--font-sans)",
+              }}
+              className="hover:bg-neutral-800 hover:-translate-y-0.5 active:scale-95 transition"
+            >
+              {isStoryReadMore ? "Read Less" : "Read More"}
+            </button>
+          </div>
+
+          {/* Right Column - Illustration Image */}
+          <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+            <img
+              src={motherBaby}
+              alt="Mother cradling baby illustration"
+              style={{
+                width: "100%",
+                maxWidth: "450px",
+                height: "auto",
+                objectFit: "contain",
+              }}
+            />
+          </div>
+        </div>
       </section>
 
       {/* Meet the Founder Section */}
@@ -239,22 +291,25 @@ function AboutPage() {
             <button
               onClick={() => setIsReadMore(!isReadMore)}
               style={{
-                background: "none",
+                background: "white",
+                color: "var(--rose)",
                 border: "none",
-                color: "var(--coconut-soft)",
+                padding: "10px 24px",
+                borderRadius: "30px",
                 fontSize: "0.9rem",
-                fontWeight: 600,
+                fontWeight: 700,
                 cursor: "pointer",
-                padding: "0",
-                marginTop: "4px",
+                marginTop: "12px",
                 display: "inline-flex",
                 alignItems: "center",
-                gap: "6px",
-                textDecoration: "underline",
+                justifyContent: "center",
+                transition: "all 0.2s ease",
+                boxShadow: "0 4px 12px rgba(0, 0, 0, 0.08)",
+                fontFamily: "var(--font-sans)",
               }}
-              className="hover:text-white transition active:scale-95"
+              className="hover:bg-neutral-50 hover:-translate-y-0.5 active:scale-95 transition"
             >
-              {isReadMore ? "Read Less" : "Read More..."}
+              {isReadMore ? "Read Less" : "Read More"}
             </button>
 
             <div
