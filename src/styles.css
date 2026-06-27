@@ -41,8 +41,8 @@
   --color-ivory-deep: var(--ivory-deep);
   --color-charcoal: var(--charcoal);
 
-  --font-display: "Fraunces", Georgia, serif;
-  --font-sans: "Inter", system-ui, sans-serif;
+  --font-display: "Franchise", "Bebas Neue", sans-serif;
+  --font-sans: "Santrio", "Plus Jakarta Sans", "Inter", system-ui, sans-serif;
 
   --shadow-soft: var(--shadow-soft);
   --shadow-lift: var(--shadow-lift);
@@ -52,15 +52,14 @@
 :root {
   --radius: 1rem;
 
-  /* Nalora palette */
-  --rose: oklch(0.74 0.11 18); /* #E58A98 */
-  --rose-soft: oklch(0.92 0.04 18);
-  --coconut: oklch(0.62 0.08 145); /* #6D9B73 */
-  --coconut-soft: oklch(0.9 0.04 145);
-  --sunset: oklch(0.78 0.13 55); /* #F5A25D */
-  --ivory: oklch(0.985 0.012 60); /* #FFF9F5 */
-  --ivory-deep: oklch(0.96 0.018 55);
-  --charcoal: oklch(0.27 0.005 60); /* #2E2E2E */
+  --rose: oklch(0.64 0.18 20); /* #EA6468 */
+  --rose-soft: oklch(0.92 0.05 20); /* #FCEBEB */
+  --coconut: oklch(0.79 0.08 296); /* #C6BADE */
+  --coconut-soft: oklch(0.90 0.04 348); /* #F3D9E5 */
+  --sunset: oklch(0.32 0.11 302); /* #4A3267 */
+  --ivory: oklch(1 0 0); /* #FFFFFF */
+  --ivory-deep: oklch(0.97 0.01 300); /* #FAF8FC */
+  --charcoal: oklch(0.22 0.04 300); /* #261C2C */
 
   --background: var(--ivory);
   --foreground: var(--charcoal);
@@ -73,22 +72,22 @@
   --secondary: var(--coconut);
   --secondary-foreground: oklch(1 0 0);
   --muted: var(--ivory-deep);
-  --muted-foreground: oklch(0.45 0.01 60);
+  --muted-foreground: oklch(0.55 0.03 300);
   --accent: var(--sunset);
   --accent-foreground: var(--charcoal);
   --destructive: oklch(0.6 0.22 25);
   --destructive-foreground: oklch(1 0 0);
-  --border: oklch(0.9 0.015 50);
-  --input: oklch(0.92 0.015 50);
+  --border: oklch(0.92 0.02 320);
+  --input: oklch(0.94 0.02 320);
   --ring: var(--rose);
 
-  --shadow-soft: 0 8px 30px -12px oklch(0.5 0.08 30 / 0.18);
-  --shadow-lift: 0 24px 60px -20px oklch(0.4 0.1 30 / 0.22);
-  --shadow-glow: 0 0 40px oklch(0.74 0.11 18 / 0.35);
+  --shadow-soft: 0 8px 30px -12px oklch(0.3 0.1 300 / 0.15);
+  --shadow-lift: 0 24px 60px -20px oklch(0.3 0.1 300 / 0.20);
+  --shadow-glow: 0 0 40px oklch(0.64 0.18 20 / 0.3);
 
-  --gradient-sunset: linear-gradient(135deg, oklch(0.78 0.13 55), oklch(0.74 0.11 18));
-  --gradient-dawn: linear-gradient(180deg, oklch(0.97 0.025 40), oklch(0.92 0.05 25));
-  --gradient-water: linear-gradient(180deg, oklch(0.93 0.04 200 / 0.4), oklch(0.85 0.06 30 / 0.3));
+  --gradient-sunset: linear-gradient(135deg, var(--sunset), var(--rose));
+  --gradient-dawn: linear-gradient(180deg, var(--ivory), var(--ivory-deep));
+  --gradient-water: linear-gradient(180deg, oklch(0.93 0.04 300 / 0.4), oklch(0.85 0.06 350 / 0.3));
 }
 
 .dark {

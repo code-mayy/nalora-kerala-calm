@@ -160,7 +160,7 @@ function AboutPage() {
                 lineHeight: 1.2,
               }}
             >
-              Why <em className="italic text-rose">Nalora</em> was born
+              Why <span className="text-rose">Nalora</span> was born
             </h2>
             <p style={{ color: "oklch(0.45 0.01 60)", marginBottom: "16px", lineHeight: 1.75 }}>
               postpartum care in Kerala has traditionally been rooted in the "Prasava Raksha" —

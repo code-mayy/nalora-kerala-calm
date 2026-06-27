@@ -1375,21 +1375,35 @@ function WhatIsNalora() {
   return (
     <section
       id="what-is-nalora"
-      className="relative z-10 bg-background py-24 sm:py-32 rounded-t-[2.5rem] sm:rounded-t-[4rem] shadow-[0_-24px_50px_-20px_rgba(0,0,0,0.3)]"
+      className="relative z-10 grid grid-cols-1 md:grid-cols-2 rounded-t-[2.5rem] sm:rounded-t-[4rem] overflow-hidden shadow-[0_-24px_50px_-20px_rgba(0,0,0,0.25)]"
     >
-      <div className="mx-auto max-w-5xl px-6">
-        <div className="reveal mx-auto max-w-3xl text-center">
-          <span className="chip">Introduction</span>
-          <h2 className="mt-5 font-display text-4xl sm:text-5xl leading-tight">
-            What is <em className="italic text-rose">nalora</em>?
+      {/* Left Pane - Solid Rose Theme Background */}
+      <div className="bg-[var(--rose)] px-8 py-20 sm:py-28 md:px-16 lg:px-24 flex flex-col justify-center items-start text-white relative">
+        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_30%_30%,white_0%,transparent_60%)] pointer-events-none" />
+        <div className="reveal max-w-xl relative z-10">
+          <h2 className="font-display text-4xl sm:text-5xl md:text-6xl leading-tight text-white font-medium uppercase tracking-tight">
+            What is <span className="text-[var(--coconut-soft)]">nalora</span>?
           </h2>
-          <p className="mt-6 text-[17px] sm:text-lg text-foreground/70 leading-relaxed">
+          <p className="mt-8 text-[17px] sm:text-lg md:text-xl text-white/90 leading-relaxed font-sans font-normal">
             Nalora is a compassionate, research-backed digital ecosystem built to support emotional
-            well-being throughout pregnancy and early motherhood. By combining thoughtful,
-            culturally rooted support with evidence-based psychological frameworks, we help you
-            understand, track, and process your emotional experiences with absolute clarity.
+            well-being throughout pregnancy and early motherhood.
+          </p>
+          <p className="mt-6 text-[15px] sm:text-base text-white/75 leading-relaxed">
+            By combining thoughtful, culturally rooted support with evidence-based psychological
+            frameworks, we help you understand, track, and process your emotional experiences
+            with absolute clarity.
           </p>
         </div>
+      </div>
+
+      {/* Right Pane - Full Bleed Image */}
+      <div className="relative min-h-[350px] md:min-h-full w-full bg-white overflow-hidden">
+        <img
+          src={motherBaby}
+          alt="Mother and baby sharing a calm, emotional moment"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/10 to-transparent pointer-events-none" />
       </div>
     </section>
   );
