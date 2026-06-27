@@ -41,7 +41,7 @@
   --color-ivory-deep: var(--ivory-deep);
   --color-charcoal: var(--charcoal);
 
-  --font-display: "Franchise", "Bebas Neue", sans-serif;
+  --font-display: "Santrio", "Plus Jakarta Sans", "Inter", system-ui, sans-serif;
   --font-sans: "Santrio", "Plus Jakarta Sans", "Inter", system-ui, sans-serif;
 
   --shadow-soft: var(--shadow-soft);
@@ -125,7 +125,7 @@
   h4 {
     font-family: var(--font-display);
     letter-spacing: -0.02em;
-    font-weight: 500;
+    font-weight: 700;
   }
 }
 

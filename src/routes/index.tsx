@@ -7,7 +7,6 @@ import blobRose from "@/assets/blob-rose.png";
 import motherBaby from "@/assets/mother-baby.png";
 import introImg from "@/assets/image.png";
 import introOverlayImg from "@/assets/image copy 4.png";
-import keralaArch from "@/assets/kerala-architecture.jpg";
 import therapist1 from "@/assets/therapist-1.jpg";
 import therapist2 from "@/assets/therapist-2.jpg";
 import therapist3 from "@/assets/therapist-3.jpg";
@@ -1370,7 +1369,41 @@ const THERAPISTS = [
     price: "₹1,500",
     next: "30 mins",
   },
+  {
+    name: "Dr. Meera Krishnan",
+    role: "Perinatal Counselor",
+    img: null,
+    bg: "#C8D8F0",
+    tags: ["Mood Concerns", "Birth Trauma", "Postpartum Anxiety"],
+    hours: "180+",
+    lang: "Malayalam, English, Tamil",
+    price: "₹900",
+    next: "1 hour",
+  },
+  {
+    name: "Dr. Priya Nair",
+    role: "Family Therapist",
+    img: null,
+    bg: "#E8D8F0",
+    tags: ["Relationship Concerns", "Life Transitions", "Mood Concerns"],
+    hours: "320+",
+    lang: "Malayalam, Hindi",
+    price: "₹1,100",
+    next: "Tomorrow",
+  },
+  {
+    name: "Dr. Sanjana Thomas",
+    role: "Child & Perinatal Psychologist",
+    img: null,
+    bg: "#D8F0E8",
+    tags: ["Sleep & Identity", "Postpartum Anxiety", "Birth Trauma"],
+    hours: "290+",
+    lang: "English, Malayalam",
+    price: "₹1,300",
+    next: "Tomorrow",
+  },
 ];
+
 
 /* ---------- What is Nalora (Introduction) ---------- */
 function WhatIsNalora() {
@@ -1418,238 +1451,223 @@ function WhatIsNalora() {
 }
 
 function Therapists() {
-  const [activeFilter, setActiveFilter] = useState("All");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [showAll, setShowAll] = useState(false);
 
-  const matchesFilter = (t: typeof THERAPISTS[0]) => {
-    if (activeFilter === "All") return true;
-    if (activeFilter === "മലയാളം, Online") {
-      return t.lang.toLowerCase().includes("malayalam");
-    }
-    if (activeFilter === "Consultant Psychologist") {
-      return t.role === "Consultant Psychologist";
-    }
-    if (activeFilter === "Clinical Psychologist") {
-      return t.role === "Clinical Psychologist";
-    }
-    if (activeFilter === "Perinatal Care") {
-      return (
-        t.role.toLowerCase().includes("perinatal") ||
-        t.tags.some(tag => 
-          tag.toLowerCase().includes("perinatal") || 
-          tag.toLowerCase().includes("ppd") ||
-          tag.toLowerCase().includes("postpartum") ||
-          tag.toLowerCase().includes("birth")
-        )
-      );
-    }
-    if (activeFilter === "Psychiatrist") {
-      return t.role.toLowerCase().includes("psychiatrist");
-    }
-    return true;
-  };
+  useEffect(() => {
+    const els = document.querySelectorAll("#therapists .reveal");
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add("reveal-in");
+            io.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.05 },
+    );
+    els.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, [searchQuery, showAll]);
+
+  const filteredTherapists = THERAPISTS.filter((t) => {
+    const query = searchQuery.toLowerCase().trim();
+    if (!query) return true;
+
+    return (
+      t.name.toLowerCase().includes(query) ||
+      t.role.toLowerCase().includes(query) ||
+      t.lang.toLowerCase().includes(query) ||
+      t.tags.some((tag) => tag.toLowerCase().includes(query))
+    );
+  });
+
+  const displayedTherapists = showAll ? filteredTherapists : filteredTherapists.slice(0, 3);
 
   return (
     <section
       id="therapists"
-      className="relative z-10 bg-background py-16 sm:py-24 border-t border-border/40"
+      className="relative z-10 bg-background pt-16 pb-16 sm:pt-24 sm:pb-16 border-t border-border/40"
     >
       <div className="mx-auto max-w-6xl px-6">
         <h2 className="reveal text-center font-display text-4xl sm:text-5xl">
-          How can we <em className="italic text-rose">help you?</em>
+          How can we <span className="text-rose">help you?</span>
         </h2>
-        <p className="reveal mx-auto mt-4 max-w-xl text-center text-foreground/65">
-          Hand-picked therapists trained in maternal mental health, in your tongue.
-        </p>
 
-        {/* Filter chips */}
-        <div className="reveal mt-10 flex flex-wrap items-center justify-center gap-3">
-          {[
-            "All",
-            "മലയാളം, Online",
-            "Consultant Psychologist",
-            "Clinical Psychologist",
-            "Perinatal Care",
-            "Psychiatrist",
-          ].map((t) => {
-            const isActive = activeFilter === t;
-            return (
+        {/* Search Option */}
+        <div className="reveal mx-auto mt-8 max-w-md relative">
+          <div className="relative">
+            <input
+              type="text"
+              placeholder="Search by name, specialty, language, or tags..."
+              value={searchQuery}
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
+                setShowAll(false);
+              }}
+              className="w-full rounded-2xl border border-border/70 bg-card px-5 py-3.5 pl-12 text-sm shadow-soft outline-none transition-all duration-300 focus:border-rose focus:ring-2 focus:ring-rose/20 placeholder:text-foreground/45"
+            />
+            <svg
+              className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-foreground/40"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              />
+            </svg>
+            {searchQuery && (
               <button
-                key={t}
-                onClick={() => setActiveFilter(t)}
-                className={`inline-flex items-center gap-2 rounded-2xl px-4 py-2.5 text-sm shadow-soft transition-all duration-300 cursor-pointer ${
-                  isActive
-                    ? "bg-foreground text-background font-medium"
-                    : "bg-card text-foreground/75 hover:bg-muted hover:text-foreground"
-                }`}
+                onClick={() => setSearchQuery("")}
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-foreground/40 hover:text-foreground transition-colors cursor-pointer"
               >
-                {t}
+                <svg
+                  className="h-5 w-5"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
               </button>
-            );
-          })}
+            )}
+          </div>
         </div>
 
         <div className="mt-14 grid gap-7 md:grid-cols-2 lg:grid-cols-3">
-          {THERAPISTS.map((t) => {
-            const isMatch = matchesFilter(t);
+          {displayedTherapists.map((t) => {
             return (
               <div
                 key={t.name}
-                className={`reveal group overflow-hidden rounded-[1.75rem] bg-card shadow-soft transition hover:-translate-y-1 hover:shadow-lift ${
-                  isMatch ? "" : "hidden"
-                }`}
+                className="reveal group overflow-hidden rounded-[1.75rem] bg-card shadow-soft transition hover:-translate-y-1 hover:shadow-lift"
               >
                 <div
-                className="relative flex items-end gap-4 px-6 pt-6"
-                style={{ backgroundColor: t.bg }}
-              >
-                <div className="flex-1 pb-5">
-                  <h3 className="font-display text-xl leading-tight">{t.name}</h3>
-                  <div className="mt-1 text-sm text-foreground/70">{t.role}</div>
+                  className="relative flex items-end gap-4 px-6 pt-6"
+                  style={{ backgroundColor: t.bg }}
+                >
+                  <div className="flex-1 pb-5">
+                    <h3 className="font-display text-xl leading-tight">{t.name}</h3>
+                    <div className="mt-1 text-sm text-foreground/70">{t.role}</div>
+                  </div>
+                  {t.img ? (
+                    <img
+                      src={t.img}
+                      alt={t.name}
+                      width={800}
+                      height={800}
+                      loading="lazy"
+                      className="h-32 w-28 rounded-t-2xl object-cover object-top"
+                    />
+                  ) : (
+                    <div className="h-32 w-28 rounded-t-2xl bg-white/60 flex items-center justify-center font-display text-4xl text-rose font-bold">
+                      {t.name.charAt(0)}
+                    </div>
+                  )}
                 </div>
-                <img
-                  src={t.img}
-                  alt={t.name}
-                  width={800}
-                  height={800}
-                  loading="lazy"
-                  className="h-32 w-28 rounded-t-2xl object-cover object-top"
-                />
-              </div>
 
-              <div className="space-y-4 p-6">
-                <div className="flex flex-wrap gap-1.5">
-                  {t.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="rounded-full border border-border/70 px-2.5 py-1 text-[11px] text-foreground/65"
+                <div className="space-y-4 p-6">
+                  <div className="flex flex-wrap gap-1.5">
+                    {t.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="rounded-full border border-border/70 px-2.5 py-1 text-[11px] text-foreground/65"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="grid grid-cols-3 gap-3 border-t border-border/60 pt-4 text-center">
+                    <div>
+                      <div className="font-display text-lg text-rose">{t.hours}</div>
+                      <div className="text-[11px] uppercase tracking-wide text-foreground/50">
+                        Therapy hrs
+                      </div>
+                    </div>
+                    <div>
+                      <div className="font-display text-[13px] leading-tight">{t.lang}</div>
+                      <div className="text-[11px] uppercase tracking-wide text-foreground/50">
+                        Languages
+                      </div>
+                    </div>
+                    <div>
+                      <div className="font-display text-lg text-coconut">{t.price}</div>
+                      <div className="text-[11px] uppercase tracking-wide text-foreground/50">
+                        Per session
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col gap-3 rounded-2xl bg-[var(--ivory-deep)] px-4 py-3">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <div className="text-[11px] uppercase tracking-wide text-foreground/55">
+                          Next available in
+                        </div>
+                        <div className="font-display text-lg">{t.next}</div>
+                      </div>
+                      <button className="rounded-full bg-foreground px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.14em] text-background transition hover:bg-rose cursor-pointer">
+                        Book Now
+                      </button>
+                    </div>
+                    <Link
+                      to="/doctors"
+                      className="block text-center rounded-xl border border-foreground/15 py-2.5 text-xs font-semibold uppercase tracking-[0.14em] text-foreground/70 transition hover:bg-foreground hover:text-background hover:border-foreground cursor-pointer"
                     >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-
-                <div className="grid grid-cols-3 gap-3 border-t border-border/60 pt-4 text-center">
-                  <div>
-                    <div className="font-display text-lg text-rose">{t.hours}</div>
-                    <div className="text-[11px] uppercase tracking-wide text-foreground/50">
-                      Therapy hrs
-                    </div>
+                      View Profile
+                    </Link>
                   </div>
-                  <div>
-                    <div className="font-display text-[13px] leading-tight">{t.lang}</div>
-                    <div className="text-[11px] uppercase tracking-wide text-foreground/50">
-                      Languages
-                    </div>
-                  </div>
-                  <div>
-                    <div className="font-display text-lg text-coconut">{t.price}</div>
-                    <div className="text-[11px] uppercase tracking-wide text-foreground/50">
-                      Per session
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-between rounded-2xl bg-[var(--ivory-deep)] px-4 py-3">
-                  <div>
-                    <div className="text-[11px] uppercase tracking-wide text-foreground/55">
-                      Next available in
-                    </div>
-                    <div className="font-display text-lg">{t.next}</div>
-                  </div>
-                  <button className="rounded-full bg-foreground px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.14em] text-background transition hover:bg-rose">
-                    Book Now
-                  </button>
                 </div>
               </div>
-            </div>
             );
           })}
         </div>
+
+        {/* No Results State */}
+        {filteredTherapists.length === 0 && (
+          <div className="reveal mt-14 text-center py-12 px-6 rounded-2xl bg-card border border-border/50 shadow-soft">
+            <div className="text-rose text-3xl font-display uppercase">No therapists found</div>
+            <p className="mt-2 text-sm text-foreground/50">
+              Try adjusting your search keywords.
+            </p>
+            <button
+              onClick={() => {
+                setSearchQuery("");
+              }}
+              className="mt-5 inline-flex items-center gap-2 rounded-full bg-rose px-6 py-2.5 text-xs font-semibold uppercase tracking-[0.14em] text-white transition hover:bg-rose/90 cursor-pointer"
+            >
+              Reset Search
+            </button>
+          </div>
+        )}
+
+        {/* View More/Less Button */}
+        {filteredTherapists.length > 3 && (
+          <div className="reveal mt-12 flex justify-center">
+            <button
+              onClick={() => setShowAll(!showAll)}
+              className="inline-flex items-center gap-2 rounded-full border-2 border-rose bg-white px-7 py-3 text-sm font-semibold uppercase tracking-[0.14em] text-rose transition-all duration-300 hover:bg-rose hover:text-white cursor-pointer shadow-soft hover:shadow-lift"
+            >
+              {showAll ? "View Less" : "View More"}
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );
 }
 
-/* ---------- Story ---------- */
-function Story() {
-  return (
-    <section id="story" className="relative z-10 bg-[#F1F3F4] py-28">
-      <div className="mx-auto max-w-6xl px-6 text-center">
-        <h2 className="reveal font-display text-5xl leading-tight sm:text-6xl">
-          Our <em className="italic font-display">Change</em> Makers
-        </h2>
 
-        <div className="mt-20 grid gap-14 md:grid-cols-[minmax(0,420px)_1fr] md:items-center md:text-left">
-          <div className="reveal relative mx-auto w-full max-w-md">
-            {/* Organic green blob */}
-            <svg viewBox="0 0 400 460" className="absolute inset-0 -z-0 h-full w-full" aria-hidden>
-              <path
-                fill="#2DD4A8"
-                d="M203,30 C290,18 370,90 378,190 C386,290 332,380 232,420 C140,456 50,400 28,300 C8,210 50,120 110,70 C140,46 170,34 203,30 Z"
-              />
-            </svg>
-            <div className="relative">
-              <img
-                src={motherBaby}
-                alt="Founder portrait"
-                width={1024}
-                height={1536}
-                loading="lazy"
-                className="relative mx-auto h-[28rem] w-full object-cover grayscale"
-                style={{
-                  maskImage: "radial-gradient(ellipse at center, black 70%, transparent 100%)",
-                }}
-              />
-            </div>
-          </div>
-
-          <div className="reveal">
-            <div className="flex items-center gap-4">
-              <h3 className="font-display italic text-2xl">Ibrahim Hawaaz</h3>
-              <a
-                href="#"
-                aria-label="LinkedIn"
-                className="grid h-9 w-9 place-items-center rounded-md bg-foreground text-background text-xs font-bold"
-              >
-                in
-              </a>
-            </div>
-            <div className="mt-1 text-foreground/70">( Co-founder &amp; CEO )</div>
-
-            <div className="mt-6 text-foreground/45">
-              Engineer-Turned-Growth Marketer | Problem Solver
-            </div>
-
-            <p className="mt-6 text-lg leading-relaxed text-foreground/80">
-              Nalora wasn't just an idea — it was a realisation. When new mothers around us
-              struggled to find the kind of support they needed, we couldn't shake the thought: if
-              things need to change, why not start with us?
-            </p>
-            <p className="mt-4 text-lg leading-relaxed text-foreground/80">
-              Instead of waiting for a better system, we decided to build one. That's how Nalora
-              came to life — with a mission to make postpartum therapy accessible, vernacular, and
-              deeply human, so that no mother ever feels unheard.
-            </p>
-
-            <div className="mt-8 flex items-center gap-4">
-              <img
-                src={keralaArch}
-                alt=""
-                width={120}
-                height={120}
-                loading="lazy"
-                className="h-16 w-16 rounded-2xl object-cover shadow-soft"
-              />
-              <div className="text-sm text-foreground/60">
-                Rooted in Kerala. <br /> Designed for every home.
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
 
 /* ---------- Bento care features ---------- */
 const FEATURES = [
@@ -1657,332 +1675,189 @@ const FEATURES = [
     title: "Late-night companion",
     desc: "An always-on listener trained in maternal mental health, in your tongue.",
     tag: "AI Care",
-    grad: "linear-gradient(135deg,#E58A98,#F5A25D)",
+    bg: "var(--rose)",
   },
   {
     title: "Therapist matching",
     desc: "Hand-picked certified therapists, matched in under a day.",
     tag: "Human",
-    grad: "linear-gradient(135deg,#6D9B73,#A7C5AC)",
+    bg: "oklch(0.52 0.05 150)", // sage green
   },
   {
     title: "Family circle",
     desc: "Invite your partner, parents and in-laws into the same care plan.",
     tag: "Together",
-    grad: "linear-gradient(135deg,#F5A25D,#FFD2A8)",
+    bg: "var(--sunset)",
   },
   {
     title: "Recovery rhythms",
     desc: "Sleep, mood and feeding tracked with gentle, never judgmental, nudges.",
     tag: "Daily",
-    grad: "linear-gradient(135deg,#E58A98,#F4C2C9)",
+    bg: "oklch(0.48 0.07 240)", // calm blue
   },
   {
     title: "Vernacular library",
     desc: "Audio sessions in Malayalam, Tamil, Hindi, Kannada and more.",
     tag: "Listen",
-    grad: "linear-gradient(135deg,#6D9B73,#E58A98)",
+    bg: "oklch(0.62 0.1 320)", // lavender
   },
   {
     title: "Private by design",
     desc: "End-to-end encrypted. Your story never leaves your circle.",
     tag: "Safe",
-    grad: "linear-gradient(135deg,#2E2E2E,#6D9B73)",
+    bg: "oklch(0.3 0.02 60)", // deep charcoal
   },
 ];
+
+function renderFeatureGraphic(index: number) {
+  switch (index) {
+    case 0:
+      return (
+        <div className="relative w-48 h-48">
+          <div
+            className="absolute top-4 left-4 w-36 h-36 rounded-full bg-transparent"
+            style={{ boxShadow: "-22px 22px 0 0 oklch(0.75 0.1 45)" }}
+          />
+          <div className="absolute top-2 right-6 w-3 h-3 rounded-full bg-rose animate-pulse" />
+          <div className="absolute top-12 right-2 w-1.5 h-1.5 rounded-full bg-sunset" />
+          <div className="absolute bottom-6 left-12 w-2 h-2 rounded-full bg-rose animate-bounce" />
+          <div className="absolute bottom-2 right-12 w-3.5 h-3.5 rounded-full bg-coconut opacity-70" />
+        </div>
+      );
+    case 1:
+      return (
+        <div className="relative w-48 h-48 flex items-center justify-center">
+          <div className="absolute w-28 h-28 rounded-full bg-rose/10 -translate-x-8" />
+          <div className="absolute w-28 h-28 rounded-full bg-sunset/15 translate-x-8" />
+          <div className="absolute w-12 h-12 rounded-full bg-[oklch(0.52_0.05_150)]/20 -translate-y-12 animate-pulse" />
+          <div className="absolute w-20 h-0.5 bg-gradient-to-r from-rose to-sunset" />
+        </div>
+      );
+    case 2:
+      return (
+        <div className="relative w-48 h-48 flex items-center justify-center">
+          <div
+            className="absolute w-36 h-36 rounded-full border-2 border-dashed border-rose/30"
+            style={{ animation: "spin 25s linear infinite" }}
+          />
+          <div className="absolute w-28 h-28 rounded-full border-2 border-sunset/40" />
+          <div className="absolute w-20 h-20 rounded-full bg-gradient-to-br from-rose/20 to-sunset/20" />
+          <div className="absolute w-8 h-8 rounded-full bg-rose" />
+        </div>
+      );
+    case 3:
+      return (
+        <div className="relative w-56 h-36 flex items-center justify-around gap-1.5">
+          {[40, 70, 100, 60, 80, 50, 90, 60, 40].map((h, idx) => (
+            <div
+              key={idx}
+              className="w-2.5 rounded-full bg-gradient-to-t from-[oklch(0.48_0.07_240)] to-rose"
+              style={{
+                height: `${h}%`,
+                opacity: 0.25 + (idx % 3) * 0.3,
+                animation: "floatImage 4s infinite ease-in-out",
+                animationDelay: `${idx * 0.15}s`,
+              }}
+            />
+          ))}
+        </div>
+      );
+    case 4:
+      return (
+        <div className="relative w-48 h-48 flex items-center justify-center">
+          <div
+            className="absolute w-36 h-36 rounded-full border border-[oklch(0.62_0.1_320)]/20"
+            style={{ animation: "ping 4s cubic-bezier(0, 0, 0.2, 1) infinite" }}
+          />
+          <div className="absolute w-24 h-24 rounded-full border-2 border-[oklch(0.62_0.1_320)]/40" />
+          <div className="absolute w-12 h-12 rounded-full bg-[oklch(0.62_0.1_320)] text-white grid place-items-center">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+              <path d="M15.54 8.46a5 5 0 0 1 0 7.07M19.07 4.93a10 10 0 0 1 0 14.14" />
+            </svg>
+          </div>
+        </div>
+      );
+    case 5:
+      return (
+        <div className="relative w-48 h-48 flex items-center justify-center">
+          <div className="absolute w-32 h-32 rounded-3xl bg-[oklch(0.3_0.02_60)]/5 rotate-12" />
+          <div className="absolute w-28 h-28 rounded-3xl bg-[oklch(0.3_0.02_60)]/10 -rotate-12" />
+          <div className="w-16 h-20 bg-gradient-to-b from-rose to-sunset rounded-2xl relative shadow-soft flex items-center justify-center">
+            <div className="w-8 h-8 rounded-full border-4 border-white absolute -top-5" />
+            <div className="w-2.5 h-2.5 rounded-full bg-white mt-1" />
+            <div className="w-1 h-4 bg-white mt-3 absolute" />
+          </div>
+        </div>
+      );
+    default:
+      return null;
+  }
+}
 
 function Care() {
   return (
-    <section id="care" className="relative z-10 bg-background py-28">
+    <section id="care" className="relative z-10 bg-background pt-16 pb-28">
+      {/* Centered Header */}
       <div className="mx-auto max-w-6xl px-6">
         <div className="reveal mx-auto max-w-3xl text-center">
-          <span className="chip">What we offer</span>
-          <h2 className="mt-5 font-display text-4xl leading-tight sm:text-5xl">
-            Care that <em className="italic text-rose">breathes with you.</em>
+          <h2 className="font-display text-4xl leading-tight sm:text-5xl">
+            Care that <span className="text-rose">breathes with you.</span>
           </h2>
-          <p className="mt-5 text-lg text-foreground/70">
-            A small, deliberate set of tools — built with mothers, therapists and families.
-          </p>
-        </div>
-
-        <div className="mt-16 grid auto-rows-[14rem] grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {FEATURES.map((f, i) => {
-            const span = i === 0 ? "lg:col-span-2 lg:row-span-2" : i === 3 ? "lg:col-span-2" : "";
-            return (
-              <TiltCard key={f.title} className={`reveal rounded-3xl ${span}`}>
-                <div className="relative h-full overflow-hidden rounded-3xl bg-card p-6 shadow-soft transition hover:shadow-lift">
-                  <div
-                    className="absolute -right-12 -top-12 h-44 w-44 rounded-full opacity-70 blur-2xl"
-                    style={{ background: f.grad }}
-                  />
-                  <div className="relative flex h-full flex-col">
-                    <span className="chip self-start">{f.tag}</span>
-                    <h3 className="mt-auto font-display text-2xl leading-tight">{f.title}</h3>
-                    <p className="mt-2 text-sm text-foreground/70">{f.desc}</p>
-                  </div>
-                </div>
-              </TiltCard>
-            );
-          })}
         </div>
       </div>
-    </section>
-  );
-}
 
-/* ---------- Timeline / Journey ---------- */
-const STAGES = [
-  {
-    week: "Wk 0-2",
-    title: "The fourth trimester",
-    body: "Quiet voice notes through the night. Sleep tracking that doesn't judge missed naps.",
-    color: "var(--rose)",
-  },
-  {
-    week: "Wk 3-6",
-    title: "Finding rhythm",
-    body: "Daily 7-minute check-ins, hormone-aware mood support, partner prompts.",
-    color: "var(--sunset)",
-  },
-  {
-    week: "Wk 7-12",
-    title: "Rebuilding self",
-    body: "Pelvic floor, identity work, return-to-work coaching — gently paced.",
-    color: "var(--coconut)",
-  },
-  {
-    week: "Mo 4-6",
-    title: "Re-entering the world",
-    body: "Weaning support, anxiety toolkits, and live group rooms in your language.",
-    color: "var(--rose)",
-  },
-  {
-    week: "Mo 6-12",
-    title: "Long-form healing",
-    body: "Therapist continuity, family workshops, milestone celebrations.",
-    color: "var(--sunset)",
-  },
-];
-
-function Journey() {
-  const [idx, setIdx] = useState(0);
-  const stage = STAGES[idx];
-  return (
-    <section id="journey" className="relative z-10 bg-background py-28">
-      <div className="mx-auto max-w-6xl px-6">
-        <div className="reveal mx-auto max-w-3xl text-center">
-          <span className="chip">The Journey</span>
-          <h2 className="mt-5 font-display text-4xl leading-tight sm:text-5xl">
-            A first year, <em className="italic text-rose">held softly.</em>
-          </h2>
-        </div>
-
-        <div className="reveal mt-14 rounded-[2.5rem] bg-card p-8 shadow-soft sm:p-12">
-          <div className="relative grid gap-10 transition-all duration-700" key={idx}>
-            <div className="grid gap-8 md:grid-cols-[1fr_auto] md:items-end">
-              <div>
-                <div className="font-display text-sm uppercase tracking-[0.18em] text-foreground/50">
-                  {stage.week}
-                </div>
-                <h3 className="mt-3 font-display text-4xl leading-tight sm:text-5xl">
-                  {stage.title}
-                </h3>
-                <p className="mt-4 max-w-xl text-lg leading-relaxed text-foreground/70">
-                  {stage.body}
-                </p>
-              </div>
-              <div className="font-display text-7xl sm:text-8xl" style={{ color: stage.color }}>
-                0{idx + 1}
-              </div>
-            </div>
-          </div>
-
-          {/* slider */}
-          <div className="mt-10">
-            <div className="relative h-1 w-full rounded-full bg-[var(--ivory-deep)]">
+      {/* Full Screen Edge-to-Edge Feature Panels */}
+      <div className="mt-32 flex flex-col">
+        {FEATURES.map((f, i) => {
+          const isEven = i % 2 === 0;
+          return (
+            <div
+              key={f.title}
+              className="reveal grid grid-cols-1 md:grid-cols-2 w-full overflow-hidden shadow-soft border-y border-border/10"
+            >
+              {/* Text Pane */}
               <div
-                className="absolute top-0 left-0 h-full rounded-full transition-all duration-500"
-                style={{
-                  width: `${((idx + 1) / STAGES.length) * 100}%`,
-                  background: "var(--gradient-sunset)",
-                }}
-              />
-            </div>
-            <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
-              {STAGES.map((s, i) => (
-                <button
-                  key={s.week}
-                  onClick={() => setIdx(i)}
-                  className={`flex-1 min-w-[7rem] rounded-full px-3 py-2 text-xs font-medium transition ${
-                    i === idx
-                      ? "bg-foreground text-background"
-                      : "text-foreground/50 hover:text-foreground"
-                  }`}
-                >
-                  {s.week}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ---------- Live chat simulator ---------- */
-type Msg = { role: "user" | "ai"; text: string };
-const SCRIPTS: { prompt: string; replies: string[] }[] = [
-  {
-    prompt: "I haven't slept properly in 3 days.",
-    replies: [
-      "Three nights is a long time to carry alone — I hear you.",
-      "Let's start small: do you want a 4-minute guided rest, or to talk first?",
-    ],
-  },
-  {
-    prompt: "I feel like I'm failing as a mother.",
-    replies: [
-      "That feeling is so common, and so unfair to you. You're not failing.",
-      "Want to tell me what happened today, in your own words? I'll just listen.",
-    ],
-  },
-  {
-    prompt: "My partner doesn't understand what I'm going through.",
-    replies: [
-      "That distance can ache more than the tiredness itself.",
-      "I can prepare a 3-minute note for your partner, in their language. Would that help?",
-    ],
-  },
-];
-
-function Chat() {
-  const [msgs, setMsgs] = useState<Msg[]>([
-    { role: "ai", text: "Hello, I'm Nalora. There's no wrong way to begin." },
-  ]);
-  const [typing, setTyping] = useState(false);
-  const endRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (msgs.length > 1) {
-      endRef.current?.scrollIntoView({ behavior: "smooth" });
-    }
-  }, [msgs, typing]);
-
-  const send = (s: { prompt: string; replies: string[] }) => {
-    if (typing) return;
-    setMsgs((m) => [...m, { role: "user", text: s.prompt }]);
-    setTyping(true);
-    let delay = 700;
-    s.replies.forEach((r, i) => {
-      setTimeout(() => {
-        setMsgs((m) => [...m, { role: "ai", text: r }]);
-        if (i === s.replies.length - 1) setTyping(false);
-      }, delay);
-      delay += 1100 + r.length * 18;
-    });
-  };
-
-  return (
-    <section id="talk" className="relative z-10 bg-background py-28">
-      <div className="mx-auto max-w-6xl px-6">
-        <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
-          <div className="reveal">
-            <span className="chip">Try Nalora</span>
-            <h2 className="mt-5 font-display text-4xl leading-tight sm:text-5xl">
-              The first message is the <em className="italic text-rose">hardest.</em>
-            </h2>
-            <p className="mt-5 text-lg text-foreground/70 leading-relaxed">
-              Pick a prompt that feels close. Nalora will respond the way a calm, trained friend
-              would — without scripts, without judgement.
-            </p>
-            <div className="mt-8 space-y-3">
-              {SCRIPTS.map((s) => (
-                <button
-                  key={s.prompt}
-                  onClick={() => send(s)}
-                  disabled={typing}
-                  className="group flex w-full items-center justify-between gap-3 rounded-2xl border border-border bg-card p-4 text-left transition hover:border-rose hover:shadow-soft disabled:opacity-50"
-                >
-                  <span className="text-foreground/80 group-hover:text-foreground">{s.prompt}</span>
-                  <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-[var(--ivory-deep)] text-rose transition group-hover:bg-rose group-hover:text-white">
-                    <svg
-                      width="14"
-                      height="14"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                    >
-                      <path d="M5 12h14M13 5l7 7-7 7" />
-                    </svg>
+                className={`px-8 py-20 sm:py-28 md:px-16 lg:px-24 flex flex-col justify-center items-start text-white relative ${
+                  isEven ? "md:order-1" : "md:order-2"
+                }`}
+                style={{ background: f.bg }}
+              >
+                <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_30%_30%,white_0%,transparent_60%)] pointer-events-none" />
+                <div className="reveal max-w-xl relative z-10">
+                  <span className="inline-block rounded-full bg-white/20 backdrop-blur-md px-3.5 py-1 text-[11px] font-semibold uppercase tracking-wider text-white mb-6">
+                    {f.tag}
                   </span>
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <TiltCard className="reveal">
-            <div className="overflow-hidden rounded-[2rem] bg-card shadow-lift">
-              <div className="flex items-center gap-3 border-b border-border px-5 py-4">
-                <span className="grid h-9 w-9 place-items-center rounded-full bg-[var(--gradient-sunset)] text-white font-display">
-                  n
-                </span>
-                <div>
-                  <div className="text-sm font-medium">Nalora</div>
-                  <div className="flex items-center gap-1.5 text-xs text-foreground/55">
-                    <span className="h-1.5 w-1.5 rounded-full bg-coconut" /> here with you
-                  </div>
+                  <h3 className="font-display text-3xl sm:text-4xl md:text-5xl leading-tight font-medium uppercase tracking-tight text-white">
+                    {f.title}
+                  </h3>
+                  <p className="mt-8 text-[17px] sm:text-lg md:text-xl text-white/90 leading-relaxed font-sans font-normal">
+                    {f.desc}
+                  </p>
                 </div>
               </div>
-              <div className="h-[28rem] space-y-3 overflow-y-auto bg-[var(--ivory-deep)]/40 p-5">
-                {msgs.map((m, i) => (
-                  <div
-                    key={i}
-                    className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}
-                    style={{ animation: "fade-in 0.4s ease-out" }}
-                  >
-                    <div
-                      className={`max-w-[80%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed shadow-soft ${
-                        m.role === "user"
-                          ? "bg-[var(--gradient-sunset)] text-white rounded-br-md"
-                          : "bg-white text-foreground rounded-bl-md"
-                      }`}
-                    >
-                      {m.text}
-                    </div>
-                  </div>
-                ))}
-                {typing && (
-                  <div className="flex justify-start">
-                    <div className="flex items-center gap-1 rounded-2xl rounded-bl-md bg-white px-4 py-3 shadow-soft">
-                      <span
-                        className="h-2 w-2 rounded-full bg-rose animate-bounce-dot"
-                        style={{ animationDelay: "0s" }}
-                      />
-                      <span
-                        className="h-2 w-2 rounded-full bg-rose animate-bounce-dot"
-                        style={{ animationDelay: "0.15s" }}
-                      />
-                      <span
-                        className="h-2 w-2 rounded-full bg-rose animate-bounce-dot"
-                        style={{ animationDelay: "0.3s" }}
-                      />
-                    </div>
-                  </div>
-                )}
-                <div ref={endRef} />
-              </div>
-              <div className="border-t border-border px-5 py-3 text-xs text-foreground/50">
-                Demo conversation • Real Nalora is private & end-to-end encrypted
+
+              {/* Graphic Pane */}
+              <div
+                className={`relative min-h-[380px] md:min-h-full w-full bg-white overflow-hidden flex justify-center items-center ${
+                  isEven ? "md:order-2" : "md:order-1"
+                }`}
+              >
+                <div className="absolute inset-0 flex justify-center items-center pointer-events-none select-none">
+                  {renderFeatureGraphic(i)}
+                </div>
               </div>
             </div>
-          </TiltCard>
-        </div>
+          );
+        })}
       </div>
     </section>
   );
 }
+
+
+
+
 
 /* ---------- CTA ---------- */
 function FinalCta() {
@@ -2083,10 +1958,7 @@ function Index() {
       <div style={{ height: "100vh", minHeight: "650px", pointerEvents: "none" }} />
       <WhatIsNalora />
       <Therapists />
-      <Story />
       <Care />
-      <Journey />
-      <Chat />
       <FinalCta />
       <Footer />
     </main>
