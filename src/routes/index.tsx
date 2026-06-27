@@ -24,13 +24,13 @@ import cloud5 from "@/assets/IMG_20260626_215824.png";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Nalora â€” Emotional Support for Motherhood" },
+      { title: "Nalora — Emotional Support for Motherhood" },
       {
         name: "description",
         content:
           "Kerala-rooted, AI-supported postpartum care. A calm digital ecosystem for mothers and the family around them.",
       },
-      { property: "og:title", content: "Nalora â€” Emotional Support for Motherhood" },
+      { property: "og:title", content: "Nalora — Emotional Support for Motherhood" },
       { property: "og:description", content: "A calm digital ecosystem for postpartum care." },
     ],
   }),
@@ -1418,6 +1418,36 @@ function WhatIsNalora() {
 }
 
 function Therapists() {
+  const [activeFilter, setActiveFilter] = useState("All");
+
+  const matchesFilter = (t: typeof THERAPISTS[0]) => {
+    if (activeFilter === "All") return true;
+    if (activeFilter === "മലയാളം, Online") {
+      return t.lang.toLowerCase().includes("malayalam");
+    }
+    if (activeFilter === "Consultant Psychologist") {
+      return t.role === "Consultant Psychologist";
+    }
+    if (activeFilter === "Clinical Psychologist") {
+      return t.role === "Clinical Psychologist";
+    }
+    if (activeFilter === "Perinatal Care") {
+      return (
+        t.role.toLowerCase().includes("perinatal") ||
+        t.tags.some(tag => 
+          tag.toLowerCase().includes("perinatal") || 
+          tag.toLowerCase().includes("ppd") ||
+          tag.toLowerCase().includes("postpartum") ||
+          tag.toLowerCase().includes("birth")
+        )
+      );
+    }
+    if (activeFilter === "Psychiatrist") {
+      return t.role.toLowerCase().includes("psychiatrist");
+    }
+    return true;
+  };
+
   return (
     <section
       id="therapists"
@@ -1434,30 +1464,41 @@ function Therapists() {
         {/* Filter chips */}
         <div className="reveal mt-10 flex flex-wrap items-center justify-center gap-3">
           {[
-            "à´®à´²à´¯à´¾à´³à´‚ Online",
+            "All",
+            "മലയാളം, Online",
             "Consultant Psychologist",
             "Clinical Psychologist",
             "Perinatal Care",
             "Psychiatrist",
-          ].map((t, i) => (
-            <span
-              key={t}
-              className={`inline-flex items-center gap-2 rounded-2xl px-4 py-2.5 text-sm shadow-soft ${
-                i === 0 ? "bg-foreground text-background" : "bg-card text-foreground/75"
-              }`}
-            >
-              {t}
-            </span>
-          ))}
+          ].map((t) => {
+            const isActive = activeFilter === t;
+            return (
+              <button
+                key={t}
+                onClick={() => setActiveFilter(t)}
+                className={`inline-flex items-center gap-2 rounded-2xl px-4 py-2.5 text-sm shadow-soft transition-all duration-300 cursor-pointer ${
+                  isActive
+                    ? "bg-foreground text-background font-medium"
+                    : "bg-card text-foreground/75 hover:bg-muted hover:text-foreground"
+                }`}
+              >
+                {t}
+              </button>
+            );
+          })}
         </div>
 
         <div className="mt-14 grid gap-7 md:grid-cols-2 lg:grid-cols-3">
-          {THERAPISTS.map((t) => (
-            <div
-              key={t.name}
-              className="reveal group overflow-hidden rounded-[1.75rem] bg-card shadow-soft transition hover:-translate-y-1 hover:shadow-lift"
-            >
+          {THERAPISTS.map((t) => {
+            const isMatch = matchesFilter(t);
+            return (
               <div
+                key={t.name}
+                className={`reveal group overflow-hidden rounded-[1.75rem] bg-card shadow-soft transition hover:-translate-y-1 hover:shadow-lift ${
+                  isMatch ? "" : "hidden"
+                }`}
+              >
+                <div
                 className="relative flex items-end gap-4 px-6 pt-6"
                 style={{ backgroundColor: t.bg }}
               >
@@ -1521,7 +1562,8 @@ function Therapists() {
                 </div>
               </div>
             </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
@@ -1579,13 +1621,13 @@ function Story() {
             </div>
 
             <p className="mt-6 text-lg leading-relaxed text-foreground/80">
-              Nalora wasn't just an idea â€” it was a realisation. When new mothers around us
+              Nalora wasn't just an idea — it was a realisation. When new mothers around us
               struggled to find the kind of support they needed, we couldn't shake the thought: if
               things need to change, why not start with us?
             </p>
             <p className="mt-4 text-lg leading-relaxed text-foreground/80">
               Instead of waiting for a better system, we decided to build one. That's how Nalora
-              came to life â€” with a mission to make postpartum therapy accessible, vernacular, and
+              came to life — with a mission to make postpartum therapy accessible, vernacular, and
               deeply human, so that no mother ever feels unheard.
             </p>
 
@@ -1659,7 +1701,7 @@ function Care() {
             Care that <em className="italic text-rose">breathes with you.</em>
           </h2>
           <p className="mt-5 text-lg text-foreground/70">
-            A small, deliberate set of tools â€” built with mothers, therapists and families.
+            A small, deliberate set of tools — built with mothers, therapists and families.
           </p>
         </div>
 
@@ -1691,31 +1733,31 @@ function Care() {
 /* ---------- Timeline / Journey ---------- */
 const STAGES = [
   {
-    week: "Wk 0â€“2",
+    week: "Wk 0-2",
     title: "The fourth trimester",
     body: "Quiet voice notes through the night. Sleep tracking that doesn't judge missed naps.",
     color: "var(--rose)",
   },
   {
-    week: "Wk 3â€“6",
+    week: "Wk 3-6",
     title: "Finding rhythm",
     body: "Daily 7-minute check-ins, hormone-aware mood support, partner prompts.",
     color: "var(--sunset)",
   },
   {
-    week: "Wk 7â€“12",
+    week: "Wk 7-12",
     title: "Rebuilding self",
-    body: "Pelvic floor, identity work, return-to-work coaching â€” gently paced.",
+    body: "Pelvic floor, identity work, return-to-work coaching — gently paced.",
     color: "var(--coconut)",
   },
   {
-    week: "Mo 4â€“6",
+    week: "Mo 4-6",
     title: "Re-entering the world",
     body: "Weaning support, anxiety toolkits, and live group rooms in your language.",
     color: "var(--rose)",
   },
   {
-    week: "Mo 6â€“12",
+    week: "Mo 6-12",
     title: "Long-form healing",
     body: "Therapist continuity, family workshops, milestone celebrations.",
     color: "var(--sunset)",
@@ -1794,7 +1836,7 @@ const SCRIPTS: { prompt: string; replies: string[] }[] = [
   {
     prompt: "I haven't slept properly in 3 days.",
     replies: [
-      "Three nights is a long time to carry alone â€” I hear you.",
+      "Three nights is a long time to carry alone — I hear you.",
       "Let's start small: do you want a 4-minute guided rest, or to talk first?",
     ],
   },
@@ -1852,7 +1894,7 @@ function Chat() {
             </h2>
             <p className="mt-5 text-lg text-foreground/70 leading-relaxed">
               Pick a prompt that feels close. Nalora will respond the way a calm, trained friend
-              would â€” without scripts, without judgement.
+              would — without scripts, without judgement.
             </p>
             <div className="mt-8 space-y-3">
               {SCRIPTS.map((s) => (
@@ -1932,7 +1974,7 @@ function Chat() {
                 <div ref={endRef} />
               </div>
               <div className="border-t border-border px-5 py-3 text-xs text-foreground/50">
-                Demo conversation â€¢ Real Nalora is private & end-to-end encrypted
+                Demo conversation • Real Nalora is private & end-to-end encrypted
               </div>
             </div>
           </TiltCard>
@@ -1970,7 +2012,7 @@ function FinalCta() {
                 href="#talk"
                 className="rounded-full bg-white px-7 py-4 text-foreground font-medium shadow-soft transition hover:-translate-y-0.5"
               >
-                Start with Nalora â€” free
+                Start with Nalora — free
               </a>
               <a
                 href="#care"
