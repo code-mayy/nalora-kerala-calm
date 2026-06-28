@@ -1749,45 +1749,156 @@ function Therapists() {
 
 
 
-/* ---------- Bento care features ---------- */
-const FEATURES = [
-  {
-    title: "Late-night companion",
-    desc: "An always-on listener trained in maternal mental health, in your tongue.",
-    tag: "AI Care",
-    bg: "var(--rose)",
-  },
-  {
-    title: "Therapist matching",
-    desc: "Hand-picked certified therapists, matched in under a day.",
-    tag: "Human",
-    bg: "oklch(0.52 0.05 150)", // sage green
-  },
-  {
-    title: "Family circle",
-    desc: "Invite your partner, parents and in-laws into the same care plan.",
-    tag: "Together",
-    bg: "var(--sunset)",
-  },
-  {
-    title: "Recovery rhythms",
-    desc: "Sleep, mood and feeding tracked with gentle, never judgmental, nudges.",
-    tag: "Daily",
-    bg: "oklch(0.48 0.07 240)", // calm blue
-  },
-  {
-    title: "Vernacular library",
-    desc: "Audio sessions in Malayalam, Tamil, Hindi, Kannada and more.",
-    tag: "Listen",
-    bg: "oklch(0.62 0.1 320)", // lavender
-  },
-  {
-    title: "Private by design",
-    desc: "End-to-end encrypted. Your story never leaves your circle.",
-    tag: "Safe",
-    bg: "oklch(0.3 0.02 60)", // deep charcoal
-  },
+/* ---------- Care features (paired rows) ---------- */
+const FEATURE_PAIRS = [
+  [
+    {
+      title: "Late-night companion",
+      tag: "AI Care",
+      desc: "An always-on listener trained in maternal mental health, in your tongue.",
+      readMore: "Our AI companion is trained on thousands of postpartum mental health conversations across Kerala and India. Whether it's 2 AM and your baby won't sleep, or you're feeling overwhelmed and don't know why — she's there. She speaks Malayalam, Tamil, Hindi, and English, and never judges, never rushes. Think of her as a gentle friend who truly understands what you're going through.",
+      bg: "var(--rose)",
+      light: false,
+    },
+    {
+      title: "Therapist matching",
+      tag: "Human",
+      desc: "Hand-picked certified therapists, matched in under a day.",
+      readMore: "We don't just show you a list of names. Our matching considers your language preference, concerns (postpartum anxiety, birth trauma, relationship stress), availability, and budget. Every therapist on Nalora is a certified mental health professional with perinatal specialisation. You'll be connected to the right person within 24 hours of signing up — not left searching alone.",
+      bg: "oklch(0.97 0.01 60)",
+      light: true,
+    },
+  ],
+  [
+    {
+      title: "Family circle",
+      tag: "Together",
+      desc: "Invite your partner, parents and in-laws into the same care plan.",
+      readMore: "Postpartum recovery is a family journey. With Nalora's Family Circle, your partner, mother, mother-in-law, or closest friend can join your care space — receiving personalised guidance on how to support you without overstepping. Shared check-ins, gentle educational content, and communication prompts help the whole family show up in the right way at the right time.",
+      bg: "oklch(0.96 0.01 240)",
+      light: true,
+    },
+    {
+      title: "Private by design",
+      tag: "Safe",
+      desc: "End-to-end encrypted. Your story never leaves your circle.",
+      readMore: "Privacy isn't a feature at Nalora — it's the foundation. Every conversation, diary entry, mood check-in, and session note is end-to-end encrypted and stored only on your device and our zero-knowledge servers. We never sell your data. We never share it with employers, insurers, or government bodies. Your story is yours, and only yours.",
+      bg: "oklch(0.32 0.09 295)",
+      light: false,
+    },
+  ],
 ];
+
+function FeatureCard({
+  title, tag, desc, readMore, bg, light,
+}: {
+  title: string; tag: string; desc: string; readMore: string; bg: string; light: boolean;
+}) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div
+      className="flex flex-col justify-between"
+      style={{
+        background: bg,
+        padding: "48px 40px 40px",
+        position: "relative",
+        overflow: "hidden",
+        minHeight: "360px",
+        flex: 1,
+      }}
+    >
+      {/* Subtle radial glow */}
+      <div style={{ position: "absolute", inset: 0, opacity: 0.12, background: "radial-gradient(circle at 25% 25%, white 0%, transparent 65%)", pointerEvents: "none" }} />
+
+      <div style={{ position: "relative", zIndex: 1 }}>
+        <span style={{
+          display: "inline-block",
+          borderRadius: "99px",
+          padding: "4px 14px",
+          fontSize: "0.7rem",
+          fontWeight: 700,
+          letterSpacing: "0.1em",
+          textTransform: "uppercase",
+          marginBottom: "20px",
+          background: light ? "rgba(0,0,0,0.08)" : "rgba(255,255,255,0.2)",
+          backdropFilter: "blur(8px)",
+          color: light ? "rgba(0,0,0,0.55)" : "white",
+        }}>
+          {tag}
+        </span>
+
+        <h3 style={{
+          fontFamily: "var(--font-display)",
+          fontSize: "clamp(1.6rem, 3vw, 2.2rem)",
+          fontWeight: 500,
+          letterSpacing: "-0.02em",
+          lineHeight: 1.2,
+          textTransform: "uppercase",
+          color: light ? "var(--foreground)" : "white",
+          margin: "0 0 16px 0",
+        }}>
+          {title}
+        </h3>
+
+        <p style={{
+          fontSize: "1rem",
+          lineHeight: 1.65,
+          color: light ? "rgba(0,0,0,0.6)" : "rgba(255,255,255,0.88)",
+          margin: 0,
+          maxWidth: "380px",
+        }}>
+          {desc}
+        </p>
+
+        {/* Read more expandable */}
+        {open && (
+          <p style={{
+            marginTop: "16px",
+            fontSize: "0.92rem",
+            lineHeight: 1.7,
+            color: light ? "rgba(0,0,0,0.55)" : "rgba(255,255,255,0.75)",
+            maxWidth: "400px",
+            borderTop: light ? "1px solid rgba(0,0,0,0.1)" : "1px solid rgba(255,255,255,0.2)",
+            paddingTop: "16px",
+          }}>
+            {readMore}
+          </p>
+        )}
+      </div>
+
+      <button
+        onClick={() => setOpen((v) => !v)}
+        style={{
+          marginTop: "28px",
+          display: "inline-flex",
+          alignItems: "center",
+          gap: "6px",
+          background: "none",
+          border: "none",
+          padding: 0,
+          cursor: "pointer",
+          fontSize: "0.82rem",
+          fontWeight: 700,
+          letterSpacing: "0.06em",
+          textTransform: "uppercase",
+          color: light ? "var(--rose)" : "rgba(255,255,255,0.75)",
+          transition: "opacity 0.2s",
+          fontFamily: "var(--font-sans)",
+          position: "relative",
+          zIndex: 1,
+        }}
+        onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.7")}
+        onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
+      >
+        {open ? "Read less" : "Read more"}
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"
+          style={{ transform: open ? "rotate(180deg)" : "none", transition: "transform 0.2s" }}>
+          <path d="M6 9l6 6 6-6" />
+        </svg>
+      </button>
+    </div>
+  );
+}
 
 function renderFeatureGraphic(index: number) {
   switch (index) {
@@ -1887,59 +1998,19 @@ function Care() {
         </div>
       </div>
 
-      {/* Full Screen Edge-to-Edge Feature Panels */}
-      <div className="mt-32 flex flex-col">
-        {FEATURES.map((f, i) => {
-          const isEven = i % 2 === 0;
-          return (
-            <div
-              key={f.title}
-              className="grid grid-cols-1 md:grid-cols-2 w-full overflow-hidden shadow-soft border-y border-border/10"
-            >
-              {/* Text Pane */}
-              <div
-                className={`reveal ${isEven ? "reveal-left" : "reveal-right"} px-8 py-20 sm:py-28 md:px-16 lg:px-24 flex flex-col justify-center items-start text-white relative ${
-                  isEven ? "md:order-1" : "md:order-2"
-                }`}
-                style={{ background: f.bg }}
-              >
-                <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_30%_30%,white_0%,transparent_60%)] pointer-events-none" />
-                <div className="max-w-xl relative z-10">
-                  <span 
-                    className="reveal reveal-up inline-block rounded-full bg-white/20 backdrop-blur-md px-3.5 py-1 text-[11px] font-semibold uppercase tracking-wider text-white mb-6"
-                    style={{ transitionDelay: "100ms" }}
-                  >
-                    {f.tag}
-                  </span>
-                  <h3 
-                    className="reveal reveal-up font-display text-3xl sm:text-4xl md:text-5xl leading-tight font-medium uppercase tracking-tight text-white"
-                    style={{ transitionDelay: "200ms" }}
-                  >
-                    {f.title}
-                  </h3>
-                  <p 
-                    className="reveal reveal-up mt-8 text-[17px] sm:text-lg md:text-xl text-white/90 leading-relaxed font-sans font-normal"
-                    style={{ transitionDelay: "300ms" }}
-                  >
-                    {f.desc}
-                  </p>
-                </div>
-              </div>
-
-              {/* Graphic Pane */}
-              <div
-                className={`reveal reveal-scale relative min-h-[380px] md:min-h-full w-full bg-white overflow-hidden flex justify-center items-center ${
-                  isEven ? "md:order-2" : "md:order-1"
-                }`}
-                style={{ transitionDelay: "150ms" }}
-              >
-                <div className="absolute inset-0 flex justify-center items-center pointer-events-none select-none">
-                  {renderFeatureGraphic(i)}
-                </div>
-              </div>
-            </div>
-          );
-        })}
+      {/* Paired feature rows */}
+      <div className="mt-20 flex flex-col">
+        {FEATURE_PAIRS.map((pair, rowIdx) => (
+          <div
+            key={rowIdx}
+            className="reveal reveal-up grid grid-cols-1 md:grid-cols-2 w-full overflow-hidden border-y border-border/10"
+            style={{ transitionDelay: `${rowIdx * 120}ms` }}
+          >
+            {pair.map((feature) => (
+              <FeatureCard key={feature.title} {...feature} />
+            ))}
+          </div>
+        ))}
       </div>
     </section>
   );
