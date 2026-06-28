@@ -100,7 +100,7 @@
     border-color: var(--color-border);
   }
   html {
-    /* Disabled global scroll-behavior: smooth to prevent browser scroll restoration jumping on page refreshes. */
+    scroll-behavior: smooth;
     font-size: 17px; /* Slightly increased root font size (from 16px) to scale all rem units */
     overflow-x: hidden;
   }

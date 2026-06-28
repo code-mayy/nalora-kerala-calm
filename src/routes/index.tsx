@@ -127,41 +127,76 @@ function Nav() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled
-          ? "bg-[var(--ivory-deep)]/95 backdrop-blur-md border-b border-border/60"
-          : "bg-transparent"
-      }`}
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 50,
+        padding: "12px 16px",
+        pointerEvents: "none",
+      }}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 sm:px-10">
-        <div className="reveal reveal-down" style={{ transitionDelay: "50ms" }}>
-          <Link to="/" className="flex items-center gap-2">
+      {/* Liquid glass floating pill */}
+      <div
+        style={{
+          maxWidth: "900px",
+          margin: "0 auto",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          padding: "8px 8px 8px 18px",
+          borderRadius: "999px",
+          background: "rgba(18, 20, 28, 0.18)",
+          backdropFilter: "blur(48px) saturate(180%)",
+          WebkitBackdropFilter: "blur(48px) saturate(180%)",
+          border: "1px solid rgba(255, 255, 255, 0.1)",
+          boxShadow:
+            "inset 0 1px 0 rgba(255,255,255,0.07), 0 8px 32px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.3)",
+          pointerEvents: "auto",
+          transition: "all 0.4s ease",
+        }}
+      >
+        <div className="reveal reveal-down" style={{ transitionDelay: "50ms", display: "flex", alignItems: "center", gap: "12px" }}>
+          <Link to="/" style={{ display: "flex", alignItems: "center", gap: "8px", textDecoration: "none" }}>
             <span
-              className={`grid h-9 w-9 place-items-center rounded-full font-display text-lg transition ${
-                scrolled
-                  ? "bg-[var(--gradient-sunset)] text-white"
-                  : "border-2 border-white/80 text-white"
-              }`}
+              style={{
+                width: "30px",
+                height: "30px",
+                borderRadius: "50%",
+                background: "rgba(255,255,255,0.12)",
+                border: "1px solid rgba(255,255,255,0.18)",
+                display: "grid",
+                placeItems: "center",
+                color: "white",
+                fontFamily: "var(--font-display)",
+                fontSize: "0.95rem",
+              }}
             >
               n
             </span>
             <span
-              className={`font-display text-2xl tracking-tight transition flex items-center gap-1.5 ${
-                scrolled ? "text-foreground" : "text-white"
-              }`}
+              style={{
+                fontFamily: "var(--font-display)",
+                fontSize: "1.2rem",
+                color: "rgba(255,255,255,0.95)",
+                letterSpacing: "-0.02em",
+                display: "flex",
+                alignItems: "center",
+                gap: "6px",
+              }}
             >
               nalora
               {user?.role === "doctor" && (
                 <span
                   style={{
-                    fontSize: "0.7rem",
+                    fontSize: "0.6rem",
                     fontWeight: 700,
                     textTransform: "uppercase",
-                    color: scrolled ? "oklch(0.5 0.04 200)" : "white",
-                    border: scrolled ? "1px solid oklch(0.5 0.04 200 / 0.3)" : "1px solid rgba(255,255,255,0.4)",
-                    padding: "1px 6px",
-                    borderRadius: "6px",
-                    marginLeft: "4px",
+                    color: "rgba(255,255,255,0.6)",
+                    border: "1px solid rgba(255,255,255,0.2)",
+                    padding: "1px 5px",
+                    borderRadius: "4px",
                   }}
                 >
                   Doctor
@@ -169,52 +204,81 @@ function Nav() {
               )}
             </span>
           </Link>
+          {/* Vertical separator */}
+          <span style={{ width: "1px", height: "18px", background: "rgba(255,255,255,0.15)", display: "block", marginLeft: "4px" }} />
         </div>
-        <nav
-          className={`hidden md:flex items-center gap-7 text-[15px] font-medium transition ${
-            scrolled ? "text-foreground/80" : "text-white/90"
-          }`}
-        >
+
+        {/* Desktop nav links */}
+        <nav className="hidden md:flex items-center gap-1">
           {pages.map(({ to, label }, idx) => (
             <span
               key={to}
               className="reveal reveal-down"
               style={{ transitionDelay: `${100 + idx * 50}ms` }}
             >
-              <Link to={to} className="hover:opacity-70 transition">
+              <Link
+                to={to}
+                style={{
+                  color: "rgba(255,255,255,0.75)",
+                  fontSize: "0.875rem",
+                  fontWeight: 500,
+                  textDecoration: "none",
+                  padding: "6px 14px",
+                  borderRadius: "999px",
+                  transition: "color 0.2s, background 0.2s",
+                  whiteSpace: "nowrap",
+                  display: "block",
+                }}
+                onMouseEnter={(e) => {
+                  const el = e.currentTarget as HTMLElement;
+                  el.style.color = "rgba(255,255,255,1)";
+                  el.style.background = "rgba(255,255,255,0.08)";
+                }}
+                onMouseLeave={(e) => {
+                  const el = e.currentTarget as HTMLElement;
+                  el.style.color = "rgba(255,255,255,0.75)";
+                  el.style.background = "transparent";
+                }}
+              >
                 {label}
               </Link>
             </span>
           ))}
         </nav>
-        <div 
-          className="hidden sm:reveal sm:reveal-down sm:flex items-center gap-3"
+
+        {/* Right side — auth */}
+        <div
+          className="hidden sm:flex items-center gap-3 reveal reveal-down"
           style={{ transitionDelay: `${100 + pages.length * 50}ms` }}
         >
           {user ? (
-            /* ── Logged-in state ── */
             <div style={{ position: "relative" }}>
               <button
                 onClick={() => setProfileOpen((o) => !o)}
                 style={{
                   display: "flex",
                   alignItems: "center",
-                  gap: "10px",
-                  padding: "7px 12px 7px 7px",
+                  gap: "8px",
+                  padding: "7px 14px 7px 8px",
                   borderRadius: "99px",
-                  border: scrolled ? "1.5px solid oklch(0.88 0.02 55)" : "1.5px solid rgba(255,255,255,0.4)",
-                  background: scrolled ? "white" : "rgba(255, 255, 255, 0.1)",
+                  border: "1px solid rgba(255,255,255,0.15)",
+                  background: "rgba(255,255,255,0.1)",
                   cursor: "pointer",
-                  color: scrolled ? "var(--charcoal)" : "white",
-                  backdropFilter: scrolled ? "none" : "blur(8px)",
-                  transition: "border-color 0.2s, box-shadow 0.2s, background-color 0.2s",
+                  color: "rgba(255,255,255,0.9)",
+                  transition: "all 0.2s",
+                  backdropFilter: "blur(12px)",
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.18)";
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.1)";
                 }}
               >
-                {/* Avatar */}
                 <span
                   style={{
-                    width: "30px",
-                    height: "30px",
+                    width: "26px",
+                    height: "26px",
                     borderRadius: "50%",
                     background: user.role === "doctor"
                       ? "linear-gradient(135deg, oklch(0.4 0.03 240), oklch(0.5 0.04 200))"
@@ -223,80 +287,54 @@ function Nav() {
                     placeItems: "center",
                     color: "white",
                     fontWeight: 700,
-                    fontSize: "0.72rem",
+                    fontSize: "0.68rem",
                     letterSpacing: "0.04em",
                   }}
                 >
                   {initials}
                 </span>
-                <span style={{ fontSize: "0.82rem", fontWeight: 600, maxWidth: "100px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                <span style={{ fontSize: "0.82rem", fontWeight: 600, maxWidth: "90px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                   {user.name.split(" ")[0]}
                 </span>
                 <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                  style={{
-                    transition: "transform 0.2s",
-                    transform: profileOpen ? "rotate(180deg)" : "rotate(0)",
-                  }}
+                  width="12" height="12" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" strokeWidth="2.5"
+                  style={{ transition: "transform 0.2s", transform: profileOpen ? "rotate(180deg)" : "rotate(0)" }}
                 >
                   <path d="M6 9l6 6 6-6" />
                 </svg>
               </button>
 
-              {/* Dropdown */}
               {profileOpen && (
                 <div
                   style={{
                     position: "absolute",
                     top: "calc(100% + 10px)",
                     right: 0,
-                    background: "white",
-                    borderRadius: "16px",
-                    border: "1px solid oklch(0.9 0.02 55)",
-                    boxShadow: "0 16px 48px oklch(0 0 0 / 0.12)",
+                    background: "rgba(20,15,40,0.75)",
+                    backdropFilter: "blur(28px) saturate(180%)",
+                    WebkitBackdropFilter: "blur(28px) saturate(180%)",
+                    borderRadius: "20px",
+                    border: "1px solid rgba(255,255,255,0.18)",
+                    boxShadow: "inset 0 1px 0 rgba(255,255,255,0.2), 0 16px 48px rgba(0,0,0,0.45)",
                     minWidth: "200px",
                     overflow: "hidden",
                     animation: "dropIn 0.18s ease",
                   }}
                   onMouseLeave={() => setProfileOpen(false)}
                 >
-                  {/* User info */}
-                  <div
-                    style={{
-                      padding: "16px 18px",
-                      borderBottom: "1px solid oklch(0.93 0.01 60)",
-                      background: "oklch(0.975 0.012 60)",
-                      textAlign: "left",
-                    }}
-                  >
-                    <div style={{ fontSize: "0.88rem", fontWeight: 700, color: "var(--charcoal)" }}>
-                      {user.name}
-                    </div>
+                  <div style={{ padding: "16px 18px", borderBottom: "1px solid rgba(255,255,255,0.1)" }}>
+                    <div style={{ fontSize: "0.88rem", fontWeight: 700, color: "white" }}>{user.name}</div>
                     {user.specialization && (
-                      <div
-                        style={{
-                          fontSize: "0.72rem",
-                          color: "oklch(0.5 0.04 200)",
-                          fontWeight: 600,
-                          marginTop: "2px",
-                        }}
-                      >
+                      <div style={{ fontSize: "0.72rem", color: "rgba(180,210,255,0.9)", fontWeight: 600, marginTop: "2px" }}>
                         {user.specialization}
                       </div>
                     )}
-                    <div
-                      style={{ fontSize: "0.74rem", color: "oklch(0.6 0.01 60)", marginTop: "2px" }}
-                    >
+                    <div style={{ fontSize: "0.74rem", color: "rgba(255,255,255,0.5)", marginTop: "2px" }}>
                       {user.email || user.phone}
                     </div>
                   </div>
 
-                  {/* Nav links in dropdown for quick access */}
                   {roleSpecificPages.slice(0, 3).map(({ to, label }) => (
                     <Link
                       key={to}
@@ -305,17 +343,15 @@ function Nav() {
                       style={{
                         display: "flex",
                         alignItems: "center",
-                        gap: "10px",
                         padding: "12px 18px",
                         textDecoration: "none",
                         fontSize: "0.84rem",
-                        color: "oklch(0.45 0.01 60)",
+                        color: "rgba(255,255,255,0.8)",
                         fontWeight: 500,
                         transition: "background 0.15s",
-                        textAlign: "left",
                       }}
                       onMouseEnter={(e) => {
-                        (e.currentTarget as HTMLElement).style.background = "oklch(0.97 0.015 60)";
+                        (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.1)";
                       }}
                       onMouseLeave={(e) => {
                         (e.currentTarget as HTMLElement).style.background = "transparent";
@@ -325,22 +361,19 @@ function Nav() {
                     </Link>
                   ))}
 
-                  <div style={{ borderTop: "1px solid oklch(0.93 0.01 60)", padding: "6px" }}>
+                  <div style={{ borderTop: "1px solid rgba(255,255,255,0.08)", padding: "6px" }}>
                     <button
-                      onClick={() => {
-                        setProfileOpen(false);
-                        logout();
-                      }}
+                      onClick={() => { setProfileOpen(false); logout(); }}
                       style={{
                         width: "100%",
                         padding: "10px 12px",
-                        borderRadius: "10px",
+                        borderRadius: "12px",
                         border: "none",
                         background: "none",
                         cursor: "pointer",
                         fontSize: "0.84rem",
                         fontWeight: 600,
-                        color: "oklch(0.5 0.1 18)",
+                        color: "oklch(0.75 0.12 18)",
                         display: "flex",
                         alignItems: "center",
                         gap: "8px",
@@ -348,20 +381,13 @@ function Nav() {
                         fontFamily: "var(--font-sans)",
                       }}
                       onMouseEnter={(e) => {
-                        (e.currentTarget as HTMLElement).style.background = "oklch(0.97 0.02 18)";
+                        (e.currentTarget as HTMLElement).style.background = "rgba(255,80,80,0.12)";
                       }}
                       onMouseLeave={(e) => {
                         (e.currentTarget as HTMLElement).style.background = "none";
                       }}
                     >
-                      <svg
-                        width="15"
-                        height="15"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2.5"
-                      >
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                         <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
                         <polyline points="16 17 21 12 16 7" />
                         <line x1="21" y1="12" x2="9" y2="12" />
@@ -375,35 +401,48 @@ function Nav() {
           ) : (
             <Link
               to="/login"
-              className={`inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition hover:-translate-y-0.5 ${
-                scrolled
-                  ? "bg-[var(--gradient-sunset)] text-white shadow-soft"
-                  : "bg-white/95 text-foreground hover:bg-white"
-              }`}
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "6px",
+                padding: "9px 22px",
+                borderRadius: "999px",
+                background: "rgba(240, 240, 245, 0.92)",
+                border: "1px solid rgba(255,255,255,0.6)",
+                color: "#111118",
+                fontSize: "0.875rem",
+                fontWeight: 600,
+                textDecoration: "none",
+                boxShadow: "inset 0 1px 0 rgba(255,255,255,0.8), 0 2px 8px rgba(0,0,0,0.25)",
+                transition: "all 0.2s",
+                whiteSpace: "nowrap",
+                letterSpacing: "-0.01em",
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,1)";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLElement).style.background = "rgba(240,240,245,0.92)";
+              }}
             >
               Start Free Trial
             </Link>
           )}
         </div>
+
+        {/* Mobile hamburger */}
         <button
-          className="md:hidden flex items-center p-2 rounded-lg"
+          className="md:hidden flex items-center p-1.5 rounded-full"
           onClick={() => setMenuOpen((o) => !o)}
           style={{
-            color: scrolled ? "var(--charcoal)" : "white",
+            color: "white",
             cursor: "pointer",
-            background: "none",
-            border: "none",
+            background: "rgba(255,255,255,0.12)",
+            border: "1px solid rgba(255,255,255,0.25)",
           }}
           aria-label="Toggle menu"
         >
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2.5"
-          >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
             {menuOpen ? (
               <path d="M18 6 6 18M6 6l12 12" />
             ) : (
@@ -417,58 +456,77 @@ function Nav() {
         </button>
       </div>
 
+      {/* Mobile menu — liquid glass dropdown */}
       {menuOpen && (
-        <div className="md:hidden bg-[var(--ivory-deep)]/95 backdrop-blur-md border-b border-border/60 px-6 py-4 flex flex-col gap-4">
+        <div
+          style={{
+            maxWidth: "900px",
+            margin: "8px auto 0",
+            borderRadius: "24px",
+            background: "rgba(20,15,40,0.75)",
+            backdropFilter: "blur(28px) saturate(180%)",
+            WebkitBackdropFilter: "blur(28px) saturate(180%)",
+            border: "1px solid rgba(255,255,255,0.18)",
+            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.2), 0 16px 48px rgba(0,0,0,0.4)",
+            padding: "16px 24px 20px",
+            pointerEvents: "auto",
+          }}
+        >
           {pages.map(({ to, label }) => (
             <Link
               key={to}
               to={to}
               onClick={() => setMenuOpen(false)}
-              className="text-foreground/80 hover:text-rose font-medium py-1"
+              style={{
+                display: "block",
+                padding: "12px 0",
+                fontSize: "0.95rem",
+                fontWeight: 500,
+                color: "rgba(255,255,255,0.85)",
+                textDecoration: "none",
+                borderBottom: "1px solid rgba(255,255,255,0.08)",
+              }}
             >
               {label}
             </Link>
           ))}
 
-          <div className="border-t border-border/40 pt-4 flex flex-col gap-3">
+          <div style={{ marginTop: "14px" }}>
             {user ? (
-              <>
-                <div className="text-sm font-semibold text-foreground/80 py-1 flex items-center gap-2">
-                  <span
-                    style={{
-                      width: "28px",
-                      height: "28px",
-                      borderRadius: "50%",
-                      background: user.role === "doctor"
-                        ? "linear-gradient(135deg, oklch(0.4 0.03 240), oklch(0.5 0.04 200))"
-                        : "linear-gradient(135deg, var(--rose), var(--sunset))",
-                      display: "grid",
-                      placeItems: "center",
-                      color: "white",
-                      fontWeight: 700,
-                      fontSize: "0.68rem",
-                    }}
-                  >
-                    {initials}
-                  </span>
-                  Logged in as {user.name}
-                </div>
-                <button
-                  onClick={() => {
-                    setMenuOpen(false);
-                    logout();
-                  }}
-                  className="inline-flex items-center justify-center gap-2 rounded-full border border-rose/40 text-rose hover:bg-rose/5 px-5 py-2.5 text-sm font-medium"
-                  style={{ cursor: "pointer" }}
-                >
-                  Sign Out
-                </button>
-              </>
+              <button
+                onClick={() => { setMenuOpen(false); logout(); }}
+                style={{
+                  width: "100%",
+                  padding: "13px",
+                  borderRadius: "12px",
+                  border: "1px solid rgba(255,255,255,0.15)",
+                  background: "rgba(255,255,255,0.08)",
+                  color: "rgba(255,120,120,0.95)",
+                  fontSize: "0.9rem",
+                  fontWeight: 600,
+                  cursor: "pointer",
+                  fontFamily: "var(--font-sans)",
+                }}
+              >
+                Sign Out
+              </button>
             ) : (
               <Link
                 to="/login"
                 onClick={() => setMenuOpen(false)}
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--gradient-sunset)] text-white px-5 py-2.5 text-sm font-medium shadow-soft"
+                style={{
+                  display: "block",
+                  padding: "13px",
+                  borderRadius: "12px",
+                  background: "rgba(255,255,255,0.15)",
+                  border: "1px solid rgba(255,255,255,0.3)",
+                  color: "white",
+                  fontSize: "0.9rem",
+                  fontWeight: 600,
+                  textAlign: "center",
+                  textDecoration: "none",
+                  boxShadow: "inset 0 1px 0 rgba(255,255,255,0.25)",
+                }}
               >
                 Start Free Trial
               </Link>
@@ -476,8 +534,16 @@ function Nav() {
           </div>
         </div>
       )}
+
+      <style>{`
+        @keyframes dropIn {
+          from { opacity: 0; transform: translateY(-8px) scale(0.97); }
+          to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+      `}</style>
     </header>
   );
+
 }
 
 const STATIC_STARS = [
@@ -1063,31 +1129,7 @@ function Hero() {
         ))}
       </div>
 
-      {/* Horizon ambient glow (changes color based on time of day) */}
-      <div
-        style={{
-          position: "absolute",
-          bottom: "220px",
-          left: 0,
-          right: 0,
-          height: "220px",
-          background: `linear-gradient(to top, ${phase.glowColor} 0%, transparent 100%)`,
-          pointerEvents: "none",
-          zIndex: 2,
-          transition: "background 1.5s ease-in-out",
-        }}
-      />
 
-      {/* Dark overlay for text readability */}
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          background: "rgba(0, 0, 0, 0.22)",
-          zIndex: 10,
-          pointerEvents: "none",
-        }}
-      />
 
       {/* Hero Content (Split Column Layout) */}
       <div
