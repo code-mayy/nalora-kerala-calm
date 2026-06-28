@@ -134,52 +134,63 @@ function Nav() {
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 sm:px-10">
-        <Link to="/" className="flex items-center gap-2">
-          <span
-            className={`grid h-9 w-9 place-items-center rounded-full font-display text-lg transition ${
-              scrolled
-                ? "bg-[var(--gradient-sunset)] text-white"
-                : "border-2 border-white/80 text-white"
-            }`}
-          >
-            n
-          </span>
-          <span
-            className={`font-display text-2xl tracking-tight transition flex items-center gap-1.5 ${
-              scrolled ? "text-foreground" : "text-white"
-            }`}
-          >
-            nalora
-            {user?.role === "doctor" && (
-              <span
-                style={{
-                  fontSize: "0.7rem",
-                  fontWeight: 700,
-                  textTransform: "uppercase",
-                  color: scrolled ? "oklch(0.5 0.04 200)" : "white",
-                  border: scrolled ? "1px solid oklch(0.5 0.04 200 / 0.3)" : "1px solid rgba(255,255,255,0.4)",
-                  padding: "1px 6px",
-                  borderRadius: "6px",
-                  marginLeft: "4px",
-                }}
-              >
-                Doctor
-              </span>
-            )}
-          </span>
-        </Link>
+        <div className="reveal reveal-down" style={{ transitionDelay: "50ms" }}>
+          <Link to="/" className="flex items-center gap-2">
+            <span
+              className={`grid h-9 w-9 place-items-center rounded-full font-display text-lg transition ${
+                scrolled
+                  ? "bg-[var(--gradient-sunset)] text-white"
+                  : "border-2 border-white/80 text-white"
+              }`}
+            >
+              n
+            </span>
+            <span
+              className={`font-display text-2xl tracking-tight transition flex items-center gap-1.5 ${
+                scrolled ? "text-foreground" : "text-white"
+              }`}
+            >
+              nalora
+              {user?.role === "doctor" && (
+                <span
+                  style={{
+                    fontSize: "0.7rem",
+                    fontWeight: 700,
+                    textTransform: "uppercase",
+                    color: scrolled ? "oklch(0.5 0.04 200)" : "white",
+                    border: scrolled ? "1px solid oklch(0.5 0.04 200 / 0.3)" : "1px solid rgba(255,255,255,0.4)",
+                    padding: "1px 6px",
+                    borderRadius: "6px",
+                    marginLeft: "4px",
+                  }}
+                >
+                  Doctor
+                </span>
+              )}
+            </span>
+          </Link>
+        </div>
         <nav
           className={`hidden md:flex items-center gap-7 text-[15px] font-medium transition ${
             scrolled ? "text-foreground/80" : "text-white/90"
           }`}
         >
-          {pages.map(({ to, label }) => (
-            <Link key={to} to={to} className="hover:opacity-70 transition">
-              {label}
-            </Link>
+          {pages.map(({ to, label }, idx) => (
+            <span
+              key={to}
+              className="reveal reveal-down"
+              style={{ transitionDelay: `${100 + idx * 50}ms` }}
+            >
+              <Link to={to} className="hover:opacity-70 transition">
+                {label}
+              </Link>
+            </span>
           ))}
         </nav>
-        <div className="hidden sm:flex items-center gap-3">
+        <div 
+          className="hidden sm:reveal sm:reveal-down sm:flex items-center gap-3"
+          style={{ transitionDelay: `${100 + pages.length * 50}ms` }}
+        >
           {user ? (
             /* ── Logged-in state ── */
             <div style={{ position: "relative" }}>
@@ -1090,6 +1101,7 @@ function Hero() {
         {/* Left Column: Text Content */}
         <div className="flex-1 text-center md:text-left flex flex-col items-center md:items-start justify-center max-w-[620px] md:max-w-[550px] transform md:translate-y-[-10px]">
           <h1
+            className="reveal reveal-up"
             style={{
               fontFamily: "var(--font-display)",
               fontSize: "clamp(2.3rem, 5.5vw, 3.8rem)",
@@ -1098,6 +1110,7 @@ function Hero() {
               lineHeight: 1.15,
               textShadow: "0 4px 18px rgba(0, 0, 0, 0.45)",
               margin: "0 0 24px 0",
+              transitionDelay: "200ms",
             }}
           >
             She gave everything.
@@ -1114,6 +1127,7 @@ function Hero() {
           </h1>
 
           <p
+            className="reveal reveal-up"
             style={{
               fontSize: "clamp(0.95rem, 2.2vw, 1.15rem)",
               color: "rgba(255, 255, 255, 0.85)",
@@ -1121,13 +1135,17 @@ function Hero() {
               margin: "0 0 36px 0",
               lineHeight: 1.65,
               textShadow: "0 2px 8px rgba(0, 0, 0, 0.3)",
+              transitionDelay: "350ms",
             }}
           >
             <span style={{ color: "var(--accent)", fontWeight: 500 }}>{phase.subtitle} </span>
             Postpartum care, rooted in Kerala — gentle, vernacular, and always awake.
           </p>
 
-          <div className="flex gap-4 justify-center md:justify-start flex-wrap w-full">
+          <div 
+            className="reveal reveal-up flex gap-4 justify-center md:justify-start flex-wrap w-full"
+            style={{ transitionDelay: "500ms" }}
+          >
             <Link
               to="/login"
               style={{
@@ -1194,24 +1212,27 @@ function Hero() {
 
         {/* Right Column: Image Content */}
         <div className="flex-1 w-full max-w-[450px] md:max-w-none flex justify-center items-center h-[35vh] md:h-[65vh] md:translate-y-[-5px]">
-          <img
-            src={motherBaby}
-            alt="Mother and Baby"
-            className="w-auto h-full max-h-[30vh] md:max-h-[60vh] object-contain image-float"
-            style={{
-              filter: phase.invertImage
-                ? "invert(1) drop-shadow(0 20px 40px rgba(0, 0, 0, 0.5))"
-                : "invert(0) drop-shadow(0 20px 40px rgba(0, 0, 0, 0.25))",
-              transition: "filter 1.5s ease-in-out",
-              maskImage: "linear-gradient(to bottom, black 80%, transparent 100%)",
-              WebkitMaskImage: "linear-gradient(to bottom, black 80%, transparent 100%)",
-            }}
-          />
+          <div className="reveal reveal-scale h-full max-h-[30vh] md:max-h-[60vh] flex items-center justify-center" style={{ transitionDelay: "650ms" }}>
+            <img
+              src={motherBaby}
+              alt="Mother and Baby"
+              className="w-auto h-full object-contain image-float"
+              style={{
+                filter: phase.invertImage
+                  ? "invert(1) drop-shadow(0 20px 40px rgba(0, 0, 0, 0.5))"
+                  : "invert(0) drop-shadow(0 20px 40px rgba(0, 0, 0, 0.25))",
+                transition: "filter 1.5s ease-in-out",
+                maskImage: "linear-gradient(to bottom, black 80%, transparent 100%)",
+                WebkitMaskImage: "linear-gradient(to bottom, black 80%, transparent 100%)",
+              }}
+            />
+          </div>
         </div>
       </div>
 
       {/* Time Simulation & IST Badge Control Panel */}
       <div
+        className="reveal reveal-up"
         style={{
           position: "absolute",
           bottom: "20px",
@@ -1230,8 +1251,9 @@ function Hero() {
           display: "flex",
           flexDirection: "column",
           gap: "8px",
-          transition: "all 0.3s ease",
+          transition: "all 0.3s ease, opacity 1.1s cubic-bezier(0.16, 1, 0.3, 1), transform 1.1s cubic-bezier(0.16, 1, 0.3, 1)",
           maxWidth: "280px",
+          transitionDelay: "800ms",
         }}
       >
         <div
@@ -1415,15 +1437,21 @@ function WhatIsNalora() {
       {/* Left Pane - Solid Rose Theme Background */}
       <div className="bg-[var(--rose)] px-8 py-20 sm:py-28 md:px-16 lg:px-24 flex flex-col justify-center items-start text-white relative">
         <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_30%_30%,white_0%,transparent_60%)] pointer-events-none" />
-        <div className="reveal max-w-xl relative z-10">
-          <h2 className="font-display text-4xl sm:text-5xl md:text-6xl leading-tight text-white font-medium uppercase tracking-tight">
+        <div className="max-w-xl relative z-10">
+          <h2 className="reveal reveal-left font-display text-4xl sm:text-5xl md:text-6xl leading-tight text-white font-medium uppercase tracking-tight">
             What is <span className="text-[var(--coconut-soft)]">nalora</span>?
           </h2>
-          <p className="mt-8 text-[17px] sm:text-lg md:text-xl text-white/90 leading-relaxed font-sans font-normal">
+          <p 
+            className="reveal reveal-left mt-8 text-[17px] sm:text-lg md:text-xl text-white/90 leading-relaxed font-sans font-normal"
+            style={{ transitionDelay: "150ms" }}
+          >
             Nalora is a compassionate, research-backed digital ecosystem built to support emotional
             well-being throughout pregnancy and early motherhood.
           </p>
-          <p className="mt-6 text-[15px] sm:text-base text-white/75 leading-relaxed">
+          <p 
+            className="reveal reveal-left mt-6 text-[15px] sm:text-base text-white/75 leading-relaxed"
+            style={{ transitionDelay: "300ms" }}
+          >
             By combining thoughtful, culturally rooted support with evidence-based psychological
             frameworks, we help you understand, track, and process your emotional experiences
             with absolute clarity.
@@ -1434,17 +1462,24 @@ function WhatIsNalora() {
       {/* Right Pane - Base background mirrored to the left, overlay frame aligned bottom-right and sized up to 95% */}
       <div className="relative min-h-[380px] md:min-h-full w-full bg-white overflow-hidden">
         {/* Base Image (Mirrored horizontally to the left) */}
-        <img
-          src={introImg}
-          alt="Motherhood background pattern"
-          className="absolute inset-0 w-full h-full object-cover scale-x-[-1]"
-        />
+        <div className="reveal reveal-scale absolute inset-0 w-full h-full" style={{ transitionDelay: "100ms" }}>
+          <img
+            src={introImg}
+            alt="Motherhood background pattern"
+            className="w-full h-full object-cover scale-x-[-1]"
+          />
+        </div>
         {/* Frame / Overlay Image (Aligned bottom-right and increased size) */}
-        <img
-          src={introOverlayImg}
-          alt="Visual frame overlay"
-          className="absolute right-0 bottom-0 w-[95%] h-[95%] object-contain object-bottom-right pointer-events-none z-10"
-        />
+        <div 
+          className="reveal reveal-right absolute right-0 bottom-0 w-[95%] h-[95%] pointer-events-none z-10" 
+          style={{ transitionDelay: "350ms" }}
+        >
+          <img
+            src={introOverlayImg}
+            alt="Visual frame overlay"
+            className="w-full h-full object-contain object-bottom-right"
+          />
+        </div>
       </div>
     </section>
   );
@@ -1491,12 +1526,12 @@ function Therapists() {
       className="relative z-10 bg-background pt-16 pb-16 sm:pt-24 sm:pb-16 border-t border-border/40"
     >
       <div className="mx-auto max-w-6xl px-6">
-        <h2 className="reveal text-center font-display text-4xl sm:text-5xl">
+        <h2 className="reveal reveal-up text-center font-display text-4xl sm:text-5xl">
           How can we <span className="text-rose">help you?</span>
         </h2>
 
         {/* Search Option */}
-        <div className="reveal mx-auto mt-8 max-w-md relative">
+        <div className="reveal reveal-up mx-auto mt-8 max-w-md relative" style={{ transitionDelay: "100ms" }}>
           <div className="relative">
             <input
               type="text"
@@ -1545,11 +1580,12 @@ function Therapists() {
         </div>
 
         <div className="mt-14 grid gap-7 md:grid-cols-2 lg:grid-cols-3">
-          {displayedTherapists.map((t) => {
+          {displayedTherapists.map((t, idx) => {
             return (
               <div
                 key={t.name}
-                className="reveal group overflow-hidden rounded-[1.75rem] bg-card shadow-soft transition hover:-translate-y-1 hover:shadow-lift"
+                className="reveal reveal-up group overflow-hidden rounded-[1.75rem] bg-card shadow-soft transition hover:-translate-y-1 hover:shadow-lift"
+                style={{ transitionDelay: `${idx * 120}ms` }}
               >
                 <div
                   className="relative flex items-end gap-4 px-6 pt-6"
@@ -1560,16 +1596,18 @@ function Therapists() {
                     <div className="mt-1 text-sm text-foreground/70">{t.role}</div>
                   </div>
                   {t.img ? (
-                    <img
-                      src={t.img}
-                      alt={t.name}
-                      width={800}
-                      height={800}
-                      loading="lazy"
-                      className="h-32 w-28 rounded-t-2xl object-cover object-top"
-                    />
+                    <div className="h-32 w-28 rounded-t-2xl overflow-hidden">
+                      <img
+                        src={t.img}
+                        alt={t.name}
+                        width={800}
+                        height={800}
+                        loading="lazy"
+                        className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-110"
+                      />
+                    </div>
                   ) : (
-                    <div className="h-32 w-28 rounded-t-2xl bg-white/60 flex items-center justify-center font-display text-4xl text-rose font-bold">
+                    <div className="h-32 w-28 rounded-t-2xl bg-white/60 flex items-center justify-center font-display text-4xl text-rose font-bold transition-transform duration-500 group-hover:scale-110">
                       {t.name.charAt(0)}
                     </div>
                   )}
@@ -1635,7 +1673,7 @@ function Therapists() {
 
         {/* No Results State */}
         {filteredTherapists.length === 0 && (
-          <div className="reveal mt-14 text-center py-12 px-6 rounded-2xl bg-card border border-border/50 shadow-soft">
+          <div className="reveal reveal-up mt-14 text-center py-12 px-6 rounded-2xl bg-card border border-border/50 shadow-soft">
             <div className="text-rose text-3xl font-display uppercase">No therapists found</div>
             <p className="mt-2 text-sm text-foreground/50">
               Try adjusting your search keywords.
@@ -1653,7 +1691,7 @@ function Therapists() {
 
         {/* View More/Less Button */}
         {filteredTherapists.length > 3 && (
-          <div className="reveal mt-12 flex justify-center">
+          <div className="reveal reveal-up mt-12 flex justify-center" style={{ transitionDelay: "150ms" }}>
             <button
               onClick={() => setShowAll(!showAll)}
               className="inline-flex items-center gap-2 rounded-full border-2 border-rose bg-white px-7 py-3 text-sm font-semibold uppercase tracking-[0.14em] text-rose transition-all duration-300 hover:bg-rose hover:text-white cursor-pointer shadow-soft hover:shadow-lift"
@@ -1800,7 +1838,7 @@ function Care() {
     <section id="care" className="relative z-10 bg-background pt-16 pb-28">
       {/* Centered Header */}
       <div className="mx-auto max-w-6xl px-6">
-        <div className="reveal mx-auto max-w-3xl text-center">
+        <div className="reveal reveal-up mx-auto max-w-3xl text-center">
           <h2 className="font-display text-4xl leading-tight sm:text-5xl">
             Care that <span className="text-rose">breathes with you.</span>
           </h2>
@@ -1814,24 +1852,33 @@ function Care() {
           return (
             <div
               key={f.title}
-              className="reveal grid grid-cols-1 md:grid-cols-2 w-full overflow-hidden shadow-soft border-y border-border/10"
+              className="grid grid-cols-1 md:grid-cols-2 w-full overflow-hidden shadow-soft border-y border-border/10"
             >
               {/* Text Pane */}
               <div
-                className={`px-8 py-20 sm:py-28 md:px-16 lg:px-24 flex flex-col justify-center items-start text-white relative ${
+                className={`reveal ${isEven ? "reveal-left" : "reveal-right"} px-8 py-20 sm:py-28 md:px-16 lg:px-24 flex flex-col justify-center items-start text-white relative ${
                   isEven ? "md:order-1" : "md:order-2"
                 }`}
                 style={{ background: f.bg }}
               >
                 <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_30%_30%,white_0%,transparent_60%)] pointer-events-none" />
-                <div className="reveal max-w-xl relative z-10">
-                  <span className="inline-block rounded-full bg-white/20 backdrop-blur-md px-3.5 py-1 text-[11px] font-semibold uppercase tracking-wider text-white mb-6">
+                <div className="max-w-xl relative z-10">
+                  <span 
+                    className="reveal reveal-up inline-block rounded-full bg-white/20 backdrop-blur-md px-3.5 py-1 text-[11px] font-semibold uppercase tracking-wider text-white mb-6"
+                    style={{ transitionDelay: "100ms" }}
+                  >
                     {f.tag}
                   </span>
-                  <h3 className="font-display text-3xl sm:text-4xl md:text-5xl leading-tight font-medium uppercase tracking-tight text-white">
+                  <h3 
+                    className="reveal reveal-up font-display text-3xl sm:text-4xl md:text-5xl leading-tight font-medium uppercase tracking-tight text-white"
+                    style={{ transitionDelay: "200ms" }}
+                  >
                     {f.title}
                   </h3>
-                  <p className="mt-8 text-[17px] sm:text-lg md:text-xl text-white/90 leading-relaxed font-sans font-normal">
+                  <p 
+                    className="reveal reveal-up mt-8 text-[17px] sm:text-lg md:text-xl text-white/90 leading-relaxed font-sans font-normal"
+                    style={{ transitionDelay: "300ms" }}
+                  >
                     {f.desc}
                   </p>
                 </div>
@@ -1839,9 +1886,10 @@ function Care() {
 
               {/* Graphic Pane */}
               <div
-                className={`relative min-h-[380px] md:min-h-full w-full bg-white overflow-hidden flex justify-center items-center ${
+                className={`reveal reveal-scale relative min-h-[380px] md:min-h-full w-full bg-white overflow-hidden flex justify-center items-center ${
                   isEven ? "md:order-2" : "md:order-1"
                 }`}
+                style={{ transitionDelay: "150ms" }}
               >
                 <div className="absolute inset-0 flex justify-center items-center pointer-events-none select-none">
                   {renderFeatureGraphic(i)}
@@ -1865,24 +1913,34 @@ function FinalCta() {
     <section className="relative z-10 bg-background py-28">
       <div className="mx-auto max-w-5xl px-6">
         <div
-          className="relative overflow-hidden rounded-[2.5rem] p-12 text-center shadow-lift sm:p-20"
+          className="reveal reveal-scale relative overflow-hidden rounded-[2.5rem] p-12 text-center shadow-lift sm:p-20"
           style={{ background: "var(--gradient-sunset)" }}
         >
           <img
             src={blobRose}
             alt=""
             aria-hidden
-            className="pointer-events-none absolute -left-20 -top-20 w-96 opacity-30"
+            className="reveal reveal-scale pointer-events-none absolute -left-20 -top-20 w-96 opacity-30"
+            style={{ transitionDelay: "150ms" }}
           />
           <div className="absolute -right-20 -bottom-32 h-96 w-96 rounded-full bg-white/20 blur-3xl" />
           <div className="relative">
-            <h2 className="font-display text-4xl text-white leading-tight sm:text-6xl">
+            <h2 
+              className="reveal reveal-up font-display text-4xl text-white leading-tight sm:text-6xl"
+              style={{ transitionDelay: "250ms" }}
+            >
               You don't have to <em className="italic">carry this alone.</em>
             </h2>
-            <p className="mx-auto mt-6 max-w-xl text-lg text-white/85">
+            <p 
+              className="reveal reveal-up mx-auto mt-6 max-w-xl text-lg text-white/85"
+              style={{ transitionDelay: "350ms" }}
+            >
               Begin with one conversation. We'll meet you exactly where you are.
             </p>
-            <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
+            <div 
+              className="reveal reveal-up mt-9 flex flex-wrap items-center justify-center gap-3"
+              style={{ transitionDelay: "450ms" }}
+            >
               <a
                 href="#talk"
                 className="rounded-full bg-white px-7 py-4 text-foreground font-medium shadow-soft transition hover:-translate-y-0.5"
@@ -1910,7 +1968,7 @@ function Footer() {
       className="relative z-10 border-t border-border bg-[var(--ivory-deep)] py-14"
     >
       <div className="mx-auto grid max-w-6xl gap-10 px-6 md:grid-cols-4">
-        <div>
+        <div className="reveal reveal-up">
           <div className="flex items-center gap-2">
             <span className="grid h-9 w-9 place-items-center rounded-full bg-[var(--gradient-sunset)] text-white font-display">
               n
@@ -1925,8 +1983,12 @@ function Footer() {
           ["Care", ["Late-night support", "Therapist matching", "Family circle", "Library"]],
           ["Company", ["Our story", "Therapists", "Careers", "Press"]],
           ["Support", ["Help centre", "Privacy", "Terms", "Contact"]],
-        ].map(([h, items]) => (
-          <div key={h as string}>
+        ].map(([h, items], idx) => (
+          <div 
+            key={h as string} 
+            className="reveal reveal-up"
+            style={{ transitionDelay: `${100 + idx * 100}ms` }}
+          >
             <div className="font-display text-sm uppercase tracking-[0.16em] text-foreground/60">
               {h}
             </div>
@@ -1942,8 +2004,11 @@ function Footer() {
           </div>
         ))}
       </div>
-      <div className="mx-auto mt-12 max-w-6xl px-6 text-xs text-foreground/50">
-        Â© {new Date().getFullYear()} Nalora Care. Made with care in Kerala.
+      <div 
+        className="reveal reveal-up mx-auto mt-12 max-w-6xl px-6 text-xs text-foreground/50"
+        style={{ transitionDelay: "450ms" }}
+      >
+        © {new Date().getFullYear()} Nalora Care. Made with care in Kerala.
       </div>
     </footer>
   );

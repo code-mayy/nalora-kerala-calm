@@ -155,14 +155,61 @@
 
 @utility reveal {
   opacity: 0;
-  transform: translateY(28px);
-  transition:
-    opacity 0.9s cubic-bezier(0.2, 0.8, 0.2, 1),
-    transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition: opacity 1.1s cubic-bezier(0.16, 1, 0.3, 1), transform 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+  
+  /* Initial default state is slide-up (translateY(30px)) */
+  --tw-reveal-ty: 30px;
+  --tw-reveal-tx: 0px;
+  --tw-reveal-scale: 1;
+  --tw-reveal-rotate: 0deg;
+  transform: translate3d(var(--tw-reveal-tx), var(--tw-reveal-ty), 0) scale(var(--tw-reveal-scale)) rotate(var(--tw-reveal-rotate));
 }
+
+@utility reveal-up {
+  --tw-reveal-ty: 40px;
+  --tw-reveal-tx: 0px;
+}
+
+@utility reveal-down {
+  --tw-reveal-ty: -40px;
+  --tw-reveal-tx: 0px;
+}
+
+@utility reveal-left {
+  --tw-reveal-ty: 0px;
+  --tw-reveal-tx: -45px;
+}
+
+@utility reveal-right {
+  --tw-reveal-ty: 0px;
+  --tw-reveal-tx: 45px;
+}
+
+@utility reveal-scale {
+  --tw-reveal-ty: 0px;
+  --tw-reveal-tx: 0px;
+  --tw-reveal-scale: 0.95;
+}
+
+@utility reveal-rotate-left {
+  --tw-reveal-ty: 25px;
+  --tw-reveal-tx: 0px;
+  --tw-reveal-rotate: -3deg;
+}
+
+@utility reveal-rotate-right {
+  --tw-reveal-ty: 25px;
+  --tw-reveal-tx: 0px;
+  --tw-reveal-rotate: 3deg;
+}
+
 @utility reveal-in {
   opacity: 1;
-  transform: translateY(0);
+  --tw-reveal-ty: 0px !important;
+  --tw-reveal-tx: 0px !important;
+  --tw-reveal-scale: 1 !important;
+  --tw-reveal-rotate: 0deg !important;
 }
 
 @utility btn-primary {
