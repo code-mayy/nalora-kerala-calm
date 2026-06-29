@@ -1756,7 +1756,7 @@ const FEATURE_PAIRS = [
       title: "Late-night companion",
       tag: "AI Care",
       desc: "An always-on listener trained in maternal mental health, in your tongue.",
-      readMore: "Our AI companion is trained on thousands of postpartum mental health conversations across Kerala and India. Whether it's 2 AM and your baby won't sleep, or you're feeling overwhelmed and don't know why — she's there. She speaks Malayalam, Tamil, Hindi, and English, and never judges, never rushes. Think of her as a gentle friend who truly understands what you're going through.",
+      readMore: "An AI companion trained in maternal mental health, available 24/7. Whether it's 2 AM or a stressful afternoon, she speaks Malayalam, Tamil, Hindi, and English to support you without judgement.",
       bg: "var(--rose)",
       light: false,
     },
@@ -1764,7 +1764,7 @@ const FEATURE_PAIRS = [
       title: "Therapist matching",
       tag: "Human",
       desc: "Hand-picked certified therapists, matched in under a day.",
-      readMore: "We don't just show you a list of names. Our matching considers your language preference, concerns (postpartum anxiety, birth trauma, relationship stress), availability, and budget. Every therapist on Nalora is a certified mental health professional with perinatal specialisation. You'll be connected to the right person within 24 hours of signing up — not left searching alone.",
+      readMore: "Get matched with certified perinatal therapists in Kerala in under 24 hours. We align candidates with your language, budget, schedule, and specific maternal wellness needs.",
       bg: "oklch(0.97 0.01 60)",
       light: true,
     },
@@ -1774,7 +1774,7 @@ const FEATURE_PAIRS = [
       title: "Family circle",
       tag: "Together",
       desc: "Invite your partner, parents and in-laws into the same care plan.",
-      readMore: "Postpartum recovery is a family journey. With Nalora's Family Circle, your partner, mother, mother-in-law, or closest friend can join your care space — receiving personalised guidance on how to support you without overstepping. Shared check-ins, gentle educational content, and communication prompts help the whole family show up in the right way at the right time.",
+      readMore: "Invite your partner, parents, or friends into your care space. Share check-ins, access coordinated guidelines, and receive helpful prompts to navigate postpartum recovery as a family.",
       bg: "oklch(0.96 0.01 240)",
       light: true,
     },
@@ -1782,7 +1782,7 @@ const FEATURE_PAIRS = [
       title: "Private by design",
       tag: "Safe",
       desc: "End-to-end encrypted. Your story never leaves your circle.",
-      readMore: "Privacy isn't a feature at Nalora — it's the foundation. Every conversation, diary entry, mood check-in, and session note is end-to-end encrypted and stored only on your device and our zero-knowledge servers. We never sell your data. We never share it with employers, insurers, or government bodies. Your story is yours, and only yours.",
+      readMore: "End-to-end encrypted chats, diary entries, and therapist notes. Stored securely on zero-knowledge servers, your data belongs exclusively to you and is never shared or sold.",
       bg: "oklch(0.32 0.09 295)",
       light: false,
     },
@@ -1794,10 +1794,13 @@ function FeatureCard({
 }: {
   title: string; tag: string; desc: string; readMore: string; bg: string; light: boolean;
 }) {
-  const [open, setOpen] = useState(false);
+  const [hovered, setHovered] = useState(false);
+
   return (
     <div
-      className="flex flex-col justify-between"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      className="flex flex-col justify-between transition-all duration-300"
       style={{
         background: bg,
         padding: "48px 40px 40px",
@@ -1805,97 +1808,100 @@ function FeatureCard({
         overflow: "hidden",
         minHeight: "360px",
         flex: 1,
+        transform: hovered ? "translateY(-4px)" : "translateY(0)",
+        boxShadow: hovered 
+          ? "0 20px 40px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.08)" 
+          : "none",
       }}
     >
       {/* Subtle radial glow */}
       <div style={{ position: "absolute", inset: 0, opacity: 0.12, background: "radial-gradient(circle at 25% 25%, white 0%, transparent 65%)", pointerEvents: "none" }} />
 
-      <div style={{ position: "relative", zIndex: 1 }}>
-        <span style={{
-          display: "inline-block",
-          borderRadius: "99px",
-          padding: "4px 14px",
-          fontSize: "0.7rem",
-          fontWeight: 700,
-          letterSpacing: "0.1em",
-          textTransform: "uppercase",
-          marginBottom: "20px",
-          background: light ? "rgba(0,0,0,0.08)" : "rgba(255,255,255,0.2)",
-          backdropFilter: "blur(8px)",
-          color: light ? "rgba(0,0,0,0.55)" : "white",
-        }}>
-          {tag}
-        </span>
-
-        <h3 style={{
-          fontFamily: "var(--font-display)",
-          fontSize: "clamp(1.6rem, 3vw, 2.2rem)",
-          fontWeight: 500,
-          letterSpacing: "-0.02em",
-          lineHeight: 1.2,
-          textTransform: "uppercase",
-          color: light ? "var(--foreground)" : "white",
-          margin: "0 0 16px 0",
-        }}>
-          {title}
-        </h3>
-
-        <p style={{
-          fontSize: "1rem",
-          lineHeight: 1.65,
-          color: light ? "rgba(0,0,0,0.6)" : "rgba(255,255,255,0.88)",
-          margin: 0,
-          maxWidth: "380px",
-        }}>
-          {desc}
-        </p>
-
-        {/* Read more expandable */}
-        {open && (
-          <p style={{
-            marginTop: "16px",
-            fontSize: "0.92rem",
-            lineHeight: 1.7,
-            color: light ? "rgba(0,0,0,0.55)" : "rgba(255,255,255,0.75)",
-            maxWidth: "400px",
-            borderTop: light ? "1px solid rgba(0,0,0,0.1)" : "1px solid rgba(255,255,255,0.2)",
-            paddingTop: "16px",
+      <div style={{ position: "relative", zIndex: 1, flex: 1, display: "flex", flexDirection: "column" }}>
+        <div>
+          <span style={{
+            display: "inline-block",
+            borderRadius: "99px",
+            padding: "4px 14px",
+            fontSize: "0.7rem",
+            fontWeight: 700,
+            letterSpacing: "0.1em",
+            textTransform: "uppercase",
+            marginBottom: "20px",
+            background: light ? "rgba(0,0,0,0.08)" : "rgba(255,255,255,0.2)",
+            backdropFilter: "blur(8px)",
+            color: light ? "rgba(0,0,0,0.55)" : "white",
+            transition: "all 0.3s ease",
           }}>
-            {readMore}
-          </p>
-        )}
+            {hovered ? "More Details" : tag}
+          </span>
+        </div>
+
+        <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center" }}>
+          {!hovered ? (
+            <div style={{ animation: "fadeInUp 0.25s ease-out" }}>
+              <h3 style={{
+                fontFamily: "var(--font-display)",
+                fontSize: "clamp(1.6rem, 3vw, 2.2rem)",
+                fontWeight: 500,
+                letterSpacing: "-0.02em",
+                lineHeight: 1.2,
+                textTransform: "uppercase",
+                color: light ? "var(--foreground)" : "white",
+                margin: "0 0 16px 0",
+              }}>
+                {title}
+              </h3>
+
+              <p style={{
+                fontSize: "1rem",
+                lineHeight: 1.65,
+                color: light ? "rgba(0,0,0,0.6)" : "rgba(255,255,255,0.88)",
+                margin: 0,
+                maxWidth: "380px",
+              }}>
+                {desc}
+              </p>
+            </div>
+          ) : (
+            <div style={{ animation: "fadeInUp 0.25s ease-out" }}>
+              <h4 style={{
+                fontFamily: "var(--font-display)",
+                fontSize: "0.8rem",
+                fontWeight: 700,
+                letterSpacing: "0.08em",
+                textTransform: "uppercase",
+                color: light ? "rgba(0,0,0,0.45)" : "rgba(255,255,255,0.45)",
+                margin: "0 0 12px 0",
+              }}>
+                {title}
+              </h4>
+              <p style={{
+                fontSize: "0.92rem",
+                lineHeight: 1.65,
+                color: light ? "rgba(0,0,0,0.7)" : "rgba(255,255,255,0.85)",
+                margin: 0,
+                maxWidth: "380px",
+              }}>
+                {readMore}
+              </p>
+            </div>
+          )}
+        </div>
       </div>
 
-      <button
-        onClick={() => setOpen((v) => !v)}
-        style={{
-          marginTop: "28px",
-          display: "inline-flex",
-          alignItems: "center",
-          gap: "6px",
-          background: "none",
-          border: "none",
-          padding: 0,
-          cursor: "pointer",
-          fontSize: "0.82rem",
-          fontWeight: 700,
-          letterSpacing: "0.06em",
-          textTransform: "uppercase",
-          color: light ? "var(--rose)" : "rgba(255,255,255,0.75)",
-          transition: "opacity 0.2s",
-          fontFamily: "var(--font-sans)",
-          position: "relative",
-          zIndex: 1,
-        }}
-        onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.7")}
-        onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
-      >
-        {open ? "Read less" : "Read more"}
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"
-          style={{ transform: open ? "rotate(180deg)" : "none", transition: "transform 0.2s" }}>
-          <path d="M6 9l6 6 6-6" />
-        </svg>
-      </button>
+      <style dangerouslySetInnerHTML={{ __html: `
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(8px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}} />
     </div>
   );
 }

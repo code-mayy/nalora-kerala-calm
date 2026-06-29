@@ -1,10 +1,24 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState, useEffect, type FormEvent } from "react";
+import { DarkNav } from "@/components/DarkNav";
 
 import morningBg from "@/assets/image copy.png";
 import afternoonBg from "@/assets/image copy 3.png";
 import eveningBg from "@/assets/hero.png";
 import nightBg from "@/assets/image copy 2.png";
+import cloud1 from "@/assets/IMG_20260626_215755.png";
+import cloud2 from "@/assets/IMG_20260626_215815.png";
+import cloud3 from "@/assets/IMG_20260626_215818.png";
+import cloud4 from "@/assets/IMG_20260626_215821.png";
+import cloud5 from "@/assets/IMG_20260626_215824.png";
+
+const CLOUDS_CONFIG = [
+  { id: 1, img: cloud1, width: "320px", height: "85px", top: "10%", duration: "75s", delay: "0s", opacity: 0.7 },
+  { id: 2, img: cloud2, width: "380px", height: "100px", top: "30%", duration: "95s", delay: "-25s", opacity: 0.7 },
+  { id: 3, img: cloud3, width: "260px", height: "80px", top: "8%", duration: "115s", delay: "-55s", opacity: 0.65 },
+  { id: 4, img: cloud4, width: "350px", height: "90px", top: "48%", duration: "60s", delay: "-15s", opacity: 0.65 },
+  { id: 5, img: cloud5, width: "300px", height: "85px", top: "22%", duration: "100s", delay: "-40s", opacity: 0.7 },
+];
 
 export const Route = createFileRoute("/create-account")({
   head: () => ({
@@ -97,7 +111,31 @@ function SkyBackground({ hour }: { hour: number }) {
       </div>
       <div style={{ position: "absolute", bottom: phase.sun.bottom, left: phase.sun.left, width: "50px", height: "50px", borderRadius: "50%", background: sunStyle.bg, boxShadow: sunStyle.glow, filter: "drop-shadow(0 0 14px rgba(255,255,255,0.4))", opacity: phase.sun.opacity, transform: `scale(${phase.sun.scale})`, transition: "all 1.5s cubic-bezier(0.4,0,0.2,1)", pointerEvents: "none", zIndex: 11 }} />
       <div style={{ position: "absolute", bottom: phase.moon.bottom, left: phase.moon.left, width: "36px", height: "36px", borderRadius: "50%", background: "transparent", boxShadow: "-9px 9px 0 0 #fffdeb", filter: "drop-shadow(0 0 18px rgba(255,255,255,0.6))", opacity: phase.moon.opacity, transition: "all 1.5s cubic-bezier(0.4,0,0.2,1)", pointerEvents: "none", zIndex: 11 }} />
-      <div style={{ position: "absolute", inset: 0, background: "rgba(4,10,20,0.42)", zIndex: 12, pointerEvents: "none" }} />
+      
+      {/* Sliding 3D Clouds Layer */}
+      {CLOUDS_CONFIG.map((cloud) => (
+        <div
+          key={cloud.id}
+          className="cloud-slide"
+          style={{
+            position: "absolute",
+            top: cloud.top,
+            width: cloud.width,
+            height: cloud.height,
+            backgroundImage: `url(${cloud.img})`,
+            backgroundSize: "contain",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+            opacity: cloud.opacity,
+            animationDuration: cloud.duration,
+            animationDelay: cloud.delay,
+            pointerEvents: "none",
+            zIndex: 12,
+          }}
+        />
+      ))}
+
+      <div style={{ position: "absolute", inset: 0, background: "rgba(4,10,20,0.42)", zIndex: 13, pointerEvents: "none" }} />
     </div>
   );
 }
@@ -156,7 +194,7 @@ function RightPanel() {
   useEffect(() => { const t = setInterval(() => { setFading(true); setTimeout(() => { setSlide((s) => (s + 1) % SLIDES.length); setFading(false); }, 240); }, 4500); return () => clearInterval(t); }, []);
   const current = SLIDES[slide];
   return (
-    <div className="signup-feature-card" style={{ flex: 1, background: "rgba(8,16,30,0.85)", backdropFilter: "blur(20px)", WebkitBackdropFilter: "blur(20px)", borderRadius: "20px", display: "flex", flexDirection: "column", justifyContent: "space-between", padding: "36px 32px 28px", color: "white", boxSizing: "border-box", position: "relative", overflow: "hidden", border: "1px solid rgba(255,255,255,0.1)" }}>
+    <div className="signup-feature-card" style={{ flex: 1, background: "rgba(18, 20, 28, 0.18)", backdropFilter: "blur(48px) saturate(180%)", WebkitBackdropFilter: "blur(48px) saturate(180%)", borderRadius: "20px", display: "flex", flexDirection: "column", justifyContent: "space-between", padding: "36px 32px 28px", color: "white", boxSizing: "border-box", position: "relative", overflow: "hidden", border: "1px solid rgba(255,255,255,0.1)" }}>
       <div style={{ position: "absolute", top: "-50px", right: "-50px", width: "180px", height: "180px", borderRadius: "50%", background: "radial-gradient(circle,rgba(255,255,255,0.04),transparent 70%)", pointerEvents: "none" }} />
       <div style={{ display: "flex", alignItems: "center", gap: "8px", position: "relative", zIndex: 2 }}>
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" stroke="rgba(255,255,255,0.7)" strokeWidth="1.8" fill="none" /><path d="M12 8v8M9 12h6" stroke="rgba(255,255,255,0.7)" strokeWidth="2" strokeLinecap="round" /></svg>
@@ -302,22 +340,21 @@ function CreateAccount() {
         input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none}
         input::placeholder{color:rgba(255,255,255,.25)!important}
         @media(max-width:820px){.signup-feature-card{display:none!important}}
+        @keyframes slideCloud {
+          0% { transform: translate3d(-350px, 0, 0); }
+          100% { transform: translate3d(100vw, 0, 0); }
+        }
+        .cloud-slide {
+          animation: slideCloud infinite linear;
+        }
       `}} />
 
       <SkyBackground hour={currentRealHour} />
 
-      {/* Back to home */}
-      <div style={{ position: "fixed", top: "20px", left: "20px", zIndex: 30 }}>
-        <Link to="/" style={{ display: "inline-flex", alignItems: "center", gap: "6px", padding: "8px 16px", borderRadius: "99px", background: "rgba(6,14,26,0.6)", backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)", border: "1px solid rgba(255,255,255,0.18)", color: "rgba(255,255,255,0.8)", textDecoration: "none", fontSize: "0.82rem", fontWeight: 600, transition: "all 0.2s" }}
-          onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.12)"; (e.currentTarget as HTMLElement).style.color = "white"; }}
-          onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "rgba(6,14,26,0.6)"; (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.8)"; }}>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
-          Back to Home
-        </Link>
-      </div>
+      <DarkNav />
 
       <div style={{ position: "relative", zIndex: 20, minHeight: "100vh", width: "100%", display: "flex", alignItems: "center", justifyContent: "center", padding: "32px 16px", boxSizing: "border-box" }}>
-        <div style={{ width: "100%", maxWidth: "860px", margin: "0 auto", background: "rgba(6,14,26,0.72)", backdropFilter: "blur(28px)", WebkitBackdropFilter: "blur(28px)", borderRadius: "28px", border: "1px solid rgba(255,255,255,0.08)", boxShadow: "0 28px 70px rgba(0,0,0,0.55),inset 0 1px 0 rgba(255,255,255,0.05)", display: "flex", flexDirection: "row", overflow: "hidden", padding: "14px", gap: "14px", minHeight: "580px" }}>
+        <div style={{ width: "100%", maxWidth: "860px", margin: "0 auto", background: "rgba(18, 20, 28, 0.24)", backdropFilter: "blur(48px) saturate(180%)", WebkitBackdropFilter: "blur(48px) saturate(180%)", borderRadius: "28px", border: "1px solid rgba(255, 255, 255, 0.12)", boxShadow: "inset 0 1px 0 rgba(255,255,255,0.07), 0 24px 60px rgba(0,0,0,0.45)", display: "flex", flexDirection: "row", overflow: "hidden", padding: "14px", gap: "14px", minHeight: "580px" }}>
 
           {/* Left: Form */}
           <div style={{ flex: 1, display: "flex", flexDirection: "column", padding: "22px 28px", boxSizing: "border-box" }}>
