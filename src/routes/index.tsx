@@ -101,9 +101,6 @@ function Nav() {
         ]
       : [
           { to: "/doctors", label: "Our Doctors" },
-          { to: "/book-session", label: "Book a Session" },
-          { to: "/bookings", label: "Your Bookings" },
-          { to: "/feedback", label: "Feedback" },
         ]
     : [];
 
@@ -1401,6 +1398,7 @@ function Hero() {
 /* ---------- Therapists showcase (Oppam-style pastel cards) ---------- */
 const THERAPISTS = [
   {
+    id: 1,
     name: "Aisha Menon",
     role: "Consultant Psychologist",
     img: therapist1,
@@ -1412,6 +1410,7 @@ const THERAPISTS = [
     next: "15 mins",
   },
   {
+    id: 2,
     name: "Lakshmi Pillai",
     role: "Clinical Psychologist",
     img: therapist2,
@@ -1423,6 +1422,7 @@ const THERAPISTS = [
     next: "20 mins",
   },
   {
+    id: 3,
     name: "Dr. Rohan Iyer",
     role: "Perinatal Psychiatrist",
     img: therapist3,
@@ -1434,6 +1434,7 @@ const THERAPISTS = [
     next: "30 mins",
   },
   {
+    id: 4,
     name: "Dr. Meera Krishnan",
     role: "Perinatal Counselor",
     img: null,
@@ -1445,6 +1446,7 @@ const THERAPISTS = [
     next: "1 hour",
   },
   {
+    id: 5,
     name: "Dr. Priya Nair",
     role: "Family Therapist",
     img: null,
@@ -1456,6 +1458,7 @@ const THERAPISTS = [
     next: "Tomorrow",
   },
   {
+    id: 6,
     name: "Dr. Sanjana Thomas",
     role: "Child & Perinatal Psychologist",
     img: null,
@@ -1701,7 +1704,8 @@ function Therapists() {
                       </button>
                     </div>
                     <Link
-                      to="/doctors"
+                      to="/doctor-profile/$id"
+                      params={{ id: String(t.id) }}
                       className="block text-center rounded-xl border border-foreground/15 py-2.5 text-xs font-semibold uppercase tracking-[0.14em] text-foreground/70 transition hover:bg-foreground hover:text-background hover:border-foreground cursor-pointer"
                     >
                       View Profile

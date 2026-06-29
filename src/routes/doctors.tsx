@@ -302,7 +302,7 @@ function DoctorCard({ doc }: { doc: Doctor }) {
           </span>
         </div>
 
-        <div
+          <div
           style={{
             display: "flex",
             alignItems: "center",
@@ -326,23 +326,39 @@ function DoctorCard({ doc }: { doc: Doctor }) {
               ✓ {doc.nextAvailable}
             </div>
           </div>
-          <Link
-            to="/book-session"
-            style={{
-              padding: "10px 18px",
-              borderRadius: "12px",
-              background: "linear-gradient(135deg, var(--rose), var(--sunset))",
-              color: "white",
-              fontSize: "0.82rem",
-              fontWeight: 700,
-              textDecoration: "none",
-              transition: "opacity 0.2s",
-              whiteSpace: "nowrap",
-              boxShadow: "0 4px 16px oklch(0.74 0.11 18 / 0.28)",
-            }}
-          >
-            Book →
-          </Link>
+          <div style={{ display: "flex", flexDirection: "column", gap: "8px", alignItems: "flex-end" }}>
+            <Link
+              to="/book-session"
+              style={{
+                padding: "10px 18px",
+                borderRadius: "12px",
+                background: "linear-gradient(135deg, var(--rose), var(--sunset))",
+                color: "white",
+                fontSize: "0.82rem",
+                fontWeight: 700,
+                textDecoration: "none",
+                transition: "opacity 0.2s",
+                whiteSpace: "nowrap",
+                boxShadow: "0 4px 16px oklch(0.74 0.11 18 / 0.28)",
+              }}
+            >
+              Book →
+            </Link>
+            <Link
+              to="/doctor-profile/$id"
+              params={{ id: String(doc.id) }}
+              style={{
+                fontSize: "0.76rem",
+                fontWeight: 600,
+                color: "var(--rose)",
+                textDecoration: "none",
+                letterSpacing: "0.02em",
+                whiteSpace: "nowrap",
+              }}
+            >
+              View Profile
+            </Link>
+          </div>
         </div>
       </div>
     </div>

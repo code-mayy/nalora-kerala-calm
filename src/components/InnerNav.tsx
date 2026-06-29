@@ -18,9 +18,6 @@ const DOCTOR_PAGES = [
 
 const PATIENT_PAGES = [
   { to: "/doctors", label: "Our Doctors" },
-  { to: "/book-session", label: "Book a Session" },
-  { to: "/bookings", label: "Your Bookings" },
-  { to: "/feedback", label: "Feedback" },
 ] as const;
 
 export function InnerNav() {
@@ -53,10 +50,13 @@ export function InnerNav() {
     : "N";
 
   return (
+    <>
     <header
       style={{
-        position: "sticky",
+        position: "fixed",
         top: 0,
+        left: 0,
+        right: 0,
         zIndex: 50,
         padding: "12px 16px",
         pointerEvents: "none",
@@ -73,12 +73,12 @@ export function InnerNav() {
           justifyContent: "space-between",
           padding: "8px 8px 8px 18px",
           borderRadius: "999px",
-          background: "rgba(255, 255, 255, 0.75)",
+          background: "rgba(18, 20, 28, 0.18)",
           backdropFilter: "blur(48px) saturate(180%)",
           WebkitBackdropFilter: "blur(48px) saturate(180%)",
-          border: "1px solid rgba(0, 0, 0, 0.08)",
+          border: "1px solid rgba(255, 255, 255, 0.1)",
           boxShadow:
-            "inset 0 1px 0 rgba(255,255,255,0.9), 0 4px 24px rgba(0,0,0,0.1), 0 1px 4px rgba(0,0,0,0.06)",
+            "inset 0 1px 0 rgba(255,255,255,0.07), 0 8px 32px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.3)",
           pointerEvents: "auto",
           transition: "all 0.4s ease",
         }}
@@ -93,7 +93,8 @@ export function InnerNav() {
                 borderRadius: "50%",
                 background: user?.role === "doctor"
                   ? "linear-gradient(135deg, oklch(0.4 0.03 240), oklch(0.5 0.04 200))"
-                  : "linear-gradient(135deg, var(--rose), var(--sunset))",
+                  : "rgba(255,255,255,0.12)",
+                border: "1px solid rgba(255,255,255,0.18)",
                 display: "grid",
                 placeItems: "center",
                 color: "white",
@@ -107,7 +108,7 @@ export function InnerNav() {
               style={{
                 fontFamily: "var(--font-display)",
                 fontSize: "1.2rem",
-                color: "var(--charcoal)",
+                color: "rgba(255,255,255,0.95)",
                 letterSpacing: "-0.02em",
                 display: "flex",
                 alignItems: "center",
@@ -133,7 +134,7 @@ export function InnerNav() {
             </span>
           </Link>
           {/* Vertical separator */}
-          <span style={{ width: "1px", height: "18px", background: "rgba(0,0,0,0.12)", display: "block", marginLeft: "4px" }} />
+          <span style={{ width: "1px", height: "18px", background: "rgba(255,255,255,0.15)", display: "block", marginLeft: "4px" }} />
         </div>
 
         {/* Desktop nav links */}
@@ -143,7 +144,7 @@ export function InnerNav() {
               key={to}
               to={to}
               style={{
-                color: "oklch(0.45 0.01 60)",
+                color: "rgba(255,255,255,0.75)",
                 fontSize: "0.875rem",
                 fontWeight: 500,
                 textDecoration: "none",
@@ -155,13 +156,13 @@ export function InnerNav() {
               }}
               activeProps={{
                 style: {
-                  color: user?.role === "doctor" ? "oklch(0.4 0.03 240)" : "var(--rose)",
+                  color: user?.role === "doctor" ? "oklch(0.4 0.03 240)" : "rgba(255,255,255,1)",
                   fontSize: "0.875rem",
                   fontWeight: 700,
                   textDecoration: "none",
                   padding: "6px 14px",
                   borderRadius: "999px",
-                  background: user?.role === "doctor" ? "oklch(0.4 0.03 240 / 0.08)" : "oklch(0.74 0.11 18 / 0.08)",
+                  background: user?.role === "doctor" ? "oklch(0.4 0.03 240 / 0.08)" : "rgba(255,255,255,0.12)",
                   transition: "color 0.2s, background 0.2s",
                   whiteSpace: "nowrap",
                   display: "block",
@@ -169,13 +170,13 @@ export function InnerNav() {
               }}
               onMouseEnter={(e) => {
                 const el = e.currentTarget as HTMLElement;
-                el.style.color = "var(--charcoal)";
-                el.style.background = "rgba(0,0,0,0.05)";
+                el.style.color = "rgba(255,255,255,1)";
+                el.style.background = "rgba(255,255,255,0.08)";
               }}
               onMouseLeave={(e) => {
                 const el = e.currentTarget as HTMLElement;
                 if (!el.getAttribute("aria-current")) {
-                  el.style.color = "oklch(0.45 0.01 60)";
+                  el.style.color = "rgba(255,255,255,0.75)";
                   el.style.background = "transparent";
                 }
               }}
@@ -270,7 +271,10 @@ export function InnerNav() {
                     </div>
                   </div>
 
-                  {roleSpecificPages.slice(0, 3).map(({ to, label }) => (
+                  {[
+                    { to: "/doctors", label: "Our Doctors" },
+                    { to: "/bookings", label: "My Bookings" },
+                  ].map(({ to, label }) => (
                     <Link
                       key={to}
                       to={to}
@@ -482,5 +486,8 @@ export function InnerNav() {
         }
       `}</style>
     </header>
+    {/* Spacer so page content clears the fixed nav */}
+    <div style={{ height: "68px" }} />
+    </>
   );
 }

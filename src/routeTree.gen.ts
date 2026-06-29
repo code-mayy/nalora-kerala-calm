@@ -26,6 +26,7 @@ import { Route as DoctorGoogleCalendarRouteImport } from './routes/doctor/google
 import { Route as DoctorDiaryPatientRouteImport } from './routes/doctor/diary-patient'
 import { Route as DoctorDiaryAllRouteImport } from './routes/doctor/diary-all'
 import { Route as DoctorDashboardRouteImport } from './routes/doctor/dashboard'
+import { Route as DoctorProfileIdRouteImport } from './routes/doctor-profile.$id'
 
 const ServicesRoute = ServicesRouteImport.update({
   id: '/services',
@@ -112,6 +113,11 @@ const DoctorDashboardRoute = DoctorDashboardRouteImport.update({
   path: '/doctor/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DoctorProfileIdRoute = DoctorProfileIdRouteImport.update({
+  id: '/doctor-profile/$id',
+  path: '/doctor-profile/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -125,6 +131,7 @@ export interface FileRoutesByFullPath {
   '/feedback': typeof FeedbackRoute
   '/login': typeof LoginRoute
   '/services': typeof ServicesRoute
+  '/doctor-profile/$id': typeof DoctorProfileIdRoute
   '/doctor/dashboard': typeof DoctorDashboardRoute
   '/doctor/diary-all': typeof DoctorDiaryAllRoute
   '/doctor/diary-patient': typeof DoctorDiaryPatientRoute
@@ -144,6 +151,7 @@ export interface FileRoutesByTo {
   '/feedback': typeof FeedbackRoute
   '/login': typeof LoginRoute
   '/services': typeof ServicesRoute
+  '/doctor-profile/$id': typeof DoctorProfileIdRoute
   '/doctor/dashboard': typeof DoctorDashboardRoute
   '/doctor/diary-all': typeof DoctorDiaryAllRoute
   '/doctor/diary-patient': typeof DoctorDiaryPatientRoute
@@ -164,6 +172,7 @@ export interface FileRoutesById {
   '/feedback': typeof FeedbackRoute
   '/login': typeof LoginRoute
   '/services': typeof ServicesRoute
+  '/doctor-profile/$id': typeof DoctorProfileIdRoute
   '/doctor/dashboard': typeof DoctorDashboardRoute
   '/doctor/diary-all': typeof DoctorDiaryAllRoute
   '/doctor/diary-patient': typeof DoctorDiaryPatientRoute
@@ -185,6 +194,7 @@ export interface FileRouteTypes {
     | '/feedback'
     | '/login'
     | '/services'
+    | '/doctor-profile/$id'
     | '/doctor/dashboard'
     | '/doctor/diary-all'
     | '/doctor/diary-patient'
@@ -204,6 +214,7 @@ export interface FileRouteTypes {
     | '/feedback'
     | '/login'
     | '/services'
+    | '/doctor-profile/$id'
     | '/doctor/dashboard'
     | '/doctor/diary-all'
     | '/doctor/diary-patient'
@@ -223,6 +234,7 @@ export interface FileRouteTypes {
     | '/feedback'
     | '/login'
     | '/services'
+    | '/doctor-profile/$id'
     | '/doctor/dashboard'
     | '/doctor/diary-all'
     | '/doctor/diary-patient'
@@ -243,6 +255,7 @@ export interface RootRouteChildren {
   FeedbackRoute: typeof FeedbackRoute
   LoginRoute: typeof LoginRoute
   ServicesRoute: typeof ServicesRoute
+  DoctorProfileIdRoute: typeof DoctorProfileIdRoute
   DoctorDashboardRoute: typeof DoctorDashboardRoute
   DoctorDiaryAllRoute: typeof DoctorDiaryAllRoute
   DoctorDiaryPatientRoute: typeof DoctorDiaryPatientRoute
@@ -372,6 +385,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DoctorDashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/doctor-profile/$id': {
+      id: '/doctor-profile/$id'
+      path: '/doctor-profile/$id'
+      fullPath: '/doctor-profile/$id'
+      preLoaderRoute: typeof DoctorProfileIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -387,6 +407,7 @@ const rootRouteChildren: RootRouteChildren = {
   FeedbackRoute: FeedbackRoute,
   LoginRoute: LoginRoute,
   ServicesRoute: ServicesRoute,
+  DoctorProfileIdRoute: DoctorProfileIdRoute,
   DoctorDashboardRoute: DoctorDashboardRoute,
   DoctorDiaryAllRoute: DoctorDiaryAllRoute,
   DoctorDiaryPatientRoute: DoctorDiaryPatientRoute,

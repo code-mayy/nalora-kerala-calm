@@ -18,9 +18,6 @@ const DOCTOR_PAGES = [
 
 const PATIENT_PAGES = [
   { to: "/doctors", label: "Our Doctors" },
-  { to: "/book-session", label: "Book a Session" },
-  { to: "/bookings", label: "Your Bookings" },
-  { to: "/feedback", label: "Feedback" },
 ] as const;
 
 export function DarkNav() {
@@ -255,7 +252,10 @@ export function DarkNav() {
                     </div>
                   </div>
 
-                  {roleSpecificPages.slice(0, 3).map(({ to, label }) => (
+                  {[
+                    { to: "/doctors", label: "Our Doctors" },
+                    { to: "/bookings", label: "My Bookings" },
+                  ].map(({ to, label }) => (
                     <Link
                       key={to}
                       to={to}
