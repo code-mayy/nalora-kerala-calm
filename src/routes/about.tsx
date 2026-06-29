@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { InnerNav } from "@/components/InnerNav";
-import motherBaby from "@/assets/mother-baby.png";
+import motherBaby from "@/assets/image copy 6.png";
 import amarRajan from "@/assets/amar-rajan.png";
 import introImg from "@/assets/image.png";
 
