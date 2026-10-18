@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { InnerNav } from "@/components/InnerNav";
-import motherBaby from "@/assets/image copy 6.png";
+import { SiteFooter } from "@/components/SiteFooter";
 import amarRajan from "@/assets/amar-rajan.png";
-import introImg from "@/assets/image.png";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -12,55 +11,12 @@ export const Route = createFileRoute("/about")({
       {
         name: "description",
         content:
-          "Learn about Nalora's mission to provide Kerala-rooted, compassionate postpartum care and emotional support for mothers.",
+          "Nalora is building the relationship layer for ageing — psychologically informed, human-in-the-loop voice conversations for older adults.",
       },
     ],
   }),
   component: AboutPage,
 });
-
-function Footer() {
-  return (
-    <footer className="border-t border-border bg-[var(--ivory-deep)] py-14">
-      <div className="mx-auto grid max-w-6xl gap-10 px-6 md:grid-cols-4">
-        <div>
-          <div className="flex items-center gap-2">
-            <span className="grid h-9 w-9 place-items-center rounded-full bg-[var(--gradient-sunset)] text-white font-display">
-              n
-            </span>
-            <span className="font-display text-xl">nalora</span>
-          </div>
-          <p className="mt-4 text-sm text-foreground/60 max-w-xs">
-            Emotional support for motherhood. Rooted in Kerala, built for every home.
-          </p>
-        </div>
-        {[
-          ["Care", ["Late-night support", "Therapist matching", "Family circle", "Library"]],
-          ["Company", ["Our story", "Therapists", "Careers", "Press"]],
-          ["Support", ["Help centre", "Privacy", "Terms", "Contact"]],
-        ].map(([h, items]) => (
-          <div key={h as string}>
-            <div className="font-display text-sm uppercase tracking-[0.16em] text-foreground/60">
-              {h}
-            </div>
-            <ul className="mt-4 space-y-2.5 text-sm">
-              {(items as string[]).map((i) => (
-                <li key={i}>
-                  <a href="#" className="text-foreground/75 hover:text-rose transition">
-                    {i}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
-      <div className="mx-auto mt-12 max-w-6xl px-6 text-xs text-foreground/50">
-        © {new Date().getFullYear()} Nalora Care. Made with care in Kerala.
-      </div>
-    </footer>
-  );
-}
 
 function AboutPage() {
   const [isReadMore, setIsReadMore] = useState(false);
@@ -72,7 +28,7 @@ function AboutPage() {
       {/* Hero Section */}
       <section
         style={{
-          background: "linear-gradient(135deg, #1E275B, #111737)", // base Hex #1E275B
+          background: "linear-gradient(135deg, var(--forest), var(--forest-deep))",
           padding: "110px 24px 90px",
           textAlign: "center",
           position: "relative",
@@ -151,10 +107,20 @@ function AboutPage() {
               textShadow: "0 2px 10px rgba(0,0,0,0.25)",
             }}
           >
-            Caring for the heart that
+            The relationship layer
             <br />
-            just – <span style={{ fontFamily: "var(--font-sans)", fontWeight: 700, color: "white" }}>holds the cradle</span>
+            for <span style={{ fontFamily: "var(--font-sans)", fontWeight: 700, color: "var(--sage-200)" }}>ageing</span>
           </h1>
+          <p
+            style={{
+              marginTop: "20px",
+              fontSize: "1.1rem",
+              color: "rgba(255,255,255,0.8)",
+              lineHeight: 1.6,
+            }}
+          >
+            Human-centred AI for ageing well.
+          </p>
         </div>
       </section>
 
@@ -175,23 +141,28 @@ function AboutPage() {
                 lineHeight: 1.2,
               }}
             >
-              Why <span className="text-rose">Nalora</span> was born
+              We started with <span className="text-rose">people</span>, not technology
             </h2>
-            
-            <p style={{ color: "oklch(0.45 0.01 60)", marginBottom: "20px", lineHeight: 1.8 }} className="text-[15px] sm:text-base font-sans font-normal">
-              In Kerala, postpartum recovery was never a solitary journey. It was defined by the <strong className="font-semibold text-charcoal">Prasava Raksha</strong>—a sacred forty-day period of personalized herbal wellness, nourishing traditional diets, comforting massages, and a protective circle of wisdom that enveloped a new mother. But as families transitioned into modern nuclear homes and fast-paced digital workspaces, that essential circle began to fade, leaving mothers to navigate the complex emotional landscape of early motherhood in isolation.
+
+            <p style={{ color: "oklch(0.45 0.01 150)", marginBottom: "20px", lineHeight: 1.8 }} className="text-[15px] sm:text-base font-sans font-normal">
+              Many older adults have families who care deeply about them. But loved ones may live in different cities, States or countries, and maintaining regular conversation can be difficult. <strong className="font-semibold text-charcoal">The problem is not always absence of love. It is often absence of continuity.</strong>
             </p>
 
             {isStoryReadMore && (
-              <p style={{ color: "oklch(0.45 0.01 60)", marginBottom: "20px", lineHeight: 1.8 }} className="text-[15px] sm:text-base font-sans font-normal transition-all duration-300">
-                Nalora was born to bridge this gap, rebuilding that maternal cradle for the modern era. We combine culturally rooted, vernacular counseling with modern perinatal psychology and private family circles. Our mission is to ensure that no mother feels alone in the dark, translating ancient support systems into a gentle digital sanctuary that is always awake, listening, and holding her close.
-              </p>
+              <>
+                <p style={{ color: "oklch(0.45 0.01 150)", marginBottom: "20px", lineHeight: 1.8 }} className="text-[15px] sm:text-base font-sans font-normal transition-all duration-300">
+                  Nalora began with a small human-led pilot involving 10 older adults. Psychology postgraduate students were trained before conducting scheduled telephone conversations focused on wellbeing, reflection and engagement. Participants were receptive and engaged naturally, and some began expecting and anticipating the calls.
+                </p>
+                <p style={{ color: "oklch(0.45 0.01 150)", marginBottom: "20px", lineHeight: 1.8 }} className="text-[15px] sm:text-base font-sans font-normal transition-all duration-300">
+                  This is early behavioural validation — not evidence of clinical efficacy. We are building carefully, testing with people and learning before scaling.
+                </p>
+              </>
             )}
 
             <button
               onClick={() => setIsStoryReadMore(!isStoryReadMore)}
               style={{
-                background: "#121212", // dark pill button matching user screenshot
+                background: "var(--forest-deep)",
                 color: "white",
                 border: "none",
                 padding: "10px 24px",
@@ -207,24 +178,51 @@ function AboutPage() {
                 boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
                 fontFamily: "var(--font-sans)",
               }}
-              className="hover:bg-neutral-800 hover:-translate-y-0.5 active:scale-95 transition"
+              className="hover:-translate-y-0.5 active:scale-95 transition"
             >
               {isStoryReadMore ? "Read Less" : "Read More"}
             </button>
           </div>
 
-          {/* Right Column - Illustration Image */}
+          {/* Right Column - Vision card */}
           <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-            <img
-              src={motherBaby}
-              alt="Mother cradling baby illustration"
+            <div
               style={{
                 width: "100%",
                 maxWidth: "450px",
-                height: "auto",
-                objectFit: "contain",
+                borderRadius: "32px",
+                padding: "40px 36px",
+                background: "linear-gradient(160deg, var(--sage-100), var(--sage-200))",
+                border: "1px solid var(--border)",
+                boxShadow: "var(--shadow-lift)",
               }}
-            />
+            >
+              <div
+                style={{
+                  fontSize: "0.75rem",
+                  fontWeight: 700,
+                  letterSpacing: "0.18em",
+                  textTransform: "uppercase",
+                  color: "var(--clay)",
+                }}
+              >
+                Our vision
+              </div>
+              <p
+                className="font-display"
+                style={{
+                  margin: "16px 0 0",
+                  fontSize: "1.7rem",
+                  lineHeight: 1.3,
+                  color: "var(--forest-deep)",
+                }}
+              >
+                A future where ageing does not mean becoming socially invisible.
+              </p>
+              <p style={{ margin: "20px 0 0", color: "var(--forest)", fontWeight: 600 }}>
+                AI for connection. Humans for care.
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -238,7 +236,7 @@ function AboutPage() {
         {/* Left Pane - Solid Rose Theme Background */}
         <div
           style={{
-            background: "var(--rose)", // that red color from the hero section
+            background: "var(--forest)",
             padding: "80px 40px",
             color: "white",
             display: "flex",
@@ -250,13 +248,6 @@ function AboutPage() {
         >
           {/* Background radial glow */}
           <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_30%_30%,white_0%,transparent_60%)] pointer-events-none" />
-          {/* Background pattern overlay on the left pane */}
-          <img
-            src={introImg}
-            alt="Left pane background pattern"
-            className="absolute inset-0 w-full h-full object-cover opacity-10 pointer-events-none scale-x-[-1]"
-            style={{ mixBlendMode: "overlay" }}
-          />
           <div className="relative z-10 max-w-xl">
             <h2 className="font-display text-4xl sm:text-5xl md:text-6xl leading-tight text-white font-medium uppercase tracking-tight font-semibold">
               MEET OUR <span style={{ color: "var(--coconut-soft)" }}>FOUNDER</span>
@@ -438,21 +429,10 @@ function AboutPage() {
           </div>
         </div>
 
-        {/* Right Pane - Base background mirrored to the left, founder image aligned bottom-right */}
-        <div className="relative min-h-[380px] md:min-h-full w-full bg-white overflow-hidden">
-          {/* Base Image (Mirrored horizontally to the left) */}
-          <img
-            src={introImg}
-            alt="Motherhood background pattern left"
-            className="absolute inset-0 w-full h-full object-cover scale-x-[-1]"
-          />
-          {/* Base Image (Normal on the right, blended) */}
-          <img
-            src={introImg}
-            alt="Motherhood background pattern right"
-            className="absolute inset-0 w-full h-full object-cover"
-            style={{ mixBlendMode: "multiply" }}
-          />
+        {/* Right Pane - Soft sage backdrop, founder image aligned bottom-right */}
+        <div className="relative min-h-[380px] md:min-h-full w-full overflow-hidden bg-[linear-gradient(160deg,var(--sage-100),var(--sage-200))]">
+          <div className="absolute -left-16 top-10 h-64 w-64 rounded-full bg-[var(--sage-400)]/30 blur-3xl pointer-events-none" />
+          <div className="absolute right-10 -top-10 h-40 w-40 rounded-full bg-white/60 blur-2xl pointer-events-none" />
           {/* Founder Image (Aligned flush bottom, offset slightly from right for spacing, height scaled to prevent top cutoff) */}
           <img
             src={amarRajan}
@@ -464,7 +444,7 @@ function AboutPage() {
       </section>
 
       {/* Core Values Section */}
-      <section style={{ background: "oklch(0.975 0.015 55)", padding: "80px 24px" }}>
+      <section style={{ background: "var(--sage-100)", padding: "80px 24px" }}>
         <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
           <h2
             style={{
@@ -486,22 +466,22 @@ function AboutPage() {
           >
             {[
               {
-                title: "Vernacular First",
-                desc: "Care is best delivered in the mother's own tongue. We provide support, audio libraries, and therapist matching in Malayalam, Tamil, Kannada, Hindi, and English.",
-                icon: "💬",
-                color: "var(--rose-soft)",
-              },
-              {
-                title: "Clinical Excellence",
-                desc: "All our therapists are hand-picked, certified clinical or consultant psychologists trained specifically in maternal mental health, PPD, and birth trauma care.",
-                icon: "🩺",
-                color: "var(--coconut-soft)",
-              },
-              {
-                title: "Absolute Privacy",
-                desc: "We ensure end-to-end encrypted messaging, strict patient-doctor confidentiality, and a secure ecosystem so mothers can share their stories safely.",
+                title: "Consent & Privacy",
+                desc: "Families see a structured view of engagement and wellbeing-related signals — with appropriate consent, and without unnecessarily exposing private conversation content.",
                 icon: "🔒",
-                color: "oklch(0.96 0.03 55)",
+                color: "var(--sage-100)",
+              },
+              {
+                title: "Dignity & Autonomy",
+                desc: "Older adults choose their language, calling time and conversation interests. Nalora is designed around their preferences, not around surveillance.",
+                icon: "🌿",
+                color: "var(--sage-200)",
+              },
+              {
+                title: "Human Oversight",
+                desc: "AI provides continuity; trained professionals remain responsible for the psychological framework, risk review, escalation, referrals and human follow-up.",
+                icon: "🤝",
+                color: "oklch(0.95 0.03 145)",
               },
             ].map((v) => (
               <div
@@ -540,7 +520,7 @@ function AboutPage() {
                 >
                   {v.title}
                 </h3>
-                <p style={{ color: "oklch(0.5 0.01 60)", fontSize: "0.95rem", lineHeight: 1.6 }}>
+                <p style={{ color: "oklch(0.5 0.01 150)", fontSize: "0.95rem", lineHeight: 1.6 }}>
                   {v.desc}
                 </p>
               </div>
@@ -553,14 +533,14 @@ function AboutPage() {
       <section style={{ padding: "100px 24px", textAlign: "center" }}>
         <div style={{ maxWidth: "650px", margin: "0 auto" }}>
           <h2 style={{ fontSize: "2.20rem", marginBottom: "16px", color: "var(--charcoal)" }}>
-            Ready to start <em className="italic text-rose">your journey?</em>
+            Stay connected to <em className="italic text-rose">the Nalora journey</em>
           </h2>
-          <p style={{ color: "oklch(0.5 0.01 60)", marginBottom: "32px", lineHeight: 1.7 }}>
-            Sign up today to explore our resources, connect with certified professionals, and
-            receive support every step of the way.
+          <p style={{ color: "oklch(0.5 0.01 150)", marginBottom: "32px", lineHeight: 1.7 }}>
+            If you are an older adult, a family member, caregiver, senior-care organisation or
+            potential partner, we would like to hear from you.
           </p>
           <Link
-            to="/login"
+            to="/create-account"
             style={{
               display: "inline-flex",
               alignItems: "center",
@@ -572,7 +552,7 @@ function AboutPage() {
               fontSize: "0.95rem",
               fontWeight: 600,
               textDecoration: "none",
-              boxShadow: "0 6px 20px oklch(0.74 0.11 18 / 0.3)",
+              boxShadow: "0 6px 20px oklch(0.55 0.08 158 / 0.3)",
               transition: "transform 0.2s",
             }}
             onMouseEnter={(e) => {
@@ -582,12 +562,12 @@ function AboutPage() {
               (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
             }}
           >
-            Start Free Trial
+            Explore Early Access
           </Link>
         </div>
       </section>
 
-      <Footer />
+      <SiteFooter />
     </div>
   );
 }

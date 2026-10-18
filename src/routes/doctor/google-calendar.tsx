@@ -82,7 +82,7 @@ function DoctorCalendar() {
       <div
         style={{
           minHeight: "100vh",
-          background: "oklch(0.985 0.005 240)",
+          background: "oklch(0.985 0.005 165)",
           fontFamily: "var(--font-sans)",
         }}
       >
@@ -92,8 +92,8 @@ function DoctorCalendar() {
         <div
           style={{
             background:
-              "linear-gradient(160deg, oklch(0.92 0.01 240) 0%, oklch(0.95 0.01 240) 100%)",
-            borderBottom: "1px solid oklch(0.9 0.01 240)",
+              "linear-gradient(160deg, oklch(0.92 0.01 165) 0%, oklch(0.95 0.01 165) 100%)",
+            borderBottom: "1px solid oklch(0.9 0.01 165)",
             padding: "48px 32px 40px",
           }}
         >
@@ -104,7 +104,7 @@ function DoctorCalendar() {
                 fontWeight: 700,
                 letterSpacing: "0.15em",
                 textTransform: "uppercase",
-                color: "oklch(0.5 0.04 200)",
+                color: "oklch(0.5 0.04 165)",
                 marginBottom: "8px",
               }}
             >
@@ -121,7 +121,7 @@ function DoctorCalendar() {
             >
               Google Calendar Sync
             </h1>
-            <p style={{ color: "oklch(0.55 0.01 240)", fontSize: "0.95rem", marginTop: "6px" }}>
+            <p style={{ color: "oklch(0.55 0.01 165)", fontSize: "0.95rem", marginTop: "6px" }}>
               Manage your booked clinical hours, sync availability, and review dates.
             </p>
           </div>
@@ -145,7 +145,7 @@ function DoctorCalendar() {
               background: "white",
               padding: "32px",
               borderRadius: "24px",
-              border: "1px solid oklch(0.92 0.01 240)",
+              border: "1px solid oklch(0.92 0.01 165)",
               boxShadow: "0 4px 20px oklch(0 0 0 / 0.01)",
             }}
           >
@@ -176,7 +176,7 @@ function DoctorCalendar() {
                     width: "36px",
                     height: "36px",
                     borderRadius: "10px",
-                    border: "1.5px solid oklch(0.88 0.02 240)",
+                    border: "1.5px solid oklch(0.88 0.02 165)",
                     background: "white",
                     cursor: "pointer",
                     display: "grid",
@@ -191,7 +191,7 @@ function DoctorCalendar() {
                     width: "36px",
                     height: "36px",
                     borderRadius: "10px",
-                    border: "1.5px solid oklch(0.88 0.02 240)",
+                    border: "1.5px solid oklch(0.88 0.02 165)",
                     background: "white",
                     cursor: "pointer",
                     display: "grid",
@@ -221,7 +221,7 @@ function DoctorCalendar() {
                     fontSize: "0.72rem",
                     fontWeight: 700,
                     textTransform: "uppercase",
-                    color: "oklch(0.55 0.01 240)",
+                    color: "oklch(0.55 0.01 165)",
                     letterSpacing: "0.04em",
                     padding: "6px 0",
                   }}
@@ -248,10 +248,10 @@ function DoctorCalendar() {
                     onClick={() => setSelectedDay(day)}
                     style={{
                       minHeight: "80px",
-                      background: isSelected ? "oklch(0.97 0.015 240)" : "white",
+                      background: isSelected ? "oklch(0.97 0.015 165)" : "white",
                       border: isSelected
-                        ? "1.8px solid oklch(0.4 0.03 240)"
-                        : "1px solid oklch(0.93 0.01 240)",
+                        ? "1.8px solid oklch(0.4 0.03 165)"
+                        : "1px solid oklch(0.93 0.01 165)",
                       borderRadius: "14px",
                       padding: "8px",
                       cursor: "pointer",
@@ -266,7 +266,7 @@ function DoctorCalendar() {
                       style={{
                         fontSize: "1rem",
                         fontWeight: isSelected ? 700 : 500,
-                        color: isSelected ? "oklch(0.4 0.03 240)" : "var(--charcoal)",
+                        color: isSelected ? "oklch(0.4 0.03 165)" : "var(--charcoal)",
                       }}
                     >
                       {day}
@@ -278,8 +278,8 @@ function DoctorCalendar() {
                           width: "100%",
                           padding: "3px 6px",
                           borderRadius: "6px",
-                          background: "oklch(0.4 0.03 240 / 0.08)",
-                          color: "oklch(0.4 0.03 240)",
+                          background: "oklch(0.4 0.03 165 / 0.08)",
+                          color: "oklch(0.4 0.03 165)",
                           fontSize: "0.75rem",
                           fontWeight: 700,
                           textAlign: "center",
@@ -303,7 +303,7 @@ function DoctorCalendar() {
               background: "white",
               padding: "32px",
               borderRadius: "24px",
-              border: "1px solid oklch(0.92 0.01 240)",
+              border: "1px solid oklch(0.92 0.01 165)",
               boxShadow: "0 4px 20px oklch(0 0 0 / 0.01)",
               display: "flex",
               flexDirection: "column",
@@ -312,7 +312,7 @@ function DoctorCalendar() {
           >
             <div
               style={{
-                borderBottom: "1px solid oklch(0.95 0.01 240)",
+                borderBottom: "1px solid oklch(0.95 0.01 165)",
                 paddingBottom: "16px",
                 marginBottom: "20px",
               }}
@@ -328,14 +328,14 @@ function DoctorCalendar() {
               >
                 Agenda Details
               </h3>
-              <p style={{ fontSize: "0.78rem", color: "oklch(0.55 0.01 240)", marginTop: "4px" }}>
+              <p style={{ fontSize: "0.78rem", color: "oklch(0.55 0.01 165)", marginTop: "4px" }}>
                 {monthNames[currentMonth]} {selectedDay}, {currentYear}
               </p>
             </div>
 
             {selectedDayAppointments.length === 0 ? (
               <div
-                style={{ textAlign: "center", padding: "40px 10px", color: "oklch(0.55 0.01 240)" }}
+                style={{ textAlign: "center", padding: "40px 10px", color: "oklch(0.55 0.01 165)" }}
               >
                 <span style={{ fontSize: "2rem" }}>🏝️</span>
                 <p style={{ fontSize: "0.82rem", marginTop: "10px", margin: "10px 0 0" }}>
@@ -350,8 +350,8 @@ function DoctorCalendar() {
                     style={{
                       padding: "16px",
                       borderRadius: "12px",
-                      background: "oklch(0.99 0.003 240)",
-                      border: "1px solid oklch(0.95 0.01 240)",
+                      background: "oklch(0.99 0.003 165)",
+                      border: "1px solid oklch(0.95 0.01 165)",
                     }}
                   >
                     <div
@@ -364,7 +364,7 @@ function DoctorCalendar() {
                       <span
                         style={{
                           fontSize: "0.8rem",
-                          color: "oklch(0.5 0.04 200)",
+                          color: "oklch(0.5 0.04 165)",
                           fontWeight: 700,
                         }}
                       >
@@ -392,8 +392,8 @@ function DoctorCalendar() {
                             fontWeight: 700,
                             padding: "1px 6px",
                             borderRadius: "99px",
-                            background: "oklch(0.95 0.02 240)",
-                            color: "oklch(0.45 0.08 240)",
+                            background: "oklch(0.95 0.02 165)",
+                            color: "oklch(0.45 0.08 165)",
                           }}
                         >
                           Session
@@ -406,8 +406,8 @@ function DoctorCalendar() {
                             fontWeight: 700,
                             padding: "1px 6px",
                             borderRadius: "99px",
-                            background: "oklch(0.96 0.01 240)",
-                            color: "oklch(0.5 0.01 240)",
+                            background: "oklch(0.96 0.01 165)",
+                            color: "oklch(0.5 0.01 165)",
                           }}
                         >
                           Upcoming
@@ -432,7 +432,7 @@ function DoctorCalendar() {
                         search={{ id: app.id }}
                         style={{
                           fontSize: "0.84rem",
-                          color: "oklch(0.4 0.03 240)",
+                          color: "oklch(0.4 0.03 165)",
                           fontWeight: 600,
                           textDecoration: "none",
                         }}

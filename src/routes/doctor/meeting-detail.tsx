@@ -193,7 +193,7 @@ function MeetingDetail() {
       <div
         style={{
           minHeight: "100vh",
-          background: "oklch(0.985 0.005 240)",
+          background: "oklch(0.985 0.005 165)",
           fontFamily: "var(--font-sans)",
         }}
       >
@@ -208,7 +208,7 @@ function MeetingDetail() {
               alignItems: "center",
               gap: "6px",
               textDecoration: "none",
-              color: "oklch(0.5 0.04 200)",
+              color: "oklch(0.5 0.04 165)",
               fontSize: "0.85rem",
               fontWeight: 600,
             }}
@@ -237,7 +237,7 @@ function MeetingDetail() {
                 background: "white",
                 padding: "28px",
                 borderRadius: "24px",
-                border: "1px solid oklch(0.92 0.01 240)",
+                border: "1px solid oklch(0.92 0.01 165)",
                 boxShadow: "0 4px 20px oklch(0 0 0 / 0.01)",
               }}
             >
@@ -245,7 +245,7 @@ function MeetingDetail() {
                 style={{
                   textAlign: "center",
                   paddingBottom: "20px",
-                  borderBottom: "1px solid oklch(0.95 0.01 240)",
+                  borderBottom: "1px solid oklch(0.95 0.01 165)",
                   marginBottom: "20px",
                 }}
               >
@@ -254,7 +254,7 @@ function MeetingDetail() {
                     width: "60px",
                     height: "60px",
                     borderRadius: "50%",
-                    background: "linear-gradient(135deg, oklch(0.4 0.03 240), oklch(0.5 0.04 200))",
+                    background: "linear-gradient(135deg, oklch(0.4 0.03 165), oklch(0.5 0.04 165))",
                     display: "grid",
                     placeItems: "center",
                     color: "white",
@@ -282,7 +282,7 @@ function MeetingDetail() {
                 <p
                   style={{
                     fontSize: "0.84rem",
-                    color: "oklch(0.55 0.01 240)",
+                    color: "oklch(0.55 0.01 165)",
                     margin: "4px 0 12px",
                   }}
                 >
@@ -300,14 +300,14 @@ function MeetingDetail() {
                       alignItems: "center",
                       justifyContent: "center",
                       gap: "8px",
-                      background: "oklch(0.4 0.03 240)",
+                      background: "oklch(0.4 0.03 165)",
                       color: "white",
                       padding: "12px",
                       borderRadius: "12px",
                       fontSize: "0.92rem",
                       fontWeight: 700,
                       textDecoration: "none",
-                      boxShadow: "0 4px 14px oklch(0.4 0.03 240 / 0.25)",
+                      boxShadow: "0 4px 14px oklch(0.4 0.03 165 / 0.25)",
                     }}
                   >
                     <svg
@@ -347,7 +347,7 @@ function MeetingDetail() {
                       display: "block",
                       fontSize: "0.75rem",
                       fontWeight: 700,
-                      color: "oklch(0.55 0.01 240)",
+                      color: "oklch(0.55 0.01 165)",
                       textTransform: "uppercase",
                       letterSpacing: "0.05em",
                     }}
@@ -364,7 +364,7 @@ function MeetingDetail() {
                       display: "block",
                       fontSize: "0.75rem",
                       fontWeight: 700,
-                      color: "oklch(0.55 0.01 240)",
+                      color: "oklch(0.55 0.01 165)",
                       textTransform: "uppercase",
                       letterSpacing: "0.05em",
                     }}
@@ -381,7 +381,7 @@ function MeetingDetail() {
                       display: "block",
                       fontSize: "0.75rem",
                       fontWeight: 700,
-                      color: "oklch(0.55 0.01 240)",
+                      color: "oklch(0.55 0.01 165)",
                       textTransform: "uppercase",
                       letterSpacing: "0.05em",
                     }}
@@ -398,7 +398,7 @@ function MeetingDetail() {
                       display: "block",
                       fontSize: "0.75rem",
                       fontWeight: 700,
-                      color: "oklch(0.55 0.01 240)",
+                      color: "oklch(0.55 0.01 165)",
                       textTransform: "uppercase",
                       letterSpacing: "0.05em",
                     }}
@@ -409,7 +409,7 @@ function MeetingDetail() {
                     {info.bystanderName}
                   </span>
                   <div
-                    style={{ fontSize: "0.84rem", color: "oklch(0.55 0.01 240)", marginTop: "2px" }}
+                    style={{ fontSize: "0.84rem", color: "oklch(0.55 0.01 165)", marginTop: "2px" }}
                   >
                     {info.bystanderPhone}
                   </div>
@@ -423,7 +423,7 @@ function MeetingDetail() {
                 background: "white",
                 padding: "24px",
                 borderRadius: "20px",
-                border: "1px solid oklch(0.92 0.01 240)",
+                border: "1px solid oklch(0.92 0.01 165)",
                 boxShadow: "0 4px 16px oklch(0 0 0 / 0.01)",
               }}
             >
@@ -443,11 +443,11 @@ function MeetingDetail() {
                     key={idx}
                     style={{
                       padding: "10px 12px",
-                      background: "oklch(0.99 0.003 240)",
-                      borderLeft: "3.5px solid oklch(0.5 0.04 200 / 0.6)",
+                      background: "oklch(0.99 0.003 165)",
+                      borderLeft: "3.5px solid oklch(0.5 0.04 165 / 0.6)",
                       borderRadius: "6px",
                       fontSize: "0.84rem",
-                      color: "oklch(0.45 0.01 240)",
+                      color: "oklch(0.45 0.01 165)",
                       lineHeight: 1.4,
                     }}
                   >
@@ -466,7 +466,7 @@ function MeetingDetail() {
                 background: "white",
                 padding: "32px",
                 borderRadius: "24px",
-                border: "1px solid oklch(0.92 0.01 240)",
+                border: "1px solid oklch(0.92 0.01 165)",
                 boxShadow: "0 4px 20px oklch(0 0 0 / 0.01)",
               }}
             >
@@ -490,14 +490,14 @@ function MeetingDetail() {
                     Real-time Consultation Notes
                   </h3>
                   <p
-                    style={{ fontSize: "0.84rem", color: "oklch(0.55 0.01 240)", marginTop: "2px" }}
+                    style={{ fontSize: "0.84rem", color: "oklch(0.55 0.01 165)", marginTop: "2px" }}
                   >
                     Draft clinical notes during the call. These are autosaved to draft.
                   </p>
                 </div>
                 {savedNotesMessage && (
                   <span
-                    style={{ fontSize: "0.84rem", color: "oklch(0.4 0.03 240)", fontWeight: 600 }}
+                    style={{ fontSize: "0.84rem", color: "oklch(0.4 0.03 165)", fontWeight: 600 }}
                   >
                     {savedNotesMessage}
                   </span>
@@ -513,8 +513,8 @@ function MeetingDetail() {
                   height: "240px",
                   padding: "16px",
                   borderRadius: "14px",
-                  border: "1.5px solid oklch(0.88 0.02 240)",
-                  background: "oklch(0.985 0.003 240)",
+                  border: "1.5px solid oklch(0.88 0.02 165)",
+                  background: "oklch(0.985 0.003 165)",
                   fontSize: "0.95rem",
                   color: "var(--charcoal)",
                   outline: "none",
@@ -525,10 +525,10 @@ function MeetingDetail() {
                   transition: "border-color 0.2s",
                 }}
                 onFocus={(e) => {
-                  e.target.style.borderColor = "oklch(0.4 0.03 240)";
+                  e.target.style.borderColor = "oklch(0.4 0.03 165)";
                 }}
                 onBlur={(e) => {
-                  e.target.style.borderColor = "oklch(0.88 0.02 240)";
+                  e.target.style.borderColor = "oklch(0.88 0.02 165)";
                 }}
               />
 
@@ -538,9 +538,9 @@ function MeetingDetail() {
                   style={{
                     padding: "10px 24px",
                     borderRadius: "10px",
-                    border: "1.5px solid oklch(0.4 0.03 240)",
+                    border: "1.5px solid oklch(0.4 0.03 165)",
                     background: "white",
-                    color: "oklch(0.4 0.03 240)",
+                    color: "oklch(0.4 0.03 165)",
                     fontWeight: 600,
                     fontSize: "0.88rem",
                     cursor: "pointer",
@@ -548,7 +548,7 @@ function MeetingDetail() {
                   }}
                   onMouseEnter={(e) => {
                     (e.currentTarget as HTMLElement).style.background =
-                      "oklch(0.4 0.03 240 / 0.05)";
+                      "oklch(0.4 0.03 165 / 0.05)";
                   }}
                   onMouseLeave={(e) => {
                     (e.currentTarget as HTMLElement).style.background = "white";
@@ -565,7 +565,7 @@ function MeetingDetail() {
                 background: "white",
                 padding: "32px",
                 borderRadius: "24px",
-                border: "1px solid oklch(0.92 0.01 240)",
+                border: "1px solid oklch(0.92 0.01 165)",
                 boxShadow: "0 4px 20px oklch(0 0 0 / 0.01)",
               }}
             >
@@ -589,7 +589,7 @@ function MeetingDetail() {
                     Append to Patient's Permanent Clinical Diary
                   </h3>
                   <p
-                    style={{ fontSize: "0.84rem", color: "oklch(0.55 0.01 240)", marginTop: "2px" }}
+                    style={{ fontSize: "0.84rem", color: "oklch(0.55 0.01 165)", marginTop: "2px" }}
                   >
                     Write the formal diagnosis, care summaries, or treatment recommendations that
                     commit to the patient's record timeline.
@@ -611,8 +611,8 @@ function MeetingDetail() {
                   height: "160px",
                   padding: "16px",
                   borderRadius: "14px",
-                  border: "1.5px solid oklch(0.88 0.02 240)",
-                  background: "oklch(0.985 0.003 240)",
+                  border: "1.5px solid oklch(0.88 0.02 165)",
+                  background: "oklch(0.985 0.003 165)",
                   fontSize: "0.9rem",
                   color: "var(--charcoal)",
                   outline: "none",
@@ -623,10 +623,10 @@ function MeetingDetail() {
                   transition: "border-color 0.2s",
                 }}
                 onFocus={(e) => {
-                  e.target.style.borderColor = "oklch(0.4 0.03 240)";
+                  e.target.style.borderColor = "oklch(0.4 0.03 165)";
                 }}
                 onBlur={(e) => {
-                  e.target.style.borderColor = "oklch(0.88 0.02 240)";
+                  e.target.style.borderColor = "oklch(0.88 0.02 165)";
                 }}
               />
 
@@ -643,7 +643,7 @@ function MeetingDetail() {
                   to="/doctor/diary-all"
                   style={{
                     fontSize: "0.88rem",
-                    color: "oklch(0.5 0.04 200)",
+                    color: "oklch(0.5 0.04 165)",
                     fontWeight: 600,
                     textDecoration: "none",
                   }}
@@ -657,19 +657,19 @@ function MeetingDetail() {
                     padding: "12px 28px",
                     borderRadius: "10px",
                     border: "none",
-                    background: "oklch(0.4 0.03 240)",
+                    background: "oklch(0.4 0.03 165)",
                     color: "white",
                     fontWeight: 700,
                     fontSize: "0.9rem",
                     cursor: "pointer",
                     transition: "all 0.2s",
-                    boxShadow: "0 4px 12px oklch(0.4 0.03 240 / 0.2)",
+                    boxShadow: "0 4px 12px oklch(0.4 0.03 165 / 0.2)",
                   }}
                   onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLElement).style.background = "oklch(0.35 0.03 240)";
+                    (e.currentTarget as HTMLElement).style.background = "oklch(0.35 0.03 165)";
                   }}
                   onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLElement).style.background = "oklch(0.4 0.03 240)";
+                    (e.currentTarget as HTMLElement).style.background = "oklch(0.4 0.03 165)";
                   }}
                 >
                   Commit to Diary Timeline

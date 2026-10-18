@@ -5,7 +5,7 @@ import { useAuth } from "@/context/AuthContext";
 const PUBLIC_PAGES = [
   { to: "/", label: "Home" },
   { to: "/about", label: "About Us" },
-  { to: "/services", label: "Services" },
+  { to: "/services", label: "How it Works" },
   { to: "/contact", label: "Contact" },
 ] as const;
 
@@ -73,7 +73,7 @@ export function InnerNav() {
           justifyContent: "space-between",
           padding: "8px 8px 8px 18px",
           borderRadius: "999px",
-          background: "rgba(18, 20, 28, 0.18)",
+          background: "rgba(30, 58, 51, 0.86)",
           backdropFilter: "blur(48px) saturate(180%)",
           WebkitBackdropFilter: "blur(48px) saturate(180%)",
           border: "1px solid rgba(255, 255, 255, 0.1)",
@@ -92,7 +92,7 @@ export function InnerNav() {
                 height: "30px",
                 borderRadius: "50%",
                 background: user?.role === "doctor"
-                  ? "linear-gradient(135deg, oklch(0.4 0.03 240), oklch(0.5 0.04 200))"
+                  ? "linear-gradient(135deg, oklch(0.4 0.03 165), oklch(0.5 0.04 165))"
                   : "rgba(255,255,255,0.12)",
                 border: "1px solid rgba(255,255,255,0.18)",
                 display: "grid",
@@ -122,8 +122,8 @@ export function InnerNav() {
                     fontSize: "0.6rem",
                     fontWeight: 700,
                     textTransform: "uppercase",
-                    color: "oklch(0.5 0.04 200)",
-                    border: "1px solid oklch(0.5 0.04 200 / 0.3)",
+                    color: "oklch(0.5 0.04 165)",
+                    border: "1px solid oklch(0.5 0.04 165 / 0.3)",
                     padding: "1px 5px",
                     borderRadius: "4px",
                   }}
@@ -156,13 +156,13 @@ export function InnerNav() {
               }}
               activeProps={{
                 style: {
-                  color: user?.role === "doctor" ? "oklch(0.4 0.03 240)" : "rgba(255,255,255,1)",
+                  color: user?.role === "doctor" ? "oklch(0.4 0.03 165)" : "rgba(255,255,255,1)",
                   fontSize: "0.875rem",
                   fontWeight: 700,
                   textDecoration: "none",
                   padding: "6px 14px",
                   borderRadius: "999px",
-                  background: user?.role === "doctor" ? "oklch(0.4 0.03 240 / 0.08)" : "rgba(255,255,255,0.12)",
+                  background: user?.role === "doctor" ? "oklch(0.4 0.03 165 / 0.08)" : "rgba(255,255,255,0.12)",
                   transition: "color 0.2s, background 0.2s",
                   whiteSpace: "nowrap",
                   display: "block",
@@ -198,17 +198,17 @@ export function InnerNav() {
                   gap: "8px",
                   padding: "7px 14px 7px 8px",
                   borderRadius: "99px",
-                  border: "1.5px solid oklch(0.88 0.02 55)",
+                  border: "1.5px solid oklch(0.88 0.02 145)",
                   background: "white",
                   cursor: "pointer",
                   color: "var(--charcoal)",
                   transition: "all 0.2s",
                 }}
                 onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLElement).style.borderColor = user.role === "doctor" ? "oklch(0.4 0.03 240)" : "var(--rose)";
+                  (e.currentTarget as HTMLElement).style.borderColor = user.role === "doctor" ? "oklch(0.4 0.03 165)" : "var(--rose)";
                 }}
                 onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLElement).style.borderColor = "oklch(0.88 0.02 55)";
+                  (e.currentTarget as HTMLElement).style.borderColor = "oklch(0.88 0.02 145)";
                 }}
               >
                 <span
@@ -217,7 +217,7 @@ export function InnerNav() {
                     height: "26px",
                     borderRadius: "50%",
                     background: user.role === "doctor"
-                      ? "linear-gradient(135deg, oklch(0.4 0.03 240), oklch(0.5 0.04 200))"
+                      ? "linear-gradient(135deg, oklch(0.4 0.03 165), oklch(0.5 0.04 165))"
                       : "linear-gradient(135deg, var(--rose), var(--sunset))",
                     display: "grid",
                     placeItems: "center",
@@ -234,7 +234,7 @@ export function InnerNav() {
                 </span>
                 <svg
                   width="12" height="12" viewBox="0 0 24 24"
-                  fill="none" stroke="oklch(0.6 0.01 60)" strokeWidth="2.5"
+                  fill="none" stroke="oklch(0.6 0.01 150)" strokeWidth="2.5"
                   style={{ transition: "transform 0.2s", transform: profileOpen ? "rotate(180deg)" : "rotate(0)" }}
                 >
                   <path d="M6 9l6 6 6-6" />
@@ -247,7 +247,7 @@ export function InnerNav() {
                     position: "absolute",
                     top: "calc(100% + 10px)",
                     right: 0,
-                    background: "rgba(20,15,40,0.85)",
+                    background: "rgba(30,58,51,0.94)",
                     backdropFilter: "blur(28px) saturate(180%)",
                     WebkitBackdropFilter: "blur(28px) saturate(180%)",
                     borderRadius: "20px",
@@ -339,7 +339,7 @@ export function InnerNav() {
             </div>
           ) : (
             <Link
-              to="/login"
+              to="/create-account"
               className="hidden sm:inline-flex"
               style={{
                 display: "inline-flex",
@@ -364,7 +364,7 @@ export function InnerNav() {
                 (e.currentTarget as HTMLElement).style.background = "rgba(240,240,245,0.92)";
               }}
             >
-              Start Free Trial
+              Explore Early Access
             </Link>
           )}
 
@@ -373,10 +373,10 @@ export function InnerNav() {
             className="md:hidden"
             onClick={() => setMenuOpen((o) => !o)}
             style={{
-              color: "var(--charcoal)",
+              color: "white",
               cursor: "pointer",
-              background: "rgba(0,0,0,0.04)",
-              border: "1px solid rgba(0,0,0,0.1)",
+              background: "rgba(255,255,255,0.12)",
+              border: "1px solid rgba(255,255,255,0.25)",
               borderRadius: "50%",
               width: "36px",
               height: "36px",
@@ -407,7 +407,7 @@ export function InnerNav() {
             maxWidth: "900px",
             margin: "8px auto 0",
             borderRadius: "24px",
-            background: "rgba(20,15,40,0.82)",
+            background: "rgba(30,58,51,0.94)",
             backdropFilter: "blur(28px) saturate(180%)",
             WebkitBackdropFilter: "blur(28px) saturate(180%)",
             border: "1px solid rgba(255,255,255,0.18)",
@@ -456,7 +456,7 @@ export function InnerNav() {
               </button>
             ) : (
               <Link
-                to="/login"
+                to="/create-account"
                 onClick={() => setMenuOpen(false)}
                 style={{
                   display: "block",
@@ -472,7 +472,7 @@ export function InnerNav() {
                   boxShadow: "inset 0 1px 0 rgba(255,255,255,0.8)",
                 }}
               >
-                Start Free Trial
+                Explore Early Access
               </Link>
             )}
           </div>

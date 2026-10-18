@@ -96,7 +96,7 @@ function DoctorDiaryAll() {
       <div
         style={{
           minHeight: "100vh",
-          background: "oklch(0.985 0.005 240)",
+          background: "oklch(0.985 0.005 165)",
           fontFamily: "var(--font-sans)",
         }}
       >
@@ -106,8 +106,8 @@ function DoctorDiaryAll() {
         <div
           style={{
             background:
-              "linear-gradient(160deg, oklch(0.92 0.01 240) 0%, oklch(0.95 0.01 240) 100%)",
-            borderBottom: "1px solid oklch(0.9 0.01 240)",
+              "linear-gradient(160deg, oklch(0.92 0.01 165) 0%, oklch(0.95 0.01 165) 100%)",
+            borderBottom: "1px solid oklch(0.9 0.01 165)",
             padding: "48px 32px 40px",
           }}
         >
@@ -118,7 +118,7 @@ function DoctorDiaryAll() {
                 fontWeight: 700,
                 letterSpacing: "0.15em",
                 textTransform: "uppercase",
-                color: "oklch(0.5 0.04 200)",
+                color: "oklch(0.5 0.04 165)",
                 marginBottom: "8px",
               }}
             >
@@ -135,7 +135,7 @@ function DoctorDiaryAll() {
             >
               Master Patients Diary
             </h1>
-            <p style={{ color: "oklch(0.55 0.01 240)", fontSize: "0.95rem", marginTop: "6px" }}>
+            <p style={{ color: "oklch(0.55 0.01 165)", fontSize: "0.95rem", marginTop: "6px" }}>
               Browse your assigned patient files, inspect clinical history timelines, and add
               therapeutic entries.
             </p>
@@ -153,7 +153,7 @@ function DoctorDiaryAll() {
               marginBottom: "28px",
             }}
           >
-            <div style={{ fontSize: "0.9rem", fontWeight: 600, color: "oklch(0.5 0.01 240)" }}>
+            <div style={{ fontSize: "0.9rem", fontWeight: 600, color: "oklch(0.5 0.01 165)" }}>
               Showing {filtered.length} Patients
             </div>
 
@@ -168,7 +168,7 @@ function DoctorDiaryAll() {
                   width: "100%",
                   padding: "11px 16px 11px 36px",
                   borderRadius: "12px",
-                  border: "1.5px solid oklch(0.88 0.02 240)",
+                  border: "1.5px solid oklch(0.88 0.02 165)",
                   background: "white",
                   fontSize: "0.88rem",
                   color: "var(--charcoal)",
@@ -177,10 +177,10 @@ function DoctorDiaryAll() {
                   transition: "border-color 0.2s",
                 }}
                 onFocus={(e) => {
-                  e.target.style.borderColor = "oklch(0.4 0.03 240)";
+                  e.target.style.borderColor = "oklch(0.4 0.03 165)";
                 }}
                 onBlur={(e) => {
-                  e.target.style.borderColor = "oklch(0.88 0.02 240)";
+                  e.target.style.borderColor = "oklch(0.88 0.02 165)";
                 }}
               />
               <svg
@@ -189,7 +189,7 @@ function DoctorDiaryAll() {
                   left: "12px",
                   top: "50%",
                   transform: "translateY(-50%)",
-                  color: "oklch(0.6 0.01 240)",
+                  color: "oklch(0.6 0.01 165)",
                 }}
                 width="14"
                 height="14"
@@ -215,7 +215,7 @@ function DoctorDiaryAll() {
                     background: "white",
                     padding: "28px",
                     borderRadius: "20px",
-                    border: "1px solid oklch(0.92 0.01 240)",
+                    border: "1px solid oklch(0.92 0.01 165)",
                     boxShadow: "0 4px 16px oklch(0 0 0 / 0.01)",
                     display: "grid",
                     gridTemplateColumns: "240px 1fr 150px",
@@ -232,10 +232,10 @@ function DoctorDiaryAll() {
                         height: "44px",
                         borderRadius: "50%",
                         background:
-                          "linear-gradient(135deg, oklch(0.4 0.03 240 / 0.1), oklch(0.5 0.04 200 / 0.1))",
+                          "linear-gradient(135deg, oklch(0.4 0.03 165 / 0.1), oklch(0.5 0.04 165 / 0.1))",
                         display: "grid",
                         placeItems: "center",
-                        color: "oklch(0.4 0.03 240)",
+                        color: "oklch(0.4 0.03 165)",
                         fontFamily: "var(--font-display)",
                         fontSize: "1.05rem",
                         fontWeight: 700,
@@ -260,7 +260,7 @@ function DoctorDiaryAll() {
                       <p
                         style={{
                           fontSize: "0.84rem",
-                          color: "oklch(0.55 0.01 240)",
+                          color: "oklch(0.55 0.01 165)",
                           margin: "3px 0 0",
                         }}
                       >
@@ -276,7 +276,7 @@ function DoctorDiaryAll() {
                         fontSize: "0.75rem",
                         fontWeight: 700,
                         textTransform: "uppercase",
-                        color: "oklch(0.5 0.04 200)",
+                        color: "oklch(0.5 0.04 165)",
                         letterSpacing: "0.06em",
                         marginBottom: "4px",
                       }}
@@ -286,7 +286,7 @@ function DoctorDiaryAll() {
                     <p
                       style={{
                         fontSize: "0.88rem",
-                        color: "oklch(0.45 0.01 240)",
+                        color: "oklch(0.45 0.01 165)",
                         margin: 0,
                         lineHeight: 1.45,
                         display: "-webkit-box",
@@ -308,9 +308,9 @@ function DoctorDiaryAll() {
                         display: "inline-block",
                         padding: "10px 18px",
                         borderRadius: "10px",
-                        border: "1.5px solid oklch(0.4 0.03 240)",
+                        border: "1.5px solid oklch(0.4 0.03 165)",
                         background: "white",
-                        color: "oklch(0.4 0.03 240)",
+                        color: "oklch(0.4 0.03 165)",
                         fontSize: "0.86rem",
                         fontWeight: 700,
                         textDecoration: "none",
@@ -318,7 +318,7 @@ function DoctorDiaryAll() {
                       }}
                       onMouseEnter={(e) => {
                         (e.currentTarget as HTMLElement).style.background =
-                          "oklch(0.4 0.03 240 / 0.05)";
+                          "oklch(0.4 0.03 165 / 0.05)";
                       }}
                       onMouseLeave={(e) => {
                         (e.currentTarget as HTMLElement).style.background = "white";

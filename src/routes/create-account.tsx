@@ -24,7 +24,7 @@ export const Route = createFileRoute("/create-account")({
   head: () => ({
     meta: [
       { title: "Create Account – Nalora" },
-      { name: "description", content: "Join Nalora and begin your postpartum care journey. Create your personal account in minutes." },
+      { name: "description", content: "Explore early access to Nalora — regular, personalised voice conversations for older adults." },
     ],
   }),
   component: CreateAccount,
@@ -153,8 +153,8 @@ const SLIDES = [
         <path d="M96 64 C126 44 135 78 110 90 C98 96 92 78 82 70" fill="white" />
       </svg>
     ),
-    title: "A warm community awaits",
-    desc: "Join thousands of mothers who found calm, care, and connection through Nalora's Kerala-rooted support network.",
+    title: "Meaningful conversations",
+    desc: "Regular, personalised voice calls about life stories, memories, interests and the small joys of everyday life.",
   },
   {
     icon: (
@@ -167,8 +167,8 @@ const SLIDES = [
         <circle cx="47" cy="57" r="4" fill="rgba(0,0,0,0.4)" /><circle cx="62" cy="57" r="4" fill="rgba(0,0,0,0.4)" /><circle cx="77" cy="57" r="4" fill="rgba(0,0,0,0.4)" />
       </svg>
     ),
-    title: "AI-powered care support",
-    desc: "Our assistant is available 24×7 to answer postpartum questions and connect you to expert doctors.",
+    title: "A window into wellbeing",
+    desc: "With consent, families can see engagement and wellbeing signals — not private conversations.",
   },
   {
     icon: (
@@ -182,8 +182,8 @@ const SLIDES = [
         <circle cx="46" cy="102" r="4" fill="rgba(255,255,255,0.3)" /><circle cx="62" cy="102" r="4" fill="rgba(255,255,255,0.5)" />
       </svg>
     ),
-    title: "Book sessions effortlessly",
-    desc: "Schedule with certified therapists in Kerala. Your care journey, managed in one place.",
+    title: "Humans in the loop",
+    desc: "AI provides continuity. Trained professionals provide review, escalation and human follow-up when appropriate.",
   },
 ];
 
@@ -223,8 +223,8 @@ function RightPanel() {
 }
 
 /* ─────────────────────── form types ─────────────────────────────────────── */
-type FormData = { name: string; email: string; phone: string; gender: string; bystanderName: string; bystanderPhone: string; address: string; age: string; };
-const INITIAL: FormData = { name: "", email: "", phone: "", gender: "", bystanderName: "", bystanderPhone: "", address: "", age: "" };
+type FormData = { name: string; email: string; phone: string; gender: string; bystanderName: string; bystanderPhone: string; address: string; age: string; language: string; callTime: string; interests: string; };
+const INITIAL: FormData = { name: "", email: "", phone: "", gender: "", bystanderName: "", bystanderPhone: "", address: "", age: "", language: "", callTime: "", interests: "" };
 
 function InputField({ label, id, type = "text", value, onChange, placeholder, required = false }: { label: string; id: string; type?: string; value: string; onChange: (v: string) => void; placeholder?: string; required?: boolean; }) {
   return (
@@ -247,7 +247,7 @@ function Step1({ data, update }: { data: FormData; update: (k: keyof FormData, v
         <h2 style={{ fontSize: "1.55rem", fontWeight: 700, color: "white", margin: "0 0 5px 0", letterSpacing: "-0.02em" }}>About You</h2>
         <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.88rem", margin: 0 }}>Let's start with your basic details.</p>
       </div>
-      <InputField label="Full Name" id="name" value={data.name} onChange={(v) => update("name", v)} placeholder="e.g. Anjali Menon" required />
+      <InputField label="Full Name" id="name" value={data.name} onChange={(v) => update("name", v)} placeholder="e.g. Thomas Varghese" required />
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
         <InputField label="Email" id="email" type="email" value={data.email} onChange={(v) => update("email", v)} placeholder="you@email.com" required />
         <InputField label="Phone" id="phone" type="tel" value={data.phone} onChange={(v) => update("phone", v)} placeholder="+91 98765 43210" required />
@@ -261,7 +261,7 @@ function Step2({ data, update }: { data: FormData; update: (k: keyof FormData, v
     <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
       <div>
         <h2 style={{ fontSize: "1.55rem", fontWeight: 700, color: "white", margin: "0 0 5px 0", letterSpacing: "-0.02em" }}>Personal Details</h2>
-        <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.88rem", margin: 0 }}>Help us personalise your care experience.</p>
+        <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.88rem", margin: 0 }}>Help us personalise conversations.</p>
       </div>
       <div style={{ display: "flex", flexDirection: "column", gap: "7px" }}>
         <label style={{ fontSize: "0.75rem", fontWeight: 600, letterSpacing: "0.05em", color: "rgba(255,255,255,0.4)", textTransform: "uppercase" }}>Gender <span style={{ color: "rgba(255,255,255,0.6)" }}>*</span></label>
@@ -272,9 +272,19 @@ function Step2({ data, update }: { data: FormData; update: (k: keyof FormData, v
         </div>
       </div>
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
-        <InputField label="Age" id="age" type="number" value={data.age} onChange={(v) => update("age", v)} placeholder="e.g. 28" required />
-        <InputField label="Home Address" id="address" value={data.address} onChange={(v) => update("address", v)} placeholder="City, Kerala" required />
+        <InputField label="Age" id="age" type="number" value={data.age} onChange={(v) => update("age", v)} placeholder="e.g. 72" required />
+        <InputField label="Home Address" id="address" value={data.address} onChange={(v) => update("address", v)} placeholder="City, State" required />
       </div>
+      <InputField label="Preferred Language" id="language" value={data.language} onChange={(v) => update("language", v)} placeholder="e.g. Malayalam, English" required />
+      <div style={{ display: "flex", flexDirection: "column", gap: "7px" }}>
+        <label style={{ fontSize: "0.75rem", fontWeight: 600, letterSpacing: "0.05em", color: "rgba(255,255,255,0.4)", textTransform: "uppercase" }}>Preferred Calling Time <span style={{ color: "rgba(255,255,255,0.6)" }}>*</span></label>
+        <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+          {["Morning", "Afternoon", "Evening"].map((t) => (
+            <button key={t} type="button" onClick={() => update("callTime", t)} style={{ padding: "8px 16px", borderRadius: "99px", border: "1px solid", borderColor: data.callTime === t ? "rgba(255,255,255,0.5)" : "rgba(255,255,255,0.12)", background: data.callTime === t ? "rgba(255,255,255,0.12)" : "rgba(255,255,255,0.04)", color: data.callTime === t ? "white" : "rgba(255,255,255,0.45)", fontWeight: 500, fontSize: "0.84rem", cursor: "pointer", transition: "all 0.2s", fontFamily: "inherit" }}>{t}</button>
+          ))}
+        </div>
+      </div>
+      <InputField label="Conversation Interests" id="interests" value={data.interests} onChange={(v) => update("interests", v)} placeholder="e.g. gardening, music, family stories" />
     </div>
   );
 }
@@ -283,14 +293,14 @@ function Step3({ data, update }: { data: FormData; update: (k: keyof FormData, v
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
       <div>
-        <h2 style={{ fontSize: "1.55rem", fontWeight: 700, color: "white", margin: "0 0 5px 0", letterSpacing: "-0.02em" }}>Emergency Contact</h2>
-        <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.88rem", margin: 0 }}>A trusted person we can reach when you need extra support.</p>
+        <h2 style={{ fontSize: "1.55rem", fontWeight: 700, color: "white", margin: "0 0 5px 0", letterSpacing: "-0.02em" }}>Family Contact</h2>
+        <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.88rem", margin: 0 }}>A family member or caregiver we can reach when human follow-up is needed.</p>
       </div>
       <div style={{ padding: "12px 16px", borderRadius: "14px", background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.12)", fontSize: "0.84rem", color: "rgba(255,255,255,0.7)", lineHeight: 1.6 }}>
-        💛 A bystander can be your partner, parent, or close friend — someone who will journey alongside you.
+        💚 This can be a son or daughter, relative, close friend or primary caregiver. With consent, they can also access the family dashboard.
       </div>
-      <InputField label="Bystander's Name" id="bystanderName" value={data.bystanderName} onChange={(v) => update("bystanderName", v)} placeholder="e.g. Rahul Menon" required />
-      <InputField label="Bystander's Phone" id="bystanderPhone" type="tel" value={data.bystanderPhone} onChange={(v) => update("bystanderPhone", v)} placeholder="+91 98765 43210" required />
+      <InputField label="Family Contact's Name" id="bystanderName" value={data.bystanderName} onChange={(v) => update("bystanderName", v)} placeholder="e.g. Anita Varghese" required />
+      <InputField label="Family Contact's Phone" id="bystanderPhone" type="tel" value={data.bystanderPhone} onChange={(v) => update("bystanderPhone", v)} placeholder="+91 98765 43210" required />
     </div>
   );
 }
@@ -301,8 +311,8 @@ function SuccessScreen() {
       <div style={{ width: "72px", height: "72px", borderRadius: "50%", background: "rgba(255,255,255,0.15)", border: "1px solid rgba(255,255,255,0.25)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 20px", boxShadow: "0 8px 32px rgba(0,0,0,0.2)", animation: "cpop 0.4s ease" }}>
         <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ margin: "auto" }}><polyline points="20 6 9 17 4 12" /></svg>
       </div>
-      <h2 style={{ fontSize: "1.8rem", fontWeight: 700, color: "white", marginBottom: "10px", letterSpacing: "-0.02em" }}>Welcome to Nalora 🌸</h2>
-      <p style={{ color: "rgba(255,255,255,0.42)", fontSize: "0.92rem", maxWidth: "320px", margin: "0 auto 28px", lineHeight: 1.7 }}>Your account has been created. You're now part of a caring community built just for you.</p>
+      <h2 style={{ fontSize: "1.8rem", fontWeight: 700, color: "white", marginBottom: "10px", letterSpacing: "-0.02em" }}>Welcome to Nalora 🌿</h2>
+      <p style={{ color: "rgba(255,255,255,0.42)", fontSize: "0.92rem", maxWidth: "320px", margin: "0 auto 28px", lineHeight: 1.7 }}>Thank you for exploring early access. We'll be in touch about language, calling time and conversation preferences.</p>
       <Link to="/" style={{ display: "inline-flex", alignItems: "center", gap: "8px", padding: "12px 28px", borderRadius: "20px", background: "rgba(255,255,255,0.12)", color: "white", fontWeight: 600, fontSize: "0.92rem", textDecoration: "none", border: "1px solid rgba(255,255,255,0.2)", boxShadow: "0 8px 24px rgba(0,0,0,0.35)", transition: "transform 0.2s" }}
         onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.transform = "translateY(-2px)")}
         onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.transform = "translateY(0)")}>
@@ -328,7 +338,7 @@ function CreateAccount() {
   function next(e: FormEvent) { e.preventDefault(); if (step < TOTAL - 1) setStep((s) => s + 1); else setDone(true); }
   function back() { setStep((s) => Math.max(0, s - 1)); }
 
-  const LABELS = ["Basic Info", "Personal Details", "Emergency Contact"];
+  const LABELS = ["Basic Info", "Personal Details", "Family Contact"];
 
   return (
     <div style={{ minHeight: "100vh", position: "relative", overflow: "hidden", background: "#080318", fontFamily: "'Outfit','Inter',sans-serif" }}>

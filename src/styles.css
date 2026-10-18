@@ -40,6 +40,14 @@
   --color-ivory: var(--ivory);
   --color-ivory-deep: var(--ivory-deep);
   --color-charcoal: var(--charcoal);
+  --color-sage-50: var(--sage-50);
+  --color-sage-100: var(--sage-100);
+  --color-sage-200: var(--sage-200);
+  --color-sage-400: var(--sage-400);
+  --color-forest: var(--forest);
+  --color-forest-deep: var(--forest-deep);
+  --color-ink: var(--ink);
+  --color-clay: var(--clay);
 
   --font-display: "Santrio", "Plus Jakarta Sans", "Inter", system-ui, sans-serif;
   --font-sans: "Santrio", "Plus Jakarta Sans", "Inter", system-ui, sans-serif;
@@ -52,42 +60,53 @@
 :root {
   --radius: 1rem;
 
-  --rose: oklch(0.64 0.18 20); /* #EA6468 */
-  --rose-soft: oklch(0.92 0.05 20); /* #FCEBEB */
-  --coconut: oklch(0.79 0.08 296); /* #C6BADE */
-  --coconut-soft: oklch(0.90 0.04 348); /* #F3D9E5 */
-  --sunset: oklch(0.32 0.11 302); /* #4A3267 */
-  --ivory: oklch(1 0 0); /* #FFFFFF */
-  --ivory-deep: oklch(0.97 0.01 300); /* #FAF8FC */
-  --charcoal: oklch(0.22 0.04 300); /* #261C2C */
+  /* Pale-green palette */
+  --sage-50: #f4f8f2;
+  --sage-100: #e7f1e4;
+  --sage-200: #cfe3ca;
+  --sage-400: #8dbe8a;
+  --forest: #2f5d50;
+  --forest-deep: #1e3a33;
+  --ink: #1f2b28;
+  --clay: #c98b73;
 
-  --background: var(--ivory);
-  --foreground: var(--charcoal);
+  /* Legacy token names, now mapped onto the green palette */
+  --rose: var(--forest);
+  --rose-soft: var(--sage-100);
+  --coconut: var(--sage-400);
+  --coconut-soft: var(--sage-200);
+  --sunset: var(--forest-deep);
+  --ivory: var(--sage-50);
+  --ivory-deep: var(--sage-100);
+  --charcoal: var(--ink);
+
+  --background: var(--sage-50);
+  --foreground: var(--ink);
   --card: oklch(1 0 0);
-  --card-foreground: var(--charcoal);
+  --card-foreground: var(--ink);
   --popover: oklch(1 0 0);
-  --popover-foreground: var(--charcoal);
-  --primary: var(--rose);
+  --popover-foreground: var(--ink);
+  --primary: var(--forest);
   --primary-foreground: oklch(1 0 0);
-  --secondary: var(--coconut);
-  --secondary-foreground: oklch(1 0 0);
-  --muted: var(--ivory-deep);
-  --muted-foreground: oklch(0.55 0.03 300);
-  --accent: var(--sunset);
-  --accent-foreground: var(--charcoal);
+  --secondary: var(--sage-400);
+  --secondary-foreground: var(--forest-deep);
+  --muted: var(--sage-100);
+  --muted-foreground: oklch(0.5 0.03 160);
+  --accent: var(--sage-200);
+  --accent-foreground: var(--forest-deep);
   --destructive: oklch(0.6 0.22 25);
   --destructive-foreground: oklch(1 0 0);
-  --border: oklch(0.92 0.02 320);
-  --input: oklch(0.94 0.02 320);
-  --ring: var(--rose);
+  --border: oklch(0.9 0.03 145);
+  --input: oklch(0.92 0.03 145);
+  --ring: var(--sage-400);
 
-  --shadow-soft: 0 8px 30px -12px oklch(0.3 0.1 300 / 0.15);
-  --shadow-lift: 0 24px 60px -20px oklch(0.3 0.1 300 / 0.20);
-  --shadow-glow: 0 0 40px oklch(0.64 0.18 20 / 0.3);
+  --shadow-soft: 0 8px 30px -12px oklch(0.3 0.06 160 / 0.15);
+  --shadow-lift: 0 24px 60px -20px oklch(0.3 0.06 160 / 0.2);
+  --shadow-glow: 0 0 40px oklch(0.6 0.08 150 / 0.3);
 
-  --gradient-sunset: linear-gradient(135deg, var(--sunset), var(--rose));
-  --gradient-dawn: linear-gradient(180deg, var(--ivory), var(--ivory-deep));
-  --gradient-water: linear-gradient(180deg, oklch(0.93 0.04 300 / 0.4), oklch(0.85 0.06 350 / 0.3));
+  --gradient-sunset: linear-gradient(135deg, var(--forest-deep), var(--forest));
+  --gradient-dawn: linear-gradient(180deg, var(--sage-50), var(--sage-100));
+  --gradient-water: linear-gradient(180deg, oklch(0.94 0.04 145 / 0.4), oklch(0.88 0.05 150 / 0.3));
 }
 
 .dark {

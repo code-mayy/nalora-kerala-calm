@@ -1,15 +1,27 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useRef, useState, type MouseEvent } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAuth } from "@/context/AuthContext";
-import { Sun, CloudSun, Sunset, Moon, Sparkles } from "lucide-react";
+import { SiteFooter } from "@/components/SiteFooter";
+import {
+  Phone,
+  MessagesSquare,
+  Brain,
+  Users,
+  ShieldCheck,
+  Check,
+  X,
+  HeartHandshake,
+  Bot,
+  UserCheck,
+  Settings2,
+  Repeat,
+  Lightbulb,
+  Sprout,
+  Quote,
+  Globe,
+} from "lucide-react";
 
-import blobRose from "@/assets/blob-rose.png";
 import motherBaby from "@/assets/mother-baby.png";
-import introImg from "@/assets/image.png";
-import introOverlayImg from "@/assets/image copy 4.png";
-import therapist1 from "@/assets/therapist-1.jpg";
-import therapist2 from "@/assets/therapist-2.jpg";
-import therapist3 from "@/assets/therapist-3.jpg";
 import morningBg from "@/assets/image copy.png";
 import afternoonBg from "@/assets/image copy 3.png";
 import eveningBg from "@/assets/hero.png";
@@ -23,39 +35,21 @@ import cloud5 from "@/assets/IMG_20260626_215824.png";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Nalora — Emotional Support for Motherhood" },
+      { title: "Nalora — The Relationship Layer for Ageing" },
       {
         name: "description",
         content:
-          "Kerala-rooted, AI-supported postpartum care. A calm digital ecosystem for mothers and the family around them.",
+          "Nalora is a human-in-the-loop emotional care and wellbeing platform for older adults, using AI to create regular, personalised voice conversations.",
       },
-      { property: "og:title", content: "Nalora — Emotional Support for Motherhood" },
-      { property: "og:description", content: "A calm digital ecosystem for postpartum care." },
+      { property: "og:title", content: "Nalora — The Relationship Layer for Ageing" },
+      {
+        property: "og:description",
+        content: "Meaningful conversations. Continuous connection. AI for connection. Humans for care.",
+      },
     ],
   }),
   component: Index,
 });
-
-/* ---------- Tilt card ---------- */
-function TiltCard({ children, className = "" }: { children: React.ReactNode; className?: string }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const onMove = (e: MouseEvent<HTMLDivElement>) => {
-    const el = ref.current;
-    if (!el) return;
-    const r = el.getBoundingClientRect();
-    const x = (e.clientX - r.left) / r.width - 0.5;
-    const y = (e.clientY - r.top) / r.height - 0.5;
-    el.style.transform = `perspective(900px) rotateY(${x * 9}deg) rotateX(${-y * 9}deg) translateY(-4px)`;
-  };
-  const onLeave = () => {
-    if (ref.current) ref.current.style.transform = "perspective(900px) rotateY(0) rotateX(0)";
-  };
-  return (
-    <div ref={ref} onMouseMove={onMove} onMouseLeave={onLeave} className={`tilt-card ${className}`}>
-      {children}
-    </div>
-  );
-}
 
 /* ---------- Reveal on scroll ---------- */
 function useReveal() {
@@ -85,7 +79,8 @@ function Nav() {
   const [profileOpen, setProfileOpen] = useState(false);
 
   useEffect(() => {
-    const on = () => setScrolled(window.scrollY > 40);
+    // Switch to the solid forest pill once the content sheet covers the hero sky
+    const on = () => setScrolled(window.scrollY > window.innerHeight * 0.85);
     on();
     window.addEventListener("scroll", on, { passive: true });
     return () => window.removeEventListener("scroll", on);
@@ -107,7 +102,7 @@ function Nav() {
   const pages = [
     { to: "/", label: "Home" },
     { to: "/about", label: "About Us" },
-    { to: "/services", label: "Services" },
+    { to: "/services", label: "How it Works" },
     { to: "/contact", label: "Contact" },
     ...roleSpecificPages,
   ];
@@ -144,7 +139,7 @@ function Nav() {
           justifyContent: "space-between",
           padding: "8px 8px 8px 18px",
           borderRadius: "999px",
-          background: "rgba(18, 20, 28, 0.18)",
+          background: scrolled ? "rgba(30, 58, 51, 0.86)" : "rgba(18, 20, 28, 0.18)",
           backdropFilter: "blur(48px) saturate(180%)",
           WebkitBackdropFilter: "blur(48px) saturate(180%)",
           border: "1px solid rgba(255, 255, 255, 0.1)",
@@ -278,7 +273,7 @@ function Nav() {
                     height: "26px",
                     borderRadius: "50%",
                     background: user.role === "doctor"
-                      ? "linear-gradient(135deg, oklch(0.4 0.03 240), oklch(0.5 0.04 200))"
+                      ? "linear-gradient(135deg, oklch(0.4 0.03 165), oklch(0.5 0.04 165))"
                       : "linear-gradient(135deg, var(--rose), var(--sunset))",
                     display: "grid",
                     placeItems: "center",
@@ -308,7 +303,7 @@ function Nav() {
                     position: "absolute",
                     top: "calc(100% + 10px)",
                     right: 0,
-                    background: "rgba(20,15,40,0.75)",
+                    background: "rgba(30,58,51,0.94)",
                     backdropFilter: "blur(28px) saturate(180%)",
                     WebkitBackdropFilter: "blur(28px) saturate(180%)",
                     borderRadius: "20px",
@@ -397,7 +392,7 @@ function Nav() {
             </div>
           ) : (
             <Link
-              to="/login"
+              to="/create-account"
               style={{
                 display: "inline-flex",
                 alignItems: "center",
@@ -422,7 +417,7 @@ function Nav() {
                 (e.currentTarget as HTMLElement).style.background = "rgba(240,240,245,0.92)";
               }}
             >
-              Start Free Trial
+              Explore Early Access
             </Link>
           )}
         </div>
@@ -460,7 +455,7 @@ function Nav() {
             maxWidth: "900px",
             margin: "8px auto 0",
             borderRadius: "24px",
-            background: "rgba(20,15,40,0.75)",
+            background: "rgba(30,58,51,0.94)",
             backdropFilter: "blur(28px) saturate(180%)",
             WebkitBackdropFilter: "blur(28px) saturate(180%)",
             border: "1px solid rgba(255,255,255,0.18)",
@@ -509,7 +504,7 @@ function Nav() {
               </button>
             ) : (
               <Link
-                to="/login"
+                to="/create-account"
                 onClick={() => setMenuOpen(false)}
                 style={{
                   display: "block",
@@ -525,7 +520,7 @@ function Nav() {
                   boxShadow: "inset 0 1px 0 rgba(255,255,255,0.25)",
                 }}
               >
-                Start Free Trial
+                Explore Early Access
               </Link>
             )}
           </div>
@@ -759,7 +754,7 @@ function getSkyPhase(hour: number) {
         "linear-gradient(180deg, rgba(232, 168, 124, 0.25) 0%, rgba(107, 74, 122, 0.25) 60%, rgba(43, 27, 74, 0.4) 100%)",
       filter: "brightness(0.9) saturate(1.1) sepia(0.05) contrast(0.98) hue-rotate(5deg)",
       glowColor: "rgba(232, 168, 124, 0.2)",
-      subtitle: "Dawn · waking up with you as the day begins.",
+      subtitle: "Dawn · a gentle start to a connected day.",
       starsOpacity,
       morningOpacity,
       afternoonOpacity,
@@ -776,7 +771,7 @@ function getSkyPhase(hour: number) {
         "linear-gradient(180deg, rgba(255, 243, 176, 0.1) 0%, rgba(168, 211, 237, 0.05) 60%, rgba(220, 238, 248, 0) 100%)",
       filter: "brightness(1.02) saturate(1.05) contrast(1.0) hue-rotate(0deg)",
       glowColor: "rgba(255, 243, 176, 0.25)",
-      subtitle: "Morning · supporting your morning rhythms and care.",
+      subtitle: "Morning · a familiar voice at the time you choose.",
       starsOpacity,
       morningOpacity,
       afternoonOpacity,
@@ -793,7 +788,7 @@ function getSkyPhase(hour: number) {
         "linear-gradient(180deg, rgba(255, 252, 224, 0.08) 0%, rgba(143, 196, 229, 0.05) 60%, rgba(214, 235, 245, 0) 100%)",
       filter: "brightness(1.05) saturate(1.1) contrast(1.02) hue-rotate(-5deg)",
       glowColor: "rgba(255, 252, 224, 0.15)",
-      subtitle: "Afternoon · gentle guidance through the active hours.",
+      subtitle: "Afternoon · stories, memories and meaningful moments.",
       starsOpacity,
       morningOpacity,
       afternoonOpacity,
@@ -810,7 +805,7 @@ function getSkyPhase(hour: number) {
         "linear-gradient(180deg, rgba(197, 107, 125, 0.3) 0%, rgba(232, 154, 108, 0.25) 50%, rgba(244, 194, 138, 0.1) 100%)",
       filter: "brightness(0.95) saturate(1.1) sepia(0.05) contrast(1.0) hue-rotate(-10deg)",
       glowColor: "rgba(255, 142, 90, 0.35)",
-      subtitle: "Evening · wind down with warm postpartum care.",
+      subtitle: "Evening · reflecting on the small joys of the day.",
       starsOpacity,
       morningOpacity,
       afternoonOpacity,
@@ -827,7 +822,7 @@ function getSkyPhase(hour: number) {
         "linear-gradient(180deg, rgba(10, 5, 30, 0.5) 0%, rgba(18, 8, 64, 0.3) 50%, rgba(42, 27, 92, 0.1) 100%)",
       filter: "brightness(0.85) saturate(0.9) contrast(1.05) hue-rotate(0deg)",
       glowColor: "rgba(255, 244, 214, 0.08)",
-      subtitle: "Night · awake for late-night nursing and support, 24×7.",
+      subtitle: "Night · rest well. Your next conversation is already scheduled.",
       starsOpacity,
       morningOpacity,
       afternoonOpacity,
@@ -1130,7 +1125,7 @@ function Hero() {
 
       {/* Hero Content (Split Column Layout) */}
       <div
-        className="mx-auto flex max-w-6xl w-full h-full items-center justify-between px-6 pt-16 md:pt-0 flex-col md:flex-row gap-10 md:gap-12"
+        className="mx-auto flex max-w-6xl w-full h-full items-center justify-between px-6 pt-24 md:pt-20 flex-col md:flex-row gap-10 md:gap-10"
         style={{
           position: "relative",
           zIndex: 11,
@@ -1138,55 +1133,80 @@ function Hero() {
         }}
       >
         {/* Left Column: Text Content */}
-        <div className="flex-1 text-center md:text-left flex flex-col items-center md:items-start justify-center max-w-[620px] md:max-w-[550px] transform md:translate-y-[-10px]">
+        <div className="flex-1 text-center md:text-left flex flex-col items-center md:items-start justify-center max-w-[620px] md:max-w-[640px]">
           <h1
             className="reveal reveal-up"
             style={{
               fontFamily: "var(--font-display)",
-              fontSize: "clamp(2.3rem, 5.5vw, 3.8rem)",
-              fontWeight: 500,
-              color: "white",
-              lineHeight: 1.15,
-              textShadow: "0 4px 18px rgba(0, 0, 0, 0.45)",
-              margin: "0 0 24px 0",
+              fontSize: "clamp(2.3rem, 5.2vw, 4.4rem)",
+              fontWeight: 600,
+              color: "#F1F8EE",
+              lineHeight: 1.05,
+              letterSpacing: "-0.025em",
+              // drop-shadow (not text-shadow) so it also works on the gradient-clipped line
+              filter:
+                "drop-shadow(0 6px 22px rgba(8, 28, 22, 0.6)) drop-shadow(0 2px 4px rgba(8, 28, 22, 0.45))",
+              margin: "0 0 22px 0",
               transitionDelay: "200ms",
             }}
           >
-            She gave everything.
+            Meaningful conversations.
             <br />
             <em
               style={{
                 fontFamily: "var(--font-display)",
                 fontStyle: "italic",
-                color: "var(--accent)",
+                backgroundImage: "linear-gradient(100deg, #DDF2D6 0%, #A9DCA3 55%, #8DBE8A 100%)",
+                WebkitBackgroundClip: "text",
+                backgroundClip: "text",
+                WebkitBoxDecorationBreak: "clone",
+                boxDecorationBreak: "clone",
+                color: "transparent",
+                paddingRight: "0.08em",
               }}
             >
-              Now it's her turn.
+              Continuous connection.
             </em>
           </h1>
 
           <p
             className="reveal reveal-up"
             style={{
-              fontSize: "clamp(0.95rem, 2.2vw, 1.15rem)",
-              color: "rgba(255, 255, 255, 0.85)",
-              maxWidth: "520px",
-              margin: "0 0 36px 0",
-              lineHeight: 1.65,
-              textShadow: "0 2px 8px rgba(0, 0, 0, 0.3)",
+              fontSize: "clamp(0.95rem, 2vw, 1.08rem)",
+              color: "rgba(255, 255, 255, 0.88)",
+              maxWidth: "500px",
+              margin: "0 0 16px 0",
+              lineHeight: 1.6,
+              textShadow: "0 2px 8px rgba(0, 0, 0, 0.35)",
               transitionDelay: "350ms",
             }}
           >
-            <span style={{ color: "var(--accent)", fontWeight: 500 }}>{phase.subtitle} </span>
-            Postpartum care, rooted in Kerala — gentle, vernacular, and always awake.
+            Regular, personalised voice conversations that help older adults stay connected with
+            their memories, relationships and sense of meaning.
           </p>
 
-          <div 
+          <p
+            className="reveal reveal-up"
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "1.05rem",
+              fontWeight: 600,
+              color: "#E9C2B2",
+              margin: "0 0 28px 0",
+              letterSpacing: "0.01em",
+              textShadow: "0 2px 8px rgba(0, 0, 0, 0.35)",
+              transitionDelay: "420ms",
+            }}
+          >
+            AI for connection. Humans for care.
+          </p>
+
+          <div
             className="reveal reveal-up flex gap-4 justify-center md:justify-start flex-wrap w-full"
             style={{ transitionDelay: "500ms" }}
           >
-            <Link
-              to="/login"
+            <a
+              href="#what-is-nalora"
               style={{
                 display: "inline-flex",
                 alignItems: "center",
@@ -1214,10 +1234,10 @@ function Hero() {
                 (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
               }}
             >
-              Start Free Trial
-            </Link>
-            <Link
-              to="/about"
+              Discover Nalora
+            </a>
+            <a
+              href="#experience"
               style={{
                 display: "inline-flex",
                 alignItems: "center",
@@ -1244,8 +1264,8 @@ function Hero() {
                 (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
               }}
             >
-              Learn More
-            </Link>
+              How Nalora Works
+            </a>
           </div>
         </div>
 
@@ -1254,7 +1274,7 @@ function Hero() {
           <div className="reveal reveal-scale h-full max-h-[30vh] md:max-h-[60vh] flex items-center justify-center" style={{ transitionDelay: "650ms" }}>
             <img
               src={motherBaby}
-              alt="Mother and Baby"
+              alt="Nalora illustration"
               className="w-auto h-full object-contain image-float"
               style={{
                 filter: phase.invertImage
@@ -1395,745 +1415,657 @@ function Hero() {
   );
 }
 
-/* ---------- Therapists showcase (Oppam-style pastel cards) ---------- */
-const THERAPISTS = [
-  {
-    id: 1,
-    name: "Aisha Menon",
-    role: "Consultant Psychologist",
-    img: therapist1,
-    bg: "#FFF1C2",
-    tags: ["Postpartum Anxiety", "Mood Concerns", "Sleep & Identity"],
-    hours: "250+",
-    lang: "Malayalam, English",
-    price: "₹1,000",
-    next: "15 mins",
-  },
-  {
-    id: 2,
-    name: "Lakshmi Pillai",
-    role: "Clinical Psychologist",
-    img: therapist2,
-    bg: "#FCD7D1",
-    tags: ["Birth Trauma", "Relationship Concerns", "Life Transitions"],
-    hours: "500+",
-    lang: "Malayalam, Tamil",
-    price: "₹1,200",
-    next: "20 mins",
-  },
-  {
-    id: 3,
-    name: "Dr. Rohan Iyer",
-    role: "Perinatal Psychiatrist",
-    img: therapist3,
-    bg: "#D6EFD9",
-    tags: ["Hormonal Mood Shifts", "Medication Reviews", "PPD"],
-    hours: "800+",
-    lang: "English, Hindi",
-    price: "₹1,500",
-    next: "30 mins",
-  },
-  {
-    id: 4,
-    name: "Dr. Meera Krishnan",
-    role: "Perinatal Counselor",
-    img: null,
-    bg: "#C8D8F0",
-    tags: ["Mood Concerns", "Birth Trauma", "Postpartum Anxiety"],
-    hours: "180+",
-    lang: "Malayalam, English, Tamil",
-    price: "₹900",
-    next: "1 hour",
-  },
-  {
-    id: 5,
-    name: "Dr. Priya Nair",
-    role: "Family Therapist",
-    img: null,
-    bg: "#E8D8F0",
-    tags: ["Relationship Concerns", "Life Transitions", "Mood Concerns"],
-    hours: "320+",
-    lang: "Malayalam, Hindi",
-    price: "₹1,100",
-    next: "Tomorrow",
-  },
-  {
-    id: 6,
-    name: "Dr. Sanjana Thomas",
-    role: "Child & Perinatal Psychologist",
-    img: null,
-    bg: "#D8F0E8",
-    tags: ["Sleep & Identity", "Postpartum Anxiety", "Birth Trauma"],
-    hours: "290+",
-    lang: "English, Malayalam",
-    price: "₹1,300",
-    next: "Tomorrow",
-  },
-];
-
-
-/* ---------- What is Nalora (Introduction) ---------- */
-function WhatIsNalora() {
-  return (
-    <section
-      id="what-is-nalora"
-      className="relative z-10 grid grid-cols-1 md:grid-cols-2 rounded-t-[2.5rem] sm:rounded-t-[4rem] overflow-hidden shadow-[0_-24px_50px_-20px_rgba(0,0,0,0.25)]"
-    >
-      {/* Left Pane - Solid Rose Theme Background */}
-      <div className="bg-[var(--rose)] px-8 py-20 sm:py-28 md:px-16 lg:px-24 flex flex-col justify-center items-start text-white relative">
-        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_30%_30%,white_0%,transparent_60%)] pointer-events-none" />
-        <div className="max-w-xl relative z-10">
-          <h2 className="reveal reveal-left font-display text-4xl sm:text-5xl md:text-6xl leading-tight text-white font-medium uppercase tracking-tight">
-            What is <span className="text-[var(--coconut-soft)]">nalora</span>?
-          </h2>
-          <p 
-            className="reveal reveal-left mt-8 text-[17px] sm:text-lg md:text-xl text-white/90 leading-relaxed font-sans font-normal"
-            style={{ transitionDelay: "150ms" }}
-          >
-            Nalora is a compassionate, research-backed digital ecosystem built to support emotional
-            well-being throughout pregnancy and early motherhood.
-          </p>
-          <p 
-            className="reveal reveal-left mt-6 text-[15px] sm:text-base text-white/75 leading-relaxed"
-            style={{ transitionDelay: "300ms" }}
-          >
-            By combining thoughtful, culturally rooted support with evidence-based psychological
-            frameworks, we help you understand, track, and process your emotional experiences
-            with absolute clarity.
-          </p>
-        </div>
-      </div>
-
-      {/* Right Pane - Base background mirrored to the left, overlay frame aligned bottom-right and sized up to 95% */}
-      <div className="relative min-h-[380px] md:min-h-full w-full bg-white overflow-hidden">
-        {/* Base Image (Mirrored horizontally to the left) */}
-        <div className="reveal reveal-scale absolute inset-0 w-full h-full" style={{ transitionDelay: "100ms" }}>
-          <img
-            src={introImg}
-            alt="Motherhood background pattern"
-            className="w-full h-full object-cover scale-x-[-1]"
-          />
-        </div>
-        {/* Frame / Overlay Image (Aligned bottom-right and increased size) */}
-        <div 
-          className="reveal reveal-right absolute right-0 bottom-0 w-[95%] h-[95%] pointer-events-none z-10" 
-          style={{ transitionDelay: "350ms" }}
-        >
-          <img
-            src={introOverlayImg}
-            alt="Visual frame overlay"
-            className="w-full h-full object-contain object-bottom-right"
-          />
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Therapists() {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [showAll, setShowAll] = useState(false);
-
-  useEffect(() => {
-    const els = document.querySelectorAll("#therapists .reveal");
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            e.target.classList.add("reveal-in");
-            io.unobserve(e.target);
-          }
-        });
-      },
-      { threshold: 0.05 },
-    );
-    els.forEach((el) => io.observe(el));
-    return () => io.disconnect();
-  }, [searchQuery, showAll]);
-
-  const filteredTherapists = THERAPISTS.filter((t) => {
-    const query = searchQuery.toLowerCase().trim();
-    if (!query) return true;
-
-    return (
-      t.name.toLowerCase().includes(query) ||
-      t.role.toLowerCase().includes(query) ||
-      t.lang.toLowerCase().includes(query) ||
-      t.tags.some((tag) => tag.toLowerCase().includes(query))
-    );
-  });
-
-  const displayedTherapists = showAll ? filteredTherapists : filteredTherapists.slice(0, 3);
-
-  return (
-    <section
-      id="therapists"
-      className="relative z-10 bg-background pt-16 pb-16 sm:pt-24 sm:pb-16 border-t border-border/40"
-    >
-      <div className="mx-auto max-w-6xl px-6">
-        <h2 className="reveal reveal-up text-center font-display text-4xl sm:text-5xl">
-          How can we <span className="text-rose">help you?</span>
-        </h2>
-
-        {/* Search Option */}
-        <div className="reveal reveal-up mx-auto mt-8 max-w-md relative" style={{ transitionDelay: "100ms" }}>
-          <div className="relative">
-            <input
-              type="text"
-              placeholder="Search by name, specialty, language, or tags..."
-              value={searchQuery}
-              onChange={(e) => {
-                setSearchQuery(e.target.value);
-                setShowAll(false);
-              }}
-              className="w-full rounded-2xl border border-border/70 bg-card px-5 py-3.5 pl-12 text-sm shadow-soft outline-none transition-all duration-300 focus:border-rose focus:ring-2 focus:ring-rose/20 placeholder:text-foreground/45"
-            />
-            <svg
-              className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-foreground/40"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              />
-            </svg>
-            {searchQuery && (
-              <button
-                onClick={() => setSearchQuery("")}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-foreground/40 hover:text-foreground transition-colors cursor-pointer"
-              >
-                <svg
-                  className="h-5 w-5"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              </button>
-            )}
-          </div>
-        </div>
-
-        <div className="mt-14 grid gap-7 md:grid-cols-2 lg:grid-cols-3">
-          {displayedTherapists.map((t, idx) => {
-            return (
-              <div
-                key={t.name}
-                className="reveal reveal-up group overflow-hidden rounded-[1.75rem] bg-card shadow-soft transition hover:-translate-y-1 hover:shadow-lift"
-                style={{ transitionDelay: `${idx * 120}ms` }}
-              >
-                <div
-                  className="relative flex items-end gap-4 px-6 pt-6"
-                  style={{ backgroundColor: t.bg }}
-                >
-                  <div className="flex-1 pb-5">
-                    <h3 className="font-display text-xl leading-tight">{t.name}</h3>
-                    <div className="mt-1 text-sm text-foreground/70">{t.role}</div>
-                  </div>
-                  {t.img ? (
-                    <div className="h-32 w-28 rounded-t-2xl overflow-hidden">
-                      <img
-                        src={t.img}
-                        alt={t.name}
-                        width={800}
-                        height={800}
-                        loading="lazy"
-                        className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-110"
-                      />
-                    </div>
-                  ) : (
-                    <div className="h-32 w-28 rounded-t-2xl bg-white/60 flex items-center justify-center font-display text-4xl text-rose font-bold transition-transform duration-500 group-hover:scale-110">
-                      {t.name.charAt(0)}
-                    </div>
-                  )}
-                </div>
-
-                <div className="space-y-4 p-6">
-                  <div className="flex flex-wrap gap-1.5">
-                    {t.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="rounded-full border border-border/70 px-2.5 py-1 text-[11px] text-foreground/65"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div className="grid grid-cols-3 gap-3 border-t border-border/60 pt-4 text-center">
-                    <div>
-                      <div className="font-display text-lg text-rose">{t.hours}</div>
-                      <div className="text-[11px] uppercase tracking-wide text-foreground/50">
-                        Therapy hrs
-                      </div>
-                    </div>
-                    <div>
-                      <div className="font-display text-[13px] leading-tight">{t.lang}</div>
-                      <div className="text-[11px] uppercase tracking-wide text-foreground/50">
-                        Languages
-                      </div>
-                    </div>
-                    <div>
-                      <div className="font-display text-lg text-coconut">{t.price}</div>
-                      <div className="text-[11px] uppercase tracking-wide text-foreground/50">
-                        Per session
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="flex flex-col gap-3 rounded-2xl bg-[var(--ivory-deep)] px-4 py-3">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <div className="text-[11px] uppercase tracking-wide text-foreground/55">
-                          Next available in
-                        </div>
-                        <div className="font-display text-lg">{t.next}</div>
-                      </div>
-                      <button className="rounded-full bg-foreground px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.14em] text-background transition hover:bg-rose cursor-pointer">
-                        Book Now
-                      </button>
-                    </div>
-                    <Link
-                      to="/doctor-profile/$id"
-                      params={{ id: String(t.id) }}
-                      className="block text-center rounded-xl border border-foreground/15 py-2.5 text-xs font-semibold uppercase tracking-[0.14em] text-foreground/70 transition hover:bg-foreground hover:text-background hover:border-foreground cursor-pointer"
-                    >
-                      View Profile
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-
-        {/* No Results State */}
-        {filteredTherapists.length === 0 && (
-          <div className="reveal reveal-up mt-14 text-center py-12 px-6 rounded-2xl bg-card border border-border/50 shadow-soft">
-            <div className="text-rose text-3xl font-display uppercase">No therapists found</div>
-            <p className="mt-2 text-sm text-foreground/50">
-              Try adjusting your search keywords.
-            </p>
-            <button
-              onClick={() => {
-                setSearchQuery("");
-              }}
-              className="mt-5 inline-flex items-center gap-2 rounded-full bg-rose px-6 py-2.5 text-xs font-semibold uppercase tracking-[0.14em] text-white transition hover:bg-rose/90 cursor-pointer"
-            >
-              Reset Search
-            </button>
-          </div>
-        )}
-
-        {/* View More/Less Button */}
-        {filteredTherapists.length > 3 && (
-          <div className="reveal reveal-up mt-12 flex justify-center" style={{ transitionDelay: "150ms" }}>
-            <button
-              onClick={() => setShowAll(!showAll)}
-              className="inline-flex items-center gap-2 rounded-full border-2 border-rose bg-white px-7 py-3 text-sm font-semibold uppercase tracking-[0.14em] text-rose transition-all duration-300 hover:bg-rose hover:text-white cursor-pointer shadow-soft hover:shadow-lift"
-            >
-              {showAll ? "View Less" : "View More"}
-            </button>
-          </div>
-        )}
-      </div>
-    </section>
-  );
-}
-
-
-
-/* ---------- Care features (paired rows) ---------- */
-const FEATURE_PAIRS = [
-  [
-    {
-      title: "Late-night companion",
-      tag: "AI Care",
-      desc: "An always-on listener trained in maternal mental health, in your tongue.",
-      readMore: "An AI companion trained in maternal mental health, available 24/7. Whether it's 2 AM or a stressful afternoon, she speaks Malayalam, Tamil, Hindi, and English to support you without judgement.",
-      bg: "var(--rose)",
-      light: false,
-    },
-    {
-      title: "Therapist matching",
-      tag: "Human",
-      desc: "Hand-picked certified therapists, matched in under a day.",
-      readMore: "Get matched with certified perinatal therapists in Kerala in under 24 hours. We align candidates with your language, budget, schedule, and specific maternal wellness needs.",
-      bg: "oklch(0.97 0.01 60)",
-      light: true,
-    },
-  ],
-  [
-    {
-      title: "Family circle",
-      tag: "Together",
-      desc: "Invite your partner, parents and in-laws into the same care plan.",
-      readMore: "Invite your partner, parents, or friends into your care space. Share check-ins, access coordinated guidelines, and receive helpful prompts to navigate postpartum recovery as a family.",
-      bg: "oklch(0.96 0.01 240)",
-      light: true,
-    },
-    {
-      title: "Private by design",
-      tag: "Safe",
-      desc: "End-to-end encrypted. Your story never leaves your circle.",
-      readMore: "End-to-end encrypted chats, diary entries, and therapist notes. Stored securely on zero-knowledge servers, your data belongs exclusively to you and is never shared or sold.",
-      bg: "oklch(0.32 0.09 295)",
-      light: false,
-    },
-  ],
-];
-
-function FeatureCard({
-  title, tag, desc, readMore, bg, light,
-}: {
-  title: string; tag: string; desc: string; readMore: string; bg: string; light: boolean;
-}) {
-  const [hovered, setHovered] = useState(false);
-
+/* ---------- Shared bits ---------- */
+function Eyebrow({ children, light = false }: { children: React.ReactNode; light?: boolean }) {
   return (
     <div
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      className="flex flex-col justify-between transition-all duration-300"
-      style={{
-        background: bg,
-        padding: "48px 40px 40px",
-        position: "relative",
-        overflow: "hidden",
-        minHeight: "360px",
-        flex: 1,
-        transform: hovered ? "translateY(-4px)" : "translateY(0)",
-        boxShadow: hovered 
-          ? "0 20px 40px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.08)" 
-          : "none",
-      }}
+      className={`text-xs font-bold uppercase tracking-[0.2em] ${
+        light ? "text-[var(--sage-200)]" : "text-[var(--clay)]"
+      }`}
     >
-      {/* Subtle radial glow */}
-      <div style={{ position: "absolute", inset: 0, opacity: 0.12, background: "radial-gradient(circle at 25% 25%, white 0%, transparent 65%)", pointerEvents: "none" }} />
-
-      <div style={{ position: "relative", zIndex: 1, flex: 1, display: "flex", flexDirection: "column" }}>
-        <div>
-          <span style={{
-            display: "inline-block",
-            borderRadius: "99px",
-            padding: "4px 14px",
-            fontSize: "0.7rem",
-            fontWeight: 700,
-            letterSpacing: "0.1em",
-            textTransform: "uppercase",
-            marginBottom: "20px",
-            background: light ? "rgba(0,0,0,0.08)" : "rgba(255,255,255,0.2)",
-            backdropFilter: "blur(8px)",
-            color: light ? "rgba(0,0,0,0.55)" : "white",
-            transition: "all 0.3s ease",
-          }}>
-            {hovered ? "More Details" : tag}
-          </span>
-        </div>
-
-        <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center" }}>
-          {!hovered ? (
-            <div style={{ animation: "fadeInUp 0.25s ease-out" }}>
-              <h3 style={{
-                fontFamily: "var(--font-display)",
-                fontSize: "clamp(1.6rem, 3vw, 2.2rem)",
-                fontWeight: 500,
-                letterSpacing: "-0.02em",
-                lineHeight: 1.2,
-                textTransform: "uppercase",
-                color: light ? "var(--foreground)" : "white",
-                margin: "0 0 16px 0",
-              }}>
-                {title}
-              </h3>
-
-              <p style={{
-                fontSize: "1rem",
-                lineHeight: 1.65,
-                color: light ? "rgba(0,0,0,0.6)" : "rgba(255,255,255,0.88)",
-                margin: 0,
-                maxWidth: "380px",
-              }}>
-                {desc}
-              </p>
-            </div>
-          ) : (
-            <div style={{ animation: "fadeInUp 0.25s ease-out" }}>
-              <h4 style={{
-                fontFamily: "var(--font-display)",
-                fontSize: "0.8rem",
-                fontWeight: 700,
-                letterSpacing: "0.08em",
-                textTransform: "uppercase",
-                color: light ? "rgba(0,0,0,0.45)" : "rgba(255,255,255,0.45)",
-                margin: "0 0 12px 0",
-              }}>
-                {title}
-              </h4>
-              <p style={{
-                fontSize: "0.92rem",
-                lineHeight: 1.65,
-                color: light ? "rgba(0,0,0,0.7)" : "rgba(255,255,255,0.85)",
-                margin: 0,
-                maxWidth: "380px",
-              }}>
-                {readMore}
-              </p>
-            </div>
-          )}
-        </div>
-      </div>
-
-      <style dangerouslySetInnerHTML={{ __html: `
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(8px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-      `}} />
+      {children}
     </div>
   );
 }
 
-function renderFeatureGraphic(index: number) {
-  switch (index) {
-    case 0:
-      return (
-        <div className="relative w-48 h-48">
-          <div
-            className="absolute top-4 left-4 w-36 h-36 rounded-full bg-transparent"
-            style={{ boxShadow: "-22px 22px 0 0 oklch(0.75 0.1 45)" }}
-          />
-          <div className="absolute top-2 right-6 w-3 h-3 rounded-full bg-rose animate-pulse" />
-          <div className="absolute top-12 right-2 w-1.5 h-1.5 rounded-full bg-sunset" />
-          <div className="absolute bottom-6 left-12 w-2 h-2 rounded-full bg-rose animate-bounce" />
-          <div className="absolute bottom-2 right-12 w-3.5 h-3.5 rounded-full bg-coconut opacity-70" />
-        </div>
-      );
-    case 1:
-      return (
-        <div className="relative w-48 h-48 flex items-center justify-center">
-          <div className="absolute w-28 h-28 rounded-full bg-rose/10 -translate-x-8" />
-          <div className="absolute w-28 h-28 rounded-full bg-sunset/15 translate-x-8" />
-          <div className="absolute w-12 h-12 rounded-full bg-[oklch(0.52_0.05_150)]/20 -translate-y-12 animate-pulse" />
-          <div className="absolute w-20 h-0.5 bg-gradient-to-r from-rose to-sunset" />
-        </div>
-      );
-    case 2:
-      return (
-        <div className="relative w-48 h-48 flex items-center justify-center">
-          <div
-            className="absolute w-36 h-36 rounded-full border-2 border-dashed border-rose/30"
-            style={{ animation: "spin 25s linear infinite" }}
-          />
-          <div className="absolute w-28 h-28 rounded-full border-2 border-sunset/40" />
-          <div className="absolute w-20 h-20 rounded-full bg-gradient-to-br from-rose/20 to-sunset/20" />
-          <div className="absolute w-8 h-8 rounded-full bg-rose" />
-        </div>
-      );
-    case 3:
-      return (
-        <div className="relative w-56 h-36 flex items-center justify-around gap-1.5">
-          {[40, 70, 100, 60, 80, 50, 90, 60, 40].map((h, idx) => (
-            <div
-              key={idx}
-              className="w-2.5 rounded-full bg-gradient-to-t from-[oklch(0.48_0.07_240)] to-rose"
-              style={{
-                height: `${h}%`,
-                opacity: 0.25 + (idx % 3) * 0.3,
-                animation: "floatImage 4s infinite ease-in-out",
-                animationDelay: `${idx * 0.15}s`,
-              }}
-            />
-          ))}
-        </div>
-      );
-    case 4:
-      return (
-        <div className="relative w-48 h-48 flex items-center justify-center">
-          <div
-            className="absolute w-36 h-36 rounded-full border border-[oklch(0.62_0.1_320)]/20"
-            style={{ animation: "ping 4s cubic-bezier(0, 0, 0.2, 1) infinite" }}
-          />
-          <div className="absolute w-24 h-24 rounded-full border-2 border-[oklch(0.62_0.1_320)]/40" />
-          <div className="absolute w-12 h-12 rounded-full bg-[oklch(0.62_0.1_320)] text-white grid place-items-center">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
-              <path d="M15.54 8.46a5 5 0 0 1 0 7.07M19.07 4.93a10 10 0 0 1 0 14.14" />
-            </svg>
-          </div>
-        </div>
-      );
-    case 5:
-      return (
-        <div className="relative w-48 h-48 flex items-center justify-center">
-          <div className="absolute w-32 h-32 rounded-3xl bg-[oklch(0.3_0.02_60)]/5 rotate-12" />
-          <div className="absolute w-28 h-28 rounded-3xl bg-[oklch(0.3_0.02_60)]/10 -rotate-12" />
-          <div className="w-16 h-20 bg-gradient-to-b from-rose to-sunset rounded-2xl relative shadow-soft flex items-center justify-center">
-            <div className="w-8 h-8 rounded-full border-4 border-white absolute -top-5" />
-            <div className="w-2.5 h-2.5 rounded-full bg-white mt-1" />
-            <div className="w-1 h-4 bg-white mt-3 absolute" />
-          </div>
-        </div>
-      );
-    default:
-      return null;
-  }
+function PullQuote({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+  return (
+    <blockquote
+      className={`reveal reveal-up relative mx-auto max-w-3xl border-l-4 border-[var(--sage-400)] pl-6 text-left font-display text-xl leading-snug text-[var(--forest)] sm:text-2xl ${className}`}
+    >
+      {children}
+    </blockquote>
+  );
 }
 
-function Care() {
+/* ---------- 2. The human problem ---------- */
+function HumanProblem() {
   return (
-    <section id="care" className="relative z-10 bg-background pt-16 pb-28">
-      {/* Centered Header */}
-      <div className="mx-auto max-w-6xl px-6">
-        <div className="reveal reveal-up mx-auto max-w-3xl text-center">
-          <h2 className="font-display text-4xl leading-tight sm:text-5xl">
-            Care that <span className="text-rose">breathes with you.</span>
+    <section
+      id="problem"
+      className="relative z-10 rounded-t-[2.5rem] sm:rounded-t-[4rem] bg-[var(--sage-50)] px-6 pt-20 pb-20 sm:pt-28 shadow-[0_-24px_50px_-20px_rgba(0,0,0,0.25)]"
+    >
+      <div className="mx-auto grid max-w-6xl gap-12 md:grid-cols-2 md:gap-16">
+        <div className="reveal reveal-left">
+          <Eyebrow>The human problem</Eyebrow>
+          <h2 className="mt-4 font-display text-4xl leading-tight text-[var(--forest-deep)] sm:text-5xl">
+            Families care. <span className="text-[var(--forest)]">Distance creates discontinuity.</span>
           </h2>
         </div>
-      </div>
-
-      {/* Paired feature rows */}
-      <div className="mt-20 flex flex-col">
-        {FEATURE_PAIRS.map((pair, rowIdx) => (
-          <div
-            key={rowIdx}
-            className="reveal reveal-up grid grid-cols-1 md:grid-cols-2 w-full overflow-hidden border-y border-border/10"
-            style={{ transitionDelay: `${rowIdx * 120}ms` }}
-          >
-            {pair.map((feature) => (
-              <FeatureCard key={feature.title} {...feature} />
-            ))}
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-
-
-
-
-/* ---------- CTA ---------- */
-function FinalCta() {
-  return (
-    <section className="relative z-10 bg-background py-28">
-      <div className="mx-auto max-w-5xl px-6">
-        <div
-          className="reveal reveal-scale relative overflow-hidden rounded-[2.5rem] p-12 text-center shadow-lift sm:p-20"
-          style={{ background: "var(--gradient-sunset)" }}
-        >
-          <img
-            src={blobRose}
-            alt=""
-            aria-hidden
-            className="reveal reveal-scale pointer-events-none absolute -left-20 -top-20 w-96 opacity-30"
-            style={{ transitionDelay: "150ms" }}
-          />
-          <div className="absolute -right-20 -bottom-32 h-96 w-96 rounded-full bg-white/20 blur-3xl" />
-          <div className="relative">
-            <h2 
-              className="reveal reveal-up font-display text-4xl text-white leading-tight sm:text-6xl"
-              style={{ transitionDelay: "250ms" }}
-            >
-              You don't have to <em className="italic">carry this alone.</em>
-            </h2>
-            <p 
-              className="reveal reveal-up mx-auto mt-6 max-w-xl text-lg text-white/85"
-              style={{ transitionDelay: "350ms" }}
-            >
-              Begin with one conversation. We'll meet you exactly where you are.
-            </p>
-            <div 
-              className="reveal reveal-up mt-9 flex flex-wrap items-center justify-center gap-3"
-              style={{ transitionDelay: "450ms" }}
-            >
-              <a
-                href="#talk"
-                className="rounded-full bg-white px-7 py-4 text-foreground font-medium shadow-soft transition hover:-translate-y-0.5"
-              >
-                Start with Nalora — free
-              </a>
-              <a
-                href="#care"
-                className="rounded-full border border-white/40 px-7 py-4 text-white font-medium hover:bg-white/10 transition"
-              >
-                Talk to a therapist
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Footer() {
-  return (
-    <footer
-      id="footer"
-      className="relative z-10 border-t border-border bg-[var(--ivory-deep)] py-14"
-    >
-      <div className="mx-auto grid max-w-6xl gap-10 px-6 md:grid-cols-4">
-        <div className="reveal reveal-up">
-          <div className="flex items-center gap-2">
-            <span className="grid h-9 w-9 place-items-center rounded-full bg-[var(--gradient-sunset)] text-white font-display">
-              n
-            </span>
-            <span className="font-display text-xl">nalora</span>
-          </div>
-          <p className="mt-4 text-sm text-foreground/60 max-w-xs">
-            Emotional support for motherhood. Rooted in Kerala, built for every home.
+        <div className="reveal reveal-right space-y-5 text-[1.02rem] leading-relaxed text-foreground/75" style={{ transitionDelay: "150ms" }}>
+          <p>
+            Many older adults have families who care deeply about them. But children and loved ones
+            may live in different cities, States or countries, have demanding schedules, or simply
+            find it difficult to maintain regular conversations.
+          </p>
+          <p>
+            Ageing can also bring changes in identity, role, autonomy, social networks, purpose and
+            opportunities for meaningful conversation. Retirement may change daily routines, while
+            familiar colleagues and social networks may become less present.
           </p>
         </div>
-        {[
-          ["Care", ["Late-night support", "Therapist matching", "Family circle", "Library"]],
-          ["Company", ["Our story", "Therapists", "Careers", "Press"]],
-          ["Support", ["Help centre", "Privacy", "Terms", "Contact"]],
-        ].map(([h, items], idx) => (
-          <div 
-            key={h as string} 
-            className="reveal reveal-up"
-            style={{ transitionDelay: `${100 + idx * 100}ms` }}
-          >
-            <div className="font-display text-sm uppercase tracking-[0.16em] text-foreground/60">
-              {h}
+      </div>
+
+      <div className="mx-auto mt-16 max-w-6xl">
+        <PullQuote>
+          The problem is not always absence of love. It is often absence of continuity.
+        </PullQuote>
+        <p className="reveal reveal-up mx-auto mt-6 max-w-3xl pl-7 text-foreground/70" style={{ transitionDelay: "120ms" }}>
+          Nalora explores whether technology can create an additional layer of consistent
+          connection without replacing family relationships or human care.
+        </p>
+      </div>
+    </section>
+  );
+}
+
+/* ---------- 3. What is Nalora ---------- */
+const TOPICS = [
+  "Life experiences",
+  "Memories",
+  "Achievements",
+  "Meaning & purpose",
+  "Relationships",
+  "Interests",
+  "Gratitude",
+  "Daily experiences",
+  "Cognitive & reflective activities",
+  "Belonging",
+  "Enjoyment of everyday life",
+];
+
+function WhatIsNalora() {
+  return (
+    <section id="what-is-nalora" className="relative z-10 grid grid-cols-1 md:grid-cols-2">
+      <div className="relative flex flex-col justify-center bg-[var(--forest)] px-8 py-20 text-white sm:py-28 md:px-16 lg:px-24">
+        <div className="pointer-events-none absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_30%_30%,white_0%,transparent_60%)]" />
+        <div className="relative z-10 max-w-xl">
+          <Eyebrow light>What is Nalora?</Eyebrow>
+          <h2 className="reveal reveal-left mt-4 font-display text-4xl leading-tight sm:text-5xl">
+            A continuous emotional connection layer for <span className="text-[var(--sage-200)]">ageing.</span>
+          </h2>
+          <p className="reveal reveal-left mt-8 text-[1.05rem] leading-relaxed text-white/90" style={{ transitionDelay: "150ms" }}>
+            Nalora is designed around a simple idea: consistent conversation can become a meaningful
+            part of everyday wellbeing. Its first product is an AI voice agent capable of making
+            scheduled telephone calls to registered older adults.
+          </p>
+          <p className="reveal reveal-left mt-8 border-l-4 border-[var(--sage-200)] pl-5 font-display text-lg leading-snug text-white" style={{ transitionDelay: "300ms" }}>
+            Nalora does not try to replace human connection. It uses technology to help make
+            meaningful connection more continuous.
+          </p>
+        </div>
+      </div>
+
+      <div className="flex flex-col justify-center bg-[var(--sage-100)] px-8 py-20 sm:py-28 md:px-14 lg:px-20">
+        <div className="reveal reveal-right max-w-lg">
+          <div className="flex items-center gap-3 text-[var(--forest)]">
+            <MessagesSquare size={22} />
+            <span className="font-display text-lg">Conversations can explore</span>
+          </div>
+          <div className="mt-6 flex flex-wrap gap-2.5">
+            {TOPICS.map((t, i) => (
+              <span
+                key={t}
+                className="reveal reveal-scale rounded-full border border-[var(--sage-400)]/50 bg-white px-4 py-2 text-sm font-medium text-[var(--forest-deep)] shadow-soft"
+                style={{ transitionDelay: `${150 + i * 50}ms` }}
+              >
+                {t}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------- 4. The Nalora experience ---------- */
+const STEPS = [
+  { n: "01", title: "Connect", desc: "The user registers and chooses preferences such as language, calling time and conversation interests.", icon: Settings2 },
+  { n: "02", title: "Converse", desc: "Nalora makes a scheduled voice call and engages the older adult in a natural conversation.", icon: Phone },
+  { n: "03", title: "Remember", desc: "Relevant memories, interests and preferences can provide context for future conversations.", icon: Repeat },
+  { n: "04", title: "Engage", desc: "Conversations may include reflection, life stories, interests, cognitive activities and meaningful prompts.", icon: Lightbulb },
+  { n: "05", title: "Support", desc: "Defined human-review pathways allow trained professionals to provide human attention when appropriate.", icon: HeartHandshake },
+];
+
+function Experience() {
+  return (
+    <section id="experience" className="relative z-10 bg-[var(--sage-50)] px-6 py-24 sm:py-28">
+      <div className="mx-auto max-w-6xl">
+        <div className="reveal reveal-up mx-auto max-w-3xl text-center">
+          <Eyebrow>The Nalora experience</Eyebrow>
+          <h2 className="mt-4 font-display text-4xl leading-tight text-[var(--forest-deep)] sm:text-5xl">
+            A conversation that becomes <span className="text-[var(--forest)]">more meaningful over time.</span>
+          </h2>
+        </div>
+
+        <ol className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
+          {STEPS.map(({ n, title, desc, icon: Icon }, idx) => (
+            <li
+              key={n}
+              className="reveal reveal-up group relative flex flex-col rounded-[1.75rem] border border-border bg-white p-6 shadow-soft transition hover:-translate-y-1 hover:shadow-lift"
+              style={{ transitionDelay: `${idx * 100}ms` }}
+            >
+              <div className="flex items-center justify-between">
+                <span className="font-display text-sm font-bold tracking-wider text-[var(--clay)]">{n}</span>
+                <span className="grid h-10 w-10 place-items-center rounded-full bg-[var(--sage-100)] text-[var(--forest)] transition group-hover:bg-[var(--forest)] group-hover:text-white">
+                  <Icon size={18} />
+                </span>
+              </div>
+              <h3 className="mt-5 font-display text-xl text-[var(--forest-deep)]">{title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-foreground/70">{desc}</p>
+            </li>
+          ))}
+        </ol>
+
+        <p className="reveal reveal-up mx-auto mt-14 max-w-2xl text-center font-display text-xl leading-snug text-[var(--forest)] sm:text-2xl">
+          The intelligence is not only in answering questions. It is in maintaining continuity.
+        </p>
+      </div>
+    </section>
+  );
+}
+
+/* ---------- 5. What might Nalora talk about? ---------- */
+const PROMPTS = [
+  { tag: "Life stories", text: "What is one experience from your life that you are especially proud of?" },
+  { tag: "Memory", text: "You mentioned your garden last week. Did you get a chance to spend time with your plants this week?" },
+  { tag: "Reflection", text: "Looking back, what is one decision you made that shaped your life in an important way?" },
+  { tag: "Meaning", text: "If you could teach one lesson from your life to a younger person, what would it be?" },
+  { tag: "Everyday life", text: "What was one small thing that made you smile today?" },
+  { tag: "Cognitive engagement", text: "Let's try a short activity together and see what you remember." },
+];
+
+function Conversations() {
+  return (
+    <section id="conversations" className="relative z-10 bg-[var(--sage-100)] px-6 py-24 sm:py-28">
+      <div className="mx-auto max-w-6xl">
+        <div className="reveal reveal-up mx-auto max-w-3xl text-center">
+          <Eyebrow>Conversation examples</Eyebrow>
+          <h2 className="mt-4 font-display text-4xl leading-tight text-[var(--forest-deep)] sm:text-5xl">
+            What might <span className="text-[var(--forest)]">Nalora talk about?</span>
+          </h2>
+        </div>
+
+        <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {PROMPTS.map(({ tag, text }, idx) => {
+            const dark = idx === 1 || idx === 5;
+            return (
+              <figure
+                key={tag}
+                className={`reveal reveal-up relative flex flex-col justify-between rounded-[1.75rem] p-8 shadow-soft transition hover:-translate-y-1 hover:shadow-lift ${
+                  dark ? "bg-[var(--forest)] text-white" : "bg-white text-[var(--forest-deep)]"
+                }`}
+                style={{ transitionDelay: `${idx * 90}ms`, minHeight: "220px" }}
+              >
+                <Quote size={28} className={dark ? "text-[var(--sage-200)]/60" : "text-[var(--sage-400)]"} />
+                <blockquote className="mt-4 font-display text-lg leading-snug">“{text}”</blockquote>
+                <figcaption
+                  className={`mt-6 inline-flex w-fit rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-[0.12em] ${
+                    dark ? "bg-white/15 text-[var(--sage-200)]" : "bg-[var(--sage-100)] text-[var(--clay)]"
+                  }`}
+                >
+                  {tag}
+                </figcaption>
+              </figure>
+            );
+          })}
+        </div>
+
+        <p className="reveal reveal-up mx-auto mt-12 max-w-3xl text-center text-sm italic text-foreground/60">
+          These examples illustrate the intended character of the conversations: memory + continuity
+          + reflection + dignity + personalisation.
+        </p>
+      </div>
+    </section>
+  );
+}
+
+/* ---------- 6. Built with psychology ---------- */
+const FRAMEWORKS = [
+  "Positive psychology",
+  "Socioemotional selectivity",
+  "Erikson's psychosocial development",
+  "Life review",
+  "Reminiscence",
+  "Meaning-making",
+  "Self-determination",
+  "Narrative identity",
+  "Social connectedness",
+  "Psychological wellbeing",
+  "Generativity",
+  "Strength-based approaches",
+];
+
+function Psychology() {
+  return (
+    <section id="approach" className="relative z-10 bg-[var(--sage-50)] px-6 py-24 sm:py-28">
+      <div className="mx-auto grid max-w-6xl items-start gap-12 md:grid-cols-[1fr_1.1fr] md:gap-16">
+        <div className="reveal reveal-left">
+          <Eyebrow>Our approach</Eyebrow>
+          <h2 className="mt-4 font-display text-4xl leading-tight text-[var(--forest-deep)] sm:text-5xl">
+            Built with psychology. <span className="text-[var(--forest)]">Delivered through technology.</span>
+          </h2>
+          <p className="mt-6 leading-relaxed text-foreground/75">
+            Nalora is psychologically informed rather than medically positioned. Its conversation
+            design draws on perspectives from across psychology.
+          </p>
+          <p className="mt-6 rounded-2xl border border-[var(--sage-400)]/40 bg-[var(--sage-100)] p-5 text-sm leading-relaxed text-foreground/75">
+            These frameworks inform conversation themes and engagement mechanisms. Their practical
+            value within the Nalora experience is intended to be evaluated through structured
+            validation.
+          </p>
+        </div>
+
+        <div className="reveal reveal-right flex flex-wrap gap-3" style={{ transitionDelay: "150ms" }}>
+          {FRAMEWORKS.map((f, i) => (
+            <span
+              key={f}
+              className="reveal reveal-scale inline-flex items-center gap-2 rounded-2xl border border-border bg-white px-4 py-3 text-sm font-medium text-[var(--forest-deep)] shadow-soft"
+              style={{ transitionDelay: `${150 + i * 40}ms` }}
+            >
+              <Brain size={15} className="text-[var(--sage-400)]" />
+              {f}
+            </span>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------- 7. AI + Psychology + Human oversight ---------- */
+const PILLARS = [
+  {
+    title: "AI",
+    icon: Bot,
+    desc: "Scheduled calls, conversational engagement, personalised prompts, memory and preference continuity, reflective questions, activities, summaries and routine check-ins.",
+  },
+  {
+    title: "Psychology",
+    icon: Brain,
+    desc: "Conversation frameworks, engagement principles and intervention boundaries.",
+  },
+  {
+    title: "Human oversight",
+    icon: UserCheck,
+    desc: "Risk review, escalation, quality monitoring, referrals and human follow-up.",
+  },
+];
+
+function Oversight() {
+  return (
+    <section id="oversight" className="relative z-10 bg-[var(--forest-deep)] px-6 py-24 text-white sm:py-28">
+      <div className="mx-auto max-w-6xl">
+        <div className="reveal reveal-up mx-auto max-w-3xl text-center">
+          <Eyebrow light>AI + Psychology + Human oversight</Eyebrow>
+          <h2 className="mt-4 font-display text-4xl leading-tight sm:text-5xl">
+            AI provides continuity. <span className="text-[var(--sage-200)]">Humans provide care.</span>
+          </h2>
+          <p className="mt-6 leading-relaxed text-white/75">
+            Nalora is deliberately designed as a human-in-the-loop system. AI can provide scale,
+            consistency and conversational continuity, while trained professionals remain
+            responsible for the psychological framework, quality monitoring, risk review, escalation
+            protocols, appropriate referrals and human follow-up when required.
+          </p>
+        </div>
+
+        <div className="mt-14 grid gap-6 md:grid-cols-3">
+          {PILLARS.map(({ title, icon: Icon, desc }, idx) => (
+            <div
+              key={title}
+              className="reveal reveal-up rounded-[1.75rem] border border-white/10 bg-white/5 p-8 backdrop-blur"
+              style={{ transitionDelay: `${idx * 120}ms` }}
+            >
+              <span className="grid h-12 w-12 place-items-center rounded-2xl bg-[var(--sage-200)] text-[var(--forest-deep)]">
+                <Icon size={22} />
+              </span>
+              <h3 className="mt-6 font-display text-2xl">{title}</h3>
+              <p className="mt-3 leading-relaxed text-white/75">{desc}</p>
             </div>
-            <ul className="mt-4 space-y-2.5 text-sm">
-              {(items as string[]).map((i) => (
-                <li key={i}>
-                  <a href="#" className="text-foreground/75 hover:text-rose transition">
-                    {i}
-                  </a>
+          ))}
+        </div>
+
+        <p className="reveal reveal-up mx-auto mt-14 max-w-2xl text-center font-display text-xl leading-snug text-[var(--sage-200)] sm:text-2xl">
+          Technology should augment human care, never impersonate human care.
+        </p>
+      </div>
+    </section>
+  );
+}
+
+/* ---------- 8. Keeping families connected ---------- */
+const SIGNALS = [
+  "Conversation frequency and engagement consistency",
+  "General emotional tone and themes",
+  "Activities completed and positive experiences",
+  "Social engagement indicators",
+  "Changes from previous weeks",
+  "Areas that may require attention",
+  "Suggested follow-up where appropriate",
+];
+
+function Families() {
+  return (
+    <section id="families" className="relative z-10 bg-[var(--sage-50)] px-6 py-24 sm:py-28">
+      <div className="mx-auto grid max-w-6xl items-center gap-12 md:grid-cols-2 md:gap-16">
+        <div className="reveal reveal-left">
+          <Eyebrow>Keeping families connected</Eyebrow>
+          <h2 className="mt-4 font-display text-4xl leading-tight text-[var(--forest-deep)] sm:text-5xl">
+            A window into wellbeing — <span className="text-[var(--forest)]">not a window into private conversations.</span>
+          </h2>
+          <p className="mt-6 leading-relaxed text-foreground/75">
+            Nalora is designed to include a digital dashboard for authorised family members,
+            relatives or primary caregivers. With appropriate consent and privacy safeguards, the
+            dashboard can provide a structured view of engagement and wellbeing-related signals
+            without unnecessarily exposing private conversation content.
+          </p>
+          <p className="mt-6 italic text-[var(--clay)]">
+            The intention is to help families stay connected, not to turn care into surveillance.
+          </p>
+        </div>
+
+        <div className="reveal reveal-right rounded-[2rem] border border-border bg-white p-7 shadow-lift sm:p-9" style={{ transitionDelay: "150ms" }}>
+          <div className="flex items-center gap-3 border-b border-border pb-5">
+            <span className="grid h-11 w-11 place-items-center rounded-full bg-[var(--sage-100)] text-[var(--forest)]">
+              <Users size={20} />
+            </span>
+            <div>
+              <div className="font-display text-lg text-[var(--forest-deep)]">Family dashboard</div>
+              <div className="text-xs text-foreground/55">With consent · privacy safeguarded</div>
+            </div>
+            <ShieldCheck size={20} className="ml-auto text-[var(--sage-400)]" />
+          </div>
+          <ul className="mt-5 space-y-3.5">
+            {SIGNALS.map((s) => (
+              <li key={s} className="flex items-start gap-3 text-[0.95rem] text-foreground/80">
+                <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-[var(--sage-200)] text-[var(--forest-deep)]">
+                  <Check size={12} strokeWidth={3} />
+                </span>
+                {s}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------- 9. What Nalora is — and is not ---------- */
+const IS = [
+  "A voice-based AI conversation system for regular interaction",
+  "Psychologically informed",
+  "Designed for longitudinal personalisation",
+  "Human-in-the-loop",
+  "Focused on connection, reflection and engagement",
+  "Designed around consent, privacy, dignity and autonomy",
+];
+const IS_NOT = [
+  "An AI therapist",
+  "A diagnostic system",
+  "A medical treatment platform",
+  "A replacement for psychologists or doctors",
+  "A replacement for caregivers",
+  "A replacement for family relationships",
+];
+
+function IsAndIsNot() {
+  return (
+    <section id="is-and-is-not" className="relative z-10 bg-[var(--sage-100)] px-6 py-24 sm:py-28">
+      <div className="mx-auto max-w-6xl">
+        <div className="reveal reveal-up text-center">
+          <Eyebrow>Clarity matters</Eyebrow>
+          <h2 className="mt-4 font-display text-4xl leading-tight text-[var(--forest-deep)] sm:text-5xl">
+            What Nalora is — <span className="text-[var(--forest)]">and is not</span>
+          </h2>
+        </div>
+
+        <div className="mt-14 grid gap-6 md:grid-cols-2">
+          <div className="reveal reveal-left rounded-[2rem] bg-[var(--forest)] p-8 text-white shadow-lift sm:p-10">
+            <h3 className="font-display text-2xl">Nalora is</h3>
+            <ul className="mt-6 space-y-4">
+              {IS.map((s) => (
+                <li key={s} className="flex items-start gap-3 leading-snug">
+                  <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[var(--sage-200)] text-[var(--forest-deep)]">
+                    <Check size={14} strokeWidth={3} />
+                  </span>
+                  {s}
                 </li>
               ))}
             </ul>
           </div>
-        ))}
+
+          <div className="reveal reveal-right rounded-[2rem] border border-border bg-white p-8 shadow-soft sm:p-10" style={{ transitionDelay: "120ms" }}>
+            <h3 className="font-display text-2xl text-[var(--clay)]">Nalora is not</h3>
+            <ul className="mt-6 space-y-4">
+              {IS_NOT.map((s) => (
+                <li key={s} className="flex items-start gap-3 leading-snug text-foreground/80">
+                  <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[var(--clay)]/15 text-[var(--clay)]">
+                    <X size={14} strokeWidth={3} />
+                  </span>
+                  {s}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
       </div>
-      <div 
-        className="reveal reveal-up mx-auto mt-12 max-w-6xl px-6 text-xs text-foreground/50"
-        style={{ transitionDelay: "450ms" }}
-      >
-        © {new Date().getFullYear()} Nalora Care. Made with care in Kerala.
+    </section>
+  );
+}
+
+/* ---------- 10 + 11. Pilot and next experiment ---------- */
+const VALIDATION = [
+  "Engagement and call completion",
+  "Retention and frequency preference",
+  "Satisfaction and conversation quality",
+  "Safety and reliability",
+  "Human escalation mechanisms",
+  "Family satisfaction",
+  "Unit economics",
+];
+
+function Validation() {
+  return (
+    <section id="pilot" className="relative z-10 bg-[var(--sage-50)] px-6 py-24 sm:py-28">
+      <div className="mx-auto max-w-6xl">
+        <div className="reveal reveal-up mx-auto max-w-3xl text-center">
+          <Eyebrow>Evidence, carefully</Eyebrow>
+          <h2 className="mt-4 font-display text-4xl leading-tight text-[var(--forest-deep)] sm:text-5xl">
+            We started with people, <span className="text-[var(--forest)]">not technology.</span>
+          </h2>
+        </div>
+
+        <div className="mt-14 grid gap-6 md:grid-cols-2">
+          {/* Completed human-led pilot */}
+          <article className="reveal reveal-left flex flex-col rounded-[2rem] border border-border bg-white p-8 shadow-soft sm:p-10">
+            <span className="w-fit rounded-full bg-[var(--sage-100)] px-3 py-1 text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--forest)]">
+              Completed · Early human-led pilot
+            </span>
+            <div className="mt-6 flex items-baseline gap-3">
+              <span className="font-display text-6xl text-[var(--forest)]">10</span>
+              <span className="text-foreground/65">older adults</span>
+            </div>
+            <p className="mt-5 leading-relaxed text-foreground/75">
+              Nalora began with a small human-led pilot. Psychology postgraduate students were
+              trained before conducting scheduled telephone conversations focused on wellbeing,
+              reflection and engagement.
+            </p>
+            <p className="mt-4 leading-relaxed text-foreground/75">
+              Participants were receptive and engaged naturally with the conversations. Some began
+              expecting and anticipating the calls, providing an encouraging early signal that older
+              adults may be willing to engage with recurring, structured conversations.
+            </p>
+            <p className="mt-auto pt-6 font-display text-[var(--forest)]">
+              This is early behavioural validation — not evidence of clinical efficacy.
+            </p>
+          </article>
+
+          {/* Planned AI voice pilot */}
+          <article className="reveal reveal-right flex flex-col rounded-[2rem] bg-[var(--forest)] p-8 text-white shadow-lift sm:p-10" style={{ transitionDelay: "120ms" }}>
+            <span className="w-fit rounded-full bg-white/15 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--sage-200)]">
+              Next · AI voice pilot
+            </span>
+            <h3 className="mt-6 font-display text-2xl leading-snug">
+              From human-led conversations to an AI voice pilot.
+            </h3>
+            <div className="mt-6 grid grid-cols-3 gap-3 text-center">
+              {[
+                ["~200", "older adults"],
+                ["1×–7×", "calls a week"],
+                ["5–20", "minutes a call"],
+              ].map(([v, l]) => (
+                <div key={l} className="rounded-2xl bg-white/10 px-2 py-4">
+                  <div className="font-display text-2xl text-[var(--sage-200)]">{v}</div>
+                  <div className="mt-1 text-[11px] uppercase tracking-wide text-white/65">{l}</div>
+                </div>
+              ))}
+            </div>
+            <p className="mt-6 leading-relaxed text-white/80">
+              The next planned validation phase is designed to scale the behavioural test to
+              approximately 200 older adults using an AI voice agent. Calls may be offered once,
+              twice, three times a week or daily, depending on user preference and product design.
+              Conversations may typically last around 5–20 minutes.
+            </p>
+          </article>
+        </div>
+
+        <div className="reveal reveal-up mt-10 rounded-[2rem] border border-border bg-[var(--sage-100)] p-8 sm:p-10">
+          <h3 className="font-display text-xl text-[var(--forest-deep)]">The validation will examine</h3>
+          <div className="mt-5 flex flex-wrap gap-2.5">
+            {VALIDATION.map((v) => (
+              <span key={v} className="rounded-full border border-[var(--sage-400)]/50 bg-white px-4 py-2 text-sm text-[var(--forest-deep)]">
+                {v}
+              </span>
+            ))}
+          </div>
+          <p className="mt-6 font-semibold text-[var(--clay)]">
+            We are building carefully, testing with people and learning before scaling.
+          </p>
+        </div>
       </div>
-    </footer>
+    </section>
+  );
+}
+
+/* ---------- 12. Why it matters ---------- */
+const WHY = [
+  {
+    title: "For older adults",
+    icon: Sprout,
+    desc: "Regular conversation, reflection, feeling heard, meaningful engagement, memory sharing, cognitive engagement and continuity.",
+  },
+  {
+    title: "For families",
+    icon: Users,
+    desc: "An additional layer of connection despite geographical distance, with appropriate visibility where consent permits.",
+  },
+  {
+    title: "For society",
+    icon: Globe,
+    desc: "A human-centred application of AI that explores ageing with connection, meaning and dignity.",
+  },
+];
+
+function WhyItMatters() {
+  return (
+    <section id="why" className="relative z-10 bg-[var(--sage-100)] px-6 py-24 sm:py-28">
+      <div className="mx-auto max-w-6xl">
+        <div className="reveal reveal-up text-center">
+          <Eyebrow>Why it matters</Eyebrow>
+          <h2 className="mt-4 font-display text-4xl leading-tight text-[var(--forest-deep)] sm:text-5xl">
+            Connection, meaning <span className="text-[var(--forest)]">and dignity.</span>
+          </h2>
+        </div>
+        <div className="mt-14 grid gap-6 md:grid-cols-3">
+          {WHY.map(({ title, icon: Icon, desc }, idx) => (
+            <div
+              key={title}
+              className="reveal reveal-up rounded-[1.75rem] border border-border bg-white p-8 shadow-soft transition hover:-translate-y-1 hover:shadow-lift"
+              style={{ transitionDelay: `${idx * 120}ms` }}
+            >
+              <span className="grid h-12 w-12 place-items-center rounded-2xl bg-[var(--sage-100)] text-[var(--forest)]">
+                <Icon size={22} />
+              </span>
+              <h3 className="mt-6 font-display text-2xl text-[var(--forest-deep)]">{title}</h3>
+              <p className="mt-3 leading-relaxed text-foreground/70">{desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------- 13 + 14. Vision and call to action ---------- */
+function VisionAndCta() {
+  return (
+    <section id="vision" className="relative z-10 bg-[var(--sage-50)] px-6 py-24 sm:py-28">
+      <div className="mx-auto max-w-5xl">
+        <div className="reveal reveal-up text-center">
+          <Eyebrow>Our vision</Eyebrow>
+          <p className="mx-auto mt-5 max-w-3xl font-display text-3xl leading-snug text-[var(--forest-deep)] sm:text-4xl">
+            A future where ageing does not mean becoming socially invisible.
+          </p>
+          <p className="mt-5 font-display text-lg text-[var(--clay)]">
+            Helping people age with connection, meaning and dignity.
+          </p>
+        </div>
+
+        <div
+          className="reveal reveal-scale relative mt-20 overflow-hidden rounded-[2.5rem] p-10 text-center shadow-lift sm:p-16"
+          style={{ background: "var(--gradient-sunset)" }}
+        >
+          <div className="pointer-events-none absolute -left-24 -top-24 h-80 w-80 rounded-full bg-[var(--sage-400)]/25 blur-3xl" />
+          <div className="pointer-events-none absolute -right-20 -bottom-32 h-96 w-96 rounded-full bg-white/15 blur-3xl" />
+          <div className="relative">
+            <h2 className="font-display text-4xl leading-tight text-white sm:text-5xl">
+              Stay connected to the <em className="italic text-[var(--sage-200)]">Nalora journey.</em>
+            </h2>
+            <p className="mx-auto mt-6 max-w-2xl text-lg text-white/85">
+              We are building Nalora carefully — with psychology, technology and human oversight at
+              the centre. If you are an older adult, a family member, caregiver, senior-care
+              organisation or potential partner, we would like to hear from you.
+            </p>
+            <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
+              <Link
+                to="/contact"
+                className="rounded-full bg-white px-7 py-4 font-medium text-[var(--forest-deep)] shadow-soft transition hover:-translate-y-0.5"
+              >
+                Talk to Us
+              </Link>
+              <Link
+                to="/create-account"
+                className="rounded-full border border-white/40 px-7 py-4 font-medium text-white transition hover:bg-white/10"
+              >
+                Explore Early Access
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -2144,11 +2076,18 @@ function Index() {
       <Nav />
       <Hero />
       <div style={{ height: "100vh", minHeight: "650px", pointerEvents: "none" }} />
+      <HumanProblem />
       <WhatIsNalora />
-      <Therapists />
-      <Care />
-      <FinalCta />
-      <Footer />
+      <Experience />
+      <Conversations />
+      <Psychology />
+      <Oversight />
+      <Families />
+      <IsAndIsNot />
+      <Validation />
+      <WhyItMatters />
+      <VisionAndCta />
+      <SiteFooter animated />
     </main>
   );
 }

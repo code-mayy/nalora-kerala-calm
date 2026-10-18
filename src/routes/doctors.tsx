@@ -151,14 +151,14 @@ function DoctorCard({ doc }: { doc: Doctor }) {
       style={{
         background: "white",
         borderRadius: "22px",
-        border: "1px solid oklch(0.92 0.02 55)",
+        border: "1px solid oklch(0.92 0.02 145)",
         overflow: "hidden",
         display: "flex",
         flexDirection: "column",
         transition: "transform 0.25s, box-shadow 0.25s",
         transform: hovered ? "translateY(-5px)" : "translateY(0)",
         boxShadow: hovered
-          ? "0 24px 60px oklch(0.74 0.11 18 / 0.13)"
+          ? "0 24px 60px oklch(0.55 0.08 158 / 0.13)"
           : "0 2px 12px oklch(0 0 0 / 0.04)",
       }}
     >
@@ -214,7 +214,7 @@ function DoctorCard({ doc }: { doc: Doctor }) {
               fontWeight: 700,
               letterSpacing: "0.08em",
               textTransform: "uppercase",
-              color: "oklch(0.45 0.06 18)",
+              color: "oklch(0.45 0.048 160)",
               marginBottom: "5px",
             }}
           >
@@ -222,10 +222,10 @@ function DoctorCard({ doc }: { doc: Doctor }) {
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
             <Stars rating={doc.rating} />
-            <span style={{ fontSize: "0.78rem", color: "oklch(0.5 0.01 60)", fontWeight: 600 }}>
+            <span style={{ fontSize: "0.78rem", color: "oklch(0.5 0.01 150)", fontWeight: 600 }}>
               {doc.rating}
             </span>
-            <span style={{ fontSize: "0.72rem", color: "oklch(0.65 0.01 60)" }}>
+            <span style={{ fontSize: "0.72rem", color: "oklch(0.65 0.01 150)" }}>
               ({doc.reviews})
             </span>
           </div>
@@ -275,8 +275,8 @@ function DoctorCard({ doc }: { doc: Doctor }) {
                 fontSize: "0.7rem",
                 padding: "4px 10px",
                 borderRadius: "99px",
-                background: "oklch(0.96 0.02 18)",
-                color: "oklch(0.42 0.08 18)",
+                background: "oklch(0.96 0.02 145)",
+                color: "oklch(0.42 0.064 160)",
                 fontWeight: 500,
               }}
             >
@@ -291,10 +291,10 @@ function DoctorCard({ doc }: { doc: Doctor }) {
             justifyContent: "space-between",
             alignItems: "center",
             paddingTop: "10px",
-            borderTop: "1px solid oklch(0.94 0.01 60)",
+            borderTop: "1px solid oklch(0.94 0.01 150)",
           }}
         >
-          <span style={{ fontSize: "0.76rem", color: "oklch(0.58 0.01 60)" }}>
+          <span style={{ fontSize: "0.76rem", color: "oklch(0.58 0.01 150)" }}>
             🌐 {doc.languages.join(", ")}
           </span>
           <span style={{ fontSize: "1rem", fontWeight: 700, color: "var(--charcoal)" }}>
@@ -314,7 +314,7 @@ function DoctorCard({ doc }: { doc: Doctor }) {
             <div
               style={{
                 fontSize: "0.68rem",
-                color: "oklch(0.65 0.01 60)",
+                color: "oklch(0.65 0.01 150)",
                 textTransform: "uppercase",
                 letterSpacing: "0.07em",
                 marginBottom: "2px",
@@ -339,7 +339,7 @@ function DoctorCard({ doc }: { doc: Doctor }) {
                 textDecoration: "none",
                 transition: "opacity 0.2s",
                 whiteSpace: "nowrap",
-                boxShadow: "0 4px 16px oklch(0.74 0.11 18 / 0.28)",
+                boxShadow: "0 4px 16px oklch(0.55 0.08 158 / 0.28)",
               }}
             >
               Book →
@@ -391,7 +391,7 @@ function DoctorsPage() {
         <div
           style={{
             background:
-              "linear-gradient(160deg, oklch(0.96 0.03 18) 0%, oklch(0.97 0.025 55) 60%, oklch(0.96 0.02 145) 100%)",
+              "linear-gradient(160deg, oklch(0.96 0.03 145) 0%, oklch(0.97 0.025 145) 60%, oklch(0.96 0.02 145) 100%)",
             padding: "56px 24px 40px",
             textAlign: "center",
           }}
@@ -423,7 +423,7 @@ function DoctorsPage() {
           <p
             style={{
               fontSize: "0.95rem",
-              color: "oklch(0.55 0.01 60)",
+              color: "oklch(0.55 0.01 150)",
               maxWidth: "480px",
               margin: "0 auto 36px",
               lineHeight: 1.75,
@@ -441,7 +441,7 @@ function DoctorsPage() {
                 left: "18px",
                 top: "50%",
                 transform: "translateY(-50%)",
-                color: "oklch(0.65 0.01 60)",
+                color: "oklch(0.65 0.01 150)",
                 pointerEvents: "none",
               }}
               width="18"
@@ -464,20 +464,20 @@ function DoctorsPage() {
                 width: "100%",
                 padding: "16px 20px 16px 50px",
                 borderRadius: "16px",
-                border: "1.5px solid oklch(0.88 0.02 55)",
+                border: "1.5px solid oklch(0.88 0.02 145)",
                 background: "white",
                 fontSize: "0.95rem",
                 color: "var(--charcoal)",
                 outline: "none",
                 boxSizing: "border-box",
-                boxShadow: "0 4px 24px oklch(0.74 0.11 18 / 0.07)",
+                boxShadow: "0 4px 24px oklch(0.55 0.08 158 / 0.07)",
                 transition: "border-color 0.2s",
               }}
               onFocus={(e) => {
                 e.target.style.borderColor = "var(--rose)";
               }}
               onBlur={(e) => {
-                e.target.style.borderColor = "oklch(0.88 0.02 55)";
+                e.target.style.borderColor = "oklch(0.88 0.02 145)";
               }}
             />
           </div>
@@ -490,7 +490,7 @@ function DoctorsPage() {
               style={{
                 fontSize: "0.75rem",
                 fontWeight: 700,
-                color: "oklch(0.55 0.01 60)",
+                color: "oklch(0.55 0.01 150)",
                 letterSpacing: "0.08em",
                 textTransform: "uppercase",
                 marginRight: "4px",
@@ -506,9 +506,9 @@ function DoctorsPage() {
                   padding: "7px 15px",
                   borderRadius: "99px",
                   border: "1.5px solid",
-                  borderColor: activeSpec === spec ? "var(--rose)" : "oklch(0.88 0.02 55)",
-                  background: activeSpec === spec ? "oklch(0.74 0.11 18 / 0.09)" : "white",
-                  color: activeSpec === spec ? "var(--rose)" : "oklch(0.5 0.01 60)",
+                  borderColor: activeSpec === spec ? "var(--rose)" : "oklch(0.88 0.02 145)",
+                  background: activeSpec === spec ? "oklch(0.55 0.08 158 / 0.09)" : "white",
+                  color: activeSpec === spec ? "var(--rose)" : "oklch(0.5 0.01 150)",
                   fontSize: "0.78rem",
                   fontWeight: activeSpec === spec ? 700 : 400,
                   cursor: "pointer",
@@ -520,7 +520,7 @@ function DoctorsPage() {
             ))}
           </div>
 
-          <div style={{ marginTop: "12px", fontSize: "0.8rem", color: "oklch(0.6 0.01 60)" }}>
+          <div style={{ marginTop: "12px", fontSize: "0.8rem", color: "oklch(0.6 0.01 150)" }}>
             Showing {filtered.length} professional{filtered.length !== 1 ? "s" : ""}
             {activeSpec !== "All" ? ` for "${activeSpec}"` : ""}
             {search ? ` matching "${search}"` : ""}
@@ -531,7 +531,7 @@ function DoctorsPage() {
         <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "24px 24px 80px" }}>
           {filtered.length === 0 ? (
             <div
-              style={{ textAlign: "center", padding: "80px 20px", color: "oklch(0.55 0.01 60)" }}
+              style={{ textAlign: "center", padding: "80px 20px", color: "oklch(0.55 0.01 150)" }}
             >
               <div style={{ fontSize: "3rem", marginBottom: "14px" }}>🔍</div>
               <p style={{ fontSize: "1rem" }}>

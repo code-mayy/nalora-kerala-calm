@@ -204,7 +204,7 @@ function DoctorDiaryPatient() {
       <div
         style={{
           minHeight: "100vh",
-          background: "oklch(0.985 0.005 240)",
+          background: "oklch(0.985 0.005 165)",
           fontFamily: "var(--font-sans)",
         }}
       >
@@ -219,7 +219,7 @@ function DoctorDiaryPatient() {
               alignItems: "center",
               gap: "6px",
               textDecoration: "none",
-              color: "oklch(0.5 0.04 200)",
+              color: "oklch(0.5 0.04 165)",
               fontSize: "0.85rem",
               fontWeight: 600,
             }}
@@ -248,7 +248,7 @@ function DoctorDiaryPatient() {
                 background: "white",
                 padding: "28px",
                 borderRadius: "24px",
-                border: "1px solid oklch(0.92 0.01 240)",
+                border: "1px solid oklch(0.92 0.01 165)",
                 boxShadow: "0 4px 20px oklch(0 0 0 / 0.01)",
               }}
             >
@@ -256,7 +256,7 @@ function DoctorDiaryPatient() {
                 style={{
                   textAlign: "center",
                   paddingBottom: "16px",
-                  borderBottom: "1px solid oklch(0.95 0.01 240)",
+                  borderBottom: "1px solid oklch(0.95 0.01 165)",
                   marginBottom: "16px",
                 }}
               >
@@ -266,10 +266,10 @@ function DoctorDiaryPatient() {
                     height: "56px",
                     borderRadius: "50%",
                     background:
-                      "linear-gradient(135deg, oklch(0.4 0.03 240 / 0.15), oklch(0.5 0.04 200 / 0.15))",
+                      "linear-gradient(135deg, oklch(0.4 0.03 165 / 0.15), oklch(0.5 0.04 165 / 0.15))",
                     display: "grid",
                     placeItems: "center",
-                    color: "oklch(0.4 0.03 240)",
+                    color: "oklch(0.4 0.03 165)",
                     fontFamily: "var(--font-display)",
                     fontSize: "1.3rem",
                     fontWeight: 700,
@@ -292,7 +292,7 @@ function DoctorDiaryPatient() {
                   {info.name}
                 </h2>
                 <p
-                  style={{ fontSize: "0.84rem", color: "oklch(0.55 0.01 240)", margin: "4px 0 0" }}
+                  style={{ fontSize: "0.84rem", color: "oklch(0.55 0.01 165)", margin: "4px 0 0" }}
                 >
                   {info.gender} · {info.age} years old
                 </p>
@@ -305,7 +305,7 @@ function DoctorDiaryPatient() {
                       display: "block",
                       fontSize: "0.75rem",
                       fontWeight: 700,
-                      color: "oklch(0.55 0.01 240)",
+                      color: "oklch(0.55 0.01 165)",
                       textTransform: "uppercase",
                       letterSpacing: "0.05em",
                     }}
@@ -322,7 +322,7 @@ function DoctorDiaryPatient() {
                       display: "block",
                       fontSize: "0.75rem",
                       fontWeight: 700,
-                      color: "oklch(0.55 0.01 240)",
+                      color: "oklch(0.55 0.01 165)",
                       textTransform: "uppercase",
                       letterSpacing: "0.05em",
                     }}
@@ -342,7 +342,7 @@ function DoctorDiaryPatient() {
                       display: "block",
                       fontSize: "0.75rem",
                       fontWeight: 700,
-                      color: "oklch(0.55 0.01 240)",
+                      color: "oklch(0.55 0.01 165)",
                       textTransform: "uppercase",
                       letterSpacing: "0.05em",
                     }}
@@ -353,7 +353,7 @@ function DoctorDiaryPatient() {
                     {info.bystanderName}
                   </span>
                   <div
-                    style={{ fontSize: "0.82rem", color: "oklch(0.55 0.01 240)", marginTop: "2px" }}
+                    style={{ fontSize: "0.82rem", color: "oklch(0.55 0.01 165)", marginTop: "2px" }}
                   >
                     {info.bystanderPhone}
                   </div>
@@ -370,7 +370,7 @@ function DoctorDiaryPatient() {
                 background: "white",
                 padding: "32px",
                 borderRadius: "24px",
-                border: "1px solid oklch(0.92 0.01 240)",
+                border: "1px solid oklch(0.92 0.01 165)",
                 boxShadow: "0 4px 20px oklch(0 0 0 / 0.01)",
               }}
             >
@@ -410,8 +410,8 @@ function DoctorDiaryPatient() {
                     height: "110px",
                     padding: "14px 16px",
                     borderRadius: "12px",
-                    border: "1.5px solid oklch(0.88 0.02 240)",
-                    background: "oklch(0.985 0.003 240)",
+                    border: "1.5px solid oklch(0.88 0.02 165)",
+                    background: "oklch(0.985 0.003 165)",
                     fontSize: "0.92rem",
                     color: "var(--charcoal)",
                     outline: "none",
@@ -422,10 +422,10 @@ function DoctorDiaryPatient() {
                     transition: "border-color 0.2s",
                   }}
                   onFocus={(e) => {
-                    e.target.style.borderColor = "oklch(0.4 0.03 240)";
+                    e.target.style.borderColor = "oklch(0.4 0.03 165)";
                   }}
                   onBlur={(e) => {
-                    e.target.style.borderColor = "oklch(0.88 0.02 240)";
+                    e.target.style.borderColor = "oklch(0.88 0.02 165)";
                   }}
                 />
 
@@ -436,13 +436,13 @@ function DoctorDiaryPatient() {
                       padding: "10px 24px",
                       borderRadius: "10px",
                       border: "none",
-                      background: "oklch(0.4 0.03 240)",
+                      background: "oklch(0.4 0.03 165)",
                       color: "white",
                       fontWeight: 700,
                       fontSize: "0.88rem",
                       cursor: "pointer",
                       transition: "all 0.2s",
-                      boxShadow: "0 4px 12px oklch(0.4 0.03 240 / 0.15)",
+                      boxShadow: "0 4px 12px oklch(0.4 0.03 165 / 0.15)",
                     }}
                   >
                     Add to Clinical Timeline
@@ -457,7 +457,7 @@ function DoctorDiaryPatient() {
                 background: "white",
                 padding: "32px",
                 borderRadius: "24px",
-                border: "1px solid oklch(0.92 0.01 240)",
+                border: "1px solid oklch(0.92 0.01 165)",
                 boxShadow: "0 4px 20px oklch(0 0 0 / 0.01)",
               }}
             >
@@ -477,7 +477,7 @@ function DoctorDiaryPatient() {
                   style={{
                     textAlign: "center",
                     padding: "40px 10px",
-                    color: "oklch(0.55 0.01 240)",
+                    color: "oklch(0.55 0.01 165)",
                   }}
                 >
                   <span style={{ fontSize: "2rem" }}>📓</span>
@@ -503,7 +503,7 @@ function DoctorDiaryPatient() {
                       top: "10px",
                       bottom: "10px",
                       width: "1.5px",
-                      background: "oklch(0.9 0.01 240)",
+                      background: "oklch(0.9 0.01 165)",
                     }}
                   />
 
@@ -519,7 +519,7 @@ function DoctorDiaryPatient() {
                           height: "11px",
                           borderRadius: "50%",
                           background: "white",
-                          border: "2px solid oklch(0.4 0.03 240)",
+                          border: "2px solid oklch(0.4 0.03 165)",
                           boxShadow: "0 0 0 4px white",
                         }}
                       />
@@ -543,15 +543,15 @@ function DoctorDiaryPatient() {
                           >
                             {log.date}
                           </span>
-                          <span style={{ fontSize: "0.78rem", color: "oklch(0.55 0.01 240)" }}>
+                          <span style={{ fontSize: "0.78rem", color: "oklch(0.55 0.01 165)" }}>
                             {log.timestamp}
                           </span>
                           <span
                             style={{
                               fontSize: "0.76rem",
                               fontWeight: 600,
-                              color: "oklch(0.5 0.04 200)",
-                              background: "oklch(0.96 0.01 240)",
+                              color: "oklch(0.5 0.04 165)",
+                              background: "oklch(0.96 0.01 165)",
                               padding: "1px 6px",
                               borderRadius: "4px",
                             }}
@@ -564,7 +564,7 @@ function DoctorDiaryPatient() {
                         <p
                           style={{
                             fontSize: "0.92rem",
-                            color: "oklch(0.3 0.01 240)",
+                            color: "oklch(0.3 0.01 165)",
                             margin: "8px 0 0",
                             lineHeight: 1.5,
                             whiteSpace: "pre-wrap",

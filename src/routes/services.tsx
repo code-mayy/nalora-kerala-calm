@@ -1,62 +1,76 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { InnerNav } from "@/components/InnerNav";
+import { SiteFooter } from "@/components/SiteFooter";
 
 export const Route = createFileRoute("/services")({
   head: () => ({
     meta: [
-      { title: "Our Services – Nalora" },
+      { title: "How Nalora Works – Nalora" },
       {
         name: "description",
         content:
-          "Explore Nalora's postpartum care services including 24/7 AI chat support, professional therapist matching, family circles, and vernacular libraries.",
+          "Scheduled AI voice conversations, memory and continuity, a consent-based family dashboard and human review — how Nalora supports older adults.",
       },
     ],
   }),
   component: ServicesPage,
 });
 
-function Footer() {
-  return (
-    <footer className="border-t border-border bg-[var(--ivory-deep)] py-14">
-      <div className="mx-auto grid max-w-6xl gap-10 px-6 md:grid-cols-4">
-        <div>
-          <div className="flex items-center gap-2">
-            <span className="grid h-9 w-9 place-items-center rounded-full bg-[var(--gradient-sunset)] text-white font-display">
-              n
-            </span>
-            <span className="font-display text-xl">nalora</span>
-          </div>
-          <p className="mt-4 text-sm text-foreground/60 max-w-xs">
-            Emotional support for motherhood. Rooted in Kerala, built for every home.
-          </p>
-        </div>
-        {[
-          ["Care", ["Late-night support", "Therapist matching", "Family circle", "Library"]],
-          ["Company", ["Our story", "Therapists", "Careers", "Press"]],
-          ["Support", ["Help centre", "Privacy", "Terms", "Contact"]],
-        ].map(([h, items]) => (
-          <div key={h as string}>
-            <div className="font-display text-sm uppercase tracking-[0.16em] text-foreground/60">
-              {h}
-            </div>
-            <ul className="mt-4 space-y-2.5 text-sm">
-              {(items as string[]).map((i) => (
-                <li key={i}>
-                  <a href="#" className="text-foreground/75 hover:text-rose transition">
-                    {i}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
-      <div className="mx-auto mt-12 max-w-6xl px-6 text-xs text-foreground/50">
-        © {new Date().getFullYear()} Nalora Care. Made with care in Kerala.
-      </div>
-    </footer>
-  );
-}
+const SERVICES = [
+  {
+    title: "Scheduled Voice Conversations",
+    desc: "Nalora's first product is an AI voice agent that makes scheduled telephone calls to registered older adults. Calls may be offered once, twice, three times a week or daily, and typically last around 5–20 minutes.",
+    benefits: ["Telephone-based", "Your preferred time", "Your preferred language"],
+    icon: "📞",
+    color: "var(--sage-100)",
+  },
+  {
+    title: "Memory & Continuity",
+    desc: "Relevant memories, interests and preferences can provide context for future conversations — so each call can build on the last, and conversations become more meaningful over time.",
+    benefits: ["Longitudinal personalisation", "Interests remembered", "Conversations that build"],
+    icon: "🌱",
+    color: "var(--sage-200)",
+  },
+  {
+    title: "Meaningful Engagement",
+    desc: "Conversations may include reflection, life stories, interests, cognitive activities and meaningful prompts — psychologically informed by perspectives such as life review, reminiscence and meaning-making.",
+    benefits: ["Life stories & reflection", "Cognitive activities", "Gratitude & everyday joys"],
+    icon: "💬",
+    color: "oklch(0.95 0.03 145)",
+  },
+  {
+    title: "Family Dashboard",
+    desc: "A digital dashboard for authorised family members, relatives or primary caregivers. With appropriate consent and privacy safeguards, it shows engagement and wellbeing-related signals without unnecessarily exposing private conversation content.",
+    benefits: ["Consent-based", "Wellbeing signals, not transcripts", "Suggested follow-up"],
+    icon: "👨‍👩‍👧",
+    color: "var(--sage-100)",
+  },
+  {
+    title: "Human Review & Escalation",
+    desc: "Nalora is human-in-the-loop. Trained professionals remain responsible for the psychological framework, quality monitoring, risk review, escalation protocols, appropriate referrals and human follow-up when required.",
+    benefits: ["Risk review", "Escalation protocols", "Human follow-up"],
+    icon: "🤝",
+    color: "var(--sage-200)",
+  },
+];
+
+const STEPS = [
+  {
+    step: "1",
+    title: "Connect",
+    desc: "Register and choose preferences such as language, calling time and conversation interests.",
+  },
+  {
+    step: "2",
+    title: "Converse",
+    desc: "Nalora makes a scheduled voice call and engages in a natural, personalised conversation.",
+  },
+  {
+    step: "3",
+    title: "Support",
+    desc: "Defined human-review pathways allow trained professionals to provide attention when appropriate.",
+  },
+];
 
 function ServicesPage() {
   return (
@@ -66,8 +80,7 @@ function ServicesPage() {
       {/* Hero Section */}
       <section
         style={{
-          background:
-            "linear-gradient(160deg, oklch(0.96 0.02 145) 0%, oklch(0.97 0.025 55) 60%, oklch(0.96 0.03 18) 100%)",
+          background: "linear-gradient(160deg, var(--sage-100) 0%, var(--sage-50) 60%, var(--sage-200) 100%)",
           padding: "80px 24px 70px",
           textAlign: "center",
           position: "relative",
@@ -81,11 +94,11 @@ function ServicesPage() {
               fontWeight: 700,
               letterSpacing: "0.18em",
               textTransform: "uppercase",
-              color: "var(--rose)",
+              color: "var(--clay)",
               marginBottom: "12px",
             }}
           >
-            What We Offer
+            How Nalora Works
           </p>
           <h1
             style={{
@@ -97,21 +110,22 @@ function ServicesPage() {
               lineHeight: 1.15,
             }}
           >
-            Holistic Postpartum Care,
+            AI for connection.
             <br />
-            <em className="italic text-rose">Whenever You Need It</em>
+            <em className="italic text-rose">Humans for care.</em>
           </h1>
           <p
             style={{
               fontSize: "1.1rem",
-              color: "oklch(0.45 0.01 60)",
+              color: "oklch(0.45 0.01 150)",
               maxWidth: "600px",
               margin: "0 auto 40px",
               lineHeight: 1.8,
             }}
           >
-            Whether you need a late-night companion, direct counseling with maternal experts, or
-            family integration, we have customized services tailored for your journey.
+            Regular, personalised voice conversations that help older adults stay connected with
+            themselves, their memories, their relationships and their sense of meaning — with
+            trained professionals in the loop.
           </p>
         </div>
       </section>
@@ -122,63 +136,7 @@ function ServicesPage() {
           style={{ display: "grid", gridTemplateColumns: "1fr", gap: "40px" }}
           className="md:grid-cols-2"
         >
-          {[
-            {
-              title: "Late-Night Companion (AI Chat)",
-              desc: "An always-active, empathetic AI companion trained in maternal mental health. Available in local languages (Malayalam, Tamil, Kannada, Hindi) to answer your concerns, help you track symptoms, or simply listen to your story at 3 AM without judgment.",
-              benefits: [
-                "24/7 Availability",
-                "Vernacular Conversations",
-                "Perinatal Guidelines Trained",
-              ],
-              icon: "🌙",
-              color: "#E8F5E9",
-            },
-            {
-              title: "Perinatal Therapist Matching",
-              desc: "Direct virtual consultations with certified maternal mental health psychologists and perinatal psychiatrists. We assess your specific challenges (postpartum anxiety, baby blues, trauma, or relationship stress) and pair you with a specialist in under 24 hours.",
-              benefits: [
-                "Licensed Professionals Only",
-                "Tailored Matching Assessment",
-                "Secure Video/Audio Consults",
-              ],
-              icon: "🩺",
-              color: "#FFF3E0",
-            },
-            {
-              title: "Family Circle Integration",
-              desc: "Motherhood is a shared ecosystem. Nalora allows you to securely invite your partner, parents, or in-laws into your care plan, sharing updates, notifications, and guided educational tips so they know how to support you.",
-              benefits: [
-                "Partner Syncing",
-                "Support Coordination",
-                "Educational Guides for Family",
-              ],
-              icon: "👨‍👩‍👧‍👦",
-              color: "#E3F2FD",
-            },
-            {
-              title: "Recovery Rhythms & Tracking",
-              desc: "A beautiful, interactive space to log your daily sleep, mood shifts, anxiety levels, and baby's feeding cycles. The platform analyzes your patterns and offers gentle, personalized care tips to balance your body and mind.",
-              benefits: [
-                "Insightful Weekly Reports",
-                "Customized Health Nudges",
-                "Mood & Rest Correlation",
-              ],
-              icon: "📊",
-              color: "#FCE4EC",
-            },
-            {
-              title: "Vernacular Audio Library",
-              desc: "Access a rich repository of guided meditations, stories, and postpartum care techniques recorded by local experts in regional languages. Designed to fit into your brief moments of quiet throughout the day.",
-              benefits: [
-                "Traditional Wellness Insights",
-                "Guided Breathing & Relaxations",
-                "Malayalam & Regional Audio Guides",
-              ],
-              icon: "🎧",
-              color: "#EDE7F6",
-            },
-          ].map((s) => (
+          {SERVICES.map((s) => (
             <div
               key={s.title}
               style={{
@@ -227,7 +185,7 @@ function ServicesPage() {
                 </div>
                 <p
                   style={{
-                    color: "oklch(0.5 0.01 60)",
+                    color: "oklch(0.5 0.01 150)",
                     fontSize: "0.95rem",
                     lineHeight: 1.7,
                     marginBottom: "24px",
@@ -249,12 +207,12 @@ function ServicesPage() {
                     fontSize: "0.8rem",
                     textTransform: "uppercase",
                     letterSpacing: "0.08em",
-                    color: "oklch(0.6 0.01 60)",
+                    color: "oklch(0.6 0.01 150)",
                     marginBottom: "10px",
                     fontWeight: 700,
                   }}
                 >
-                  Key Benefits
+                  Key Features
                 </h4>
                 <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
                   {s.benefits.map((b) => (
@@ -262,7 +220,7 @@ function ServicesPage() {
                       key={b}
                       style={{
                         padding: "5px 12px",
-                        background: "oklch(0.975 0.01 60)",
+                        background: "var(--sage-50)",
                         borderRadius: "99px",
                         fontSize: "0.78rem",
                         color: "var(--charcoal)",
@@ -277,40 +235,50 @@ function ServicesPage() {
               </div>
             </div>
           ))}
+
+          {/* Boundaries card */}
+          <div
+            style={{
+              background: "var(--forest)",
+              color: "white",
+              padding: "40px",
+              borderRadius: "28px",
+              boxShadow: "var(--shadow-lift)",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+            }}
+          >
+            <h3 style={{ fontSize: "1.35rem", fontWeight: 600, fontFamily: "var(--font-sans)", margin: "0 0 16px" }}>
+              What Nalora is not
+            </h3>
+            <p style={{ color: "rgba(255,255,255,0.8)", fontSize: "0.95rem", lineHeight: 1.7, margin: 0 }}>
+              Nalora is psychologically informed rather than medically positioned. It is not an AI
+              therapist, a diagnostic system or a medical treatment platform — and it is not a
+              replacement for psychologists, doctors, caregivers or family relationships.
+            </p>
+            <p style={{ color: "var(--sage-200)", fontWeight: 600, margin: "20px 0 0" }}>
+              Technology should augment human care, never impersonate human care.
+            </p>
+          </div>
         </div>
       </section>
 
       {/* How It Works Section */}
-      <section style={{ background: "oklch(0.975 0.015 55)", padding: "80px 24px" }}>
+      <section style={{ background: "var(--sage-100)", padding: "80px 24px" }}>
         <div style={{ maxWidth: "900px", margin: "0 auto", textAlign: "center" }}>
           <h2 style={{ fontSize: "2.2rem", marginBottom: "16px", color: "var(--charcoal)" }}>
             How to <em className="italic text-rose">Get Started</em>
           </h2>
-          <p style={{ color: "oklch(0.5 0.01 60)", marginBottom: "48px" }}>
-            Begin your recovery in three simple steps.
+          <p style={{ color: "oklch(0.5 0.01 150)", marginBottom: "48px" }}>
+            A conversation that becomes more meaningful over time.
           </p>
 
           <div
             style={{ display: "grid", gridTemplateColumns: "1fr", gap: "30px" }}
             className="md:grid-cols-3"
           >
-            {[
-              {
-                step: "1",
-                title: "Setup Profile",
-                desc: "Create an account and answer a brief wellness assessment about your health history and preferences.",
-              },
-              {
-                step: "2",
-                title: "Customize Plan",
-                desc: "Get matched with a dedicated psychologist and invite family members to coordinate care.",
-              },
-              {
-                step: "3",
-                title: "Daily Check-ins",
-                desc: "Interact with our AI companion, log parameters, and attend virtual therapy sessions weekly.",
-              },
-            ].map((step) => (
+            {STEPS.map((step) => (
               <div
                 key={step.step}
                 style={{
@@ -352,7 +320,7 @@ function ServicesPage() {
                 >
                   {step.title}
                 </h3>
-                <p style={{ color: "oklch(0.5 0.01 60)", fontSize: "0.88rem", lineHeight: 1.6 }}>
+                <p style={{ color: "oklch(0.5 0.01 150)", fontSize: "0.88rem", lineHeight: 1.6 }}>
                   {step.desc}
                 </p>
               </div>
@@ -365,26 +333,26 @@ function ServicesPage() {
       <section style={{ padding: "100px 24px", textAlign: "center" }}>
         <div style={{ maxWidth: "650px", margin: "0 auto" }}>
           <h2 style={{ fontSize: "2.20rem", marginBottom: "16px", color: "var(--charcoal)" }}>
-            Let's customize <em className="italic text-rose">your plan</em>
+            Explore <em className="italic text-rose">early access</em>
           </h2>
-          <p style={{ color: "oklch(0.5 0.01 60)", marginBottom: "32px", lineHeight: 1.7 }}>
-            Your first week is entirely free. Start monitoring your progress and talking with our
-            guides today.
+          <p style={{ color: "oklch(0.5 0.01 150)", marginBottom: "32px", lineHeight: 1.7 }}>
+            We are building carefully, testing with people and learning before scaling. Register
+            your interest and we'll keep you updated on the next pilot.
           </p>
           <Link
-            to="/login"
+            to="/create-account"
             style={{
               display: "inline-flex",
               alignItems: "center",
               gap: "8px",
               padding: "14px 32px",
               borderRadius: "99px",
-              background: "linear-gradient(135deg, var(--rose), var(--sunset))",
+              background: "var(--gradient-sunset)",
               color: "white",
               fontSize: "0.95rem",
               fontWeight: 600,
               textDecoration: "none",
-              boxShadow: "0 6px 20px oklch(0.74 0.11 18 / 0.3)",
+              boxShadow: "0 6px 20px oklch(0.45 0.06 160 / 0.3)",
               transition: "transform 0.2s",
             }}
             onMouseEnter={(e) => {
@@ -394,12 +362,12 @@ function ServicesPage() {
               (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
             }}
           >
-            Start Free Trial
+            Explore Early Access
           </Link>
         </div>
       </section>
 
-      <Footer />
+      <SiteFooter />
     </div>
   );
 }

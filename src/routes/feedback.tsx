@@ -141,7 +141,7 @@ function ReviewCard({ session, onSubmit }: { session: Session; onSubmit: (id: nu
       style={{
         background: "white",
         borderRadius: "22px",
-        border: "1px solid oklch(0.92 0.02 55)",
+        border: "1px solid oklch(0.92 0.02 145)",
         overflow: "hidden",
         boxShadow: "0 2px 12px oklch(0 0 0 / 0.04)",
         transition: "box-shadow 0.25s",
@@ -178,7 +178,7 @@ function ReviewCard({ session, onSubmit }: { session: Session; onSubmit: (id: nu
                 width: "52px",
                 height: "52px",
                 borderRadius: "12px",
-                background: "oklch(0.96 0.02 18)",
+                background: "oklch(0.96 0.02 145)",
                 display: "grid",
                 placeItems: "center",
                 fontFamily: "var(--font-display)",
@@ -214,8 +214,8 @@ function ReviewCard({ session, onSubmit }: { session: Session; onSubmit: (id: nu
             </p>
           </div>
           <div style={{ textAlign: "right" }}>
-            <div style={{ fontSize: "0.76rem", color: "oklch(0.6 0.01 60)" }}>{session.date}</div>
-            <div style={{ fontSize: "0.76rem", color: "oklch(0.6 0.01 60)" }}>{session.time}</div>
+            <div style={{ fontSize: "0.76rem", color: "oklch(0.6 0.01 150)" }}>{session.date}</div>
+            <div style={{ fontSize: "0.76rem", color: "oklch(0.6 0.01 150)" }}>{session.time}</div>
           </div>
         </div>
 
@@ -256,7 +256,7 @@ function ReviewCard({ session, onSubmit }: { session: Session; onSubmit: (id: nu
             >
               Thank you for your feedback!
             </p>
-            <p style={{ fontSize: "0.82rem", color: "oklch(0.58 0.01 60)" }}>
+            <p style={{ fontSize: "0.82rem", color: "oklch(0.58 0.01 150)" }}>
               Your review helps us improve care for every mother.
             </p>
           </div>
@@ -271,7 +271,7 @@ function ReviewCard({ session, onSubmit }: { session: Session; onSubmit: (id: nu
                   fontWeight: 600,
                   letterSpacing: "0.05em",
                   textTransform: "uppercase",
-                  color: "oklch(0.5 0.01 60)",
+                  color: "oklch(0.5 0.01 150)",
                   marginBottom: "10px",
                 }}
               >
@@ -284,7 +284,7 @@ function ReviewCard({ session, onSubmit }: { session: Session; onSubmit: (id: nu
                     style={{
                       fontSize: "0.85rem",
                       fontWeight: 600,
-                      color: "oklch(0.55 0.07 55)",
+                      color: "oklch(0.55 0.07 145)",
                       animation: "fadeIn 0.2s ease",
                     }}
                   >
@@ -302,7 +302,7 @@ function ReviewCard({ session, onSubmit }: { session: Session; onSubmit: (id: nu
                   fontWeight: 600,
                   letterSpacing: "0.05em",
                   textTransform: "uppercase",
-                  color: "oklch(0.5 0.01 60)",
+                  color: "oklch(0.5 0.01 150)",
                   marginBottom: "10px",
                 }}
               >
@@ -317,9 +317,9 @@ function ReviewCard({ session, onSubmit }: { session: Session; onSubmit: (id: nu
                     style={{
                       padding: "7px 14px",
                       borderRadius: "99px",
-                      border: `1.5px solid ${tags.includes(tag) ? "var(--rose)" : "oklch(0.88 0.02 55)"}`,
-                      background: tags.includes(tag) ? "oklch(0.74 0.11 18 / 0.09)" : "white",
-                      color: tags.includes(tag) ? "var(--rose)" : "oklch(0.5 0.01 60)",
+                      border: `1.5px solid ${tags.includes(tag) ? "var(--rose)" : "oklch(0.88 0.02 145)"}`,
+                      background: tags.includes(tag) ? "oklch(0.55 0.08 158 / 0.09)" : "white",
+                      color: tags.includes(tag) ? "var(--rose)" : "oklch(0.5 0.01 150)",
                       fontSize: "0.78rem",
                       fontWeight: tags.includes(tag) ? 700 : 400,
                       cursor: "pointer",
@@ -341,7 +341,7 @@ function ReviewCard({ session, onSubmit }: { session: Session; onSubmit: (id: nu
                   fontWeight: 600,
                   letterSpacing: "0.05em",
                   textTransform: "uppercase",
-                  color: "oklch(0.5 0.01 60)",
+                  color: "oklch(0.5 0.01 150)",
                   display: "block",
                   marginBottom: "8px",
                 }}
@@ -357,8 +357,8 @@ function ReviewCard({ session, onSubmit }: { session: Session; onSubmit: (id: nu
                   width: "100%",
                   padding: "13px 16px",
                   borderRadius: "14px",
-                  border: "1.5px solid oklch(0.88 0.02 55)",
-                  background: "oklch(0.985 0.008 60)",
+                  border: "1.5px solid oklch(0.88 0.02 145)",
+                  background: "oklch(0.985 0.008 150)",
                   fontSize: "0.88rem",
                   color: "var(--charcoal)",
                   outline: "none",
@@ -372,13 +372,13 @@ function ReviewCard({ session, onSubmit }: { session: Session; onSubmit: (id: nu
                   e.target.style.borderColor = "var(--rose)";
                 }}
                 onBlur={(e) => {
-                  e.target.style.borderColor = "oklch(0.88 0.02 55)";
+                  e.target.style.borderColor = "oklch(0.88 0.02 145)";
                 }}
               />
               <div
                 style={{
                   fontSize: "0.7rem",
-                  color: "oklch(0.7 0.01 60)",
+                  color: "oklch(0.7 0.01 150)",
                   marginTop: "4px",
                   textAlign: "right",
                 }}
@@ -401,7 +401,7 @@ function ReviewCard({ session, onSubmit }: { session: Session; onSubmit: (id: nu
                   border: "none",
                   cursor: "pointer",
                   padding: "2px",
-                  background: anonymous ? "var(--rose)" : "oklch(0.88 0.02 55)",
+                  background: anonymous ? "var(--rose)" : "oklch(0.88 0.02 145)",
                   transition: "background 0.2s",
                   display: "flex",
                   alignItems: "center",
@@ -420,7 +420,7 @@ function ReviewCard({ session, onSubmit }: { session: Session; onSubmit: (id: nu
                   }}
                 />
               </button>
-              <span style={{ fontSize: "0.82rem", color: "oklch(0.5 0.01 60)" }}>
+              <span style={{ fontSize: "0.82rem", color: "oklch(0.5 0.01 150)" }}>
                 Submit anonymously
               </span>
             </div>
@@ -436,12 +436,12 @@ function ReviewCard({ session, onSubmit }: { session: Session; onSubmit: (id: nu
                 background:
                   rating > 0
                     ? "linear-gradient(135deg, var(--rose), var(--sunset))"
-                    : "oklch(0.92 0.01 60)",
+                    : "oklch(0.92 0.01 150)",
                 color: "white",
                 fontWeight: 700,
                 fontSize: "0.92rem",
                 cursor: rating > 0 ? "pointer" : "not-allowed",
-                boxShadow: rating > 0 ? "0 6px 22px oklch(0.74 0.11 18 / 0.3)" : "none",
+                boxShadow: rating > 0 ? "0 6px 22px oklch(0.55 0.08 158 / 0.3)" : "none",
                 transition: "all 0.2s",
                 letterSpacing: "0.02em",
               }}
@@ -476,7 +476,7 @@ function FeedbackPage() {
         <div
           style={{
             background:
-              "linear-gradient(160deg, oklch(0.96 0.03 18) 0%, oklch(0.97 0.025 55) 100%)",
+              "linear-gradient(160deg, oklch(0.96 0.03 145) 0%, oklch(0.97 0.025 145) 100%)",
             padding: "52px 24px 36px",
             textAlign: "center",
           }}
@@ -507,7 +507,7 @@ function FeedbackPage() {
           <p
             style={{
               fontSize: "0.92rem",
-              color: "oklch(0.55 0.01 60)",
+              color: "oklch(0.55 0.01 150)",
               maxWidth: "440px",
               margin: "0 auto",
               lineHeight: 1.7,
@@ -528,7 +528,7 @@ function FeedbackPage() {
               padding: "18px 24px",
               borderRadius: "18px",
               background: "white",
-              border: "1px solid oklch(0.92 0.02 55)",
+              border: "1px solid oklch(0.92 0.02 145)",
               boxShadow: "0 2px 12px oklch(0 0 0 / 0.04)",
               flexWrap: "wrap",
             }}
@@ -550,7 +550,7 @@ function FeedbackPage() {
                 >
                   {value}
                 </div>
-                <div style={{ fontSize: "0.75rem", color: "oklch(0.6 0.01 60)", marginTop: "2px" }}>
+                <div style={{ fontSize: "0.75rem", color: "oklch(0.6 0.01 150)", marginTop: "2px" }}>
                   {label}
                 </div>
               </div>
@@ -589,7 +589,7 @@ function FeedbackPage() {
                     fontSize: "0.75rem",
                     padding: "3px 10px",
                     borderRadius: "99px",
-                    background: "oklch(0.74 0.11 18 / 0.1)",
+                    background: "oklch(0.55 0.08 158 / 0.1)",
                     color: "var(--rose)",
                     fontWeight: 700,
                   }}
@@ -613,7 +613,7 @@ function FeedbackPage() {
                   fontFamily: "var(--font-display)",
                   fontSize: "1.15rem",
                   fontWeight: 600,
-                  color: "oklch(0.55 0.01 60)",
+                  color: "oklch(0.55 0.01 150)",
                   margin: "0 0 16px",
                 }}
               >
@@ -628,7 +628,7 @@ function FeedbackPage() {
           )}
 
           {sessions.length === 0 && (
-            <div style={{ textAlign: "center", padding: "80px 20px", color: "oklch(0.6 0.01 60)" }}>
+            <div style={{ textAlign: "center", padding: "80px 20px", color: "oklch(0.6 0.01 150)" }}>
               <div style={{ fontSize: "3rem", marginBottom: "14px" }}>📋</div>
               <p style={{ marginBottom: "20px" }}>You haven't completed any sessions yet.</p>
               <Link

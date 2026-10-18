@@ -1,63 +1,21 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, type FormEvent } from "react";
 import { InnerNav } from "@/components/InnerNav";
+import { SiteFooter } from "@/components/SiteFooter";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact Us – Nalora" },
+      { title: "Talk to Us – Nalora" },
       {
         name: "description",
         content:
-          "Get in touch with Nalora support, send feedback, or ask questions about our postpartum care services.",
+          "Older adults, family members, caregivers, senior-care organisations and potential partners — we would like to hear from you.",
       },
     ],
   }),
   component: ContactPage,
 });
-
-function Footer() {
-  return (
-    <footer className="border-t border-border bg-[var(--ivory-deep)] py-14">
-      <div className="mx-auto grid max-w-6xl gap-10 px-6 md:grid-cols-4">
-        <div>
-          <div className="flex items-center gap-2">
-            <span className="grid h-9 w-9 place-items-center rounded-full bg-[var(--gradient-sunset)] text-white font-display">
-              n
-            </span>
-            <span className="font-display text-xl">nalora</span>
-          </div>
-          <p className="mt-4 text-sm text-foreground/60 max-w-xs">
-            Emotional support for motherhood. Rooted in Kerala, built for every home.
-          </p>
-        </div>
-        {[
-          ["Care", ["Late-night support", "Therapist matching", "Family circle", "Library"]],
-          ["Company", ["Our story", "Therapists", "Careers", "Press"]],
-          ["Support", ["Help centre", "Privacy", "Terms", "Contact"]],
-        ].map(([h, items]) => (
-          <div key={h as string}>
-            <div className="font-display text-sm uppercase tracking-[0.16em] text-foreground/60">
-              {h}
-            </div>
-            <ul className="mt-4 space-y-2.5 text-sm">
-              {(items as string[]).map((i) => (
-                <li key={i}>
-                  <a href="#" className="text-foreground/75 hover:text-rose transition">
-                    {i}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
-      <div className="mx-auto mt-12 max-w-6xl px-6 text-xs text-foreground/50">
-        © {new Date().getFullYear()} Nalora Care. Made with care in Kerala.
-      </div>
-    </footer>
-  );
-}
 
 function ContactPage() {
   const [name, setName] = useState("");
@@ -82,16 +40,20 @@ function ContactPage() {
 
   const FAQS = [
     {
-      q: "Is my data and conversations safe on Nalora?",
-      a: "Yes, confidentiality is our highest priority. All your notes, chats, and medical records are end-to-end encrypted. We never sell your personal information or share it with third parties without your explicit medical request.",
+      q: "Is Nalora a therapist or a medical service?",
+      a: "No. Nalora is psychologically informed rather than medically positioned. It is not an AI therapist, a diagnostic system or a medical treatment platform, and it does not replace psychologists, doctors, caregivers or family relationships.",
     },
     {
-      q: "How are therapists matched to me?",
-      a: "When you start, we evaluate your responses regarding sleep, anxiety, preferred language, and clinical requirements. Then, our coordinator manually matches you with the licensed perinatal psychologist who best fits your clinical profile, typically within 24 hours.",
+      q: "Can family members see what was said on a call?",
+      a: "Nalora is designed to include a dashboard for authorised family members, relatives or primary caregivers. With appropriate consent and privacy safeguards, it shows engagement and wellbeing-related signals — such as conversation frequency, general tone and areas that may need attention — without unnecessarily exposing private conversation content.",
     },
     {
-      q: "Can my husband or partner join my circle?",
-      a: "Absolutely. Nalora's unique 'Family Circle' allows you to add up to three family members (e.g. husband, mother, mother-in-law) to your account dashboard for free. They get their own access to help coordinate your recovery, monitor guidelines, and learn postpartum wellness care.",
+      q: "What happens if something on a call needs human attention?",
+      a: "Nalora is human-in-the-loop. Trained professionals remain responsible for risk review, escalation protocols, appropriate referrals and human follow-up when required.",
+    },
+    {
+      q: "How often does Nalora call, and for how long?",
+      a: "In the planned AI voice pilot, calls may be offered once, twice, three times a week or daily, depending on preference. Conversations may typically last around 5–20 minutes.",
     },
   ];
 
@@ -103,7 +65,7 @@ function ContactPage() {
       <section
         style={{
           background:
-            "linear-gradient(160deg, oklch(0.97 0.025 55) 0%, oklch(0.96 0.03 18) 60%, oklch(0.96 0.02 145) 100%)",
+            "linear-gradient(160deg, var(--sage-100) 0%, var(--sage-50) 60%, var(--sage-200) 100%)",
           padding: "80px 24px 60px",
           textAlign: "center",
         }}
@@ -115,11 +77,11 @@ function ContactPage() {
               fontWeight: 700,
               letterSpacing: "0.18em",
               textTransform: "uppercase",
-              color: "var(--rose)",
+              color: "var(--clay)",
               marginBottom: "12px",
             }}
           >
-            Get In Touch
+            Talk to Us
           </p>
           <h1
             style={{
@@ -131,19 +93,20 @@ function ContactPage() {
               lineHeight: 1.15,
             }}
           >
-            We're Here for <em className="italic text-rose">You</em>
+            Stay connected to the <em className="italic text-rose">Nalora journey</em>
           </h1>
           <p
             style={{
               fontSize: "1.1rem",
-              color: "oklch(0.45 0.01 60)",
+              color: "oklch(0.45 0.01 150)",
               maxWidth: "600px",
               margin: "0 auto",
               lineHeight: 1.7,
             }}
           >
-            Have questions about subscriptions, billing, therapist credentials, or need support?
-            Reach out, and our team will get back to you promptly.
+            We are building Nalora carefully — with psychology, technology and human oversight at
+            the centre. If you are an older adult, a family member, caregiver, senior-care
+            organisation or potential partner, we would like to hear from you.
           </p>
         </div>
       </section>
@@ -159,9 +122,9 @@ function ContactPage() {
             <h2 style={{ fontSize: "2rem", marginBottom: "24px", color: "var(--charcoal)" }}>
               Direct <em className="italic text-rose">Channels</em>
             </h2>
-            <p style={{ color: "oklch(0.45 0.01 60)", marginBottom: "40px", lineHeight: 1.7 }}>
-              Our support team and coordinators operate out of Kochi, Kerala. We aim to respond to
-              all inquiries within 12-24 hours.
+            <p style={{ color: "oklch(0.45 0.01 150)", marginBottom: "40px", lineHeight: 1.7 }}>
+              Whether you want to learn more, join early access or explore a partnership, we aim
+              to respond to all inquiries within 12-24 hours.
             </p>
 
             <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
@@ -194,9 +157,9 @@ function ContactPage() {
                     support@nalora.care
                   </a>
                   <p
-                    style={{ fontSize: "0.85rem", color: "oklch(0.55 0.01 60)", margin: "4px 0 0" }}
+                    style={{ fontSize: "0.85rem", color: "oklch(0.55 0.01 150)", margin: "4px 0 0" }}
                   >
-                    For general queries, billing, or technical concerns.
+                    For general queries, early access and partnerships.
                   </p>
                 </div>
               </div>
@@ -230,7 +193,7 @@ function ContactPage() {
                     +91 98765 43210
                   </a>
                   <p
-                    style={{ fontSize: "0.85rem", color: "oklch(0.55 0.01 60)", margin: "4px 0 0" }}
+                    style={{ fontSize: "0.85rem", color: "oklch(0.55 0.01 150)", margin: "4px 0 0" }}
                   >
                     Available Mon–Sat, 9:00 AM to 6:00 PM IST.
                   </p>
@@ -242,7 +205,7 @@ function ContactPage() {
                   style={{
                     fontSize: "1.5rem",
                     padding: "12px",
-                    background: "oklch(0.96 0.03 55)",
+                    background: "oklch(0.96 0.03 145)",
                     borderRadius: "14px",
                   }}
                 >
@@ -262,7 +225,7 @@ function ContactPage() {
                   <p
                     style={{
                       fontSize: "0.95rem",
-                      color: "oklch(0.5 0.01 60)",
+                      color: "oklch(0.5 0.01 150)",
                       margin: 0,
                       lineHeight: 1.6,
                     }}
@@ -290,12 +253,12 @@ function ContactPage() {
           >
             {submitted ? (
               <div style={{ textAlign: "center", padding: "40px 10px" }}>
-                <span style={{ fontSize: "3.5rem" }}>🌸</span>
+                <span style={{ fontSize: "3.5rem" }}>🌿</span>
                 <h3 style={{ fontSize: "1.6rem", margin: "20px 0 10px", color: "var(--charcoal)" }}>
                   Thank you!
                 </h3>
-                <p style={{ color: "oklch(0.5 0.01 60)", lineHeight: 1.6, marginBottom: "30px" }}>
-                  Your message has been sent successfully. One of our care coordinators will get in
+                <p style={{ color: "oklch(0.5 0.01 150)", lineHeight: 1.6, marginBottom: "30px" }}>
+                  Your message has been sent successfully. Someone from the Nalora team will get in
                   touch with you shortly.
                 </p>
                 <button
@@ -399,8 +362,9 @@ function ContactPage() {
                     }}
                   >
                     <option value="general">General Inquiry</option>
-                    <option value="billing">Subscription & Billing</option>
-                    <option value="clinical">Clinical / Therapist Inquiry</option>
+                    <option value="early-access">Early Access</option>
+                    <option value="family">Older Adult / Family Member</option>
+                    <option value="partner">Senior-care Organisation / Partnership</option>
                     <option value="feedback">Feedback & Suggestions</option>
                   </select>
                 </div>
@@ -443,7 +407,7 @@ function ContactPage() {
                     fontWeight: 600,
                     border: "none",
                     cursor: submitting ? "not-allowed" : "pointer",
-                    boxShadow: "0 4px 14px oklch(0.74 0.11 18 / 0.2)",
+                    boxShadow: "0 4px 14px oklch(0.55 0.08 158 / 0.2)",
                   }}
                 >
                   {submitting ? "Sending..." : "Submit Inquiry"}
@@ -455,7 +419,7 @@ function ContactPage() {
       </section>
 
       {/* FAQ Accordion Section */}
-      <section style={{ background: "oklch(0.975 0.015 55)", padding: "80px 24px" }}>
+      <section style={{ background: "oklch(0.975 0.015 150)", padding: "80px 24px" }}>
         <div style={{ maxWidth: "800px", margin: "0 auto" }}>
           <h2
             style={{
@@ -519,10 +483,10 @@ function ContactPage() {
                   <div
                     style={{
                       padding: "0 24px 24px",
-                      color: "oklch(0.5 0.01 60)",
+                      color: "oklch(0.5 0.01 150)",
                       fontSize: "0.95rem",
                       lineHeight: 1.6,
-                      borderTop: "1px solid oklch(0.97 0.01 60)",
+                      borderTop: "1px solid oklch(0.97 0.01 150)",
                       paddingTop: "16px",
                     }}
                   >
@@ -535,7 +499,7 @@ function ContactPage() {
         </div>
       </section>
 
-      <Footer />
+      <SiteFooter />
     </div>
   );
 }

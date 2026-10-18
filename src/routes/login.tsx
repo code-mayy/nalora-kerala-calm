@@ -25,7 +25,7 @@ export const Route = createFileRoute("/login")({
   head: () => ({
     meta: [
       { title: "Login – Nalora" },
-      { name: "description", content: "Sign in to your Nalora account to access your care dashboard, AI chat, and appointments." },
+      { name: "description", content: "Sign in to your Nalora account to manage call preferences and the family dashboard." },
     ],
   }),
   component: LoginPage,
@@ -156,8 +156,8 @@ const SLIDES = [
         <path d="M96 64 C126 44 135 78 110 90 C98 96 92 78 82 70" fill="rgba(255,255,255,0.7)" />
       </svg>
     ),
-    title: "Track your inner calm",
-    desc: "View and manage every session without switching screens. Organized, clear, always accessible.",
+    title: "Meaningful conversations",
+    desc: "Regular, personalised voice calls about life stories, memories, interests and the small joys of everyday life.",
   },
   {
     icon: (
@@ -170,8 +170,8 @@ const SLIDES = [
         <circle cx="47" cy="57" r="4" fill="rgba(0,0,0,0.4)" /><circle cx="62" cy="57" r="4" fill="rgba(0,0,0,0.4)" /><circle cx="77" cy="57" r="4" fill="rgba(0,0,0,0.4)" />
       </svg>
     ),
-    title: "AI-powered care support",
-    desc: "Our assistant is available 24×7 to answer postpartum questions and connect you to expert doctors.",
+    title: "Continuity that builds",
+    desc: "Relevant memories and preferences provide context, so each conversation can become more meaningful over time.",
   },
   {
     icon: (
@@ -185,8 +185,8 @@ const SLIDES = [
         <circle cx="46" cy="102" r="4" fill="rgba(255,255,255,0.3)" /><circle cx="62" cy="102" r="4" fill="rgba(255,255,255,0.5)" />
       </svg>
     ),
-    title: "Book sessions effortlessly",
-    desc: "Schedule appointments with certified therapists in Kerala. Your care journey, managed in one place.",
+    title: "Humans in the loop",
+    desc: "AI provides continuity. Trained professionals provide review, escalation and human follow-up when appropriate.",
   },
 ];
 

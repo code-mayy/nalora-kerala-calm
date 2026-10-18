@@ -127,7 +127,7 @@ function AiChatPage() {
               gap: "14px",
               padding: "16px 24px",
               background: "white",
-              borderBottom: "1px solid oklch(0.92 0.02 55)",
+              borderBottom: "1px solid oklch(0.92 0.02 145)",
               boxShadow: "0 2px 12px oklch(0 0 0 / 0.04)",
             }}
           >
@@ -140,7 +140,7 @@ function AiChatPage() {
                 display: "grid",
                 placeItems: "center",
                 flexShrink: 0,
-                boxShadow: "0 4px 12px oklch(0.74 0.11 18 / 0.3)",
+                boxShadow: "0 4px 12px oklch(0.55 0.08 158 / 0.3)",
               }}
             >
               <svg
@@ -176,7 +176,7 @@ function AiChatPage() {
                     animation: "pulse-green 2s infinite",
                   }}
                 />
-                <span style={{ fontSize: "0.75rem", color: "oklch(0.55 0.01 60)" }}>
+                <span style={{ fontSize: "0.75rem", color: "oklch(0.55 0.01 150)" }}>
                   Online · n8n-powered emotional support
                 </span>
               </div>
@@ -186,7 +186,7 @@ function AiChatPage() {
                 fontSize: "0.7rem",
                 padding: "5px 12px",
                 borderRadius: "99px",
-                background: "oklch(0.74 0.11 18 / 0.1)",
+                background: "oklch(0.55 0.08 158 / 0.1)",
                 color: "var(--rose)",
                 fontWeight: 600,
                 letterSpacing: "0.04em",
@@ -206,10 +206,10 @@ function AiChatPage() {
                   style={{
                     padding: "8px 14px",
                     borderRadius: "99px",
-                    border: "1.5px solid oklch(0.88 0.02 55)",
+                    border: "1.5px solid oklch(0.88 0.02 145)",
                     background: "white",
                     fontSize: "0.78rem",
-                    color: "oklch(0.45 0.01 60)",
+                    color: "oklch(0.45 0.01 150)",
                     cursor: "pointer",
                     transition: "all 0.2s",
                     fontFamily: "var(--font-sans)",
@@ -219,8 +219,8 @@ function AiChatPage() {
                     (e.currentTarget as HTMLElement).style.color = "var(--rose)";
                   }}
                   onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLElement).style.borderColor = "oklch(0.88 0.02 55)";
-                    (e.currentTarget as HTMLElement).style.color = "oklch(0.45 0.01 60)";
+                    (e.currentTarget as HTMLElement).style.borderColor = "oklch(0.88 0.02 145)";
+                    (e.currentTarget as HTMLElement).style.color = "oklch(0.45 0.01 150)";
                   }}
                 >
                   {p}
@@ -290,9 +290,9 @@ function AiChatPage() {
                       lineHeight: 1.65,
                       boxShadow:
                         msg.role === "user"
-                          ? "0 4px 14px oklch(0.74 0.11 18 / 0.22)"
+                          ? "0 4px 14px oklch(0.55 0.08 158 / 0.22)"
                           : "0 2px 10px oklch(0 0 0 / 0.05)",
-                      border: msg.role === "bot" ? "1px solid oklch(0.92 0.02 55)" : "none",
+                      border: msg.role === "bot" ? "1px solid oklch(0.92 0.02 145)" : "none",
                     }}
                   >
                     {msg.text}
@@ -300,7 +300,7 @@ function AiChatPage() {
                   <div
                     style={{
                       fontSize: "0.68rem",
-                      color: "oklch(0.7 0.01 60)",
+                      color: "oklch(0.7 0.01 150)",
                       marginTop: "4px",
                       textAlign: msg.role === "user" ? "right" : "left",
                       paddingInline: "4px",
@@ -341,7 +341,7 @@ function AiChatPage() {
                     padding: "14px 18px",
                     borderRadius: "18px 18px 18px 4px",
                     background: "white",
-                    border: "1px solid oklch(0.92 0.02 55)",
+                    border: "1px solid oklch(0.92 0.02 145)",
                     boxShadow: "0 2px 10px oklch(0 0 0 / 0.05)",
                     display: "flex",
                     gap: "5px",
@@ -372,7 +372,7 @@ function AiChatPage() {
             style={{
               padding: "8px 24px 0",
               fontSize: "0.7rem",
-              color: "oklch(0.65 0.01 60)",
+              color: "oklch(0.65 0.01 150)",
               textAlign: "center",
             }}
           >
@@ -405,7 +405,7 @@ function AiChatPage() {
                 flex: 1,
                 padding: "13px 16px",
                 borderRadius: "16px",
-                border: "1.5px solid oklch(0.88 0.02 55)",
+                border: "1.5px solid oklch(0.88 0.02 145)",
                 background: "white",
                 fontSize: "0.88rem",
                 color: "var(--charcoal)",
@@ -421,7 +421,7 @@ function AiChatPage() {
                 e.target.style.borderColor = "var(--rose)";
               }}
               onBlur={(e) => {
-                e.target.style.borderColor = "oklch(0.88 0.02 55)";
+                e.target.style.borderColor = "oklch(0.88 0.02 145)";
               }}
             />
             <button
@@ -437,14 +437,14 @@ function AiChatPage() {
                 background:
                   input.trim() && !isTyping
                     ? "linear-gradient(135deg, var(--rose), var(--sunset))"
-                    : "oklch(0.92 0.01 60)",
+                    : "oklch(0.92 0.01 150)",
                 color: "white",
                 cursor: input.trim() && !isTyping ? "pointer" : "not-allowed",
                 display: "grid",
                 placeItems: "center",
                 transition: "all 0.2s",
                 boxShadow:
-                  input.trim() && !isTyping ? "0 4px 14px oklch(0.74 0.11 18 / 0.28)" : "none",
+                  input.trim() && !isTyping ? "0 4px 14px oklch(0.55 0.08 158 / 0.28)" : "none",
               }}
             >
               <svg

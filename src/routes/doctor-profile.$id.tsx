@@ -221,7 +221,7 @@ function AudioPlayer() {
           width: "36px", height: "36px", borderRadius: "50%",
           background: "var(--rose)", border: "none", cursor: "pointer",
           display: "flex", alignItems: "center", justifyContent: "center",
-          flexShrink: 0, boxShadow: "0 4px 12px oklch(0.74 0.11 18 / 0.3)",
+          flexShrink: 0, boxShadow: "0 4px 12px oklch(0.55 0.08 158 / 0.3)",
           transition: "transform 0.15s",
         }}
         onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.08)")}
@@ -240,7 +240,7 @@ function AudioPlayer() {
             <div key={i} style={{
               width: "3px", height: `${Math.max(4, Math.abs(h))}px`,
               borderRadius: "2px",
-              background: playing && i < 10 ? "var(--rose)" : "oklch(0.85 0.02 18)",
+              background: playing && i < 10 ? "var(--rose)" : "oklch(0.85 0.02 145)",
               transition: "background 0.3s",
               animation: playing ? `pulse-bar ${0.4 + (i % 5) * 0.1}s ease-in-out infinite alternate` : "none",
             }} />
@@ -284,7 +284,7 @@ function DoctorProfilePage() {
           cursor: default;
         }
         .concern-row:hover {
-          background: oklch(0.97 0.02 18) !important;
+          background: oklch(0.97 0.02 145) !important;
           transform: translateX(4px);
         }
         .issue-pill {
@@ -298,7 +298,7 @@ function DoctorProfilePage() {
         }
       `}</style>
 
-      <div style={{ minHeight: "100vh", background: "oklch(0.97 0.01 55)", fontFamily: "var(--font-sans)" }}>
+      <div style={{ minHeight: "100vh", background: "oklch(0.97 0.01 150)", fontFamily: "var(--font-sans)" }}>
         <InnerNav />
 
         {/* Thin accent top bar */}
@@ -308,14 +308,14 @@ function DoctorProfilePage() {
         <div style={{ maxWidth: "1180px", margin: "0 auto", padding: "20px 24px 0" }}>
           <Link to="/doctors" style={{
             display: "inline-flex", alignItems: "center", gap: "6px",
-            fontSize: "0.8rem", fontWeight: 600, color: "oklch(0.5 0.06 18)",
+            fontSize: "0.8rem", fontWeight: 600, color: "oklch(0.5 0.048 160)",
             textDecoration: "none", letterSpacing: "0.03em",
             padding: "6px 14px", borderRadius: "99px",
-            background: "white", border: "1px solid oklch(0.90 0.02 55)",
+            background: "white", border: "1px solid oklch(0.90 0.02 145)",
             transition: "all 0.18s",
           }}
             onMouseEnter={e => { e.currentTarget.style.background = "var(--rose)"; e.currentTarget.style.color = "white"; e.currentTarget.style.borderColor = "var(--rose)"; }}
-            onMouseLeave={e => { e.currentTarget.style.background = "white"; e.currentTarget.style.color = "oklch(0.5 0.06 18)"; e.currentTarget.style.borderColor = "oklch(0.90 0.02 55)"; }}
+            onMouseLeave={e => { e.currentTarget.style.background = "white"; e.currentTarget.style.color = "oklch(0.5 0.048 160)"; e.currentTarget.style.borderColor = "oklch(0.90 0.02 145)"; }}
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M19 12H5M5 12l7 7M5 12l7-7"/></svg>
             All Doctors
@@ -338,7 +338,7 @@ function DoctorProfilePage() {
             {/* Profile card */}
             <div style={{
               background: "white", borderRadius: "24px",
-              border: "1px solid oklch(0.92 0.02 55)",
+              border: "1px solid oklch(0.92 0.02 145)",
               boxShadow: "0 4px 24px rgba(0,0,0,0.07)",
               overflow: "hidden",
             }}>
@@ -371,7 +371,7 @@ function DoctorProfilePage() {
                     Nalora Verified
                   </div>
                   <Stars rating={doc.rating} size={13} />
-                  <div style={{ fontSize: "0.75rem", color: "oklch(0.5 0.01 60)", marginTop: "3px" }}>
+                  <div style={{ fontSize: "0.75rem", color: "oklch(0.5 0.01 150)", marginTop: "3px" }}>
                     {doc.rating} · {doc.reviews} reviews
                   </div>
                 </div>
@@ -401,13 +401,13 @@ function DoctorProfilePage() {
                   <span style={{ fontSize: "1.3rem" }}>🏅</span>
                   <div>
                     <div style={{ fontSize: "0.92rem", fontWeight: 800, color: doc.accentDark }}>{doc.sessions}</div>
-                    <div style={{ fontSize: "0.65rem", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: "oklch(0.55 0.01 60)" }}>
+                    <div style={{ fontSize: "0.65rem", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: "oklch(0.55 0.01 150)" }}>
                       Sessions completed
                     </div>
                   </div>
                   <div style={{ marginLeft: "auto", textAlign: "right" }}>
                     <div style={{ fontSize: "0.92rem", fontWeight: 800, color: doc.accentDark }}>{doc.experience}</div>
-                    <div style={{ fontSize: "0.65rem", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: "oklch(0.55 0.01 60)" }}>
+                    <div style={{ fontSize: "0.65rem", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: "oklch(0.55 0.01 150)" }}>
                       Experience
                     </div>
                   </div>
@@ -415,10 +415,10 @@ function DoctorProfilePage() {
 
                 {/* Audio intro */}
                 <div style={{
-                  background: "oklch(0.97 0.01 55)", borderRadius: "12px", padding: "14px",
-                  marginBottom: "20px", border: "1px solid oklch(0.92 0.02 55)",
+                  background: "oklch(0.97 0.01 150)", borderRadius: "12px", padding: "14px",
+                  marginBottom: "20px", border: "1px solid oklch(0.92 0.02 145)",
                 }}>
-                  <div style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "oklch(0.55 0.01 60)", marginBottom: "10px" }}>
+                  <div style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "oklch(0.55 0.01 150)", marginBottom: "10px" }}>
                     Listen to the therapist
                   </div>
                   <AudioPlayer />
@@ -450,8 +450,8 @@ function DoctorProfilePage() {
               {/* Availability + CTA */}
               <div style={{ padding: "0 24px 24px" }}>
                 <div style={{
-                  background: "oklch(0.97 0.01 55)", borderRadius: "12px", padding: "12px 16px",
-                  marginBottom: "14px", border: "1px solid oklch(0.92 0.02 55)",
+                  background: "oklch(0.97 0.01 150)", borderRadius: "12px", padding: "12px 16px",
+                  marginBottom: "14px", border: "1px solid oklch(0.92 0.02 145)",
                   display: "flex", alignItems: "center", gap: "10px",
                 }}>
                   <div style={{
@@ -459,7 +459,7 @@ function DoctorProfilePage() {
                     background: "#2ECC71", boxShadow: "0 0 0 3px #2ECC7122", flexShrink: 0,
                   }} />
                   <div>
-                    <div style={{ fontSize: "0.65rem", color: "oklch(0.6 0.01 60)", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.06em" }}>Next available</div>
+                    <div style={{ fontSize: "0.65rem", color: "oklch(0.6 0.01 150)", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.06em" }}>Next available</div>
                     <div style={{ fontSize: "0.85rem", fontWeight: 700, color: "var(--charcoal)" }}>{doc.nextAvailable}</div>
                   </div>
                 </div>
@@ -472,11 +472,11 @@ function DoctorProfilePage() {
                     background: "linear-gradient(135deg, var(--rose) 0%, var(--sunset) 100%)",
                     color: "white", fontWeight: 800, fontSize: "0.88rem",
                     textDecoration: "none", letterSpacing: "0.06em", textTransform: "uppercase",
-                    boxShadow: "0 6px 24px oklch(0.74 0.11 18 / 0.3)",
+                    boxShadow: "0 6px 24px oklch(0.55 0.08 158 / 0.3)",
                     transition: "all 0.2s",
                   }}
-                  onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 10px 32px oklch(0.74 0.11 18 / 0.38)"; }}
-                  onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "0 6px 24px oklch(0.74 0.11 18 / 0.3)"; }}
+                  onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 10px 32px oklch(0.55 0.08 158 / 0.38)"; }}
+                  onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "0 6px 24px oklch(0.55 0.08 158 / 0.3)"; }}
                 >
                   Book a Session
                 </Link>
@@ -486,13 +486,13 @@ function DoctorProfilePage() {
             {/* Approach card */}
             <div style={{
               background: "white", borderRadius: "20px", padding: "20px 22px",
-              border: "1px solid oklch(0.92 0.02 55)",
+              border: "1px solid oklch(0.92 0.02 145)",
               boxShadow: "0 2px 12px rgba(0,0,0,0.04)",
             }}>
               <div style={{ fontSize: "0.65rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--rose)", marginBottom: "10px" }}>
                 Therapeutic Approach
               </div>
-              <p style={{ fontSize: "0.82rem", color: "oklch(0.45 0.01 60)", lineHeight: 1.75, margin: 0 }}>
+              <p style={{ fontSize: "0.82rem", color: "oklch(0.45 0.01 150)", lineHeight: 1.75, margin: 0 }}>
                 {doc.approach}
               </p>
             </div>
@@ -504,13 +504,13 @@ function DoctorProfilePage() {
             {/* Concerns section */}
             <div style={{
               background: "white", borderRadius: "24px",
-              border: "1px solid oklch(0.92 0.02 55)",
+              border: "1px solid oklch(0.92 0.02 145)",
               boxShadow: "0 4px 24px rgba(0,0,0,0.05)",
               overflow: "hidden",
             }}>
               <div style={{
                 padding: "28px 32px 20px",
-                borderBottom: "1px solid oklch(0.94 0.01 55)",
+                borderBottom: "1px solid oklch(0.94 0.01 150)",
               }}>
                 <h2 style={{
                   fontFamily: "var(--font-display)", fontSize: "1.3rem", fontWeight: 600,
@@ -518,7 +518,7 @@ function DoctorProfilePage() {
                 }}>
                   Concerns I can help with
                 </h2>
-                <p style={{ fontSize: "0.82rem", color: "oklch(0.6 0.01 60)", margin: 0 }}>
+                <p style={{ fontSize: "0.82rem", color: "oklch(0.6 0.01 150)", margin: 0 }}>
                   If any of these resonate with you, I am here to listen.
                 </p>
               </div>
@@ -528,7 +528,7 @@ function DoctorProfilePage() {
                   <div key={i} className="concern-row" style={{
                     padding: "14px 20px", borderRadius: "12px",
                     display: "flex", alignItems: "flex-start", gap: "14px",
-                    borderBottom: i < doc.concerns.length - 1 ? "1px solid oklch(0.95 0.01 55)" : "none",
+                    borderBottom: i < doc.concerns.length - 1 ? "1px solid oklch(0.95 0.01 150)" : "none",
                     background: "white",
                   }}>
                     <div style={{
@@ -539,7 +539,7 @@ function DoctorProfilePage() {
                     }}>
                       {i + 1}
                     </div>
-                    <p style={{ fontSize: "0.9rem", color: "oklch(0.4 0.01 60)", lineHeight: 1.65, margin: 0 }}>
+                    <p style={{ fontSize: "0.9rem", color: "oklch(0.4 0.01 150)", lineHeight: 1.65, margin: 0 }}>
                       {concern}
                     </p>
                   </div>
@@ -550,7 +550,7 @@ function DoctorProfilePage() {
             {/* Issues / specialisation tags */}
             <div style={{
               background: "white", borderRadius: "24px", padding: "28px 32px",
-              border: "1px solid oklch(0.92 0.02 55)",
+              border: "1px solid oklch(0.92 0.02 145)",
               boxShadow: "0 4px 24px rgba(0,0,0,0.05)",
             }}>
               <h2 style={{
@@ -563,9 +563,9 @@ function DoctorProfilePage() {
                 {doc.issueCategories.map((issue) => (
                   <span key={issue} className="issue-pill" style={{
                     fontSize: "0.82rem", padding: "8px 18px", borderRadius: "99px",
-                    background: "oklch(0.97 0.01 55)",
-                    color: "oklch(0.4 0.02 18)", fontWeight: 600,
-                    border: "1.5px solid oklch(0.90 0.02 55)",
+                    background: "oklch(0.97 0.01 150)",
+                    color: "oklch(0.4 0.016 160)", fontWeight: 600,
+                    border: "1.5px solid oklch(0.90 0.02 145)",
                   }}>
                     {issue}
                   </span>
@@ -586,7 +586,7 @@ function DoctorProfilePage() {
             {/* About section */}
             <div style={{
               background: "white", borderRadius: "24px", padding: "28px 32px",
-              border: "1px solid oklch(0.92 0.02 55)",
+              border: "1px solid oklch(0.92 0.02 145)",
               boxShadow: "0 4px 24px rgba(0,0,0,0.05)",
             }}>
               <h2 style={{
@@ -595,7 +595,7 @@ function DoctorProfilePage() {
               }}>
                 About {doc.name.split(" ")[0]}
               </h2>
-              <p style={{ fontSize: "0.92rem", color: "oklch(0.45 0.01 60)", lineHeight: 1.85, margin: 0 }}>
+              <p style={{ fontSize: "0.92rem", color: "oklch(0.45 0.01 150)", lineHeight: 1.85, margin: 0 }}>
                 {doc.bio}
               </p>
             </div>

@@ -102,7 +102,7 @@ function DoctorDashboard() {
       <div
         style={{
           minHeight: "100vh",
-          background: "oklch(0.985 0.005 240)",
+          background: "oklch(0.985 0.005 165)",
           fontFamily: "var(--font-sans)",
         }}
       >
@@ -112,8 +112,8 @@ function DoctorDashboard() {
         <div
           style={{
             background:
-              "linear-gradient(160deg, oklch(0.92 0.01 240) 0%, oklch(0.95 0.01 240) 100%)",
-            borderBottom: "1px solid oklch(0.9 0.01 240)",
+              "linear-gradient(160deg, oklch(0.92 0.01 165) 0%, oklch(0.95 0.01 165) 100%)",
+            borderBottom: "1px solid oklch(0.9 0.01 165)",
             padding: "48px 32px 40px",
           }}
         >
@@ -124,7 +124,7 @@ function DoctorDashboard() {
                 fontWeight: 700,
                 letterSpacing: "0.15em",
                 textTransform: "uppercase",
-                color: "oklch(0.5 0.04 200)",
+                color: "oklch(0.5 0.04 165)",
                 marginBottom: "8px",
               }}
             >
@@ -141,7 +141,7 @@ function DoctorDashboard() {
             >
               Welcome Back, Dr. Aisha Menon
             </h1>
-            <p style={{ color: "oklch(0.55 0.01 240)", fontSize: "1rem", marginTop: "6px" }}>
+            <p style={{ color: "oklch(0.55 0.01 165)", fontSize: "1rem", marginTop: "6px" }}>
               Here is your overview for today,{" "}
               {mounted
                 ? new Date().toLocaleDateString("en-US", {
@@ -182,7 +182,7 @@ function DoctorDashboard() {
                 background: "white",
                 padding: "24px",
                 borderRadius: "20px",
-                border: "1px solid oklch(0.92 0.01 240)",
+                border: "1px solid oklch(0.92 0.01 165)",
                 boxShadow: "0 4px 16px oklch(0 0 0 / 0.02)",
               }}
             >
@@ -191,7 +191,7 @@ function DoctorDashboard() {
                   fontSize: "0.82rem",
                   fontWeight: 700,
                   textTransform: "uppercase",
-                  color: "oklch(0.55 0.01 240)",
+                  color: "oklch(0.55 0.01 165)",
                   letterSpacing: "0.06em",
                 }}
               >
@@ -210,7 +210,7 @@ function DoctorDashboard() {
               <div
                 style={{
                   fontSize: "0.85rem",
-                  color: "oklch(0.5 0.04 200)",
+                  color: "oklch(0.5 0.04 165)",
                   fontWeight: 500,
                   marginTop: "6px",
                 }}
@@ -225,7 +225,7 @@ function DoctorDashboard() {
                 background: "white",
                 padding: "24px",
                 borderRadius: "20px",
-                border: "1px solid oklch(0.92 0.01 240)",
+                border: "1px solid oklch(0.92 0.01 165)",
                 boxShadow: "0 4px 16px oklch(0 0 0 / 0.02)",
               }}
             >
@@ -234,7 +234,7 @@ function DoctorDashboard() {
                   fontSize: "0.82rem",
                   fontWeight: 700,
                   textTransform: "uppercase",
-                  color: "oklch(0.55 0.01 240)",
+                  color: "oklch(0.55 0.01 165)",
                   letterSpacing: "0.06em",
                 }}
               >
@@ -250,12 +250,12 @@ function DoctorDashboard() {
               >
                 {hoursCompleted.toFixed(1)}{" "}
                 <span
-                  style={{ fontSize: "1.05rem", fontWeight: 500, color: "oklch(0.6 0.01 240)" }}
+                  style={{ fontSize: "1.05rem", fontWeight: 500, color: "oklch(0.6 0.01 165)" }}
                 >
                   hrs
                 </span>
               </div>
-              <div style={{ fontSize: "0.85rem", color: "oklch(0.6 0.01 240)", marginTop: "6px" }}>
+              <div style={{ fontSize: "0.85rem", color: "oklch(0.6 0.01 165)", marginTop: "6px" }}>
                 Delivered sessions today
               </div>
             </div>
@@ -266,7 +266,7 @@ function DoctorDashboard() {
                 background: "white",
                 padding: "24px",
                 borderRadius: "20px",
-                border: "1px solid oklch(0.92 0.01 240)",
+                border: "1px solid oklch(0.92 0.01 165)",
                 boxShadow: "0 4px 16px oklch(0 0 0 / 0.02)",
               }}
             >
@@ -275,7 +275,7 @@ function DoctorDashboard() {
                   fontSize: "0.82rem",
                   fontWeight: 700,
                   textTransform: "uppercase",
-                  color: "oklch(0.55 0.01 240)",
+                  color: "oklch(0.55 0.01 165)",
                   letterSpacing: "0.06em",
                 }}
               >
@@ -285,13 +285,13 @@ function DoctorDashboard() {
                 style={{
                   fontSize: "2.3rem",
                   fontWeight: 700,
-                  color: pendingNotes > 0 ? "oklch(0.55 0.1 20)" : "var(--charcoal)",
+                  color: pendingNotes > 0 ? "oklch(0.55 0.064 160)" : "var(--charcoal)",
                   marginTop: "10px",
                 }}
               >
                 {pendingNotes}
               </div>
-              <div style={{ fontSize: "0.85rem", color: "oklch(0.6 0.01 240)", marginTop: "6px" }}>
+              <div style={{ fontSize: "0.85rem", color: "oklch(0.6 0.01 165)", marginTop: "6px" }}>
                 Requires patient records log
               </div>
             </div>
@@ -302,7 +302,7 @@ function DoctorDashboard() {
                 background: "white",
                 padding: "24px",
                 borderRadius: "20px",
-                border: "1px solid oklch(0.92 0.01 240)",
+                border: "1px solid oklch(0.92 0.01 165)",
                 boxShadow: "0 4px 16px oklch(0 0 0 / 0.02)",
               }}
             >
@@ -311,7 +311,7 @@ function DoctorDashboard() {
                   fontSize: "0.82rem",
                   fontWeight: 700,
                   textTransform: "uppercase",
-                  color: "oklch(0.55 0.01 240)",
+                  color: "oklch(0.55 0.01 165)",
                   letterSpacing: "0.06em",
                 }}
               >
@@ -330,7 +330,7 @@ function DoctorDashboard() {
               <div
                 style={{
                   fontSize: "0.85rem",
-                  color: "oklch(0.5 0.04 200)",
+                  color: "oklch(0.5 0.04 165)",
                   fontWeight: 500,
                   marginTop: "6px",
                 }}
@@ -351,7 +351,7 @@ function DoctorDashboard() {
                 background: "white",
                 padding: "32px",
                 borderRadius: "24px",
-                border: "1px solid oklch(0.92 0.01 240)",
+                border: "1px solid oklch(0.92 0.01 165)",
                 boxShadow: "0 4px 20px oklch(0 0 0 / 0.01)",
               }}
             >
@@ -378,7 +378,7 @@ function DoctorDashboard() {
                   to="/doctor/meetings"
                   style={{
                     fontSize: "0.88rem",
-                    color: "oklch(0.5 0.04 200)",
+                    color: "oklch(0.5 0.04 165)",
                     fontWeight: 600,
                     textDecoration: "none",
                   }}
@@ -398,11 +398,11 @@ function DoctorDashboard() {
                       justifyContent: "space-between",
                       padding: "20px",
                       borderRadius: "16px",
-                      background: "oklch(0.99 0.003 240)",
-                      border: `1px solid ${meet.status === "in-progress" ? "oklch(0.5 0.04 200 / 0.3)" : "oklch(0.95 0.01 240)"}`,
+                      background: "oklch(0.99 0.003 165)",
+                      border: `1px solid ${meet.status === "in-progress" ? "oklch(0.5 0.04 165 / 0.3)" : "oklch(0.95 0.01 165)"}`,
                       boxShadow:
                         meet.status === "in-progress"
-                          ? "0 4px 16px oklch(0.5 0.04 200 / 0.06)"
+                          ? "0 4px 16px oklch(0.5 0.04 165 / 0.06)"
                           : "none",
                     }}
                   >
@@ -411,13 +411,13 @@ function DoctorDashboard() {
                         <span
                           style={{
                             fontSize: "0.82rem",
-                            color: "oklch(0.5 0.01 240)",
+                            color: "oklch(0.5 0.01 165)",
                             fontWeight: 600,
                           }}
                         >
                           {meet.time}
                         </span>
-                        <span style={{ fontSize: "0.78rem", color: "oklch(0.6 0.01 240)" }}>
+                        <span style={{ fontSize: "0.78rem", color: "oklch(0.6 0.01 165)" }}>
                           ({meet.duration})
                         </span>
 
@@ -443,8 +443,8 @@ function DoctorDashboard() {
                               fontWeight: 700,
                               padding: "2px 8px",
                               borderRadius: "99px",
-                              background: "oklch(0.95 0.02 240)",
-                              color: "oklch(0.45 0.08 240)",
+                              background: "oklch(0.95 0.02 165)",
+                              color: "oklch(0.45 0.08 165)",
                               animation: "pulse-tag 2s infinite",
                             }}
                           >
@@ -458,8 +458,8 @@ function DoctorDashboard() {
                               fontWeight: 700,
                               padding: "2px 8px",
                               borderRadius: "99px",
-                              background: "oklch(0.96 0.01 240)",
-                              color: "oklch(0.5 0.01 240)",
+                              background: "oklch(0.96 0.01 165)",
+                              color: "oklch(0.5 0.01 165)",
                             }}
                           >
                             Upcoming
@@ -477,7 +477,7 @@ function DoctorDashboard() {
                       >
                         {meet.patient}
                       </h3>
-                      <p style={{ fontSize: "0.88rem", color: "oklch(0.55 0.01 240)", margin: 0 }}>
+                      <p style={{ fontSize: "0.88rem", color: "oklch(0.55 0.01 165)", margin: 0 }}>
                         {meet.type}
                       </p>
                     </div>
@@ -489,7 +489,7 @@ function DoctorDashboard() {
                         style={{
                           padding: "8px 16px",
                           borderRadius: "10px",
-                          border: "1.5px solid oklch(0.88 0.02 240)",
+                          border: "1.5px solid oklch(0.88 0.02 165)",
                           background: "white",
                           color: "var(--charcoal)",
                           fontSize: "0.85rem",
@@ -511,7 +511,7 @@ function DoctorDashboard() {
                             padding: "8px 16px",
                             borderRadius: "10px",
                             border: "none",
-                            background: "oklch(0.4 0.03 240)",
+                            background: "oklch(0.4 0.03 165)",
                             color: "white",
                             fontSize: "0.85rem",
                             fontWeight: 600,
@@ -549,7 +549,7 @@ function DoctorDashboard() {
                 background: "white",
                 padding: "32px",
                 borderRadius: "24px",
-                border: "1px solid oklch(0.92 0.01 240)",
+                border: "1px solid oklch(0.92 0.01 165)",
                 boxShadow: "0 4px 20px oklch(0 0 0 / 0.01)",
                 display: "flex",
                 flexDirection: "column",
@@ -571,7 +571,7 @@ function DoctorDashboard() {
                 <p
                   style={{
                     fontSize: "0.82rem",
-                    color: "oklch(0.55 0.01 240)",
+                    color: "oklch(0.55 0.01 165)",
                     marginTop: "4px",
                     lineHeight: 1.4,
                   }}
@@ -590,8 +590,8 @@ function DoctorDashboard() {
                   height: "220px",
                   padding: "14px 16px",
                   borderRadius: "16px",
-                  border: "1.5px solid oklch(0.88 0.02 240)",
-                  background: "oklch(0.985 0.003 240)",
+                  border: "1.5px solid oklch(0.88 0.02 165)",
+                  background: "oklch(0.985 0.003 165)",
                   fontSize: "0.92rem",
                   color: "var(--charcoal)",
                   outline: "none",
@@ -602,10 +602,10 @@ function DoctorDashboard() {
                   transition: "border-color 0.2s",
                 }}
                 onFocus={(e) => {
-                  e.target.style.borderColor = "oklch(0.4 0.03 240)";
+                  e.target.style.borderColor = "oklch(0.4 0.03 165)";
                 }}
                 onBlur={(e) => {
-                  e.target.style.borderColor = "oklch(0.88 0.02 240)";
+                  e.target.style.borderColor = "oklch(0.88 0.02 165)";
                 }}
               />
 
@@ -616,7 +616,7 @@ function DoctorDashboard() {
                   padding: "12px",
                   borderRadius: "12px",
                   border: "none",
-                  background: "oklch(0.4 0.03 240)",
+                  background: "oklch(0.4 0.03 165)",
                   color: "white",
                   fontWeight: 600,
                   fontSize: "0.9rem",

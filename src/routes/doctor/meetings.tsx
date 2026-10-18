@@ -126,7 +126,7 @@ function DoctorMeetings() {
       <div
         style={{
           minHeight: "100vh",
-          background: "oklch(0.985 0.005 240)",
+          background: "oklch(0.985 0.005 165)",
           fontFamily: "var(--font-sans)",
         }}
       >
@@ -136,8 +136,8 @@ function DoctorMeetings() {
         <div
           style={{
             background:
-              "linear-gradient(160deg, oklch(0.92 0.01 240) 0%, oklch(0.95 0.01 240) 100%)",
-            borderBottom: "1px solid oklch(0.9 0.01 240)",
+              "linear-gradient(160deg, oklch(0.92 0.01 165) 0%, oklch(0.95 0.01 165) 100%)",
+            borderBottom: "1px solid oklch(0.9 0.01 165)",
             padding: "48px 32px 40px",
           }}
         >
@@ -148,7 +148,7 @@ function DoctorMeetings() {
                 fontWeight: 700,
                 letterSpacing: "0.15em",
                 textTransform: "uppercase",
-                color: "oklch(0.5 0.04 200)",
+                color: "oklch(0.5 0.04 165)",
                 marginBottom: "8px",
               }}
             >
@@ -165,7 +165,7 @@ function DoctorMeetings() {
             >
               Your Consultation Meetings
             </h1>
-            <p style={{ color: "oklch(0.55 0.01 240)", fontSize: "0.95rem", marginTop: "6px" }}>
+            <p style={{ color: "oklch(0.55 0.01 165)", fontSize: "0.95rem", marginTop: "6px" }}>
               Review upcoming bookings, start video calls, and inspect clinical summaries.
             </p>
           </div>
@@ -189,10 +189,10 @@ function DoctorMeetings() {
               style={{
                 display: "flex",
                 gap: "6px",
-                background: "oklch(0.94 0.005 240)",
+                background: "oklch(0.94 0.005 165)",
                 padding: "4px",
                 borderRadius: "12px",
-                border: "1px solid oklch(0.92 0.01 240)",
+                border: "1px solid oklch(0.92 0.01 165)",
               }}
             >
               {(["all", "upcoming", "past", "cancelled"] as const).map((tab) => (
@@ -204,7 +204,7 @@ function DoctorMeetings() {
                     borderRadius: "9px",
                     border: "none",
                     background: activeTab === tab ? "white" : "transparent",
-                    color: activeTab === tab ? "var(--charcoal)" : "oklch(0.5 0.01 240)",
+                    color: activeTab === tab ? "var(--charcoal)" : "oklch(0.5 0.01 165)",
                     fontWeight: activeTab === tab ? 600 : 400,
                     fontSize: "0.82rem",
                     cursor: "pointer",
@@ -229,7 +229,7 @@ function DoctorMeetings() {
                   width: "100%",
                   padding: "11px 16px 11px 36px",
                   borderRadius: "12px",
-                  border: "1.5px solid oklch(0.88 0.02 240)",
+                  border: "1.5px solid oklch(0.88 0.02 165)",
                   background: "white",
                   fontSize: "0.88rem",
                   color: "var(--charcoal)",
@@ -238,10 +238,10 @@ function DoctorMeetings() {
                   transition: "border-color 0.2s",
                 }}
                 onFocus={(e) => {
-                  e.target.style.borderColor = "oklch(0.4 0.03 240)";
+                  e.target.style.borderColor = "oklch(0.4 0.03 165)";
                 }}
                 onBlur={(e) => {
-                  e.target.style.borderColor = "oklch(0.88 0.02 240)";
+                  e.target.style.borderColor = "oklch(0.88 0.02 165)";
                 }}
               />
               <svg
@@ -250,7 +250,7 @@ function DoctorMeetings() {
                   left: "12px",
                   top: "50%",
                   transform: "translateY(-50%)",
-                  color: "oklch(0.6 0.01 240)",
+                  color: "oklch(0.6 0.01 165)",
                 }}
                 width="14"
                 height="14"
@@ -273,11 +273,11 @@ function DoctorMeetings() {
                 padding: "80px 20px",
                 background: "white",
                 borderRadius: "24px",
-                border: "1px solid oklch(0.92 0.01 240)",
+                border: "1px solid oklch(0.92 0.01 165)",
               }}
             >
               <div style={{ fontSize: "2.5rem", marginBottom: "12px" }}>🗓️</div>
-              <p style={{ fontSize: "0.95rem", color: "oklch(0.55 0.01 240)", margin: 0 }}>
+              <p style={{ fontSize: "0.95rem", color: "oklch(0.55 0.01 165)", margin: 0 }}>
                 No sessions found matching your filters.
               </p>
             </div>
@@ -291,7 +291,7 @@ function DoctorMeetings() {
                     background: "white",
                     padding: "24px 32px",
                     borderRadius: "20px",
-                    border: "1px solid oklch(0.92 0.01 240)",
+                    border: "1px solid oklch(0.92 0.01 165)",
                     boxShadow: "0 4px 16px oklch(0 0 0 / 0.01)",
                     display: "flex",
                     alignItems: "center",
@@ -305,9 +305,9 @@ function DoctorMeetings() {
                       style={{
                         padding: "10px 14px",
                         borderRadius: "14px",
-                        background: "oklch(0.96 0.01 240)",
+                        background: "oklch(0.96 0.01 165)",
                         textAlign: "center",
-                        border: "1px solid oklch(0.92 0.01 240)",
+                        border: "1px solid oklch(0.92 0.01 165)",
                         minWidth: "64px",
                       }}
                     >
@@ -316,7 +316,7 @@ function DoctorMeetings() {
                           fontSize: "0.75rem",
                           fontWeight: 700,
                           textTransform: "uppercase",
-                          color: "oklch(0.5 0.04 200)",
+                          color: "oklch(0.5 0.04 165)",
                         }}
                       >
                         {new Date(meet.date).toLocaleDateString("en-US", { month: "short" })}
@@ -346,12 +346,12 @@ function DoctorMeetings() {
                           style={{
                             fontSize: "0.88rem",
                             fontWeight: 600,
-                            color: "oklch(0.4 0.01 240)",
+                            color: "oklch(0.4 0.01 165)",
                           }}
                         >
                           {meet.time}
                         </span>
-                        <span style={{ fontSize: "0.8rem", color: "oklch(0.6 0.01 240)" }}>
+                        <span style={{ fontSize: "0.8rem", color: "oklch(0.6 0.01 165)" }}>
                           ({meet.duration})
                         </span>
 
@@ -376,8 +376,8 @@ function DoctorMeetings() {
                               fontWeight: 700,
                               padding: "2px 8px",
                               borderRadius: "99px",
-                              background: "oklch(0.95 0.02 240)",
-                              color: "oklch(0.45 0.08 240)",
+                              background: "oklch(0.95 0.02 165)",
+                              color: "oklch(0.45 0.08 165)",
                             }}
                           >
                             In Progress
@@ -390,8 +390,8 @@ function DoctorMeetings() {
                               fontWeight: 700,
                               padding: "2px 8px",
                               borderRadius: "99px",
-                              background: "oklch(0.96 0.01 240)",
-                              color: "oklch(0.5 0.01 240)",
+                              background: "oklch(0.96 0.01 165)",
+                              color: "oklch(0.5 0.01 165)",
                             }}
                           >
                             Upcoming
@@ -404,8 +404,8 @@ function DoctorMeetings() {
                               fontWeight: 700,
                               padding: "2px 8px",
                               borderRadius: "99px",
-                              background: "oklch(0.97 0.02 18)",
-                              color: "oklch(0.45 0.1 18)",
+                              background: "oklch(0.97 0.02 145)",
+                              color: "oklch(0.45 0.064 160)",
                             }}
                           >
                             Cancelled
@@ -423,7 +423,7 @@ function DoctorMeetings() {
                       >
                         {meet.patient}
                       </h3>
-                      <p style={{ fontSize: "0.9rem", color: "oklch(0.55 0.01 240)", margin: 0 }}>
+                      <p style={{ fontSize: "0.9rem", color: "oklch(0.55 0.01 165)", margin: 0 }}>
                         {meet.type}
                       </p>
                     </div>
@@ -440,7 +440,7 @@ function DoctorMeetings() {
                         style={{
                           padding: "10px 20px",
                           borderRadius: "12px",
-                          border: "1.5px solid oklch(0.88 0.02 240)",
+                          border: "1.5px solid oklch(0.88 0.02 165)",
                           background: "white",
                           color: "var(--charcoal)",
                           fontSize: "0.9rem",
@@ -462,7 +462,7 @@ function DoctorMeetings() {
                             padding: "10px 20px",
                             borderRadius: "12px",
                             border: "none",
-                            background: "oklch(0.4 0.03 240)",
+                            background: "oklch(0.4 0.03 165)",
                             color: "white",
                             fontSize: "0.9rem",
                             fontWeight: 600,

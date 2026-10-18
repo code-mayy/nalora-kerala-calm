@@ -5,7 +5,7 @@ import { useAuth } from "@/context/AuthContext";
 const PUBLIC_PAGES = [
   { to: "/", label: "Home" },
   { to: "/about", label: "About Us" },
-  { to: "/services", label: "Services" },
+  { to: "/services", label: "How it Works" },
   { to: "/contact", label: "Contact" },
 ] as const;
 
@@ -198,7 +198,7 @@ export function DarkNav() {
                     height: "26px",
                     borderRadius: "50%",
                     background: user.role === "doctor"
-                      ? "linear-gradient(135deg, oklch(0.4 0.03 240), oklch(0.5 0.04 200))"
+                      ? "linear-gradient(135deg, oklch(0.4 0.03 165), oklch(0.5 0.04 165))"
                       : "linear-gradient(135deg, var(--rose), var(--sunset))",
                     display: "grid",
                     placeItems: "center",
@@ -228,7 +228,7 @@ export function DarkNav() {
                     position: "absolute",
                     top: "calc(100% + 10px)",
                     right: 0,
-                    background: "rgba(20,15,40,0.75)",
+                    background: "rgba(30,58,51,0.94)",
                     backdropFilter: "blur(28px) saturate(180%)",
                     WebkitBackdropFilter: "blur(28px) saturate(180%)",
                     borderRadius: "20px",
@@ -345,7 +345,7 @@ export function DarkNav() {
                 (e.currentTarget as HTMLElement).style.background = "rgba(240,240,245,0.92)";
               }}
             >
-              Start Free Trial
+              Explore Early Access
             </Link>
           )}
         </div>
@@ -383,7 +383,7 @@ export function DarkNav() {
             maxWidth: "900px",
             margin: "8px auto 0",
             borderRadius: "24px",
-            background: "rgba(20,15,40,0.75)",
+            background: "rgba(30,58,51,0.94)",
             backdropFilter: "blur(28px) saturate(180%)",
             WebkitBackdropFilter: "blur(28px) saturate(180%)",
             border: "1px solid rgba(255,255,255,0.18)",
@@ -448,7 +448,7 @@ export function DarkNav() {
                   boxShadow: "inset 0 1px 0 rgba(255,255,255,0.25)",
                 }}
               >
-                Start Free Trial
+                Explore Early Access
               </Link>
             )}
           </div>

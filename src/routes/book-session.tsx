@@ -156,11 +156,11 @@ function StepBar({ step }: { step: number }) {
                     ? "var(--coconut)"
                     : i === step
                       ? "linear-gradient(135deg, var(--rose), var(--sunset))"
-                      : "oklch(0.92 0.01 60)",
-                color: i <= step ? "white" : "oklch(0.6 0.01 60)",
+                      : "oklch(0.92 0.01 150)",
+                color: i <= step ? "white" : "oklch(0.6 0.01 150)",
                 fontSize: "0.85rem",
                 fontWeight: 700,
-                boxShadow: i === step ? "0 4px 14px oklch(0.74 0.11 18 / 0.3)" : "none",
+                boxShadow: i === step ? "0 4px 14px oklch(0.55 0.08 158 / 0.3)" : "none",
                 transition: "all 0.3s",
               }}
             >
@@ -183,7 +183,7 @@ function StepBar({ step }: { step: number }) {
               style={{
                 fontSize: "0.68rem",
                 fontWeight: i === step ? 700 : 400,
-                color: i === step ? "var(--rose)" : "oklch(0.6 0.01 60)",
+                color: i === step ? "var(--rose)" : "oklch(0.6 0.01 150)",
                 whiteSpace: "nowrap",
               }}
             >
@@ -195,7 +195,7 @@ function StepBar({ step }: { step: number }) {
               style={{
                 flex: 1,
                 height: "2px",
-                background: i < step ? "var(--coconut)" : "oklch(0.9 0.01 60)",
+                background: i < step ? "var(--coconut)" : "oklch(0.9 0.01 150)",
                 margin: "0 6px",
                 marginBottom: "20px",
                 transition: "background 0.3s",
@@ -273,8 +273,8 @@ function BookSessionPage() {
                 borderRadius: "24px",
                 padding: "56px 40px",
                 textAlign: "center",
-                boxShadow: "0 8px 40px oklch(0.74 0.11 18 / 0.1)",
-                border: "1px solid oklch(0.92 0.02 55)",
+                boxShadow: "0 8px 40px oklch(0.55 0.08 158 / 0.1)",
+                border: "1px solid oklch(0.92 0.02 145)",
               }}
             >
               <div
@@ -315,7 +315,7 @@ function BookSessionPage() {
               </h2>
               <p
                 style={{
-                  color: "oklch(0.55 0.01 60)",
+                  color: "oklch(0.55 0.01 150)",
                   fontSize: "0.9rem",
                   maxWidth: "380px",
                   margin: "0 auto 28px",
@@ -343,7 +343,7 @@ function BookSessionPage() {
                     fontWeight: 600,
                     fontSize: "0.9rem",
                     textDecoration: "none",
-                    boxShadow: "0 6px 20px oklch(0.74 0.11 18 / 0.28)",
+                    boxShadow: "0 6px 20px oklch(0.55 0.08 158 / 0.28)",
                   }}
                 >
                   View My Bookings
@@ -353,9 +353,9 @@ function BookSessionPage() {
                   style={{
                     padding: "13px 28px",
                     borderRadius: "99px",
-                    border: "1.5px solid oklch(0.88 0.02 55)",
+                    border: "1.5px solid oklch(0.88 0.02 145)",
                     background: "white",
-                    color: "oklch(0.45 0.01 60)",
+                    color: "oklch(0.45 0.01 150)",
                     fontWeight: 500,
                     fontSize: "0.9rem",
                     cursor: "pointer",
@@ -371,8 +371,8 @@ function BookSessionPage() {
                 background: "white",
                 borderRadius: "24px",
                 padding: "36px",
-                boxShadow: "0 8px 40px oklch(0.74 0.11 18 / 0.08)",
-                border: "1px solid oklch(0.92 0.02 55)",
+                boxShadow: "0 8px 40px oklch(0.55 0.08 158 / 0.08)",
+                border: "1px solid oklch(0.92 0.02 145)",
               }}
             >
               <StepBar step={step} />
@@ -393,7 +393,7 @@ function BookSessionPage() {
                   </h2>
                   <p
                     style={{
-                      color: "oklch(0.55 0.01 60)",
+                      color: "oklch(0.55 0.01 150)",
                       fontSize: "0.88rem",
                       marginBottom: "24px",
                     }}
@@ -418,9 +418,9 @@ function BookSessionPage() {
                           textAlign: "left",
                           background:
                             doctor?.id === d.id
-                              ? "oklch(0.74 0.11 18 / 0.07)"
-                              : "oklch(0.98 0.008 60)",
-                          border: `2px solid ${doctor?.id === d.id ? "var(--rose)" : "oklch(0.91 0.02 55)"}`,
+                              ? "oklch(0.55 0.08 158 / 0.07)"
+                              : "oklch(0.98 0.008 150)",
+                          border: `2px solid ${doctor?.id === d.id ? "var(--rose)" : "oklch(0.91 0.02 145)"}`,
                           borderRadius: "16px",
                           padding: "16px",
                           cursor: "pointer",
@@ -432,12 +432,12 @@ function BookSessionPage() {
                         onMouseEnter={(e) => {
                           if (doctor?.id !== d.id)
                             (e.currentTarget as HTMLElement).style.borderColor =
-                              "oklch(0.74 0.11 18 / 0.5)";
+                              "oklch(0.55 0.08 158 / 0.5)";
                         }}
                         onMouseLeave={(e) => {
                           if (doctor?.id !== d.id)
                             (e.currentTarget as HTMLElement).style.borderColor =
-                              "oklch(0.91 0.02 55)";
+                              "oklch(0.91 0.02 145)";
                         }}
                       >
                         <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
@@ -503,8 +503,8 @@ function BookSessionPage() {
                                   fontSize: "0.66rem",
                                   padding: "3px 8px",
                                   borderRadius: "99px",
-                                  background: "oklch(0.96 0.02 18)",
-                                  color: "oklch(0.42 0.08 18)",
+                                  background: "oklch(0.96 0.02 145)",
+                                  color: "oklch(0.42 0.064 160)",
                                   fontWeight: 500,
                                 }}
                               >
@@ -597,7 +597,7 @@ function BookSessionPage() {
                   </h2>
                   <p
                     style={{
-                      color: "oklch(0.55 0.01 60)",
+                      color: "oklch(0.55 0.01 150)",
                       fontSize: "0.88rem",
                       marginBottom: "24px",
                     }}
@@ -622,16 +622,16 @@ function BookSessionPage() {
                           style={{
                             padding: "14px 8px",
                             borderRadius: "14px",
-                            border: `2px solid ${isSelected ? "var(--rose)" : isWeekend ? "transparent" : "oklch(0.91 0.02 55)"}`,
+                            border: `2px solid ${isSelected ? "var(--rose)" : isWeekend ? "transparent" : "oklch(0.91 0.02 145)"}`,
                             background: isSelected
-                              ? "oklch(0.74 0.11 18 / 0.08)"
+                              ? "oklch(0.55 0.08 158 / 0.08)"
                               : isWeekend
-                                ? "oklch(0.95 0.01 60)"
+                                ? "oklch(0.95 0.01 150)"
                                 : "white",
                             color: isSelected
                               ? "var(--rose)"
                               : isWeekend
-                                ? "oklch(0.75 0.01 60)"
+                                ? "oklch(0.75 0.01 150)"
                                 : "var(--charcoal)",
                             cursor: isWeekend ? "not-allowed" : "pointer",
                             display: "flex",
@@ -648,7 +648,7 @@ function BookSessionPage() {
                               fontWeight: 600,
                               letterSpacing: "0.06em",
                               textTransform: "uppercase",
-                              color: isSelected ? "var(--rose)" : "oklch(0.6 0.01 60)",
+                              color: isSelected ? "var(--rose)" : "oklch(0.6 0.01 150)",
                             }}
                           >
                             {DAY_LABELS[d.getDay()]}
@@ -665,7 +665,7 @@ function BookSessionPage() {
                           <span
                             style={{
                               fontSize: "0.68rem",
-                              color: isSelected ? "var(--rose)" : "oklch(0.65 0.01 60)",
+                              color: isSelected ? "var(--rose)" : "oklch(0.65 0.01 150)",
                             }}
                           >
                             {MONTH_LABELS[d.getMonth()]}
@@ -680,9 +680,9 @@ function BookSessionPage() {
                       style={{
                         padding: "13px 24px",
                         borderRadius: "12px",
-                        border: "1.5px solid oklch(0.88 0.02 55)",
+                        border: "1.5px solid oklch(0.88 0.02 145)",
                         background: "white",
-                        color: "oklch(0.45 0.01 60)",
+                        color: "oklch(0.45 0.01 150)",
                         fontWeight: 500,
                         cursor: "pointer",
                         fontSize: "0.9rem",
@@ -700,12 +700,12 @@ function BookSessionPage() {
                         border: "none",
                         background: date
                           ? "linear-gradient(135deg, var(--rose), var(--sunset))"
-                          : "oklch(0.92 0.01 60)",
+                          : "oklch(0.92 0.01 150)",
                         color: "white",
                         fontWeight: 700,
                         cursor: date ? "pointer" : "not-allowed",
                         fontSize: "0.9rem",
-                        boxShadow: date ? "0 6px 20px oklch(0.74 0.11 18 / 0.28)" : "none",
+                        boxShadow: date ? "0 6px 20px oklch(0.55 0.08 158 / 0.28)" : "none",
                       }}
                     >
                       Continue →
@@ -722,10 +722,10 @@ function BookSessionPage() {
                       marginBottom: "20px",
                       padding: "14px 18px",
                       borderRadius: "14px",
-                      background: "oklch(0.97 0.015 60)",
-                      border: "1px solid oklch(0.91 0.02 55)",
+                      background: "oklch(0.97 0.015 150)",
+                      border: "1px solid oklch(0.91 0.02 145)",
                       fontSize: "0.85rem",
-                      color: "oklch(0.45 0.01 60)",
+                      color: "oklch(0.45 0.01 150)",
                     }}
                   >
                     📅 <strong>{doctor?.name}</strong> ·{" "}
@@ -746,7 +746,7 @@ function BookSessionPage() {
                   </h2>
                   <p
                     style={{
-                      color: "oklch(0.55 0.01 60)",
+                      color: "oklch(0.55 0.01 150)",
                       fontSize: "0.88rem",
                       marginBottom: "24px",
                     }}
@@ -757,7 +757,7 @@ function BookSessionPage() {
                           width: "10px",
                           height: "10px",
                           borderRadius: "2px",
-                          background: "oklch(0.92 0.01 60)",
+                          background: "oklch(0.92 0.01 150)",
                           display: "inline-block",
                         }}
                       />{" "}
@@ -768,7 +768,7 @@ function BookSessionPage() {
                           width: "10px",
                           height: "10px",
                           borderRadius: "2px",
-                          background: "oklch(0.74 0.11 18 / 0.1)",
+                          background: "oklch(0.55 0.08 158 / 0.1)",
                           border: "2px solid var(--rose)",
                           display: "inline-block",
                         }}
@@ -794,16 +794,16 @@ function BookSessionPage() {
                           style={{
                             padding: "14px 8px",
                             borderRadius: "12px",
-                            border: `2px solid ${selected ? "var(--rose)" : unavail ? "transparent" : "oklch(0.91 0.02 55)"}`,
+                            border: `2px solid ${selected ? "var(--rose)" : unavail ? "transparent" : "oklch(0.91 0.02 145)"}`,
                             background: selected
-                              ? "oklch(0.74 0.11 18 / 0.08)"
+                              ? "oklch(0.55 0.08 158 / 0.08)"
                               : unavail
-                                ? "oklch(0.93 0.01 60)"
+                                ? "oklch(0.93 0.01 150)"
                                 : "white",
                             color: selected
                               ? "var(--rose)"
                               : unavail
-                                ? "oklch(0.72 0.01 60)"
+                                ? "oklch(0.72 0.01 150)"
                                 : "var(--charcoal)",
                             fontWeight: selected ? 700 : 500,
                             fontSize: "0.88rem",
@@ -824,9 +824,9 @@ function BookSessionPage() {
                       style={{
                         padding: "13px 24px",
                         borderRadius: "12px",
-                        border: "1.5px solid oklch(0.88 0.02 55)",
+                        border: "1.5px solid oklch(0.88 0.02 145)",
                         background: "white",
-                        color: "oklch(0.45 0.01 60)",
+                        color: "oklch(0.45 0.01 150)",
                         fontWeight: 500,
                         cursor: "pointer",
                         fontSize: "0.9rem",
@@ -844,12 +844,12 @@ function BookSessionPage() {
                         border: "none",
                         background: time
                           ? "linear-gradient(135deg, var(--rose), var(--sunset))"
-                          : "oklch(0.92 0.01 60)",
+                          : "oklch(0.92 0.01 150)",
                         color: "white",
                         fontWeight: 700,
                         cursor: time ? "pointer" : "not-allowed",
                         fontSize: "0.9rem",
-                        boxShadow: time ? "0 6px 20px oklch(0.74 0.11 18 / 0.28)" : "none",
+                        boxShadow: time ? "0 6px 20px oklch(0.55 0.08 158 / 0.28)" : "none",
                       }}
                     >
                       Continue →
@@ -874,7 +874,7 @@ function BookSessionPage() {
                   </h2>
                   <p
                     style={{
-                      color: "oklch(0.55 0.01 60)",
+                      color: "oklch(0.55 0.01 150)",
                       fontSize: "0.88rem",
                       marginBottom: "24px",
                     }}
@@ -886,7 +886,7 @@ function BookSessionPage() {
                   <div
                     style={{
                       borderRadius: "18px",
-                      border: "1.5px solid oklch(0.9 0.02 55)",
+                      border: "1.5px solid oklch(0.9 0.02 145)",
                       overflow: "hidden",
                       marginBottom: "24px",
                     }}
@@ -953,13 +953,13 @@ function BookSessionPage() {
                             justifyContent: "space-between",
                             alignItems: "center",
                             paddingBottom: "12px",
-                            borderBottom: "1px solid oklch(0.95 0.01 60)",
+                            borderBottom: "1px solid oklch(0.95 0.01 150)",
                           }}
                         >
                           <span
                             style={{
                               fontSize: "0.82rem",
-                              color: "oklch(0.55 0.01 60)",
+                              color: "oklch(0.55 0.01 150)",
                               display: "flex",
                               alignItems: "center",
                               gap: "8px",
@@ -1003,9 +1003,9 @@ function BookSessionPage() {
                       style={{
                         padding: "13px 24px",
                         borderRadius: "12px",
-                        border: "1.5px solid oklch(0.88 0.02 55)",
+                        border: "1.5px solid oklch(0.88 0.02 145)",
                         background: "white",
-                        color: "oklch(0.45 0.01 60)",
+                        color: "oklch(0.45 0.01 150)",
                         fontWeight: 500,
                         cursor: "pointer",
                         fontSize: "0.9rem",
@@ -1026,7 +1026,7 @@ function BookSessionPage() {
                         fontWeight: 700,
                         cursor: "pointer",
                         fontSize: "0.95rem",
-                        boxShadow: "0 8px 28px oklch(0.74 0.11 18 / 0.32)",
+                        boxShadow: "0 8px 28px oklch(0.55 0.08 158 / 0.32)",
                         letterSpacing: "0.02em",
                       }}
                     >
