@@ -140,12 +140,12 @@ function Nav() {
           justifyContent: "space-between",
           padding: "8px 8px 8px 18px",
           borderRadius: "999px",
-          background: scrolled ? "rgba(30, 58, 51, 0.86)" : "rgba(18, 20, 28, 0.18)",
+          background: scrolled ? "rgba(30, 58, 51, 0.86)" : "rgba(30, 58, 51, 0.5)",
           backdropFilter: "blur(48px) saturate(180%)",
           WebkitBackdropFilter: "blur(48px) saturate(180%)",
-          border: "1px solid rgba(255, 255, 255, 0.1)",
+          border: "1px solid rgba(207, 227, 202, 0.18)",
           boxShadow:
-            "inset 0 1px 0 rgba(255,255,255,0.07), 0 8px 32px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.3)",
+            "inset 0 1px 0 rgba(255,255,255,0.07), 0 8px 32px rgba(0,0,0,0.35), 0 2px 8px rgba(0,0,0,0.2)",
           pointerEvents: "auto",
           transition: "all 0.4s ease",
         }}
@@ -400,9 +400,9 @@ function Nav() {
                 gap: "6px",
                 padding: "9px 22px",
                 borderRadius: "999px",
-                background: "rgba(240, 240, 245, 0.92)",
+                background: "rgba(244, 248, 242, 0.95)",
                 border: "1px solid rgba(255,255,255,0.6)",
-                color: "#111118",
+                color: "#1e3a33",
                 fontSize: "0.875rem",
                 fontWeight: 600,
                 textDecoration: "none",
@@ -415,7 +415,7 @@ function Nav() {
                 (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,1)";
               }}
               onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.background = "rgba(240,240,245,0.92)";
+                (e.currentTarget as HTMLElement).style.background = "rgba(244, 248, 242, 0.95)";
               }}
             >
               Explore Early Access
@@ -802,8 +802,10 @@ function getSkyPhase(hour: number) {
     return {
       label: "Dawn",
       overlay:
-        "linear-gradient(180deg, rgba(232, 168, 124, 0.25) 0%, rgba(107, 74, 122, 0.25) 60%, rgba(43, 27, 74, 0.4) 100%)",
-      filter: "brightness(0.9) saturate(1.1) sepia(0.05) contrast(0.98) hue-rotate(5deg)",
+        "linear-gradient(180deg, rgba(240, 186, 150, 0.22) 0%, rgba(150, 140, 150, 0.16) 55%, rgba(30, 58, 51, 0.32) 100%)",
+      filter: "brightness(0.92) saturate(1.0) sepia(0.04) contrast(0.98) hue-rotate(2deg)",
+      landTint: 0.3,
+      textScrim: 0.2,
       glowColor: "rgba(232, 168, 124, 0.2)",
       subtitle: "Dawn · a gentle start to a connected day.",
       starsOpacity,
@@ -819,8 +821,10 @@ function getSkyPhase(hour: number) {
     return {
       label: "Morning",
       overlay:
-        "linear-gradient(180deg, rgba(255, 243, 176, 0.1) 0%, rgba(168, 211, 237, 0.05) 60%, rgba(220, 238, 248, 0) 100%)",
-      filter: "brightness(1.02) saturate(1.05) contrast(1.0) hue-rotate(0deg)",
+        "linear-gradient(180deg, rgba(255, 243, 176, 0.1) 0%, rgba(207, 227, 202, 0.06) 60%, rgba(141, 190, 138, 0.1) 100%)",
+      filter: "brightness(1.02) saturate(1.0) contrast(1.0) hue-rotate(0deg)",
+      landTint: 0.42,
+      textScrim: 0.42,
       glowColor: "rgba(255, 243, 176, 0.25)",
       subtitle: "Morning · a familiar voice at the time you choose.",
       starsOpacity,
@@ -836,8 +840,10 @@ function getSkyPhase(hour: number) {
     return {
       label: "Afternoon",
       overlay:
-        "linear-gradient(180deg, rgba(255, 252, 224, 0.08) 0%, rgba(143, 196, 229, 0.05) 60%, rgba(214, 235, 245, 0) 100%)",
-      filter: "brightness(1.05) saturate(1.1) contrast(1.02) hue-rotate(-5deg)",
+        "linear-gradient(180deg, rgba(255, 252, 224, 0.08) 0%, rgba(207, 227, 202, 0.06) 60%, rgba(141, 190, 138, 0.1) 100%)",
+      filter: "brightness(1.04) saturate(1.02) contrast(1.02) hue-rotate(-3deg)",
+      landTint: 0.42,
+      textScrim: 0.42,
       glowColor: "rgba(255, 252, 224, 0.15)",
       subtitle: "Afternoon · stories, memories and meaningful moments.",
       starsOpacity,
@@ -853,8 +859,10 @@ function getSkyPhase(hour: number) {
     return {
       label: "Sunset/Evening",
       overlay:
-        "linear-gradient(180deg, rgba(197, 107, 125, 0.3) 0%, rgba(232, 154, 108, 0.25) 50%, rgba(244, 194, 138, 0.1) 100%)",
-      filter: "brightness(0.95) saturate(1.1) sepia(0.05) contrast(1.0) hue-rotate(-10deg)",
+        "linear-gradient(180deg, rgba(150, 150, 130, 0.22) 0%, rgba(246, 204, 164, 0.16) 42%, rgba(30, 58, 51, 0.3) 100%)",
+      filter: "brightness(1.0) saturate(0.82) sepia(0.06) contrast(0.98) hue-rotate(6deg)",
+      landTint: 0.5,
+      textScrim: 0.24,
       glowColor: "rgba(255, 142, 90, 0.35)",
       subtitle: "Evening · reflecting on the small joys of the day.",
       starsOpacity,
@@ -870,8 +878,10 @@ function getSkyPhase(hour: number) {
     return {
       label: "Night",
       overlay:
-        "linear-gradient(180deg, rgba(10, 5, 30, 0.5) 0%, rgba(18, 8, 64, 0.3) 50%, rgba(42, 27, 92, 0.1) 100%)",
+        "linear-gradient(180deg, rgba(10, 5, 30, 0.5) 0%, rgba(14, 26, 48, 0.3) 50%, rgba(20, 48, 42, 0.3) 100%)",
       filter: "brightness(0.85) saturate(0.9) contrast(1.05) hue-rotate(0deg)",
+      landTint: 0.3,
+      textScrim: 0.2,
       glowColor: "rgba(255, 244, 214, 0.08)",
       subtitle: "Night · rest well. Your next conversation is already scheduled.",
       starsOpacity,
@@ -902,6 +912,7 @@ const getIndianTimeString = (decimalHour: number) => {
 
 function Hero() {
   const skyRef = useRef<HTMLDivElement>(null);
+  const washRef = useRef<HTMLDivElement>(null);
   const [simulatedHour, setSimulatedHour] = useState<number | null>(null);
   const [currentRealHour, setCurrentRealHour] = useState<number>(12);
 
@@ -948,6 +959,10 @@ function Hero() {
           // GPU accelerated background scroll
           if (skyRef.current) {
             skyRef.current.style.transform = `translate3d(0, ${scrolled * 0.3}px, 0)`;
+          }
+          if (washRef.current) {
+            const t = Math.min(1, scrolled / (window.innerHeight * 0.9));
+            washRef.current.style.opacity = `${t * 0.92}`;
           }
 
           ticked = false;
@@ -1118,6 +1133,21 @@ function Hero() {
           }}
         >
           <SkyBackdrops phase={phase} />
+          {/* Brand tint: shifts the mountains, treeline and lake toward the
+              site's sage/forest greens — light on the distant ridge, fuller
+              on the near hills (atmospheric perspective). */}
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              zIndex: 5,
+              mixBlendMode: "color",
+              opacity: phase.landTint,
+              transition: "opacity 1.5s ease-in-out",
+              background:
+                "linear-gradient(180deg, rgba(141, 190, 138, 0) 40%, rgba(141, 190, 138, 0.55) 50%, #2f5d50 64%, #5f8f7a 80%, #8dbe8a 100%)",
+            }}
+          />
         </div>
 
         {/* Sliding 3D Clouds Layer */}
@@ -1144,7 +1174,60 @@ function Hero() {
         ))}
       </div>
 
+      {/* Forest-green glow along the bottom: ties the scene to the brand
+          palette and keeps the buttons legible over the bright lake. */}
+      <div
+        aria-hidden
+        style={{
+          position: "absolute",
+          left: 0,
+          right: 0,
+          bottom: 0,
+          height: "38%",
+          zIndex: 2,
+          pointerEvents: "none",
+          background:
+            "linear-gradient(0deg, rgba(30, 58, 51, 0.62) 0%, rgba(30, 58, 51, 0.28) 45%, rgba(30, 58, 51, 0) 100%)",
+        }}
+      />
 
+      {/* Soft forest shade behind the headline so the pale-green type stays
+          legible on bright daytime skies (left-weighted on desktop, centred on
+          mobile where the text is centred). */}
+      {[
+        ["hidden md:block", "ellipse 48% 62% at 24% 52%"],
+        ["md:hidden", "ellipse 75% 45% at 50% 38%"],
+      ].map(([cls, shape]) => (
+        <div
+          key={cls}
+          aria-hidden
+          className={cls}
+          style={{
+            position: "absolute",
+            inset: 0,
+            zIndex: 2,
+            pointerEvents: "none",
+            opacity: phase.textScrim,
+            transition: "opacity 1.5s ease-in-out",
+            background: `radial-gradient(${shape}, rgba(30, 58, 51, 0.9) 0%, rgba(30, 58, 51, 0.45) 45%, rgba(30, 58, 51, 0) 100%)`,
+          }}
+        />
+      ))}
+
+      {/* Washes the hero into the pale sage page as the content sheet rises. */}
+      <div
+        ref={washRef}
+        aria-hidden
+        style={{
+          position: "absolute",
+          inset: 0,
+          zIndex: 45,
+          pointerEvents: "none",
+          background: "var(--sage-50)",
+          opacity: 0,
+          willChange: "opacity",
+        }}
+      />
 
       {/* Hero Content (Split Column Layout) */}
       <div
@@ -1236,10 +1319,10 @@ function Hero() {
                 gap: "8px",
                 padding: "14px 32px",
                 borderRadius: "99px",
-                background: "rgba(255, 255, 255, 0.15)",
+                background: "rgba(47, 93, 80, 0.82)",
                 backdropFilter: "blur(12px)",
                 WebkitBackdropFilter: "blur(12px)",
-                border: "1px solid rgba(255, 255, 255, 0.25)",
+                border: "1px solid rgba(207, 227, 202, 0.35)",
                 color: "white",
                 fontSize: "0.95rem",
                 fontWeight: 600,
@@ -1249,11 +1332,11 @@ function Hero() {
                 letterSpacing: "0.02em",
               }}
               onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.background = "rgba(255, 255, 255, 0.25)";
+                (e.currentTarget as HTMLElement).style.background = "rgba(47, 93, 80, 0.98)";
                 (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)";
               }}
               onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.background = "rgba(255, 255, 255, 0.15)";
+                (e.currentTarget as HTMLElement).style.background = "rgba(47, 93, 80, 0.82)";
                 (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
               }}
             >
@@ -1267,9 +1350,9 @@ function Hero() {
                 gap: "8px",
                 padding: "14px 32px",
                 borderRadius: "99px",
-                background: "transparent",
-                border: "1px solid rgba(255, 255, 255, 0.4)",
-                color: "rgba(255, 255, 255, 0.9)",
+                background: "rgba(30, 58, 51, 0.18)",
+                border: "1px solid rgba(207, 227, 202, 0.6)",
+                color: "#F1F8EE",
                 fontSize: "0.95rem",
                 fontWeight: 600,
                 textDecoration: "none",
@@ -1277,13 +1360,13 @@ function Hero() {
                 letterSpacing: "0.02em",
               }}
               onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.background = "rgba(255, 255, 255, 0.05)";
-                (e.currentTarget as HTMLElement).style.borderColor = "white";
+                (e.currentTarget as HTMLElement).style.background = "rgba(207, 227, 202, 0.16)";
+                (e.currentTarget as HTMLElement).style.borderColor = "#cfe3ca";
                 (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)";
               }}
               onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.background = "transparent";
-                (e.currentTarget as HTMLElement).style.borderColor = "rgba(255, 255, 255, 0.4)";
+                (e.currentTarget as HTMLElement).style.background = "rgba(30, 58, 51, 0.18)";
+                (e.currentTarget as HTMLElement).style.borderColor = "rgba(207, 227, 202, 0.6)";
                 (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
               }}
             >
@@ -1320,10 +1403,10 @@ function Hero() {
           bottom: "20px",
           right: "20px",
           zIndex: 40,
-          background: "rgba(255, 255, 255, 0.08)",
+          background: "rgba(30, 58, 51, 0.45)",
           backdropFilter: "blur(16px)",
           WebkitBackdropFilter: "blur(16px)",
-          border: "1px solid rgba(255, 255, 255, 0.15)",
+          border: "1px solid rgba(207, 227, 202, 0.2)",
           borderRadius: "16px",
           padding: "12px 18px",
           color: "white",
@@ -1417,8 +1500,8 @@ function Hero() {
         <button
           onClick={() => setSimulatedHour(simulatedHour === null ? currentRealHour : null)}
           style={{
-            background: "rgba(255, 255, 255, 0.15)",
-            border: "1px solid rgba(255, 255, 255, 0.2)",
+            background: "rgba(207, 227, 202, 0.16)",
+            border: "1px solid rgba(207, 227, 202, 0.28)",
             borderRadius: "8px",
             color: "white",
             padding: "5px 10px",
@@ -1428,8 +1511,8 @@ function Hero() {
             transition: "all 0.2s ease",
             textAlign: "center",
           }}
-          onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(255, 255, 255, 0.25)")}
-          onMouseLeave={(e) => (e.currentTarget.style.background = "rgba(255, 255, 255, 0.15)")}
+          onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(207, 227, 202, 0.28)")}
+          onMouseLeave={(e) => (e.currentTarget.style.background = "rgba(207, 227, 202, 0.16)")}
         >
           {simulatedHour !== null ? "Reset to Live IST Time" : "Open Time Simulator"}
         </button>
