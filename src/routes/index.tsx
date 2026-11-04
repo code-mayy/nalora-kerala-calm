@@ -21,7 +21,8 @@ import {
   Globe,
 } from "lucide-react";
 
-import motherBaby from "@/assets/mother-baby.png";
+import elderCouple from "@/assets/elder-couple.svg";
+import landscapeMask from "@/assets/hero-landscape-mask.png";
 import morningBg from "@/assets/image copy.png";
 import afternoonBg from "@/assets/image copy 3.png";
 import eveningBg from "@/assets/hero.png";
@@ -611,8 +612,85 @@ const CLOUDS_CONFIG = [
   },
 ];
 
+/* ---------- Hero sky geometry ----------
+ * All four time-of-day backdrops share the same composition (1672×941) and the
+ * same mountain ridge. `hero-landscape-mask.png` is opaque below that ridge, so
+ * re-drawing the backdrop through it puts the mountains + lake IN FRONT of the
+ * sun and moon. Sun/moon are placed in image pixels and mapped through the same
+ * `background-size: cover; background-position: top center` maths, so they line
+ * up with the ridge at every viewport size. */
+const SKY_IMG_W = 1672;
+const SKY_IMG_H = 941;
+const SKY_HORIZON_Y = 445; // average ridge line, in image pixels
+const SKY_OVERSCAN = 150; // the parallax layer starts 150px above the hero
+const SKY_BASE_COLOR = "#080318"; // hero background behind the backdrops
+const SUNRISE = 6.25; // sun centre crosses the ridge (IST, decimal hours)
+const SUNSET = 18.25;
+const MOONRISE = 18.75;
+const SUN_SIZE = 54;
+const MOON_SIZE = 40;
+
+const clamp01 = (v: number) => Math.min(1, Math.max(0, v));
+
+/** Maps a celestial body's (u, e) to pixel coords inside the sky layer. */
+function skyPoint(box: { w: number; h: number }, u: number, e: number) {
+  const scale = Math.max(box.w / SKY_IMG_W, box.h / SKY_IMG_H);
+  const offX = (box.w - SKY_IMG_W * scale) / 2;
+  // Horizontal range of the image that is actually on screen.
+  const x0 = -offX / scale;
+  const x1 = x0 + box.w / scale;
+  const visTop = SKY_OVERSCAN / scale;
+  const peakY = visTop + (SKY_HORIZON_Y - visTop) * 0.3;
+  const imgX = x0 + (0.06 + 0.88 * u) * (x1 - x0);
+  const imgY = SKY_HORIZON_Y - e * (SKY_HORIZON_Y - peakY);
+  return { x: offX + imgX * scale, y: imgY * scale };
+}
+
+type SkyPhase = ReturnType<typeof getSkyPhase>;
+
+/** The four cross-fading backdrops plus the phase colour overlay. */
+function SkyBackdrops({ phase }: { phase: SkyPhase }) {
+  const layers: [string, number][] = [
+    [morningBg, phase.morningOpacity],
+    [afternoonBg, phase.afternoonOpacity],
+    [eveningBg, phase.eveningOpacity],
+    [nightBg, phase.nightOpacity],
+  ];
+  return (
+    <>
+      {layers.map(([img, opacity], i) => (
+        <div
+          key={i}
+          style={{
+            position: "absolute",
+            inset: 0,
+            backgroundImage: `url(${img})`,
+            backgroundSize: "cover",
+            backgroundPosition: "top center",
+            backgroundRepeat: "no-repeat",
+            opacity,
+            transition: "opacity 1.5s ease-in-out",
+            zIndex: i + 1,
+          }}
+        />
+      ))}
+      {/* Phase color-correction overlay (sits above all image layers) */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          background: phase.overlay,
+          pointerEvents: "none",
+          transition: "background 1.5s ease-in-out",
+          zIndex: 4,
+        }}
+      />
+    </>
+  );
+}
+
 function getSunStyle(hour: number) {
-  if (hour < 5 || hour > 19) return { bg: "transparent", glow: "none" };
+  if (hour < 5 || hour > 19.5) return { bg: "transparent", glow: "none" };
   if (hour >= 5 && hour < 8) {
     return {
       bg: "radial-gradient(circle, #ffe066 10%, #ff7e5f 70%, #feb47b 100%)",
@@ -645,54 +723,27 @@ function getSkyPhase(hour: number) {
   // Afternoon: 12:00 to 16:00
   // Evening/Sunset: 16:00 to 20:00
 
-  // 1. Calculate Sun Trajectory (active 5:00 to 19:00, i.e., 14 hours)
-  let sunOpacity = 0;
-  let sunX = "50%";
-  let sunY = "-20%"; // Hidden below
-  let sunScale = 1.0;
+  // 1. Sun trajectory.
+  // `e` is elevation: 1 = highest point of the arc, 0 = centre on the mountain
+  // horizon, < 0 = below it. The disc sits behind the masked landscape layer,
+  // so as `e` drops below 0 it sinks behind the ridge instead of into the lake.
+  // `u` is horizontal progress across the sky, east (0) to west (1).
+  const sunE = Math.max(-0.45, Math.sin(((hour - SUNRISE) / (SUNSET - SUNRISE)) * Math.PI));
+  const sunU = clamp01((hour - (SUNRISE - 1)) / (SUNSET - SUNRISE + 2));
+  // Fully opaque until it is well hidden behind the ridge, then let the glow fade.
+  const sunOpacity = clamp01((sunE + 0.4) / 0.15);
+  const sunScale = 1.0 + Math.max(0, sunE) * 0.1;
 
-  if (hour >= 5 && hour <= 19) {
-    const tSun = (hour - 5) / 14;
-    sunX = `${5 + tSun * 90}%`;
-    sunY = `${12 + Math.sin(tSun * Math.PI) * 65}%`;
-
-    // Smooth opacity transitions at sunrise (5 to 6) and sunset (18 to 19)
-    if (hour >= 5 && hour < 6) {
-      sunOpacity = hour - 5;
-    } else if (hour > 18 && hour <= 19) {
-      sunOpacity = 19 - hour;
-    } else {
-      sunOpacity = 1.0;
-    }
-
-    // Scale peaks at noon
-    sunScale = 1.0 + Math.sin(tSun * Math.PI) * 0.1;
-  }
-
-  // 2. Calculate Moon Trajectory (active 17:00 to 7:00, i.e., 14 hours)
-  let moonOpacity = 0;
-  let moonX = "50%";
-  let moonY = "-20%"; // Hidden below
-
-  // Check if we are in moon range
-  const isMoonTime = hour >= 17 || hour <= 7;
-  if (isMoonTime) {
-    const hRel = hour >= 17 ? hour - 17 : hour + 7;
-    const tMoon = hRel / 14;
-    moonX = `${5 + tMoon * 90}%`;
-    moonY = `${15 + Math.sin(tMoon * Math.PI) * 55}%`;
-
-    // Smooth opacity transitions
-    if (hour >= 17 && hour < 19) {
-      // Fade in moon from 17:00 to 19:00
-      moonOpacity = ((hour - 17) / 2) * 0.9;
-    } else if (hour > 5 && hour <= 7) {
-      // Fade out moon from 5:00 to 7:00
-      moonOpacity = ((7 - hour) / 2) * 0.9;
-    } else {
-      moonOpacity = 0.9;
-    }
-  }
+  // 2. Moon trajectory (rises in the east after dusk, sets after dawn).
+  const moonH = (((hour - MOONRISE) % 24) + 24) % 24;
+  const moonE = Math.max(-0.45, Math.sin((moonH / 12) * Math.PI));
+  const moonU = clamp01((moonH + 1) / 14);
+  // Only shows once the sky is dark enough.
+  let skyDark = 0;
+  if (hour >= 19.5 || hour < 5) skyDark = 1;
+  else if (hour >= 18.5) skyDark = hour - 18.5;
+  else if (hour < 6.5) skyDark = (6.5 - hour) / 1.5;
+  const moonOpacity = 0.9 * skyDark * clamp01((moonE + 0.4) / 0.15);
 
   // 3. Stars Opacity
   let starsOpacity = 0;
@@ -761,8 +812,8 @@ function getSkyPhase(hour: number) {
       eveningOpacity,
       nightOpacity,
       invertImage: hour < 6.5,
-      sun: { opacity: sunOpacity, left: sunX, bottom: sunY, scale: sunScale },
-      moon: { opacity: moonOpacity, left: moonX, bottom: moonY },
+      sun: { opacity: sunOpacity, u: sunU, e: sunE, scale: sunScale },
+      moon: { opacity: moonOpacity, u: moonU, e: moonE },
     };
   } else if (hour >= 7 && hour < 12) {
     return {
@@ -778,8 +829,8 @@ function getSkyPhase(hour: number) {
       eveningOpacity,
       nightOpacity,
       invertImage: false,
-      sun: { opacity: sunOpacity, left: sunX, bottom: sunY, scale: sunScale },
-      moon: { opacity: moonOpacity, left: moonX, bottom: moonY },
+      sun: { opacity: sunOpacity, u: sunU, e: sunE, scale: sunScale },
+      moon: { opacity: moonOpacity, u: moonU, e: moonE },
     };
   } else if (hour >= 12 && hour < 16) {
     return {
@@ -795,8 +846,8 @@ function getSkyPhase(hour: number) {
       eveningOpacity,
       nightOpacity,
       invertImage: false,
-      sun: { opacity: sunOpacity, left: sunX, bottom: sunY, scale: sunScale },
-      moon: { opacity: moonOpacity, left: moonX, bottom: moonY },
+      sun: { opacity: sunOpacity, u: sunU, e: sunE, scale: sunScale },
+      moon: { opacity: moonOpacity, u: moonU, e: moonE },
     };
   } else if (hour >= 16 && hour < 20) {
     return {
@@ -812,8 +863,8 @@ function getSkyPhase(hour: number) {
       eveningOpacity,
       nightOpacity,
       invertImage: hour >= 18.5,
-      sun: { opacity: sunOpacity, left: sunX, bottom: sunY, scale: sunScale },
-      moon: { opacity: moonOpacity, left: moonX, bottom: moonY },
+      sun: { opacity: sunOpacity, u: sunU, e: sunE, scale: sunScale },
+      moon: { opacity: moonOpacity, u: moonU, e: moonE },
     };
   } else {
     return {
@@ -829,8 +880,8 @@ function getSkyPhase(hour: number) {
       eveningOpacity,
       nightOpacity,
       invertImage: true,
-      sun: { opacity: sunOpacity, left: sunX, bottom: sunY, scale: sunScale },
-      moon: { opacity: moonOpacity, left: moonX, bottom: moonY },
+      sun: { opacity: sunOpacity, u: sunU, e: sunE, scale: sunScale },
+      moon: { opacity: moonOpacity, u: moonU, e: moonE },
     };
   }
 }
@@ -873,6 +924,20 @@ function Hero() {
   const phase = getSkyPhase(hour);
   const sunStyle = getSunStyle(hour);
 
+  // Size of the parallax sky layer, needed to map sun/moon onto the backdrop.
+  const [skyBox, setSkyBox] = useState<{ w: number; h: number } | null>(null);
+  useEffect(() => {
+    const el = skyRef.current;
+    if (!el) return;
+    const measure = () => setSkyBox({ w: el.offsetWidth, h: el.offsetHeight });
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+  const sunPos = skyBox ? skyPoint(skyBox, phase.sun.u, phase.sun.e) : null;
+  const moonPos = skyBox ? skyPoint(skyBox, phase.moon.u, phase.moon.e) : null;
+
   useEffect(() => {
     let ticked = false;
     const handleScroll = () => {
@@ -905,7 +970,7 @@ function Hero() {
         height: "100vh",
         minHeight: "650px",
         overflow: "hidden",
-        background: "#080318",
+        background: SKY_BASE_COLOR,
         transformStyle: "preserve-3d",
         zIndex: 1,
       }}
@@ -954,77 +1019,8 @@ function Hero() {
           transition: "filter 1.5s ease-in-out",
         }}
       >
-        {/* Morning Background Layer */}
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            backgroundImage: `url(${morningBg})`,
-            backgroundSize: "cover",
-            backgroundPosition: "top center",
-            backgroundRepeat: "no-repeat",
-            opacity: phase.morningOpacity,
-            transition: "opacity 1.5s ease-in-out",
-            zIndex: 1,
-          }}
-        />
-
-        {/* Afternoon Background Layer */}
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            backgroundImage: `url(${afternoonBg})`,
-            backgroundSize: "cover",
-            backgroundPosition: "top center",
-            backgroundRepeat: "no-repeat",
-            opacity: phase.afternoonOpacity,
-            transition: "opacity 1.5s ease-in-out",
-            zIndex: 2,
-          }}
-        />
-
-        {/* Evening Background Layer */}
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            backgroundImage: `url(${eveningBg})`,
-            backgroundSize: "cover",
-            backgroundPosition: "top center",
-            backgroundRepeat: "no-repeat",
-            opacity: phase.eveningOpacity,
-            transition: "opacity 1.5s ease-in-out",
-            zIndex: 3,
-          }}
-        />
-
-        {/* Night Background Layer */}
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            backgroundImage: `url(${nightBg})`,
-            backgroundSize: "cover",
-            backgroundPosition: "top center",
-            backgroundRepeat: "no-repeat",
-            opacity: phase.nightOpacity,
-            transition: "opacity 1.5s ease-in-out",
-            zIndex: 4,
-          }}
-        />
-
-        {/* Phase color-correction overlay (sits above all image layers) */}
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            background: phase.overlay,
-            pointerEvents: "none",
-            transition: "background 1.5s ease-in-out",
-            zIndex: 4,
-          }}
-        />
+        {/* Sky backdrops (morning / afternoon / evening / night) */}
+        <SkyBackdrops phase={phase} />
 
         {/* Twinkling Stars Overlay (Only visible in dusk/night/dawn phases) */}
         <div
@@ -1056,19 +1052,19 @@ function Hero() {
           ))}
         </div>
 
-        {/* Dynamic Sun Layer (Active during daylight hours) */}
+        {/* Dynamic Sun Layer — sits BEHIND the masked landscape below */}
         <div
           style={{
             position: "absolute",
-            bottom: phase.sun.bottom,
-            left: phase.sun.left,
-            width: "54px",
-            height: "54px",
+            left: sunPos ? `${sunPos.x - SUN_SIZE / 2}px` : 0,
+            top: sunPos ? `${sunPos.y - SUN_SIZE / 2}px` : 0,
+            width: `${SUN_SIZE}px`,
+            height: `${SUN_SIZE}px`,
             borderRadius: "50%",
             background: sunStyle.bg,
             boxShadow: sunStyle.glow,
             filter: "drop-shadow(0 0 15px rgba(255, 255, 255, 0.4))",
-            opacity: phase.sun.opacity,
+            opacity: sunPos ? phase.sun.opacity : 0,
             transform: `scale(${phase.sun.scale})`,
             transition: "all 1.5s cubic-bezier(0.4, 0, 0.2, 1)",
             pointerEvents: "none",
@@ -1076,26 +1072,53 @@ function Hero() {
           }}
         />
 
-        {/* Dynamic Moon Layer (Active during night/dawn hours) */}
+        {/* Dynamic Moon Layer — sits BEHIND the masked landscape below */}
         <div
           style={{
             position: "absolute",
-            bottom: phase.moon.bottom,
-            left: phase.moon.left,
-            width: "40px",
-            height: "40px",
+            left: moonPos ? `${moonPos.x - MOON_SIZE / 2}px` : 0,
+            top: moonPos ? `${moonPos.y - MOON_SIZE / 2}px` : 0,
+            width: `${MOON_SIZE}px`,
+            height: `${MOON_SIZE}px`,
             borderRadius: "50%",
             background: "transparent",
             boxShadow: "-10px 10px 0 0 #fffdeb",
             filter:
               "drop-shadow(0 0 20px rgba(255, 255, 255, 0.65)) drop-shadow(0 0 40px rgba(187, 222, 251, 0.35))",
-            opacity: phase.moon.opacity,
+            opacity: moonPos ? phase.moon.opacity : 0,
             transform: "scale(1.0)",
             transition: "all 1.5s cubic-bezier(0.4, 0, 0.2, 1)",
             pointerEvents: "none",
             zIndex: 11,
           }}
         />
+
+        {/* Foreground landscape: the same backdrops again, cut to everything
+            below the mountain ridge, so the sun and moon rise and set BEHIND
+            the mountains and never show over the lake. */}
+        {/* The copy is opaque (same base colour as the hero), so inside the mask
+            it is pixel-identical to the backdrop and never leaves a seam, even
+            while the time-of-day images cross-fade. */}
+        <div
+          aria-hidden
+          style={{
+            position: "absolute",
+            inset: 0,
+            zIndex: 12,
+            pointerEvents: "none",
+            background: SKY_BASE_COLOR,
+            maskImage: `url(${landscapeMask})`,
+            WebkitMaskImage: `url(${landscapeMask})`,
+            maskSize: "cover",
+            WebkitMaskSize: "cover",
+            maskPosition: "top center",
+            WebkitMaskPosition: "top center",
+            maskRepeat: "no-repeat",
+            WebkitMaskRepeat: "no-repeat",
+          }}
+        >
+          <SkyBackdrops phase={phase} />
+        </div>
 
         {/* Sliding 3D Clouds Layer */}
         {CLOUDS_CONFIG.map((cloud) => (
@@ -1115,7 +1138,7 @@ function Hero() {
               animationDuration: cloud.duration,
               animationDelay: cloud.delay,
               pointerEvents: "none",
-              zIndex: 12, // In front of Sun/Moon and Stars, but behind horizon glow
+              zIndex: 13, // In front of the sun, moon and landscape
             }}
           />
         ))}
@@ -1273,8 +1296,8 @@ function Hero() {
         <div className="flex-1 w-full max-w-[450px] md:max-w-none flex justify-center items-center h-[35vh] md:h-[65vh] md:translate-y-[-5px]">
           <div className="reveal reveal-scale h-full max-h-[30vh] md:max-h-[60vh] flex items-center justify-center" style={{ transitionDelay: "650ms" }}>
             <img
-              src={motherBaby}
-              alt="Nalora illustration"
+              src={elderCouple}
+              alt="An elderly couple resting their foreheads together"
               className="w-auto h-full object-contain image-float"
               style={{
                 filter: phase.invertImage
