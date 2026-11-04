@@ -21,7 +21,7 @@ import {
   Globe,
 } from "lucide-react";
 
-import elderCouple from "@/assets/elder-couple.svg";
+import elderCouple from "@/assets/elder-couple-walking.png";
 import landscapeMask from "@/assets/hero-landscape-mask.png";
 import morningBg from "@/assets/image copy.png";
 import afternoonBg from "@/assets/image copy 3.png";
@@ -1297,7 +1297,7 @@ function Hero() {
           <div className="reveal reveal-scale h-full max-h-[30vh] md:max-h-[60vh] flex items-center justify-center" style={{ transitionDelay: "650ms" }}>
             <img
               src={elderCouple}
-              alt="An elderly couple resting their foreheads together"
+              alt="An elderly couple walking hand in hand"
               className="w-auto h-full object-contain image-float"
               style={{
                 filter: phase.invertImage

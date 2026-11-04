@@ -23,6 +23,9 @@ const COLUMNS = [
     heading: "Connect",
     links: [
       { label: "Talk to us", href: "/contact" },
+      { label: "naloraai@gmail.com", href: "mailto:naloraai@gmail.com" },
+      { label: "LinkedIn", href: "https://www.linkedin.com/in/amar-rajan" },
+      { label: "YouTube", href: "https://www.youtube.com/channel/UC3zF29KG_D0QhgpRohJbJrQ" },
       { label: "Explore early access", href: "/create-account" },
       { label: "Privacy", href: "#" },
       { label: "Terms", href: "#" },
@@ -61,7 +64,11 @@ export function SiteFooter({ animated = false }: { animated?: boolean }) {
             <ul className="mt-4 space-y-2.5 text-sm">
               {links.map(({ label, href }) => (
                 <li key={label}>
-                  <a href={href} className="text-foreground/75 hover:text-[var(--forest)] transition">
+                  <a
+                    href={href}
+                    {...(href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                    className="text-foreground/75 hover:text-[var(--forest)] transition"
+                  >
                     {label}
                   </a>
                 </li>

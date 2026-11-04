@@ -151,10 +151,10 @@ function ContactPage() {
                     Support Email
                   </h4>
                   <a
-                    href="mailto:support@nalora.care"
+                    href="mailto:naloraai@gmail.com"
                     style={{ color: "var(--rose)", textDecoration: "none", fontWeight: 500 }}
                   >
-                    support@nalora.care
+                    naloraai@gmail.com
                   </a>
                   <p
                     style={{ fontSize: "0.85rem", color: "oklch(0.55 0.01 150)", margin: "4px 0 0" }}
@@ -173,7 +173,7 @@ function ContactPage() {
                     borderRadius: "14px",
                   }}
                 >
-                  📞
+                  🌐
                 </span>
                 <div>
                   <h4
@@ -184,18 +184,30 @@ function ContactPage() {
                       margin: "0 0 4px",
                     }}
                   >
-                    WhatsApp & Helpline
+                    Follow Nalora
                   </h4>
-                  <a
-                    href="tel:+919876543210"
-                    style={{ color: "var(--rose)", textDecoration: "none", fontWeight: 500 }}
-                  >
-                    +91 98765 43210
-                  </a>
+                  <div style={{ display: "flex", gap: "18px", flexWrap: "wrap" }}>
+                    <a
+                      href="https://www.linkedin.com/in/amar-rajan"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{ color: "var(--rose)", textDecoration: "none", fontWeight: 500 }}
+                    >
+                      LinkedIn
+                    </a>
+                    <a
+                      href="https://www.youtube.com/channel/UC3zF29KG_D0QhgpRohJbJrQ"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{ color: "var(--rose)", textDecoration: "none", fontWeight: 500 }}
+                    >
+                      YouTube
+                    </a>
+                  </div>
                   <p
                     style={{ fontSize: "0.85rem", color: "oklch(0.55 0.01 150)", margin: "4px 0 0" }}
                   >
-                    Available Mon–Sat, 9:00 AM to 6:00 PM IST.
+                    Updates, talks and stories from the Nalora journey.
                   </p>
                 </div>
               </div>

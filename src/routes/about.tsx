@@ -326,7 +326,7 @@ function AboutPage() {
               <div style={{ display: "flex", gap: "12px" }}>
                 {/* LinkedIn */}
                 <a
-                  href="https://www.linkedin.com/in/amarrajan/"
+                  href="https://www.linkedin.com/in/amar-rajan"
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{
@@ -394,7 +394,7 @@ function AboutPage() {
 
                 {/* YouTube */}
                 <a
-                  href="https://www.youtube.com/@amarrajan"
+                  href="https://www.youtube.com/channel/UC3zF29KG_D0QhgpRohJbJrQ"
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{
