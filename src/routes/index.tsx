@@ -977,13 +977,12 @@ function Hero() {
 
   return (
     <section
+      className="h-[100svh] min-h-[480px] md:h-screen md:min-h-[650px]"
       style={{
         position: "fixed",
         top: 0,
         left: 0,
         width: "100%",
-        height: "100vh",
-        minHeight: "650px",
         overflow: "hidden",
         background: SKY_BASE_COLOR,
         transformStyle: "preserve-3d",
@@ -1231,7 +1230,7 @@ function Hero() {
 
       {/* Hero Content (Split Column Layout) */}
       <div
-        className="mx-auto flex max-w-6xl w-full h-full items-center justify-between px-6 pt-24 md:pt-20 flex-col md:flex-row gap-10 md:gap-10"
+        className="mx-auto flex max-w-6xl w-full h-full items-center justify-between px-6 pt-[88px] pb-[76px] md:pb-0 md:pt-20 flex-col md:flex-row gap-5 md:gap-10"
         style={{
           position: "relative",
           zIndex: 11,
@@ -1239,9 +1238,9 @@ function Hero() {
         }}
       >
         {/* Left Column: Text Content */}
-        <div className="flex-1 text-center md:text-left flex flex-col items-center md:items-start justify-center max-w-[620px] md:max-w-[640px]">
+        <div className="flex-none md:flex-1 text-center md:text-left flex flex-col items-center md:items-start justify-center max-w-[620px] md:max-w-[640px]">
           <h1
-            className="reveal reveal-up"
+            className="reveal reveal-up hero-title"
             style={{
               fontFamily: "var(--font-display)",
               fontSize: "clamp(2.3rem, 5.2vw, 4.4rem)",
@@ -1276,7 +1275,7 @@ function Hero() {
           </h1>
 
           <p
-            className="reveal reveal-up"
+            className="reveal reveal-up hero-sub"
             style={{
               fontSize: "clamp(0.95rem, 2vw, 1.08rem)",
               color: "rgba(255, 255, 255, 0.88)",
@@ -1308,16 +1307,16 @@ function Hero() {
           </p>
 
           <div
-            className="reveal reveal-up flex gap-4 justify-center md:justify-start flex-wrap w-full"
+            className="reveal reveal-up flex gap-2.5 md:gap-4 justify-center md:justify-start flex-wrap w-full"
             style={{ transitionDelay: "500ms" }}
           >
             <a
               href="#what-is-nalora"
+              className="px-3 py-3 min-[400px]:px-4 md:px-[32px] md:py-[14px]"
               style={{
                 display: "inline-flex",
                 alignItems: "center",
                 gap: "8px",
-                padding: "14px 32px",
                 borderRadius: "99px",
                 background: "rgba(47, 93, 80, 0.82)",
                 backdropFilter: "blur(12px)",
@@ -1344,11 +1343,11 @@ function Hero() {
             </a>
             <a
               href="#experience"
+              className="px-3 py-3 min-[400px]:px-4 md:px-[32px] md:py-[14px]"
               style={{
                 display: "inline-flex",
                 alignItems: "center",
                 gap: "8px",
-                padding: "14px 32px",
                 borderRadius: "99px",
                 background: "rgba(30, 58, 51, 0.18)",
                 border: "1px solid rgba(207, 227, 202, 0.6)",
@@ -1376,8 +1375,8 @@ function Hero() {
         </div>
 
         {/* Right Column: Image Content */}
-        <div className="flex-1 w-full max-w-[450px] md:max-w-none flex justify-center items-center h-[35vh] md:h-[65vh] md:translate-y-[-5px]">
-          <div className="reveal reveal-scale h-full max-h-[30vh] md:max-h-[60vh] flex items-center justify-center" style={{ transitionDelay: "650ms" }}>
+        <div className="flex-1 min-h-0 w-full max-w-[450px] md:max-w-none flex justify-center items-center md:h-[65vh] md:translate-y-[-5px]">
+          <div className="reveal reveal-scale h-full max-h-full md:max-h-[60vh] flex items-center justify-center" style={{ transitionDelay: "650ms" }}>
             <img
               src={elderCouple}
               alt="An elderly couple walking hand in hand"
@@ -1397,27 +1396,22 @@ function Hero() {
 
       {/* Time Simulation & IST Badge Control Panel */}
       <div
-        className="reveal reveal-up"
+        className="reveal reveal-up bottom-3 left-3 right-3 px-4 py-2.5 flex-row flex-wrap items-center justify-between md:left-auto md:bottom-[20px] md:right-[20px] md:px-[18px] md:py-[12px] md:flex-col md:flex-nowrap md:items-stretch md:justify-start md:max-w-[280px]"
         style={{
           position: "absolute",
-          bottom: "20px",
-          right: "20px",
           zIndex: 40,
           background: "rgba(30, 58, 51, 0.45)",
           backdropFilter: "blur(16px)",
           WebkitBackdropFilter: "blur(16px)",
           border: "1px solid rgba(207, 227, 202, 0.2)",
           borderRadius: "16px",
-          padding: "12px 18px",
           color: "white",
           fontFamily: "var(--font-sans, sans-serif)",
           fontSize: "13px",
           boxShadow: "0 8px 32px rgba(0, 0, 0, 0.35)",
           display: "flex",
-          flexDirection: "column",
           gap: "8px",
           transition: "all 0.3s ease, opacity 1.1s cubic-bezier(0.16, 1, 0.3, 1), transform 1.1s cubic-bezier(0.16, 1, 0.3, 1)",
-          maxWidth: "280px",
           transitionDelay: "800ms",
         }}
       >
@@ -1464,7 +1458,7 @@ function Hero() {
         </div>
 
         {simulatedHour !== null && (
-          <div style={{ marginTop: "4px" }}>
+          <div className="w-full" style={{ marginTop: "4px" }}>
             <div
               style={{
                 display: "flex",
@@ -2181,7 +2175,10 @@ function Index() {
     <main>
       <Nav />
       <Hero />
-      <div style={{ height: "100vh", minHeight: "650px", pointerEvents: "none" }} />
+      <div
+        className="h-[100svh] min-h-[480px] md:h-screen md:min-h-[650px]"
+        style={{ pointerEvents: "none" }}
+      />
       <HumanProblem />
       <WhatIsNalora />
       <Experience />
