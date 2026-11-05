@@ -138,7 +138,7 @@ export function InnerNav() {
         </div>
 
         {/* Desktop nav links */}
-        <nav className="hidden md:flex" style={{ display: "flex", alignItems: "center", gap: "2px" }}>
+        <nav className="hidden md:flex" style={{ alignItems: "center", gap: "2px" }}>
           {pages.map(({ to, label }) => (
             <Link
               key={to}
@@ -189,7 +189,7 @@ export function InnerNav() {
         {/* Right side — auth */}
         <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
           {user ? (
-            <div style={{ position: "relative" }}>
+            <div className="hidden sm:block" style={{ position: "relative" }}>
               <button
                 onClick={() => setProfileOpen((o) => !o)}
                 style={{
@@ -342,7 +342,6 @@ export function InnerNav() {
               to="/create-account"
               className="hidden sm:inline-flex"
               style={{
-                display: "inline-flex",
                 alignItems: "center",
                 padding: "9px 22px",
                 borderRadius: "999px",
@@ -416,7 +415,7 @@ export function InnerNav() {
             pointerEvents: "auto",
           }}
         >
-          {pages.map(({ to, label }) => (
+          {[...pages, ...(user ? [{ to: "/bookings", label: "My Bookings" } as const] : [])].map(({ to, label }) => (
             <Link
               key={to}
               to={to}

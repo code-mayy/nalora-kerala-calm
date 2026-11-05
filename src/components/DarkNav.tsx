@@ -134,7 +134,7 @@ export function DarkNav() {
         </div>
 
         {/* Desktop nav links */}
-        <nav className="hidden md:flex" style={{ display: "flex", alignItems: "center", gap: "1px" }}>
+        <nav className="hidden md:flex" style={{ alignItems: "center", gap: "1px" }}>
           {pages.map(({ to, label }) => (
             <Link
               key={to}
@@ -167,7 +167,7 @@ export function DarkNav() {
         </nav>
 
         {/* Right side — auth */}
-        <div className="hidden sm:flex" style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+        <div className="hidden sm:flex" style={{ alignItems: "center", gap: "12px" }}>
           {user ? (
             <div style={{ position: "relative" }}>
               <button
